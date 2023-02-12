@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : jeu. 09 fév. 2023 à 17:17
+-- Généré le : dim. 12 fév. 2023 à 15:20
 -- Version du serveur : 10.4.27-MariaDB
--- Version de PHP : 8.2.0
+-- Version de PHP : 8.1.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -106,7 +106,8 @@ CREATE TABLE `evenement` (
   `dateFin_event` date NOT NULL,
   `capacite_event` int(11) NOT NULL,
   `nombreActuel_event` int(11) NOT NULL,
-  `image_event` varchar(500) NOT NULL
+  `image_event` varchar(500) NOT NULL,
+  `prix_event` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -149,7 +150,7 @@ CREATE TABLE `logement` (
 CREATE TABLE `participation_evenement` (
   `ID_participation` int(11) NOT NULL,
   `ID_user` int(11) NOT NULL,
-  `ID_evenement` int(11) NOT NULL,
+  `ID_event` int(11) NOT NULL,
   `date_participation` date NOT NULL,
   `nombre_participation` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -311,7 +312,7 @@ ALTER TABLE `logement`
 --
 ALTER TABLE `participation_evenement`
   ADD PRIMARY KEY (`ID_participation`),
-  ADD KEY `fk_participation_evenement` (`ID_evenement`),
+  ADD KEY `fk_participation_evenement` (`ID_event`),
   ADD KEY `fk_participation_utilisateur` (`ID_user`);
 
 --
@@ -492,7 +493,7 @@ ALTER TABLE `ligne_commande`
 -- Contraintes pour la table `participation_evenement`
 --
 ALTER TABLE `participation_evenement`
-  ADD CONSTRAINT `fk_participation_evenement` FOREIGN KEY (`ID_evenement`) REFERENCES `evenement` (`ID_event`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_participation_evenement` FOREIGN KEY (`ID_event`) REFERENCES `evenement` (`ID_event`) ON DELETE CASCADE,
   ADD CONSTRAINT `fk_participation_utilisateur` FOREIGN KEY (`ID_user`) REFERENCES `utilisateur` (`ID_user`) ON DELETE CASCADE;
 
 --
