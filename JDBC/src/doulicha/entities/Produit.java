@@ -17,6 +17,12 @@ public class Produit {
     private double prixUvente_produit;
     private String categorie_produit;
     private String image_produit;
+
+    @Override
+    public String toString() {
+        return "Produit{" + "ID_produit=" + ID_produit + ", libelle_produit=" + libelle_produit + ", quantite_produit=" + quantite_produit + ", prixUachat_produit=" + prixUachat_produit + ", prixUvente_produit=" + prixUvente_produit + ", categorie_produit=" + categorie_produit + ", image_produit=" + image_produit + '}';
+    }
+    
     
     public Produit(){}
 
