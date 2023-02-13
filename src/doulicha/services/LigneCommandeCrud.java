@@ -7,11 +7,15 @@ package doulicha.services;
 
 import doulicha.entities.Commande;
 import doulicha.entities.LigneCommande;
+import doulicha.entities.Produit;
 import doulicha.utils.MyConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -48,6 +52,53 @@ public class LigneCommandeCrud {
            System.err.println(ex.getMessage());
         }
     }
+    public List<LigneCommande> afficherLigne(){
+        List<LigneCommande> myList= new ArrayList<>();
+        try {
+            
+            String requete3 ="SELECT * FROM ligne_commande";
+            Statement st= cnx2.createStatement();
+            ResultSet rs = st.executeQuery(requete3);
+            while(rs.next()){
+                LigneCommande p =new LigneCommande();
+                p.setID_ligne(rs.getInt(1));
+               
+                p.setID_commande(rs.getInt("ID_commande"));
+                p.setID_produit(rs.getInt("ID_produit"));
+                p.setQuantite_achete_ligne(rs.getInt("quantite_achete_ligne"));
+                
+                myList.add(p);
+                
+            }
+            
+            
+         
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+           return myList;
+    }
+    
+    
+    public LigneCommande deleteligne(int idligne) {
+    String requete = "DELETE FROM ligne_commande WHERE ID_ligne = ?";
+    try {
+        PreparedStatement pst = cnx2.prepareStatement(requete);
+        pst.setInt(1, idligne);
+        int rowsDeleted = pst.executeUpdate();
+        if (rowsDeleted > 0) {
+            System.out.println("ligne de commande supprimé avec succès.");
+            LigneCommande ligneSupprime = new LigneCommande();
+            ligneSupprime.setID_ligne(idligne);
+            return ligneSupprime;
+        } else {
+            System.out.println("Aucun ligne de commande n'a été supprimé.");
+        }
+    } catch (SQLException ex) {
+        System.err.println(ex.getMessage());
+    }
+    return null;
+}
     
     
 }

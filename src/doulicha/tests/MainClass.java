@@ -26,28 +26,42 @@ public class MainClass {
         MyConnection mc = MyConnection.getInstance();
         //MyConnection mc2 = MyConnection.getInstance();
         //System.out.println(mc.hashCode()+ "-" +mc2.hashCode());
+        
+        //prooooooduit//
         ProduitCrud pcd =new ProduitCrud();
         //Produit p2 = new Produit("p1",10,10,13,"cat1","urlimage");
         //pcd.ajouterProduit2(p2);
         //System.out.println(pcd.afficherProduit());
+       
+        //pcd.deleteProduit(2);
         
+        //comaaaaaaaande//
         CommandeCrud ccd=new CommandeCrud();
-        //Commande c1=new Commande (2,new Date(2000-1-3) ,1);
-//        User u=new User();
+        Commande c1=new Commande (2,new Date(2000-1-3) ,1);
+        User u=new User();
         //ccd.ajouterCommande();
-        //System.out.println(ccd.afficherProduit());
+        
+        
+        ccd.deleteCommande(5);
+        
+        System.out.println(ccd.afficherCommande());
+        
+        
+        //ligne commandeeee//
+        
         
         LigneCommandeCrud lcc=new LigneCommandeCrud();
-//        LigneCommande lc=new LigneCommande(4,1,1);
-        int ID_commande=4;
+        lcc.deleteligne(6);
+//      LigneCommande lc=new LigneCommande(4,1,1);
+        int ID_commande=6;
         int ID_produit=1;
         LigneCommande lc1=new LigneCommande(ID_commande,ID_produit,4);
-    //        Commande c=new Commande();
-    //        lcc.ajouterLigneCommande();
+     Commande c=new Commande();
+    //lcc.ajouterLigneCommande();
         if (ccd.retreiveOneOrder(ID_commande)!=null) {
 
                         if (pcd.retreiveOneProduct(ID_produit)!=null) {
-                            lcc.ajouterLigneCommande2(lc1);
+                           //lcc.ajouterLigneCommande2(lc1);
                             System.out.println("success add");
                             }else{
                             System.out.println("id produit not founded");
@@ -55,6 +69,9 @@ public class MainClass {
                         }else{
                 System.out.println("id commande not founded");
     }
+        
+           // System.out.println(lcc.afficherLigne());
+           
             UserCrude userCrud=new UserCrude();
             //userCrud.AddOne(u);
     //        User user=userCrud.getUser(20);

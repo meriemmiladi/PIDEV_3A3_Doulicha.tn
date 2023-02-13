@@ -14,6 +14,8 @@ public class LigneCommande {
     private int ID_commande;
     private int ID_produit;
     private int quantite_achete_ligne;
+    
+    public LigneCommande(){};
 
     public LigneCommande(int ID_ligne, int ID_commande, int ID_produit, int quantite_achete_ligne) {
         this.ID_ligne = ID_ligne;

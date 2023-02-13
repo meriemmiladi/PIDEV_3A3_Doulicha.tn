@@ -104,6 +104,33 @@ public class ProduitCrud implements Crud<Produit> {
     }
 
     
+    public Produit deleteProduit(int idProduit) {
+    String requete = "DELETE FROM produit WHERE ID_produit = ?";
+    try {
+        PreparedStatement pst = cnx2.prepareStatement(requete);
+        pst.setInt(1, idProduit);
+        int rowsDeleted = pst.executeUpdate();
+        if (rowsDeleted > 0) {
+            System.out.println("Produit supprimé avec succès.");
+            Produit produitSupprime = new Produit();
+            produitSupprime.setID_produit(idProduit);
+            return produitSupprime;
+        } else {
+            System.out.println("Aucun produit n'a été supprimé.");
+        }
+    } catch (SQLException ex) {
+        System.err.println(ex.getMessage());
+    }
+    return null;
+}
+    
+    
+    
+    
+    
+    
+    
+    
     /**
      * 
      * AddOne is a method that add a new Product

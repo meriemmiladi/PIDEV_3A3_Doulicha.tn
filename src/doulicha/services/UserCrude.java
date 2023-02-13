@@ -43,24 +43,7 @@ public class UserCrude implements Crud<User>{
     }
     return null;
 }
-    public User getID_user(int ID_user) {
-    String requete = "SELECT * FROM utilisateur WHERE ID_user=?";
-    try {
-        PreparedStatement pst = cnx2.prepareStatement(requete);
-        pst.setInt(1, ID_user);
-        ResultSet rs = pst.executeQuery();
-        if (rs.next()) {
-            User user = new User();
-            user.setID_user(rs.getInt("ID_user"));
-            
-            // autres attributs
-            return user;
-        }
-    } catch (SQLException ex) {
-        System.err.println(ex.getMessage());
-    }
-    return null;
-}
+   
 
 
     /**

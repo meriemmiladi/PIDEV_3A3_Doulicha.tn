@@ -6,6 +6,7 @@
 package doulicha.services;
 
 import doulicha.entities.Commande;
+import doulicha.entities.Produit;
 import doulicha.utils.MyConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -51,7 +52,7 @@ public class CommandeCrud {
            System.err.println(ex.getMessage());
         }
     }
-    public List<Commande> afficherProduit(){
+    public List<Commande> afficherCommande(){
         List<Commande> myList= new ArrayList<>();
         try {
             
@@ -90,7 +91,27 @@ public class CommandeCrud {
     }
     return null;
 }    
+    public Commande deleteCommande(int idcommande) {
+    String requete = "DELETE FROM commande_produit WHERE ID_commande = ?";
+    try {
+        PreparedStatement pst = cnx2.prepareStatement(requete);
+        pst.setInt(1, idcommande);
+        int rowsDeleted = pst.executeUpdate();
+        if (rowsDeleted > 0) {
+            System.out.println("Commande supprimé avec succès.");
+            Commande commandeSupprime = new Commande();
+            commandeSupprime.setID_commande(idcommande);
+            return commandeSupprime;
+        } else {
+            System.out.println("Aucune Commande n'a été supprimé.");
+        }
+    } catch (SQLException ex) {
+        System.err.println(ex.getMessage());
+    }
+    return null;
+}
     
     
     
 }
+
