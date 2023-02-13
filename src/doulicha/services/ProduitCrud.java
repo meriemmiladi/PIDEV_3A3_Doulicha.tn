@@ -86,16 +86,16 @@ public class ProduitCrud implements Crud<Produit> {
         }
            return myList;
     }
-    public Commande retreiveOneProduct (int Id_Produit) {
-    String request = "SELECT * FROM produit WHERE ID_commande=?";
+    public Produit retreiveOneProduct (int ID_produit) {
+    String request = "SELECT * FROM produit WHERE ID_produit=?";
     try {
         PreparedStatement pst = cnx2.prepareStatement(request);
-        pst.setInt(1, Id_Produit);
+        pst.setInt(1, ID_produit);
         ResultSet rs = pst.executeQuery();
         if (rs.next()) {
-            Commande commande = new Commande();
-            commande.setID_user(rs.getInt("ID_commande"));
-            return commande;
+            Produit produit = new Produit();
+            produit.setID_produit(rs.getInt("ID_produit"));
+            return produit;
         }
     } catch (SQLException ex) {
         System.err.println(ex.getMessage());

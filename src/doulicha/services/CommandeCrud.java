@@ -74,11 +74,11 @@ public class CommandeCrud {
     }
     
     
-    public Commande retreiveOneOrder(int Id_Order) {
+    public Commande retreiveOneOrder(int ID_commande) {
     String request = "SELECT * FROM commande_produit WHERE ID_commande=?";
     try {
         PreparedStatement pst = cnx2.prepareStatement(request);
-        pst.setInt(1, Id_Order);
+        pst.setInt(1, ID_commande);
         ResultSet rs = pst.executeQuery();
         if (rs.next()) {
             Commande commande = new Commande();

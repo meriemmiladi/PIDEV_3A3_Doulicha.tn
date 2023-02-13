@@ -39,28 +39,26 @@ public class MainClass {
         
         LigneCommandeCrud lcc=new LigneCommandeCrud();
 //        LigneCommande lc=new LigneCommande(4,1,1);
-int id_commande=2;
-int id_produit=4;
-        LigneCommande lc1=new LigneCommande(id_commande,14,4);
-//        Commande c=new Commande();
-//        lcc.ajouterLigneCommande();
-    if (ccd.retreiveOneOrder(id_commande)!=null) {
-                    lcc.ajouterLigneCommande2(lc1);
-                    System.out.println("success add");
-                    if (pcd.RetreiveOne(id_produit)!=null) {
-                        pcd.ajouterProduit2(lc1);
-        
-    }else{
-                        
-                    }
-                    
-        }else{
-    System.out.println("id commande not founded");
-}
-        UserCrude userCrud=new UserCrude();
-        userCrud.AddOne(new User());
-//        User user=userCrud.getUser(20);
-//        System.out.println(user);
+        int ID_commande=4;
+        int ID_produit=1;
+        LigneCommande lc1=new LigneCommande(ID_commande,ID_produit,4);
+    //        Commande c=new Commande();
+    //        lcc.ajouterLigneCommande();
+        if (ccd.retreiveOneOrder(ID_commande)!=null) {
+
+                        if (pcd.retreiveOneProduct(ID_produit)!=null) {
+                            lcc.ajouterLigneCommande2(lc1);
+                            System.out.println("success add");
+                            }else{
+                            System.out.println("id produit not founded");
+                        }
+                        }else{
+                System.out.println("id commande not founded");
+    }
+            UserCrude userCrud=new UserCrude();
+            //userCrud.AddOne(u);
+    //        User user=userCrud.getUser(20);
+    //        System.out.println(user);
 //        
         
     
