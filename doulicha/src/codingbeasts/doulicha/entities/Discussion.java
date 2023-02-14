@@ -1,16 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package codingbeasts.doulicha.entities;
 
 import java.sql.Date;
 
-/**
- *
- * @author ghass
- */
 public class Discussion {
     private int ID_discussion;
     private int ID_user;

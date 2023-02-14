@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package codingbeasts.doulicha.services;
 
 import codingbeasts.doulicha.entities.Reponse;
@@ -11,10 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-/**
- *
- * @author ghass
- */
 public class ReponseCRUD {
 
     public void ajouterReponse() {
@@ -28,17 +19,18 @@ public class ReponseCRUD {
             System.err.println(ex.getMessage());
         }
     }
-     public void ajouterReponse(Reponse r){
+
+    public void ajouterReponse(Reponse r) {
         try {
             String requete2 = "INSERT INTO reponse(ID_user,ID_discussion,contenu_reponse,date_reponse)"
-                    +"VALUES(?,?,?,?)";
+                    + "VALUES(?,?,?,?)";
             PreparedStatement pst = new MyConnection().getCnx().prepareStatement(requete2);
-        pst.setString(1, "1");
-        pst.setString(2,"1");
-        pst.setString(3,r.getContenu_reponse());
-        pst.setString(4,r.getDate_reponse().toString());
-        pst.executeUpdate();
-      
+            pst.setString(1, "1");
+            pst.setString(2, "1");
+            pst.setString(3, r.getContenu_reponse());
+            pst.setString(4, r.getDate_reponse().toString());
+            pst.executeUpdate();
+
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
