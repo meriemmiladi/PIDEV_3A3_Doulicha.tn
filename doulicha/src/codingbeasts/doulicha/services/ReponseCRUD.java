@@ -5,7 +5,6 @@
  */
 package codingbeasts.doulicha.services;
 
-import codingbeasts.doulicha.entities.Discussion;
 import codingbeasts.doulicha.entities.Reponse;
 import codingbeasts.doulicha.utils.MyConnection;
 import java.sql.PreparedStatement;
