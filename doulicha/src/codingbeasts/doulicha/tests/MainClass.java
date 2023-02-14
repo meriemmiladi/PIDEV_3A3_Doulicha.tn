@@ -5,10 +5,16 @@
  */
 package codingbeasts.doulicha.tests;
 
+import codingbeasts.doulicha.utils.MyConnection;
+
 /**
  *
  * @author Admin
  */
 public class MainClass {
+    
+    public static void main (String[] args){
+    MyConnection mc =  MyConnection.getInstance();
+    }
     
 }
