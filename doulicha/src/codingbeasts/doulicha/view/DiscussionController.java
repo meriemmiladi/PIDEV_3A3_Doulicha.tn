@@ -14,6 +14,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,13 +38,39 @@ public class DiscussionController implements Initializable {
     @FXML
     private TextField contenuDiscussionTextField;
     @FXML
-    private Button ajouterDiscussionButton;
+    private Button afficherToutesLesDiscussions;
+    @FXML
+    private Button afficherDiscussionsUtilisateur;
 @FXML 
 public void afficherDiscussions(ActionEvent event) throws SQLException{   
-          DiscussionCRUD dis = new DiscussionCRUD();
-         System.out.println(dis.afficherDiscussion());
+            DiscussionCRUD dc = new DiscussionCRUD();
+
+        // Insertion d'une nouvelle discussion dans la base de données
+        
+       
+
+        // Récupération de toutes les discussions de la base de données
+        List<Discussion> discussions = dc.afficherDiscussions();
+        discussions.forEach((d) -> {
+            System.out.println(d);
+        });
 }
-    @FXML
+@FXML
+public void afficherDiscussionsUtilisateur(ActionEvent event){
+       DiscussionCRUD dc = new DiscussionCRUD();
+
+        // Insertion d'une nouvelle discussion dans la base de données
+        
+       
+
+        // Récupération de toutes les discussions de la base de données
+        
+        List<Discussion> discussions = dc.rechercherDiscussions(Integer.parseInt(idUtilisateurTextField.getText()));
+        discussions.forEach((d) -> {
+            System.out.println(d);
+        });
+}
+   /** @FXML
     public void handleButtonAction(ActionEvent event) {
 
         Connection con = null;
@@ -73,7 +100,7 @@ public void afficherDiscussions(ActionEvent event) throws SQLException{
             }
         }
     }
-
+*/
     @Override
     public void initialize(URL location, ResourceBundle resources) {
     }

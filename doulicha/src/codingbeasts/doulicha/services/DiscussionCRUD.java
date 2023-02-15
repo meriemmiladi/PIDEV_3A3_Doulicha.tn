@@ -9,20 +9,22 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DiscussionCRUD {
- Connection con;
+
+    Connection con;
 
     public DiscussionCRUD() {
-        con= MyConnection.getInstance().getCnx();
+        con = MyConnection.getInstance().getCnx();
     }
- 
+
     public void ajouterDiscussion() {
         try {
             String requete = "INSERT INTO discussion (ID_user,titre_discussion,contenu_discussion,date_discussion)"
                     + "VALUES (1,'titre_discussion','contenu_discussion','2023-02-13')";
-            Statement st =con.createStatement();
+            Statement st = con.createStatement();
             st.executeUpdate(requete);
             System.out.println("Discussion ajoutée avec succès");
 
@@ -35,7 +37,7 @@ public class DiscussionCRUD {
         try {
             String requete2 = "INSERT INTO discussion (ID_user,titre_discussion,contenu_discussion,date_discussion)"
                     + "VALUES (?,?,?,?)";
-            PreparedStatement pst =con.prepareStatement(requete2);
+            PreparedStatement pst = con.prepareStatement(requete2);
             pst.setInt(1, 1);
             pst.setString(2, d.getTitre_discussion());
             pst.setString(3, d.getContenu_discussion());
@@ -54,7 +56,7 @@ public class DiscussionCRUD {
 
     public void supprimerDiscussion(int id_discussion) {
         try {
-            String requete = "DELETE FROM discussion WHERE id_discussion =?";
+            String requete = "DELETE FROM discussion WHERE ID_discussion =?";
             PreparedStatement pst = con.prepareStatement(requete);
             pst.setInt(1, id_discussion);
             pst.executeUpdate();
@@ -66,45 +68,72 @@ public class DiscussionCRUD {
     public void modifierTitreDiscussion(int id_discussion, String titre_discussion) {
         try {
             String requete = "UPDATE discussion SET titre_discussion = ?  WHERE ID_discussion= ?";
-            PreparedStatement pst =con.prepareStatement(requete);
+            PreparedStatement pst = con.prepareStatement(requete);
             pst.setString(1, titre_discussion);
-            pst.setInt(2,id_discussion);
+            pst.setInt(2, id_discussion);
             pst.executeUpdate();
 
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
     }
-   public void modifierContenuDiscussion(int id_discussion, String contenu_discussion) {
+
+    public void modifierContenuDiscussion(int id_discussion, String contenu_discussion) {
         try {
             String requete = "UPDATE discussion SET contenu_discussion = ?  WHERE ID_discussion= ?";
             PreparedStatement pst = con.prepareStatement(requete);
             pst.setString(1, contenu_discussion);
-            pst.setInt(2,id_discussion);
+            pst.setInt(2, id_discussion);
             pst.executeUpdate();
 
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
-    } 
-   public List<Discussion> afficherDiscussions() {
-    List<Discussion> discussions = new ArrayList<>();
-    try {
-        String requete = "SELECT * FROM discussion";
-        PreparedStatement pst = con.prepareStatement(requete);
-        ResultSet rs = pst.executeQuery();
-        while (rs.next()) {
-            Discussion dis = new Discussion();
-            dis.setID_discussion(rs.getInt("ID_discussion"));
-            dis.setID_user(rs.getInt("ID_user"));
-            dis.setTitre_discussion(rs.getString("titre_discussion"));
-            dis.setContenu_discussion(rs.getString("contenu_discussion"));
-            dis.setDate_discussion(rs.getDate("date_discussion"));
-            discussions.add(dis);
-        }
-    } catch (SQLException ex) {
-        System.err.println(ex.getMessage());
     }
-    return discussions;
-} 
+
+    public List<Discussion> afficherDiscussions() {
+        List<Discussion> discussions = new ArrayList<>();
+        try {
+            String requete = "SELECT * FROM discussion";
+            Statement pst = con.createStatement();
+            ResultSet rs = pst.executeQuery(requete);
+            while (rs.next()) {
+                Discussion dis = new Discussion();
+                dis.setID_discussion(rs.getInt(1));
+                dis.setID_user(rs.getInt(2));
+                dis.setTitre_discussion(rs.getString(3));
+                dis.setContenu_discussion(rs.getString(4));
+                dis.setDate_discussion(rs.getDate(5));
+                discussions.add(dis);
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return discussions;
+    }
+
+    public List<Discussion> rechercherDiscussions(int ID_user) {
+        List<Discussion> discussionsUtilisateur = new ArrayList<>();
+        try {
+
+            String requete = "SELECT * FROM discussion WHERE ID_user = ?";
+            PreparedStatement pst = con.prepareStatement(requete);
+            pst.setInt(1, ID_user);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                Discussion dis = new Discussion();
+                dis.setID_discussion(rs.getInt(1));
+                dis.setID_user(rs.getInt(2));
+                dis.setTitre_discussion(rs.getString(3));
+                dis.setContenu_discussion(rs.getString(4));
+                dis.setDate_discussion(rs.getDate(5));
+                discussionsUtilisateur.add(dis);
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return discussionsUtilisateur;
+
+    }
+   
 }
