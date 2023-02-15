@@ -5,12 +5,18 @@
  */
 package codingbeasts.doulicha.view;
 
+import codingbeasts.doulicha.entities.Discussion;
+import codingbeasts.doulicha.services.DiscussionCRUD;
+import codingbeasts.doulicha.utils.MyConnection;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -32,7 +38,11 @@ public class DiscussionController implements Initializable {
     private TextField contenuDiscussionTextField;
     @FXML
     private Button ajouterDiscussionButton;
-
+@FXML 
+public void afficherDiscussions(ActionEvent event) throws SQLException{   
+          DiscussionCRUD dis = new DiscussionCRUD();
+         System.out.println(dis.afficherDiscussion());
+}
     @FXML
     public void handleButtonAction(ActionEvent event) {
 

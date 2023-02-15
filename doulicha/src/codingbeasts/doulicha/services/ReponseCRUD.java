@@ -2,6 +2,7 @@ package codingbeasts.doulicha.services;
 
 import codingbeasts.doulicha.entities.Reponse;
 import codingbeasts.doulicha.utils.MyConnection;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,12 +11,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReponseCRUD {
+ Connection con ;
 
+    public ReponseCRUD() {
+                con=MyConnection.getInstance().getCnx();
+
+    }
+ 
     public void ajouterReponse() {
         try {
             String requete3 = "INSERT INTO reponse (ID_user,ID_discussion,contenu_reponse,date_reponse)"
                     + "VALUES (1,1,'contenu_réponse','2023-02-13')";
-            Statement st = new MyConnection().getCnx().createStatement();
+            Statement st = con.createStatement();
             st.executeUpdate(requete3);
             System.out.println("Réponse ajoutée avec succès");
         } catch (SQLException ex) {
@@ -27,7 +34,7 @@ public class ReponseCRUD {
         try {
             String requete2 = "INSERT INTO reponse(ID_user,ID_discussion,contenu_reponse,date_reponse)"
                     + "VALUES(?,?,?,?)";
-            PreparedStatement pst = new MyConnection().getCnx().prepareStatement(requete2);
+            PreparedStatement pst =con.prepareStatement(requete2);
             pst.setInt(1,1);
             pst.setInt(2,1);
             pst.setString(3, r.getContenu_reponse());
@@ -41,7 +48,7 @@ public class ReponseCRUD {
       public void modifierTitreReponse(int id_reponse, String titre_reponse) {
         try {
             String requete = "UPDATE discussion SET titre_reponse = ?  WHERE id_reponse= ?";
-            PreparedStatement pst = new MyConnection().getCnx().prepareStatement(requete);
+            PreparedStatement pst = con.prepareStatement(requete);
             pst.setString(1, titre_reponse);
             pst.setInt(2,id_reponse);
             pst.executeUpdate();
@@ -53,7 +60,7 @@ public class ReponseCRUD {
    public void modifierContenuReponse(int id_reponse, String contenu_reponse) {
         try {
             String requete = "UPDATE reponse SET contenu_reponse = ?  WHERE id_reponse= ?";
-            PreparedStatement pst = new MyConnection().getCnx().prepareStatement(requete);
+            PreparedStatement pst = con.prepareStatement(requete);
             pst.setString(1, contenu_reponse);
             pst.setInt(2,id_reponse);
             pst.executeUpdate();
@@ -66,7 +73,7 @@ public class ReponseCRUD {
     List<Reponse> reponses = new ArrayList<>();
     try {
         String requete = "SELECT * FROM reponse";
-        PreparedStatement pst = new MyConnection().getCnx().prepareStatement(requete);
+        PreparedStatement pst = con.prepareStatement(requete);
         ResultSet rs = pst.executeQuery();
         while (rs.next()) {
             Reponse r = new Reponse();

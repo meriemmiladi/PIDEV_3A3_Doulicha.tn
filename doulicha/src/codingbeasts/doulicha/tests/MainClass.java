@@ -19,13 +19,13 @@ public class MainClass {
         //dis.ajouterDiscussion();
         Date date = Date.valueOf("2023-02-13");
         //dis.ajouterDiscussion(new Discussion(1, "titre de discussion", "contenu de discussion", date));
-        ReponseCRUD rep = new ReponseCRUD();
+       // ReponseCRUD rep = new ReponseCRUD();
        // dis.supprimerDiscussion(1);
-        rep.ajouterReponse();
-        rep.afficherReponses();
+       // rep.ajouterReponse();
+        //rep.afficherReponses();
         //rep.ajouterReponse(new Reponse(1, 1, "contenu de la réponse", date));
         //dis.modifierTitreDiscussion(9, "nouveau titre");
         //dis.modifierContenuDiscussion(9, "nouveau contenu");
-       
+        dis.afficherDiscussion().stream().forEach((Discussion x)->System.out.println(x));
 
 }}
