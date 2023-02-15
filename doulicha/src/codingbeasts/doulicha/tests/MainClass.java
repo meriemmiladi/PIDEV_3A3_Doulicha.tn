@@ -8,6 +8,7 @@ import codingbeasts.doulicha.view.DiscussionController;
 import codingbeasts.doulicha.services.ReponseCRUD;
 import codingbeasts.doulicha.utils.MyConnection;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -18,7 +19,7 @@ public class MainClass {
         //  MyConnection mc = new MyConnection();
        // DiscussionCRUD dis = new DiscussionCRUD();
         //dis.ajouterDiscussion();
-       Date date = Date.valueOf("2023-02-13");
+       Date date = Date.valueOf(LocalDate.MAX);
         //dis.ajouterDiscussion(new Discussion(1, "titre de discussion", "contenu de discussion", date));
        // ReponseCRUD rep = new ReponseCRUD();
        // dis.supprimerDiscussion(1);
@@ -31,7 +32,7 @@ public class MainClass {
         DiscussionCRUD dc = new DiscussionCRUD();
 
         // Insertion d'une nouvelle discussion dans la base de données
-        Discussion discussion1 = new Discussion(1, "Ma première discussion", "Contenu de la première discussion",date);
+        Discussion discussion1 = new Discussion(1, "Ma première discussion", "Contenu de la première discussion", date);
         dc.ajouterDiscussion(discussion1);
 
         // Récupération de toutes les discussions de la base de données

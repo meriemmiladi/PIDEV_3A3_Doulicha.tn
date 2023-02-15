@@ -15,17 +15,11 @@ public class ConsulterDiscussionsAdmin extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        // Charge le fichier FXML
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/codingbeasts/doulicha/view/Discussion.fxml"));
         Parent root = loader.load();
-
-        // Récupère la référence du contrôleur associé au fichier FXML
-        // Affiche la scène
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
-
     }
 
     public static void main(String[] args) {

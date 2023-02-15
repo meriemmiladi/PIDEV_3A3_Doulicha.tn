@@ -135,5 +135,25 @@ public class DiscussionCRUD {
         return discussionsUtilisateur;
 
     }
-   
+
+    public List<Discussion> afficherDiscussionsTrieParDate() {
+        List<Discussion> discussions = new ArrayList<>();
+        try {
+            String requete = "SELECT * FROM discussion ORDER BY date_discussion DESC";
+            Statement pst = con.createStatement();
+            ResultSet rs = pst.executeQuery(requete);
+            while (rs.next()) {
+                Discussion dis = new Discussion();
+                dis.setID_discussion(rs.getInt(1));
+                dis.setID_user(rs.getInt(2));
+                dis.setTitre_discussion(rs.getString(3));
+                dis.setContenu_discussion(rs.getString(4));
+                dis.setDate_discussion(rs.getDate(5));
+                discussions.add(dis);
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return discussions;
+    }
 }
