@@ -5,6 +5,8 @@
  */
 package codingbeasts.doulicha.tests;
 
+import codingbeasts.doulicha.entities.Utilisateur;
+import codingbeasts.doulicha.services.UtilisateurCRUD;
 import codingbeasts.doulicha.utils.MyConnection;
 
 /**
@@ -20,6 +22,16 @@ public class MainClass {
         
         
        MyConnection mc = new MyConnection();
+       UtilisateurCRUD pcd = new  UtilisateurCRUD();
+     
+     // Utilisateur p3 = new Utilisateur(2,"taher", "dhiflaoui", "taherdhiflaoui@esprit.tn", "2222", "role_user");
+      //pcd.ajouterUtlisateur2(p3);
+//      Utilisateur p3 = new Utilisateur("karim", "ferjeni", "karimferjeni@esprit.tn", "3333", "role_admin");
+//        pcd.ajouterUtilisateur();
+         //  pcd.supprimerutilisateur(3);
+      
+      System.out.println(pcd.afficherUtilisateur());
+       
        
       
     

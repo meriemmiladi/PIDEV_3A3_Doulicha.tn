@@ -21,10 +21,10 @@ public class MyConnection {
     public String login="root";
     public String pwd="";
     Connection cnx;
-//    public static MyConnection instance;
+    public static MyConnection instance;
             
          
-   public  MyConnection(){
+    public MyConnection(){
         
         try {
           cnx =  DriverManager.getConnection(url, login, pwd);
@@ -36,17 +36,16 @@ public class MyConnection {
         
     }
     
-//  //  public Connection getCnx(){
-//        return cnx;
-//    }
-//    
-//    public static MyConnection getInstance(){
-//        if (instance == null){
-//            instance = new MyConnection();
-//        }
-//        return  instance;
-//             
-//    }
-            
+    public Connection getCnx(){
+        return cnx;
+    }
     
+    public static MyConnection getInstance(){
+        if (instance == null){
+            instance = new MyConnection();
+        }
+        return  instance;
+             
+    }
+
 }
