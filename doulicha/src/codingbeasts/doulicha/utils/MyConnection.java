@@ -21,6 +21,7 @@ public class MyConnection {
     public String pwd="";
     Connection cnx;
     public static MyConnection instance;
+    
     private MyConnection(){
         try {
             cnx = DriverManager.getConnection(url, login, pwd);
@@ -30,9 +31,11 @@ public class MyConnection {
         }
         
     }
+    
     public Connection getCnx (){
         return cnx;
     }
+    
     public static MyConnection getInstance(){
         if(instance == null){
             instance = new MyConnection();
