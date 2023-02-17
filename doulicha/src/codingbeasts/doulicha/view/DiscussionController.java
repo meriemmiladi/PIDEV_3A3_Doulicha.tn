@@ -64,6 +64,7 @@ public class DiscussionController implements Initializable {
             System.out.println(d);
         });
     }
+    
 
     /**
      * @FXML public void handleButtonAction(ActionEvent event) {

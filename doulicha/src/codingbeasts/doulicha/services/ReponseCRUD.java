@@ -46,7 +46,16 @@ public class ReponseCRUD {
             System.err.println(ex.getMessage());
         }
     }
-
+   public void supprimerReponse(int id_reponse) {
+        try {
+            String requete = "DELETE FROM reponse WHERE ID_discussion =?";
+            PreparedStatement pst = con.prepareStatement(requete);
+            pst.setInt(1, id_reponse);
+            pst.executeUpdate();
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+    }
     public void modifierTitreReponse(int id_reponse, String titre_reponse) {
         try {
             String requete = "UPDATE discussion SET titre_reponse = ?  WHERE id_reponse= ?";

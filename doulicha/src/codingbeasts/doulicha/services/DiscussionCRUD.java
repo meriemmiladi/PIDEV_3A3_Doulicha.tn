@@ -9,8 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class DiscussionCRUD {
 
@@ -48,12 +46,6 @@ public class DiscussionCRUD {
             System.err.println(ex.getMessage());
         }
     }
-
-    public List<Discussion> afficherDiscussion() {
-        return null;
-
-    }
-
     public void supprimerDiscussion(int id_discussion) {
         try {
             String requete = "DELETE FROM discussion WHERE ID_discussion =?";
