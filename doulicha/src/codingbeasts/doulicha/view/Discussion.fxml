@@ -21,5 +21,8 @@
       <Button fx:id="afficherDiscussionsUtilisateur" layoutX="21.0" layoutY="274.0" mnemonicParsing="false" onAction="#afficherDiscussionsUtilisateur" text="afficher les discussions de cet utilisateur" />
       <TextField fx:id="idUtilisateurTextField" layoutX="74.0" layoutY="219.0" promptText="entrez l'id de l'utilisateur" style="-fx-background-color: #ffffff;" />
       <Button fx:id="trierDiscussionsParDate" layoutX="349.0" layoutY="142.0" mnemonicParsing="false" onAction="#trierDiscussionsParDate" text="Trier les discussions par date" />
+      <TextField fx:id="nomTextField" layoutX="362.0" layoutY="200.0" />
+      <TextField fx:id="prenomTextField" layoutX="362.0" layoutY="261.0" />
+      <Button fx:id="rechercherparNomPrenom" layoutX="335.0" layoutY="304.0" mnemonicParsing="false" onAction="#afficherDiscussionsUtilisateurNomPrenom" text="afficher les discussions de l'utilisateur" />
    </children>
 </AnchorPane>

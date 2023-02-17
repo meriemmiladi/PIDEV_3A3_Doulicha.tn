@@ -46,6 +46,7 @@ public class DiscussionCRUD {
             System.err.println(ex.getMessage());
         }
     }
+
     public void supprimerDiscussion(int id_discussion) {
         try {
             String requete = "DELETE FROM discussion WHERE ID_discussion =?";
@@ -120,6 +121,33 @@ public class DiscussionCRUD {
                 dis.setContenu_discussion(rs.getString(4));
                 dis.setDate_discussion(rs.getDate(5));
                 discussionsUtilisateur.add(dis);
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return discussionsUtilisateur;
+
+    }
+
+    public List<Discussion> rechercherDiscussions(String nom, String prenom) {
+        List<Discussion> discussionsUtilisateur = new ArrayList<>();
+        try {
+
+            String requete = "SELECT * FROM utilisateur WHERE nom_user = ? AND prenom_user=?";
+            PreparedStatement pst = con.prepareStatement(requete);
+            pst.setString(1, nom);
+            pst.setString(2, prenom);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                int ID_user = rs.getInt(1);
+               discussionsUtilisateur.addAll(0, rechercherDiscussions(ID_user));
+              /*  Discussion dis = new Discussion();
+                dis.setID_discussion(rs.getInt(1));
+                dis.setID_user(rs.getInt(2));
+                dis.setTitre_discussion(rs.getString(3));
+                dis.setContenu_discussion(rs.getString(4));
+                dis.setDate_discussion(rs.getDate(5));
+                discussionsUtilisateur.add(dis);*/
             }
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());

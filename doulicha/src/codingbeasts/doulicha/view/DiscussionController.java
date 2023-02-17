@@ -36,7 +36,12 @@ public class DiscussionController implements Initializable {
     private Button afficherDiscussionsUtilisateur;
     @FXML
     private Button trierDiscussionsParDate;
-
+     @FXML
+    private Button rechercherparNomPrenom;
+ @FXML
+    private TextField nomTextField;
+  @FXML
+    private TextField prenomTextField;
     @FXML
     public void afficherDiscussions(ActionEvent event) throws SQLException {
         DiscussionCRUD dc = new DiscussionCRUD();
@@ -60,6 +65,14 @@ public class DiscussionController implements Initializable {
     public void afficherDiscussionsUtilisateur(ActionEvent event) {
         DiscussionCRUD dc = new DiscussionCRUD();
         List<Discussion> discussions = dc.rechercherDiscussions(Integer.parseInt(idUtilisateurTextField.getText()));
+        discussions.forEach((d) -> {
+            System.out.println(d);
+        });
+    }
+     @FXML
+    public void afficherDiscussionsUtilisateurNomPrenom(ActionEvent event) {
+        DiscussionCRUD dc = new DiscussionCRUD();
+        List<Discussion> discussions = dc.rechercherDiscussions((nomTextField.getText()),prenomTextField.getText());
         discussions.forEach((d) -> {
             System.out.println(d);
         });
