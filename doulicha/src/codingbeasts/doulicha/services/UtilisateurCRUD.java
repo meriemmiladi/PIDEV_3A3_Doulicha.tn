@@ -60,6 +60,22 @@ public class UtilisateurCRUD {
             System.err.println(ex.getMessage());
         }
     }
+     public void ajouterUtlisateur3(Utilisateur p) {
+        try {
+            String requete2 = "INSERT INTO Utilisateur (nom_user,prenom_user,email_user,mdp_user,role_user) " + "VALUES (?,?,?,?,'Utilisateur')";
+            PreparedStatement pst = cnx2.prepareStatement(requete2);
+            pst.setString(1, p.getNom_user());
+            pst.setString(2, p.getPrenom_user());
+            pst.setString(3, p.getEmail_user());
+            pst.setString(4, p.getMdp_user());
+           
+
+            pst.executeUpdate();
+            System.out.println("Votre Personne est ajoutée ");
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+    }
     
     public void modifierutilisateur(Utilisateur p) {
         try {

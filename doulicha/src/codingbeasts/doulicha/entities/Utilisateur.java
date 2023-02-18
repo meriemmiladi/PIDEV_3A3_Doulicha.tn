@@ -20,7 +20,12 @@ public class Utilisateur {
 
     public Utilisateur() {
     }
-
+public Utilisateur(String nom_user, String prenom_user, String email_user, String mdp_user) {
+        this.nom_user = nom_user;
+        this.prenom_user = prenom_user;
+        this.email_user = email_user;
+        this.mdp_user = mdp_user;
+    }
     
     
     
