@@ -10,10 +10,12 @@ import codingbeasts.doulicha.entities.LigneCommande;
 import codingbeasts.doulicha.entities.Produit;
 import codingbeasts.doulicha.utils.MyConnection;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -115,6 +117,24 @@ public class LigneCommandeCrud {
         System.err.println(ex.getMessage());
     }
     return null;
+}
+    
+    public void modifierLigne(int idligne, LigneCommande nouvelleligne) {
+    String requete = "UPDATE ligne_commande SET quantite_achete_ligne = ? WHERE ID_ligne = ?";
+    try {
+        PreparedStatement pst = cnx2.prepareStatement(requete);
+   
+        pst.setInt(1, nouvelleligne.getQuantite_achete_ligne());
+        pst.setInt(2, idligne);
+        int rowsUpdated = pst.executeUpdate();
+        if (rowsUpdated > 0) {
+            System.out.println("Ligne Commande modifiée avec succès.");
+        } else {
+            System.out.println("Aucune Ligne de commande n'a été modifiée.");
+        }
+    } catch (SQLException ex) {
+        System.err.println(ex.getMessage());
+    }
 }
     
     

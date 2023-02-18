@@ -61,6 +61,11 @@ public class LigneCommande {
     public void setQuantite_achete_ligne(int quantite_achete_ligne) {
         this.quantite_achete_ligne = quantite_achete_ligne;
     }
+
+    @Override
+    public String toString() {
+        return "LigneCommande{" + "ID_ligne=" + ID_ligne + ", ID_commande=" + ID_commande + ", ID_produit=" + ID_produit + ", quantite_achete_ligne=" + quantite_achete_ligne + '}';
+    }
     
     
     

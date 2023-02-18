@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codingbeasts.doulicha.controllers.AfficherController">
+   <children>
+      <AnchorPane id="AnchorPane" layoutX="10.0" layoutY="10.0" prefHeight="558.0" prefWidth="1033.0">
+         <children>
+            <TableView fx:id="TABLEPRODUIT" layoutX="35.0" layoutY="196.0" prefHeight="304.0" prefWidth="964.0">
+               <columns>
+                  <TableColumn fx:id="ID" prefWidth="75.0" text="ID" />
+                  <TableColumn fx:id="LIBELLE" prefWidth="102.0" text="LIBELLE" />
+                  <TableColumn fx:id="QUANTITE" prefWidth="129.0" text="QUANTITE" />
+                  <TableColumn fx:id="PTIXACHAT" prefWidth="133.0" text="PRIX ACHAT" />
+                  <TableColumn fx:id="PRIXVENTE" prefWidth="117.0" text="PRIX VENTE" />
+                  <TableColumn fx:id="CATEGORIE" prefWidth="148.0" text="CATEGORIE" />
+                  <TableColumn fx:id="IMAGE" prefWidth="160.0" text="IMAGE" />
+               </columns>
+            </TableView>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

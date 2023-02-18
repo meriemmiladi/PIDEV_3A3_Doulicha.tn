@@ -15,6 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -115,10 +116,14 @@ public class CommandeCrud {
 }
     
     public void modifierCommande(int idCommande, Commande nouvelleCommande) {
-    String requete = "UPDATE commande SET date_commande = ?, etat_commande = ? WHERE ID_commande = ?";
+    String requete = "UPDATE commande_produit SET date_commande = ?, etat_commande = ? WHERE ID_commande = ?";
     try {
         PreparedStatement pst = cnx2.prepareStatement(requete);
-        pst.setDate(1, new java.sql.Date(nouvelleCommande.getDate_commande().getTime()));
+        
+        LocalDate localDate = LocalDate.now();
+        Date sqlDate = Date.valueOf(localDate);
+
+        pst.setDate(1, sqlDate);
         pst.setInt(2, nouvelleCommande.getEtat_commande());
         pst.setInt(3, idCommande);
         int rowsUpdated = pst.executeUpdate();

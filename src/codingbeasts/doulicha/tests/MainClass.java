@@ -14,7 +14,8 @@ import codingbeasts.doulicha.services.CommandeCrud;
 import codingbeasts.doulicha.services.LigneCommandeCrud;
 import codingbeasts.doulicha.services.UserCrude;
 import codingbeasts.doulicha.utils.MyConnection;
-import java.sql.Date;
+import java.util.Calendar;
+import java.util.Date;
 
 
 /**
@@ -82,23 +83,43 @@ public class MainClass {
         
         //***********modifier commande
         
-        Commande c1 = ccd.retreiveOneOrder(1);
-         if (c1 != null) {
-        c1.setID_user(1); // ID de l'utilisateur qui a passé la commande
-        c1.setDate_commande(new Date()); // Date actuelle
-        c1.setEtat_commande(2); // Nouvel état de la commande
-
-    // Appel de la méthode modifierCommande pour mettre à jour la commande avec l'ID 3
-        int idCommande = 3; // ID de la commande à modifier
-        ccd.modifierCommande(idCommande, c1);
-    }
-
+//        Commande c1 = ccd.retreiveOneOrder(6);
+//         if (c1 != null) {
+//        // Créez une instance de Commande avec la date d'aujourd'hui et l'état de commande souhaité
+//        Commande nouvelleCommande = new Commande();
+//        nouvelleCommande.setDate_commande(new java.sql.Date(Calendar.getInstance().getTime().getTime()));
+//        nouvelleCommande.setEtat_commande(12);
+//
+//    // Appelez la méthode modifierCommande avec l'ID de commande et la nouvelle commande
+//        int idCommande = 6; // ID de la commande à modifier
+//        ccd.modifierCommande(idCommande, nouvelleCommande);
+//
+//         }
         
     //**************************************************************************//    
         //ligne commandeeee//
         
         
-//        LigneCommandeCrud lcc=new LigneCommandeCrud();
+        LigneCommandeCrud lcc=new LigneCommandeCrud();
+        LigneCommande l1=lcc.retreiveOneligne(1);
+        if (l1 != null) {
+        LigneCommande nouvelleLigne = new LigneCommande();
+      
+        nouvelleLigne.setQuantite_achete_ligne(12);
+
+        int idligne = 1; // ID de la ligne de commande à modifier
+        lcc.modifierLigne(idligne, nouvelleLigne);
+
+         }else{
+            System.out.println("ligne nexiste pas");
+        }
+        
+        System.out.println(""+lcc.retreiveOneligne(1));
+        //*************modifier ligne********//
+        
+        
+        
+        
 //        lcc.deleteligne(6);
 ////      LigneCommande lc=new LigneCommande(4,1,1);
 //        int ID_commande=6;
@@ -126,6 +147,6 @@ public class MainClass {
     //        System.out.println(user);
 //        
         
-    
-}
-}
+         }
+    }
+

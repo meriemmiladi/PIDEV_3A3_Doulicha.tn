@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="463.0" prefWidth="695.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codingbeasts.doulicha.controllers.AjoutController">
+   <children>
+      <Label layoutX="138.0" layoutY="102.0" text="libelle produit" />
+      <Label layoutX="138.0" layoutY="157.0" text="quantité produit" />
+      <Label layoutX="138.0" layoutY="211.0" text="prix d'achat " />
+      <Label layoutX="138.0" layoutY="264.0" text="prix de vente" />
+      <Label layoutX="138.0" layoutY="314.0" text="categorie" />
+      <Label layoutX="138.0" layoutY="369.0" text="image" />
+      <TextField fx:id="prixachat" layoutX="294.0" layoutY="207.0" />
+      <TextField fx:id="prixvente" layoutX="294.0" layoutY="260.0" />
+      <TextField fx:id="image" layoutX="294.0" layoutY="365.0" />
+      <TextField fx:id="quantite" layoutX="294.0" layoutY="153.0" />
+      <TextField fx:id="libelle" layoutX="294.0" layoutY="98.0" />
+      <Button fx:id="ajouterprod" layoutX="574.0" layoutY="381.0" mnemonicParsing="false" onAction="#ajouterProd" text="ajouter" />
+      <SplitMenuButton fx:id="categorie" accessibleRole="IMAGE_VIEW" layoutX="304.0" layoutY="310.0" mnemonicParsing="false" text="categorie">
+        <items>
+          
+        </items>
+      </SplitMenuButton>
+   </children>
+</AnchorPane>
