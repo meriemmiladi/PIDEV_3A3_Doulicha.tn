@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  *
@@ -27,6 +29,39 @@ public class ServiceEvenement {
     public ServiceEvenement(){
         cnx = MyConnection.getInstance().getCnx();
     }
+    
+     public ObservableList<evenement> afficherEvents()
+ {
+       ObservableList<evenement> evenement = FXCollections.observableArrayList();
+
+        try {
+            Statement st = cnx.createStatement();
+            String query = "SELECT * FROM `evenement`";
+            ResultSet rs = st.executeQuery(query);
+            while (rs.next()) {
+                evenement event = new evenement();
+               event.setID_event(rs.getInt(1));
+             event.setNom_event(rs.getString(2));
+             event.setDescription_event(rs.getString(3));
+             event.setLieu_event(rs.getString(4));
+             event.setType_event(rs.getString(5));
+             event.setDateDebut_event(rs.getDate(6));
+             event.setDateFin_event(rs.getDate(7));
+             event.setCapacite_event(rs.getInt(8));
+             event.setNombreActuel_event(rs.getInt(9));
+             event.setImage_event(rs.getString(10));
+             event.setPrix_event(rs.getDouble(11));
+           evenement.add(event);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("erreur");
+            System.out.println(ex);
+        }
+        return evenement;
+    }
+    
+    
     
     public void ajouterEvenement(){
         
@@ -53,7 +88,7 @@ public class ServiceEvenement {
             //PreparedStatement pst = new MyConnection().getCnx().prepareStatement(requete2);
             PreparedStatement pst = cnx.prepareStatement(requete2);
             pst.setString(1, event.getNom_event());
-            pst.setString(2, event.getDescrption_event());
+            pst.setString(2, event.getDescription_event());
             pst.setString(3, event.getLieu_event());
             pst.setString(4, event.getType_event());
             pst.setDate(5, (java.sql.Date) event.getDateDebut_event());
@@ -85,7 +120,7 @@ public class ServiceEvenement {
              evenement event = new evenement();
              event.setID_event(rs.getInt(1));
              event.setNom_event(rs.getString(2));
-             event.setDescrption_event(rs.getString(3));
+             event.setDescription_event(rs.getString(3));
              event.setLieu_event(rs.getString(4));
              event.setType_event(rs.getString(5));
              event.setDateDebut_event(rs.getDate(6));
@@ -118,7 +153,7 @@ public class ServiceEvenement {
         return ListEvenement;
     }
     
-    /* public void modifierEvenement(evenement event) {
+    public void modifierEvenement(evenement event) {
     
       try {
       // String requete4= "UPDATE logement SET nom_logement=?, description_logement=?, adresse_logement=?, prixNuitee_logement=?, capacite_logement=?, type_logement=?, etat_logement=?, image_logement=? WHERE ID_logement=?";
@@ -127,7 +162,7 @@ public class ServiceEvenement {
      PreparedStatement pst = cnx.prepareStatement(requete4);
 
             pst.setString(1, event.getNom_event());
-            pst.setString(2, event.getDescrption_event());
+            pst.setString(2, event.getDescription_event());
             pst.setString(3, event.getLieu_event());
             pst.setString(4, event.getType_event());
             pst.setDate(5, (java.sql.Date) event.getDateDebut_event());
@@ -146,7 +181,7 @@ public class ServiceEvenement {
         } catch (SQLException ex){
              System.err.println(ex.getMessage());
         }
-      } */
+      } 
     
     
     
@@ -177,7 +212,7 @@ public class ServiceEvenement {
     
     
     
-     public boolean modifierEvenement (int ID_event, String nom_event, String descrption_event, String lieu_event, String type_event, Date dateDebut_event, Date dateFin_event, int capacite_event, int nombreActuel_event, String image_event, double prix_event) {
+     /*public boolean modifierEvenement (int ID_event, String nom_event, String descrption_event, String lieu_event, String type_event, Date dateDebut_event, Date dateFin_event, int capacite_event, int nombreActuel_event, String image_event, double prix_event) {
         
          boolean eventModification = true;
         String requete = null;
@@ -207,6 +242,23 @@ public class ServiceEvenement {
              System.err.println(ex.getMessage());
         }
         return eventModification;
+    }*/
+    
+     public int getId(String id) {
+try {
+            Statement st = cnx.createStatement();
+            
+            String req = "select id from `evenement` WHERE  ID_event LIKE '" + id + "'";
+            ResultSet rs = st.executeQuery(req);
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("erreur");
+            System.out.println(ex);
+        }
+            return 0;
     }
      
      

@@ -14,7 +14,7 @@ public class evenement {
     
     private int ID_event;
     private String nom_event;
-    private String descrption_event;
+    private String description_event;
     private String lieu_event;
     private String type_event;
     private Date dateDebut_event;
@@ -27,10 +27,10 @@ public class evenement {
     public evenement() {
     }
 
-    public evenement(int ID_event, String nom_event, String descrption_event, String lieu_event, String type_event, Date dateDebut_event, Date dateFin_event, int capacite_event, int nombreActuel_event, String image_event, double prix_event) {
+    public evenement(int ID_event, String nom_event, String description_event, String lieu_event, String type_event, Date dateDebut_event, Date dateFin_event, int capacite_event, int nombreActuel_event, String image_event, double prix_event) {
         this.ID_event = ID_event;
         this.nom_event = nom_event;
-        this.descrption_event = descrption_event;
+        this.description_event = description_event;
         this.lieu_event = lieu_event;
         this.type_event = type_event;
         this.dateDebut_event = dateDebut_event;
@@ -41,9 +41,9 @@ public class evenement {
         this.prix_event = prix_event;
     }
 
-    public evenement(String nom_event, String descrption_event, String lieu_event, String type_event, Date dateDebut_event, Date dateFin_event, int capacite_event, int nombreActuel_event, String image_event, double prix_event) {
+    public evenement(String nom_event, String description_event, String lieu_event, String type_event, Date dateDebut_event, Date dateFin_event, int capacite_event, int nombreActuel_event, String image_event, double prix_event) {
         this.nom_event = nom_event;
-        this.descrption_event = descrption_event;
+        this.description_event = description_event;
         this.lieu_event = lieu_event;
         this.type_event = type_event;
         this.dateDebut_event = dateDebut_event;
@@ -70,12 +70,12 @@ public class evenement {
         this.nom_event = nom_event;
     }
 
-    public String getDescrption_event() {
-        return descrption_event;
+    public String getDescription_event() {
+        return description_event;
     }
 
-    public void setDescrption_event(String descrption_event) {
-        this.descrption_event = descrption_event;
+    public void setDescription_event(String description_event) {
+        this.description_event = description_event;
     }
 
     public String getLieu_event() {
@@ -144,7 +144,7 @@ public class evenement {
 
     @Override
     public String toString() {
-        return "evenement{" + "ID_event=" + ID_event + ", nom_event=" + nom_event + ", descrption_event=" + descrption_event + ", lieu_event=" + lieu_event + ", type_event=" + type_event + ", dateDebut_event=" + dateDebut_event + ", dateFin_event=" + dateFin_event + ", capacite_event=" + capacite_event + ", nombreActuel_event=" + nombreActuel_event + ", image_event=" + image_event + ", prix_event=" + prix_event + '}';
+        return "evenement{" + "ID_event=" + ID_event + ", nom_event=" + nom_event + ", description_event=" + description_event + ", lieu_event=" + lieu_event + ", type_event=" + type_event + ", dateDebut_event=" + dateDebut_event + ", dateFin_event=" + dateFin_event + ", capacite_event=" + capacite_event + ", nombreActuel_event=" + nombreActuel_event + ", image_event=" + image_event + ", prix_event=" + prix_event + '}';
     }
     
     

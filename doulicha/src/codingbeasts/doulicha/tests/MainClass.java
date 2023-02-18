@@ -32,6 +32,8 @@ public class MainClass {
     //eventcd.ajouterEvenement2(event);
     
     // System.out.println(eventcd.afficherEvenements());     
+    
+    eventcd.modifierEvenement(event);
       
       //eventcd.modifierEvenement(12,"ElHadhra","jfkfkf","Théatre MunicipalCENTREVILLE","Artistique-Musical",dateDebut,dateFin,498,2,"lien",3);
       //eventcd.modifierEvenement(10,"ZIARA-HADHRA","JVKREJGT","Théatre MunicipalCENTREVILLE","Artistique-Musical",dateDebut2,dateFin2,498,2,"lien",3);
@@ -51,7 +53,7 @@ public class MainClass {
        
         //System.out.println(participationeventcd.afficherParticipations());
         
-        participationeventcd.supprimerParticipation(5);
+        //participationeventcd.supprimerParticipation(5);
         
         //participationeventcd.modifierParticipationEvenement(1, 1, 9, dateParticipation, 5);
     }
