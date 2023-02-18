@@ -7,10 +7,16 @@ package codingbeasts.doulicha.controllers;
 
 import codingbeasts.doulicha.entities.evenement;
 import codingbeasts.doulicha.services.ServiceEvenement;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -18,6 +24,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,8 +39,13 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import javax.imageio.ImageIO;
+import org.controlsfx.control.Notifications;
 
 /**
  * FXML Controller class
@@ -73,6 +85,13 @@ public class GererEvenementController implements Initializable {
     private Button btn_supprimer;
     @FXML
     private TextField TF_id;
+    
+    String xamppFolderPath = "C:/xampp/htdocs/images/";
+    
+    @FXML
+    private Button btn_importer;
+    @FXML
+    private ImageView imageevenement;
 
     /**
      * Initializes the controller class.
@@ -80,6 +99,19 @@ public class GererEvenementController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         comboTypeM.setItems(types);
+        
+         btn_retour.setOnAction(event -> {
+
+            try {
+                Parent page1 = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/views/AfficherEvenements.fxml"));
+                Scene scene = new Scene(page1);
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException ex) {
+              Logger.getLogger(AfficherEvenementsController.class.getName()).log(Level.SEVERE, null, ex); 
+            }
+        }); 
         
         
     }    
@@ -97,7 +129,8 @@ public class GererEvenementController implements Initializable {
             
             
             
-            ev.setID_event(SE.getId(TF_id.getText()));
+           ev.setID_event(SE.getId(TF_id.getText()));
+           //ev.setID_event(Integer.parseInt(TF_id.getID_event()));
             ev.setNom_event(TF_nomM.getText());
             ev.setDescription_event(TF_descriptionM.getText());
             ev.setLieu_event(TF_lieuM.getText());
@@ -109,7 +142,7 @@ public class GererEvenementController implements Initializable {
             LocalDate dateDebut_local = dateDebutM.getValue();
             LocalDate dateFin_local = dateFinM.getValue();
             ev.setDateDebut_event(java.sql.Date.valueOf(dateDebut_local));
-            ev.setDateDebut_event(java.sql.Date.valueOf(dateFin_local));
+            ev.setDateFin_event(java.sql.Date.valueOf(dateFin_local));
      
     
             
@@ -117,7 +150,7 @@ public class GererEvenementController implements Initializable {
             //System.out.println(tf_desc.getText());
             
 //            System.out.println(d);
-            SE.modifierEvenement(ev);
+SE.modifierEvenement(ev);
             Notifications notificationBuilder = Notifications.create()
             .title("Modification EVENEMENT")
                .text("votre évènement a bien été modifié.")
@@ -142,22 +175,29 @@ public class GererEvenementController implements Initializable {
     @FXML
     private void supprimerEvenement(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation suppression");
-        alert.setContentText("Etes vous sur de supprimer cette promotion?");
+        alert.setTitle("Confirmation de suppression");
+        alert.setContentText("Etes vous sur de supprimer cet évènement ?");
 
         Optional<ButtonType> result = alert.showAndWait();
+        
         if (result.get() == ButtonType.OK) {
         ServiceEvenement SE = new ServiceEvenement();
             
          SE.supprimerEvenement(SE.getId(TF_id.getText()));
             
-            
+            Notifications notificationBuilder = Notifications.create()
+            .title("Suppression EVENEMENT")
+               .text("votre évènement a bien été supprimé.")
+               .graphic(null)
+               .hideAfter(Duration.seconds(5))
+              .position(Pos.BOTTOM_RIGHT);
+       notificationBuilder.showInformation();
       
         } else {
             System.out.println("Cancel");
         }
         try {
-            Parent page1 = FXMLLoader.load(getClass().getResource("/zero/views/Promotion.fxml"));
+            Parent page1 = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/views/AfficherEvenements.fxml"));
             Scene scene = new Scene(page1);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);
@@ -187,18 +227,74 @@ void selected_item(int ID_event, String nom_event, String description_event, Str
     TF_nombreactuelM.setText(String.valueOf(nombreActuel_event));
     dateDebutM.setValue(dateDebut_local);
     dateFinM.setValue(dateFin_local);
-               
+    
+   // imageevenement.setImage(new Image (xamppFolderPath + image_event));
+   System.out.println(xamppFolderPath + image_event);
+   String test = xamppFolderPath + image_event;
+   
+  /* InputStream inputStream = getClass().getResourceAsStream(test);
+Image image = new Image(inputStream);
+imageevenement.setImage(image); */
+   
+    try {
+            BufferedImage bufferedImage = ImageIO.read(new File(test));
+            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+            imageevenement.setImage(image);
+        } catch (IOException ex) {
+            System.out.println("could not get the image");
+        } 
+   
+   /* File file = new File(test.replace('/' , '\\'));
+        System.out.println(file);
         
+        Image im = null;
+        if(file.exists()){ 
+                 im = new Image(file.toURI().toString());
+        }else{
+            //im = new Image("resources/default-article.jpg"); // this is the defualt photo of the product
+        }
+         
+         this.imageevenement.setImage(im); */
+ 
 //        P.setRemise(Integer.parseInt(com_remise.getValue()));
 
 //       p.setDateP(Date.valueOf(d));
     } 
+
+    @FXML
+    private void importerImage(ActionEvent event) {
+        
+     FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Pick a banner file !");
+       // fileChooser.setInitialDirectory(new File("\\Mehdi\\ESPRIT\\pi java\\zero\\src\\Images"));
+        Stage stage = new Stage();
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("JPG", "*.jpg"),
+                new FileChooser.ExtensionFilter("JPEG", "*.jpeg"),
+                new FileChooser.ExtensionFilter("PNG", "*.png")
+            );
+        File file = fileChooser.showOpenDialog(stage);
+
+// Copier le fichier dans le dossier XAMPP
+Path source = file.toPath();
+String fileName = file.getName();
+Path destination = Paths.get(xamppFolderPath + fileName);
+
+
+
+        try {
+            Files.copy(source, destination, StandardCopyOption.REPLACE_EXISTING);
+                BufferedImage bufferedImage = ImageIO.read(file);
+                Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+                TF_imageM.setText(fileName);
+                System.err.println("1");
+                imageevenement.setImage(image);
+                System.err.println("2");
+            } catch (IOException ex) {
+                System.out.println("could not get the image");
+            }
+        String imagePath = "images/" + fileName;
+    }
     
-    
-    
-    
-    
-    
-    
-    
+  
 }

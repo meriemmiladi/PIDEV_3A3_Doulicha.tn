@@ -118,7 +118,8 @@ public class AfficherEvenementsController implements Initializable {
           System.out.println("aaaaa");
           
           
-            HomeScene.selected_item(
+            HomeScene.selected_item (
+                    tableEvents.getSelectionModel().getSelectedItem().getID_event(),
                     tableEvents.getSelectionModel().getSelectedItem().getNom_event(),
                     tableEvents.getSelectionModel().getSelectedItem().getDescription_event(),
                     tableEvents.getSelectionModel().getSelectedItem().getLieu_event(),
@@ -126,9 +127,9 @@ public class AfficherEvenementsController implements Initializable {
                     tableEvents.getSelectionModel().getSelectedItem().getDateDebut_event(),
                     tableEvents.getSelectionModel().getSelectedItem().getDateFin_event(),
                     tableEvents.getSelectionModel().getSelectedItem().getCapacite_event(),
+                    tableEvents.getSelectionModel().getSelectedItem().getNombreActuel_event(),
                     tableEvents.getSelectionModel().getSelectedItem().getImage_event(),
-                    tableEvents.getSelectionModel().getSelectedItem().getPrix_event(),
-                    tableEvents.getSelectionModel().getSelectedItem().getNombreActuel_event()                 
+                    tableEvents.getSelectionModel().getSelectedItem().getPrix_event()
                    );
                  System.out.println("bbbbbbbbbbbbb");
            

@@ -153,7 +153,7 @@ public class ServiceEvenement {
         return ListEvenement;
     }
     
-    public void modifierEvenement(evenement event) {
+   /* public void modifierEvenement(evenement event) {
     
       try {
       // String requete4= "UPDATE logement SET nom_logement=?, description_logement=?, adresse_logement=?, prixNuitee_logement=?, capacite_logement=?, type_logement=?, etat_logement=?, image_logement=? WHERE ID_logement=?";
@@ -181,7 +181,21 @@ public class ServiceEvenement {
         } catch (SQLException ex){
              System.err.println(ex.getMessage());
         }
-      } 
+      } */
+    
+     public void modifierEvenement(evenement event) {
+try {
+            Statement st = cnx.createStatement();
+            //nb: on ne peut pas modifier la date
+            String requete4 = "UPDATE  evenement SET nom_event  = '" + event.getNom_event() + "', description_event = '" + event.getDescription_event() + "', lieu_event = '" + event.getLieu_event() + "' , type_event = '" + event.getType_event() + "', dateDebut_event = '" + event.getDateDebut_event() + "', dateFin_event = '" + event.getDateFin_event() + "',capacite_event = '" + event.getCapacite_event() + "', nombreActuel_event = '" + event.getNombreActuel_event()+"',image_event = '" + event.getImage_event()+"',prix_event = '" + event.getPrix_event()+"' WHERE ID_event = '" + event.getID_event()+ "'";
+            st.executeUpdate(requete4);
+            System.out.println("modification avec succes");
+        } catch (SQLException ex) {
+            System.out.println("erreur de modification");
+            System.out.println(ex);
+        }
+    }
+
     
     
     
@@ -248,7 +262,7 @@ public class ServiceEvenement {
 try {
             Statement st = cnx.createStatement();
             
-            String req = "select id from `evenement` WHERE  ID_event LIKE '" + id + "'";
+            String req = "select ID_event from `evenement` WHERE  ID_event LIKE '" + id + "'";
             ResultSet rs = st.executeQuery(req);
             while (rs.next()) {
                 return rs.getInt(1);
