@@ -1,0 +1,111 @@
+/* Couleurs de la charte graphique */
+#primary-color {
+    -fx-background-color: #0077C2;
+}
+#secondary-color {
+    -fx-background-color: #64B5F6;
+}
+
+/* Boutons */
+.button {
+    -fx-background-color: linear-gradient(to bottom, #0077C2, #0093C4);
+    -fx-background-radius: 30px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(to bottom, #0093C4, #0077C2);
+}
+
+/* Boutons ronds */
+.round-button {
+    -fx-background-color: linear-gradient(to bottom, #0077C2, #0093C4);
+    -fx-background-radius: 50%;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
+
+.round-button:hover {
+    -fx-background-color: linear-gradient(to bottom, #0093C4, #0077C2);
+}
+
+/* TableView */
+.table-view {
+    -fx-background-color: #F7F7F7;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #0077C2;
+}
+
+.table-view .column-header {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.table-view .table-cell {
+    -fx-alignment: center-left;
+    -fx-padding: 10px 20px;
+}
+
+.table-view .table-row-cell:odd {
+    -fx-background-color: #F2F2F2;
+}
+
+.table-view .table-row-cell:hover {
+    -fx-background-color: #D9D9D9;
+}
+
+/* Animations */
+.fade-in {
+    -fx-opacity: 0;
+    -fx-transition: opacity 1s;
+}
+
+.fade-in.visible {
+    -fx-opacity: 1;
+}
+
+/* Textes */
+.text {
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 16;
+    -fx-fill: #333333;
+}
+
+/* Champs de texte */
+.text-field {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-border-color: #0077C2;
+    -fx-border-width: 2;
+    -fx-text-fill: #333333;
+    -fx-prompt-text-fill: #BDBDBD;
+}
+
+/* Conteneur principal */
+#AnchorPane {
+    -fx-background-color: #FFFFFF;
+}
+
+/* Conteneur secondaire */
+.vbox {
+    -fx-background-color: #F5F5F5;
+    -fx-background-radius: 10;
+    -fx-border-color: #0077C2;
+    -fx-border-radius: 10;
+    -fx-border-width: 2;
+    -fx-padding: 10;
+}
+
+.vbox > * {
+    -fx-padding: 5;
+}

@@ -8,14 +8,21 @@ package codingbeasts.doulicha.view;
 import codingbeasts.doulicha.entities.Discussion;
 import codingbeasts.doulicha.services.DiscussionCRUD;
 import java.net.URL;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+
 
 /**
  * FXML Controller class
@@ -36,19 +43,36 @@ public class DiscussionController implements Initializable {
     private Button afficherDiscussionsUtilisateur;
     @FXML
     private Button trierDiscussionsParDate;
-     @FXML
+    @FXML
     private Button rechercherparNomPrenom;
- @FXML
+    @FXML
     private TextField nomTextField;
-  @FXML
+    @FXML
     private TextField prenomTextField;
+    @FXML
+    private TableView tableview;
+    @FXML
+    private TableColumn<Discussion, Integer> colID_Discussion;
+
+    @FXML
+    private TableColumn<Discussion, Integer> colID_User;
+    @FXML
+    private TableColumn<Discussion, String> colTitreDiscussion;
+
+    @FXML
+    private TableColumn<Discussion, String> colContenuDiscussion;
+
+    @FXML
+    private TableColumn<Discussion, Date> colDateDiscussion;
+
+        private ObservableList<Discussion> discussions;
+
     @FXML
     public void afficherDiscussions(ActionEvent event) throws SQLException {
         DiscussionCRUD dc = new DiscussionCRUD();
-        List<Discussion> discussions = dc.afficherDiscussions();
-        discussions.forEach((d) -> {
-            System.out.println(d);
-        });
+        discussions =FXCollections.observableArrayList (dc.afficherDiscussions());
+        tableview.setItems(discussions);
+        tableview.setOpacity(1);
     }
 
     @FXML
@@ -60,24 +84,29 @@ public class DiscussionController implements Initializable {
             System.out.println(d);
         });
     }
+    private ObservableList<Discussion> discussionsUser;
 
     @FXML
     public void afficherDiscussionsUtilisateur(ActionEvent event) {
         DiscussionCRUD dc = new DiscussionCRUD();
-        List<Discussion> discussions = dc.rechercherDiscussions(Integer.parseInt(idUtilisateurTextField.getText()));
-        discussions.forEach((d) -> {
-            System.out.println(d);
-        });
+        discussionsUser = FXCollections.observableArrayList(dc.rechercherDiscussions(Integer.parseInt(idUtilisateurTextField.getText())));
+        tableview.setItems(discussionsUser);
+        tableview.setOpacity(1);
+        idUtilisateurTextField.clear();
     }
-     @FXML
+
+    private ObservableList<Discussion> discussionsList;
+
+    @FXML
     public void afficherDiscussionsUtilisateurNomPrenom(ActionEvent event) {
+
         DiscussionCRUD dc = new DiscussionCRUD();
-        List<Discussion> discussions = dc.rechercherDiscussions((nomTextField.getText()),prenomTextField.getText());
-        discussions.forEach((d) -> {
-            System.out.println(d);
-        });
+        discussionsList = FXCollections.observableArrayList(dc.rechercherDiscussions((nomTextField.getText()), prenomTextField.getText()));
+        tableview.setItems(discussionsList);
+        tableview.setOpacity(1);
+        prenomTextField.clear();
+        nomTextField.clear();
     }
-    
 
     /**
      * @FXML public void handleButtonAction(ActionEvent event) {
@@ -99,5 +128,12 @@ public class DiscussionController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        colID_Discussion.setCellValueFactory(new PropertyValueFactory<>("ID_discussion"));
+        colID_User.setCellValueFactory(new PropertyValueFactory<>("ID_user"));
+        colTitreDiscussion.setCellValueFactory(new PropertyValueFactory<>("titre_discussion"));
+        colContenuDiscussion.setCellValueFactory(new PropertyValueFactory<>("contenu_discussion"));
+        colDateDiscussion.setCellValueFactory(new PropertyValueFactory<>("date_discussion"));
+
     }
 }

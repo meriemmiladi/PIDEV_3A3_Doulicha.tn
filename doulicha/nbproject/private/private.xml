@@ -3,18 +3,22 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/ghass/Documents/NetBeansProjects/doulicha/src/codingbeasts/doulicha/tests/MainClass.java</file>
             <file>file:/C:/Users/ghass/Documents/NetBeansProjects/doulicha/src/codingbeasts/doulicha/view/DiscussionController.java</file>
             <file>file:/C:/Users/ghass/Documents/NetBeansProjects/doulicha/src/codingbeasts/doulicha/utils/MyConnection.java</file>
+            <file>file:/C:/Users/ghass/Documents/NetBeansProjects/doulicha/src/codingbeasts/doulicha/view/style.css</file>
+            <file>file:/C:/Users/ghass/Documents/NetBeansProjects/doulicha/src/codingbeasts/doulicha/view/ClientDiscussionController.java</file>
+            <file>file:/C:/Users/ghass/Documents/NetBeansProjects/doulicha/src/codingbeasts/doulicha/services/DiscussionCRUD.java</file>
+            <file>file:/C:/Users/ghass/Documents/NetBeansProjects/doulicha/src/codingbeasts/doulicha/services/ReponseCRUD.java</file>
+            <file>file:/C:/Users/ghass/Documents/NetBeansProjects/doulicha/src/codingbeasts/doulicha/view/ReponseController.java</file>
+            <file>file:/C:/Users/ghass/Documents/NetBeansProjects/doulicha/src/codingbeasts/doulicha/view/Discussion.fxml</file>
+            <file>file:/C:/Users/ghass/Documents/NetBeansProjects/doulicha/src/codingbeasts/doulicha/tests/MainClass.java</file>
+            <file>file:/C:/Users/ghass/Documents/NetBeansProjects/doulicha/src/codingbeasts/doulicha/view/Reponse.fxml</file>
+            <file>file:/C:/Users/ghass/Documents/NetBeansProjects/doulicha/src/codingbeasts/doulicha/view/ConsulterReponseAdmin.java</file>
             <file>file:/C:/Users/ghass/Documents/NetBeansProjects/doulicha/src/codingbeasts/doulicha/entities/Reponse.java</file>
             <file>file:/C:/Users/ghass/Documents/NetBeansProjects/doulicha/src/codingbeasts/doulicha/view/ConsulterDiscussionsAdmin.java</file>
             <file>file:/C:/Users/ghass/Documents/NetBeansProjects/doulicha/src/codingbeasts/doulicha/view/DiscussionUser.fxml</file>
-            <file>file:/C:/Users/ghass/Documents/NetBeansProjects/doulicha/src/codingbeasts/doulicha/view/ClientDiscussionController.java</file>
-            <file>file:/C:/Users/ghass/Documents/NetBeansProjects/doulicha/src/codingbeasts/doulicha/services/DiscussionCRUD.java</file>
             <file>file:/C:/Users/ghass/Documents/NetBeansProjects/doulicha/src/codingbeasts/doulicha/view/ConsulterDiscussionsUser.java</file>
             <file>file:/C:/Users/ghass/Documents/NetBeansProjects/doulicha/src/codingbeasts/doulicha/entities/Discussion.java</file>
-            <file>file:/C:/Users/ghass/Documents/NetBeansProjects/doulicha/src/codingbeasts/doulicha/services/ReponseCRUD.java</file>
-            <file>file:/C:/Users/ghass/Documents/NetBeansProjects/doulicha/src/codingbeasts/doulicha/view/Discussion.fxml</file>
         </group>
     </open-files>
 </project-private>

@@ -1,5 +1,6 @@
 package codingbeasts.doulicha.services;
 
+import codingbeasts.doulicha.entities.Discussion;
 import codingbeasts.doulicha.entities.Reponse;
 import codingbeasts.doulicha.utils.MyConnection;
 import java.sql.Connection;
@@ -39,14 +40,15 @@ public class ReponseCRUD {
             pst.setInt(1, 1);
             pst.setInt(2, 1);
             pst.setString(3, r.getContenu_reponse());
-            pst.setString(4, r.getDate_reponse().toString());
+            pst.setDate(4, r.getDate_reponse());
             pst.executeUpdate();
 
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
     }
-   public void supprimerReponse(int id_reponse) {
+
+    public void supprimerReponse(int id_reponse) {
         try {
             String requete = "DELETE FROM reponse WHERE ID_discussion =?";
             PreparedStatement pst = con.prepareStatement(requete);
@@ -56,6 +58,7 @@ public class ReponseCRUD {
             System.err.println(ex.getMessage());
         }
     }
+
     public void modifierTitreReponse(int id_reponse, String titre_reponse) {
         try {
             String requete = "UPDATE discussion SET titre_reponse = ?  WHERE id_reponse= ?";
@@ -101,5 +104,50 @@ public class ReponseCRUD {
             System.err.println(ex.getMessage());
         }
         return reponses;
+    }
+
+    public List<Reponse> rechercherReponses(int ID_user) {
+        List<Reponse> reponsesUtilisateur = new ArrayList<>();
+        try {
+
+            String requete = "SELECT * FROM reponse WHERE ID_user = ?";
+            PreparedStatement pst = con.prepareStatement(requete);
+            pst.setInt(1, ID_user);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                Reponse rep = new Reponse();
+                rep.setID_reponse(rs.getInt("ID_reponse"));
+                rep.setID_user(rs.getInt("ID_user"));
+                rep.setID_discussion(rs.getInt("ID_discussion"));
+                rep.setContenu_reponse(rs.getString("contenu_reponse"));
+                rep.setDate_reponse(rs.getDate("date_reponse"));
+                reponsesUtilisateur.add(rep);
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return reponsesUtilisateur;
+    }
+     public List<Reponse> rechercherReponsesDiscussion(int ID_discussion) {
+        List<Reponse> reponsesDiscussions = new ArrayList<>();
+        try {
+
+            String requete = "SELECT * FROM reponse WHERE ID_discussion = ?";
+            PreparedStatement pst = con.prepareStatement(requete);
+            pst.setInt(1, ID_discussion);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                Reponse rep = new Reponse();
+                rep.setID_reponse(rs.getInt("ID_reponse"));
+                rep.setID_user(rs.getInt("ID_user"));
+                rep.setID_discussion(rs.getInt("ID_discussion"));
+                rep.setContenu_reponse(rs.getString("contenu_reponse"));
+                rep.setDate_reponse(rs.getDate("date_reponse"));
+                reponsesDiscussions.add(rep);
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return reponsesDiscussions;
     }
 }

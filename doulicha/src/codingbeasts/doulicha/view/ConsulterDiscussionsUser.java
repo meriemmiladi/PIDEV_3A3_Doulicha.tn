@@ -1,39 +1,27 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package codingbeasts.doulicha.view;
 
+import codingbeasts.doulicha.entities.Discussion;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-/**
- *
- * @author ghass
- */
 public class ConsulterDiscussionsUser extends Application {
-    
+    private List<Discussion> discussions = new ArrayList<>();
+
     @Override
     public void start(Stage primaryStage) throws IOException {
-     FXMLLoader loader = new FXMLLoader(getClass().getResource("/codingbeasts/doulicha/view/DiscussionUser.fxml"));
-        Parent root = loader.load();
-        Scene scene = new Scene(root);
-        primaryStage.setScene(scene);
+      Parent root = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/view/DiscussionUser.fxml"));
+        primaryStage.setScene(new Scene(root));
         primaryStage.show();
-            }
         
-  
+    }
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
         launch(args);
     }
-    
 }

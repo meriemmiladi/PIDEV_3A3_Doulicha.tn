@@ -39,7 +39,7 @@ public class DiscussionCRUD {
             pst.setInt(1, 1);
             pst.setString(2, d.getTitre_discussion());
             pst.setString(3, d.getContenu_discussion());
-            pst.setString(4, d.getDate_discussion().toString());
+            pst.setDate(4, d.getDate_discussion());
             pst.executeUpdate();
 
         } catch (SQLException ex) {
