@@ -182,6 +182,18 @@ public class AjoutEvenementController implements Initializable {
           if (!testDateFin()) {
             erreur = erreur + ("Veuillez saisir une date valide \n");
         }
+          if (!testLieuEvent()) {
+            erreur = erreur + ("Veuillez verifier votre Lieu: seulement des caractères et de nombre >= 3 \n");
+        }
+          if (!testCapaciteEvent()) {
+            erreur = erreur + ("Veuillez verifier votre Capacité: seulement des nombres >= 10 \n");
+        }
+          if (!testPrixEvent()) {
+            erreur = erreur + ("Veuillez verifier votre Prix: seulement des nombres >= 10 \n");
+        }
+          if (!testImageEvent()) {
+            erreur = erreur + ("Veuillez insérer votre Image \n");
+        }
        /* if (!testDesc()) {
             erreur = erreur + ("Veuillez verifier votre Nom: seulement des caractères et de nombre >= 3 \n");
         }
@@ -189,7 +201,7 @@ public class AjoutEvenementController implements Initializable {
             erreur = erreur + ("Veuillez verifier votre Nom: seulement des caractères et de nombre >= 3 \n");
         } */
         //return  testNomProm() || testDate() || testDesc() || testRemise() ;
-        return  testNomEvent()&& testDateDebut() ;
+        return  testNomEvent() && testDateDebut() && testLieuEvent() && testDateFin() && testCapaciteEvent() && testPrixEvent() && testImageEvent() ;
     }
     
     private Boolean testNomEvent() {
@@ -206,6 +218,65 @@ public class AjoutEvenementController implements Initializable {
             return true;
         } else {
             iconeNom.setImage(new Image("images/no.png"));
+            return false;
+
+        }
+    }
+    
+     private Boolean testImageEvent() {
+         int nbNonChar = 0;
+        for (int i = 1; i < TF_image .getText().trim().length(); i++) {
+            char ch = TF_image.getText().charAt(i);
+            if (!Character.isLetter(ch)) {
+                nbNonChar++;
+            }
+        }
+        if (nbNonChar != 0) {
+            iconeImage.setImage(new Image("images/yes.png"));
+            return true;
+        } else {
+            iconeImage.setImage(new Image("images/no.png"));
+            return false;
+
+        }
+    }
+    
+    private Boolean testPrixEvent() {
+        if (Integer.parseInt(TF_prix.getText()) >= 10) {
+            iconecPrix.setImage(new Image("images/yes.png"));
+            return true;
+        } else {
+            iconecPrix.setImage(new Image("images/no.png"));
+            return false;
+
+        }
+    }
+    
+     private Boolean testCapaciteEvent() {
+        
+        if (Integer.parseInt(TF_capacite.getText()) >= 10) {
+            iconeCapacite.setImage(new Image("images/yes.png"));
+            return true;
+        } else {
+            iconeCapacite.setImage(new Image("images/no.png"));
+            return false;
+
+        }
+    }
+        private Boolean testLieuEvent() {
+        int nbNonChar = 0;
+        for (int i = 1; i < TF_lieu .getText().trim().length(); i++) {
+            char ch = TF_lieu.getText().charAt(i);
+            if (!Character.isLetter(ch)) {
+                nbNonChar++;
+            }
+        }
+
+        if (nbNonChar == 0 && TF_lieu.getText().trim().length() >= 3) {
+            iconeLieu.setImage(new Image("images/yes.png"));
+            return true;
+        } else {
+            iconeLieu.setImage(new Image("images/no.png"));
             return false;
 
         }

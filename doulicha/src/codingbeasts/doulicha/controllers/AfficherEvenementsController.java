@@ -134,7 +134,7 @@ public class AfficherEvenementsController implements Initializable {
                  System.out.println("bbbbbbbbbbbbb");
            
             Stage window = (Stage) btn_gerer.getScene().getWindow();
-            window.setScene(new Scene(root, 1315, 890));
+            window.setScene(new Scene(root));
     }
     
     

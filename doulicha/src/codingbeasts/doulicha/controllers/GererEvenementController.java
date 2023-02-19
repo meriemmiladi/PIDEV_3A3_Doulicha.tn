@@ -92,6 +92,26 @@ public class GererEvenementController implements Initializable {
     private Button btn_importer;
     @FXML
     private ImageView imageevenement;
+    @FXML
+    private ImageView iconeNom;
+    @FXML
+    private ImageView iconeLieu;
+    @FXML
+    private ImageView iconeCapacite;
+    @FXML
+    private ImageView iconecPrix;
+    @FXML
+    private ImageView iconeDescription;
+    @FXML
+    private ImageView iconeImage;
+    @FXML
+    private ImageView iconeType;
+    @FXML
+    private ImageView iconeDateDebut;
+    @FXML
+    private ImageView iconeDateFin;
+    @FXML
+    private ImageView iconeNombreActuel;
 
     /**
      * Initializes the controller class.
@@ -120,17 +140,16 @@ public class GererEvenementController implements Initializable {
     private void modifierEvenement(ActionEvent event) {
          
          ServiceEvenement SE = new ServiceEvenement();
+         
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation de modification");
         alert.setContentText("Etes vous sur de vouloir modifier cet évènement ?");
         Optional<ButtonType> result = alert.showAndWait();
+        
         if (result.get() == ButtonType.OK){
+            
             evenement ev = new evenement();
-            
-            
-            
-           ev.setID_event(SE.getId(TF_id.getText()));
-           //ev.setID_event(Integer.parseInt(TF_id.getID_event()));
+            ev.setID_event(SE.getId(TF_id.getText()));
             ev.setNom_event(TF_nomM.getText());
             ev.setDescription_event(TF_descriptionM.getText());
             ev.setLieu_event(TF_lieuM.getText());
@@ -143,14 +162,8 @@ public class GererEvenementController implements Initializable {
             LocalDate dateFin_local = dateFinM.getValue();
             ev.setDateDebut_event(java.sql.Date.valueOf(dateDebut_local));
             ev.setDateFin_event(java.sql.Date.valueOf(dateFin_local));
-     
-    
-            
-           
-            //System.out.println(tf_desc.getText());
-            
-//            System.out.println(d);
-SE.modifierEvenement(ev);
+            SE.modifierEvenement(ev);
+            if (testSaisie()){
             Notifications notificationBuilder = Notifications.create()
             .title("Modification EVENEMENT")
                .text("votre évènement a bien été modifié.")
@@ -170,7 +183,8 @@ SE.modifierEvenement(ev);
         } catch (IOException ex) {
             Logger.getLogger(AfficherEvenementsController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
+        }
+}
 
     @FXML
     private void supprimerEvenement(ActionEvent event) {
@@ -296,5 +310,138 @@ Path destination = Paths.get(xamppFolderPath + fileName);
         String imagePath = "images/" + fileName;
     }
     
-  
+      private Boolean testSaisie() {
+        String erreur = "";
+      
+        if (!testNomEvent()) {
+            erreur = erreur + ("Veuillez verifier votre Nom: seulement des caractères et de nombre >= 3 \n");
+        }
+       
+          if (!testDateDebut()) {
+            erreur = erreur + ("Veuillez saisir une date valide \n");
+        }
+          if (!testDateFin()) {
+            erreur = erreur + ("Veuillez saisir une date valide \n");
+        }
+          if (!testLieuEvent()) {
+            erreur = erreur + ("Veuillez verifier votre Lieu: seulement des caractères et de nombre >= 3 \n");
+        }
+          if (!testCapaciteEvent()) {
+            erreur = erreur + ("Veuillez verifier votre Capacité: seulement des nombres >= 10 \n");
+        }
+          if (!testPrixEvent()) {
+            erreur = erreur + ("Veuillez verifier votre Prix: seulement des nombres >= 10 \n");
+        }
+          if (!testImageEvent()) {
+            erreur = erreur + ("Veuillez insérer votre Image \n");
+        }
+       /* if (!testDesc()) {
+            erreur = erreur + ("Veuillez verifier votre Nom: seulement des caractères et de nombre >= 3 \n");
+        }
+         if (!testRemise()) {
+            erreur = erreur + ("Veuillez verifier votre Nom: seulement des caractères et de nombre >= 3 \n");
+        } */
+        //return  testNomProm() || testDate() || testDesc() || testRemise() ;
+        return  testNomEvent() && testDateDebut() && testLieuEvent() && testDateFin() && testCapaciteEvent() && testPrixEvent() && testImageEvent() ;
+    }
+    
+    private Boolean testNomEvent() {
+        int nbNonChar = 0;
+        for (int i = 1; i < TF_nomM.getText().trim().length(); i++) {
+            char ch = TF_nomM.getText().charAt(i);
+            if (!Character.isLetter(ch)) {
+                nbNonChar++;
+            }
+        }
+
+        if (nbNonChar == 0 && TF_nomM.getText().trim().length() >= 3) {
+            iconeNom.setImage(new Image("images/yes.png"));
+            return true;
+        } else {
+            iconeNom.setImage(new Image("images/no.png"));
+            return false;
+
+        }
+    }
+    
+     private Boolean testImageEvent() {
+         int nbNonChar = 0;
+        for (int i = 1; i < TF_imageM.getText().trim().length(); i++) {
+            char ch = TF_imageM.getText().charAt(i);
+            if (!Character.isLetter(ch)) {
+                nbNonChar++;
+            }
+        }
+        if (nbNonChar == 0) {
+            iconeImage.setImage(new Image("images/yes.png"));
+            return true;
+        } else {
+            iconeImage.setImage(new Image("images/no.png"));
+            return false;
+
+        }
+    }
+    
+    private Boolean testPrixEvent() {
+        if (Integer.parseInt(TF_prixM.getText()) >= 10.0) {
+            iconecPrix.setImage(new Image("images/yes.png"));
+            return true;
+        } else {
+            iconecPrix.setImage(new Image("images/no.png"));
+            return false;
+
+        }
+    }
+    
+     private Boolean testCapaciteEvent() {
+        
+        if (Integer.parseInt(TF_capaciteM.getText()) >= 10) {
+            iconeCapacite.setImage(new Image("images/yes.png"));
+            return true;
+        } else {
+            iconeCapacite.setImage(new Image("images/no.png"));
+            return false;
+
+        }
+    }
+        private Boolean testLieuEvent() {
+        int nbNonChar = 0;
+        for (int i = 1; i < TF_lieuM.getText().trim().length(); i++) {
+            char ch = TF_lieuM.getText().charAt(i);
+            if (!Character.isLetter(ch)) {
+                nbNonChar++;
+            }
+        }
+
+        if (nbNonChar == 0 && TF_lieuM.getText().trim().length() >= 3) {
+            iconeLieu.setImage(new Image("images/yes.png"));
+            return true;
+        } else {
+            iconeLieu.setImage(new Image("images/no.png"));
+            return false;
+
+        }
+    }
+    
+     private Boolean testDateDebut() {
+        LocalDate now = LocalDate.now();
+        if ( dateDebutM.getValue().compareTo(now) > 0) {
+                iconeDateDebut.setImage(new Image("images/yes.png"));
+                return true;
+            } else {
+                iconeDateDebut.setImage(new Image("images/no.png"));
+            }
+                return false;
+    } 
+     
+      private Boolean testDateFin() {
+        LocalDate now = LocalDate.now();
+        if ((dateFinM.getValue().compareTo(now) > 0) && ((dateFinM.getValue().isAfter(dateDebutM.getValue())) || (dateFinM.getValue().isEqual(dateDebutM.getValue())))) {
+                iconeDateFin.setImage(new Image("images/yes.png"));
+                return true;
+            } else {
+                iconeDateFin.setImage(new Image("images/no.png"));
+            }
+                return false;
+    } 
 }
