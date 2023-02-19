@@ -46,7 +46,7 @@ public class AfficherController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        ID.setCellValueFactory(new PropertyValueFactory<>("ID_produit"));
+       ID.setCellValueFactory(new PropertyValueFactory<>("ID_produit"));
        LIBELLE.setCellValueFactory(new PropertyValueFactory<>("libelle_produit"));
        QUANTITE.setCellValueFactory(new PropertyValueFactory<>("quantite_produit"));
        PTIXACHAT.setCellValueFactory(new PropertyValueFactory<>("prixUachat_produit"));

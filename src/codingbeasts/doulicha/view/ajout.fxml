@@ -2,29 +2,50 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="463.0" prefWidth="695.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codingbeasts.doulicha.controllers.AjoutController">
+<AnchorPane id="AnchorPane" prefHeight="645.0" prefWidth="896.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codingbeasts.doulicha.controllers.AjoutController">
    <children>
-      <Label layoutX="138.0" layoutY="102.0" text="libelle produit" />
-      <Label layoutX="138.0" layoutY="157.0" text="quantité produit" />
-      <Label layoutX="138.0" layoutY="211.0" text="prix d'achat " />
-      <Label layoutX="138.0" layoutY="264.0" text="prix de vente" />
-      <Label layoutX="138.0" layoutY="314.0" text="categorie" />
-      <Label layoutX="138.0" layoutY="369.0" text="image" />
-      <TextField fx:id="prixachat" layoutX="294.0" layoutY="207.0" />
-      <TextField fx:id="prixvente" layoutX="294.0" layoutY="260.0" />
-      <TextField fx:id="image" layoutX="294.0" layoutY="365.0" />
-      <TextField fx:id="quantite" layoutX="294.0" layoutY="153.0" />
-      <TextField fx:id="libelle" layoutX="294.0" layoutY="98.0" />
-      <Button fx:id="ajouterprod" layoutX="574.0" layoutY="381.0" mnemonicParsing="false" onAction="#ajouterProd" text="ajouter" />
-      <SplitMenuButton fx:id="categorie" accessibleRole="IMAGE_VIEW" layoutX="304.0" layoutY="310.0" mnemonicParsing="false" text="categorie">
+      <Label layoutX="107.0" layoutY="114.0" text="libelle produit" />
+      <Label layoutX="99.0" layoutY="154.0" text="quantité produit" />
+      <Label layoutX="523.0" layoutY="114.0" text="prix d'achat " />
+      <Label layoutX="521.0" layoutY="154.0" text="prix de vente" />
+      <Label layoutX="123.0" layoutY="199.0" text="categorie" />
+      <Label layoutX="543.0" layoutY="198.0" text="image" />
+      <TextField fx:id="prixachat" layoutX="651.0" layoutY="109.0" />
+      <TextField fx:id="prixvente" layoutX="651.0" layoutY="149.0" />
+      <TextField fx:id="image" layoutX="651.0" layoutY="193.0" />
+      <TextField fx:id="quantite" layoutX="267.0" layoutY="149.0" />
+      <TextField fx:id="libelle" layoutX="267.0" layoutY="109.0" />
+      <Button fx:id="ajouterprod" layoutX="385.0" layoutY="272.0" mnemonicParsing="false" onAction="#ajouterProd" prefHeight="31.0" prefWidth="138.0" text="ajouter" />
+      <SplitMenuButton fx:id="categorie" accessibleRole="IMAGE_VIEW" layoutX="269.0" layoutY="193.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="167.0" text="categorie">
         <items>
           
         </items>
       </SplitMenuButton>
+      <ImageView fitHeight="87.0" fitWidth="109.0" layoutX="436.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/325021646_1096092245123569_4703746034910334355_n.png" />
+         </image>
+      </ImageView>
+      <TableView fx:id="TABLEPRODUIT" layoutX="20.0" layoutY="314.0" prefHeight="304.0" prefWidth="860.0">
+         <columns>
+            <TableColumn fx:id="ID" prefWidth="75.0" text="ID" />
+            <TableColumn fx:id="LIBELLE" prefWidth="102.0" text="LIBELLE" />
+            <TableColumn fx:id="QUANTITE" prefWidth="129.0" text="QUANTITE" />
+            <TableColumn fx:id="PTIXACHAT" prefWidth="133.0" text="PRIX ACHAT" />
+            <TableColumn fx:id="PRIXVENTE" prefWidth="117.0" text="PRIX VENTE" />
+            <TableColumn fx:id="CATEGORIE" prefWidth="148.0" text="CATEGORIE" />
+            <TableColumn fx:id="IMAGE" prefWidth="160.0" text="IMAGE" />
+         </columns>
+      </TableView>
+      <RadioButton fx:id="btnretour" layoutX="52.0" layoutY="47.0" mnemonicParsing="false" text="retour" />
    </children>
 </AnchorPane>
