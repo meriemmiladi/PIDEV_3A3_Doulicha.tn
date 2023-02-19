@@ -27,11 +27,11 @@ public class MainClass extends Application {
         try {   
         Parent root = FXMLLoader.load(getClass().getResource("SginIn.fxml"));
         
-        Scene scene = new Scene(root, 300, 250);
+        Scene scene = new Scene(root);
         
         primaryStage.setTitle("Inscription");
         primaryStage.setScene(scene);
-        primaryStage.setMaximized(true);
+      //  primaryStage.setMaximized(true);
       
         primaryStage.show();
         

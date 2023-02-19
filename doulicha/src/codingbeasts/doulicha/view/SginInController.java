@@ -16,6 +16,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 /**
@@ -28,6 +30,15 @@ public class SginInController implements Initializable {
     /**
      * Initializes the controller class.
      */
+     private Parent fxml;
+    
+     @FXML
+    private TextField txtnom;
+
+     @FXML
+    private PasswordField txtpassword;
+     @FXML
+    private Button btnopenhome;
     
     @FXML
     private Button btnSignIn;
@@ -46,11 +57,40 @@ public class SginInController implements Initializable {
     } catch (IOException ex){
          System.out.println(ex.getMessage());
     }
+         
+    
 
     }
+       
+    
+          @FXML
+    void openhome(ActionEvent event) {
+        String nom = txtnom.getText();
+        String pass = txtpassword.getText();
+        if(nom.equals("Admin")&& pass.equals("Admin")){
+            System.out.println("bien!");
+//          VBox.getScene().getWindow().hide();
+            Stage home = new Stage();
+            try{
+               fxml = FXMLLoader.load(getClass().getResource("Dashboard.fxml"));
+              Scene scene = new Scene(fxml);
+              home.setScene(scene);
+              home.show();
+               
+            } catch (IOException e){
+                e.printStackTrace();
+                
+            }
+            
+        }else{
+            System.out.println("error!");
+        }
+
+    }   
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    } 
     
 }

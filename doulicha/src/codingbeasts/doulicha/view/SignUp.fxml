@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="536.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codingbeasts.doulicha.view.SignUpController">
+<AnchorPane id="AnchorPane" prefHeight="536.0" prefWidth="880.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codingbeasts.doulicha.view.SignUpController">
    <children>
       <Pane prefHeight="536.0" prefWidth="413.0" style="-fx-background-color: #A6D4DC;">
          <children>
@@ -20,16 +20,16 @@
                </image>
             </ImageView>
          </children></Pane>
-      <Label layoutX="473.0" layoutY="129.0" text="Nom : " />
-      <Label layoutX="473.0" layoutY="205.0" text="Prenom :" />
-      <Label layoutX="476.0" layoutY="278.0" text="Eamil :" />
-      <Label layoutX="473.0" layoutY="346.0" text="Mot de Passe :" />
-      <TextField fx:id="txtnom_user" layoutX="628.0" layoutY="122.0" />
-      <TextField fx:id="txtprenom_user" layoutX="628.0" layoutY="200.0" />
-      <TextField fx:id="txtemail_user" layoutX="628.0" layoutY="273.0" />
-      <PasswordField fx:id="txtmdp_user" layoutX="628.0" layoutY="341.0" />
-      <Button fx:id="btnajouter" layoutX="471.0" layoutY="421.0" mnemonicParsing="false" onAction="#ajouter" prefHeight="49.0" prefWidth="351.0" text="Sign Up" />
-      <Label layoutX="471.0" layoutY="49.0" text="Sign Up">
+      <Label layoutX="477.0" layoutY="145.0" text="Nom : " />
+      <Label layoutX="478.0" layoutY="223.0" text="Prenom :" />
+      <Label layoutX="478.0" layoutY="296.0" text="Eamil :" />
+      <Label layoutX="478.0" layoutY="364.0" text="Mot de Passe :" />
+      <TextField fx:id="txtnom_user" layoutX="628.0" layoutY="122.0" style="-fx-background-color: transparent; -fx-border-color: #3FC4EC; -fx-border-width: 0px 0px 2px 0px;" />
+      <TextField fx:id="txtprenom_user" layoutX="628.0" layoutY="200.0" style="-fx-background-color: transparent; -fx-border-color: #3FC4EC; -fx-border-width: 0px 0px 2px 0px;" />
+      <TextField fx:id="txtemail_user" layoutX="628.0" layoutY="273.0" style="-fx-background-color: transparent; -fx-border-color: #3FC4EC; -fx-border-width: 0px 0px 2px 0px;" />
+      <PasswordField fx:id="txtmdp_user" layoutX="628.0" layoutY="341.0" style="-fx-background-color: transparent; -fx-border-color: #3FC4EC; -fx-border-width: 0px 0px 2px 0px;" />
+      <Button fx:id="btnajouter" layoutX="478.0" layoutY="416.0" mnemonicParsing="false" onAction="#ajouter" prefHeight="49.0" prefWidth="341.0" style="-fx-background-color: #A6D4DC;" text="Sign Up" />
+      <Label layoutX="478.0" layoutY="71.0" text="Sign Up">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="664.0" prefWidth="918.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="codingbeasts.doulicha.view.DashboardController">
+   <children>
+      <Pane layoutX="-3.0" prefHeight="664.0" prefWidth="319.0" style="-fx-background-color: #A6D4DC;" />
+      <Pane layoutX="314.0" layoutY="139.0" prefHeight="109.0" prefWidth="606.0" style="-fx-background-color: #A6D4DC;" />
+   </children>
+</AnchorPane>
