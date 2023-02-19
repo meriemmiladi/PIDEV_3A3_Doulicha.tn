@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
@@ -47,6 +48,56 @@ public class AffichageUserController implements Initializable {
 
     @FXML
     private TableColumn<Utilisateur, String> txtrole;
+    
+      int IndexU = -1;
+      
+     @FXML
+    void deleteuser(ActionEvent event) {
+        IndexU = txttable.getSelectionModel().getSelectedCells().get(0).getRow();
+        Utilisateur U;
+        int idU ;
+        //        IndexU = txttable.getSelectionModel().getSelectedCells().get(0).getRow();
+
+        
+        System.out.println("selected " +IndexU);
+        
+        
+        if(IndexU<=-1){
+                
+                txttable.getItems().remove(IndexU);
+////                txttable.refresh();
+        }else{
+
+            U = txttable.getItems().get(IndexU);
+            idU = U.getID_user();
+            System.out.println("data : " + U.getID_user());
+            UtilisateurCRUD uc = new UtilisateurCRUD();
+            uc.supprimerutilisateur(idU);
+
+    }
+    }
+    ObservableList<Utilisateur> UserList= FXCollections.observableArrayList();
+
+    @FXML
+    void refreshuser(ActionEvent event) {
+        UserList.clear();
+//        col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
+        txtnom.setCellValueFactory(new PropertyValueFactory<>("nom_user"));
+        txtprenom.setCellValueFactory(new PropertyValueFactory<>("prenom_user"));
+        txtemail.setCellValueFactory(new PropertyValueFactory<>("email_user"));
+        txtpassword.setCellValueFactory(new PropertyValueFactory<>("mdp_user"));
+        txtrole.setCellValueFactory(new PropertyValueFactory<>("role_user"));
+        UtilisateurCRUD uc = new UtilisateurCRUD();
+        List<Utilisateur> myList = new ArrayList<>();
+        myList = uc.afficherUtilisateur();
+        System.out.println("load service : "+myList);
+        UserList=FXCollections.observableArrayList(myList);
+        txttable.setItems(UserList);
+
+    }
+    
+    
+    
     private void loadUser() {
         
        // col_id.setCellValueFactory(new PropertyValueFactory<>("id_utilisateur"));
