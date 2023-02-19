@@ -72,7 +72,7 @@ public class SginInController implements Initializable {
 //          VBox.getScene().getWindow().hide();
             Stage home = new Stage();
             try{
-               fxml = FXMLLoader.load(getClass().getResource("Dashboard.fxml"));
+               fxml = FXMLLoader.load(getClass().getResource("AffichageUser.fxml"));
               Scene scene = new Scene(fxml);
               home.setScene(scene);
               home.show();
