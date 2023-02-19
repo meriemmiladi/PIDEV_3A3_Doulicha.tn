@@ -7,18 +7,25 @@ package codingbeasts.doulicha.view;
 
 import codingbeasts.doulicha.entities.Utilisateur;
 import codingbeasts.doulicha.services.UtilisateurCRUD;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -113,6 +120,39 @@ public class AffichageUserController implements Initializable {
         ObservableList<Utilisateur> observableArrayList
                 = FXCollections.observableArrayList(uc.afficherUtilisateur());
         txttable.setItems(observableArrayList);
+    
+        
+    }
+     @FXML
+    void onupdate(ActionEvent event) {
+        IndexU = txttable.getSelectionModel().getSelectedCells().get(0).getRow();
+        Utilisateur d;
+        int idU;
+
+        System.out.println("selected " + IndexU);
+        d = txttable.getItems().get(IndexU);
+        idU = d.getID_user();
+        String nomU = d.getNom_user();
+        String prenomU = d.getPrenom_user();
+        String emailU = d.getEmail_user();
+        String mdpU = d.getEmail_user();
+
+        System.out.println("id user =" + d.getID_user());
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("UpdateUtilisateur.fxml"));
+            Parent root = loader.load();
+            UpdateUtilisateurController usc = loader.getController();
+            usc.setData(idU, nomU, prenomU, emailU, mdpU);
+            // Scene scene = new Scene(parent);
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            //stage.initStyle(StageStyle.UTILITY);
+            stage.show();
+
+        } catch (IOException ex) {
+            Logger.getLogger(AffichageUserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     @Override
