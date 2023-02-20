@@ -109,3 +109,12 @@
 .vbox > * {
     -fx-padding: 5;
 }
+.btn-add-discussion {
+    -fx-background-color: linear-gradient(to bottom, #FFC107, #FF9800);
+    -fx-background-radius: 30px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
