@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="codingbeasts.doulicha.controller.PageaccueilController">
+   <children>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="31.0" layoutY="112.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../doulicha.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="btnadmin" layoutX="300.0" layoutY="90.0" mnemonicParsing="false" onAction="#admin" prefHeight="44.0" prefWidth="169.0" styleClass="bottonnAjouter" stylesheets="@ajoutercategorie.css" text="Admin" />
+      <Button fx:id="btnuser" layoutX="300.0" layoutY="240.0" mnemonicParsing="false" onAction="#user" prefHeight="44.0" prefWidth="169.0" styleClass="bottonnAjouter" stylesheets="@ajoutercategorie.css" text="User" />
+   </children>
+</AnchorPane>

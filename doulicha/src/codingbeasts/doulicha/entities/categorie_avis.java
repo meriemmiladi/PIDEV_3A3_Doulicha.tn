@@ -18,6 +18,18 @@ public class categorie_avis {
         this.nom_categorie = nom_categorie;
     }
 
+<<<<<<< Updated upstream
+=======
+    public categorie_avis() {
+    }
+
+    public categorie_avis(String nom_categorie) {
+        this.nom_categorie = nom_categorie;
+    }
+    
+    
+
+>>>>>>> Stashed changes
     public int getID_categorie() {
         return ID_categorie;
     }

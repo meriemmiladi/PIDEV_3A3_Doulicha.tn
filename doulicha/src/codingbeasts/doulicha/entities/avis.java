@@ -11,7 +11,11 @@ package codingbeasts.doulicha.entities;
  */
 public class avis {
     private int ID_avis;
+<<<<<<< Updated upstream
     private int ID_catagorie;
+=======
+    private int ID_categorie;
+>>>>>>> Stashed changes
     private int ID_user;
     private int ID_event;
     private int ID_logement;
@@ -21,7 +25,11 @@ public class avis {
 
     public avis(int ID_avis, int ID_catagorie, int ID_user, int ID_event, int ID_logement, int note_avis, String contenu_avis, String type_avis) {
         this.ID_avis = ID_avis;
+<<<<<<< Updated upstream
         this.ID_catagorie = ID_catagorie;
+=======
+        this.ID_categorie = ID_catagorie;
+>>>>>>> Stashed changes
         this.ID_user = ID_user;
         this.ID_event = ID_event;
         this.ID_logement = ID_logement;
@@ -29,6 +37,22 @@ public class avis {
         this.contenu_avis = contenu_avis;
         this.type_avis = type_avis;
     }
+<<<<<<< Updated upstream
+=======
+    public avis(int ID_catagorie, int ID_user, int ID_event, int ID_logement, int note_avis, String contenu_avis, String type_avis) {
+        this.ID_categorie = ID_catagorie;
+        this.ID_user = ID_user;
+        this.ID_event = ID_event;
+        this.ID_logement = ID_logement;
+        this.note_avis = note_avis;
+        this.contenu_avis = contenu_avis;
+        this.type_avis = type_avis;
+    }
+
+    public avis() {
+    }
+        
+>>>>>>> Stashed changes
 
     public int getID_avis() {
         return ID_avis;
@@ -38,12 +62,21 @@ public class avis {
         this.ID_avis = ID_avis;
     }
 
+<<<<<<< Updated upstream
     public int getID_catagorie() {
         return ID_catagorie;
     }
 
     public void setID_catagorie(int ID_catagorie) {
         this.ID_catagorie = ID_catagorie;
+=======
+    public int getID_categorie() {
+        return ID_categorie;
+    }
+
+    public void setID_categorie(int ID_categorie) {
+        this.ID_categorie = ID_categorie;
+>>>>>>> Stashed changes
     }
 
     public int getID_user() {
@@ -96,8 +129,14 @@ public class avis {
 
     @Override
     public String toString() {
+<<<<<<< Updated upstream
         return "avis{" + "ID_avis=" + ID_avis + ", ID_catagorie=" + ID_catagorie + ", ID_user=" + ID_user + ", ID_event=" + ID_event + ", ID_logement=" + ID_logement + ", note_avis=" + note_avis + ", contenu_avis=" + contenu_avis + ", type_avis=" + type_avis + '}';
     }
+=======
+        return "avis{" + "ID_avis=" + ID_avis + ", ID_catagorie=" + ID_categorie + ", ID_user=" + ID_user + ", ID_event=" + ID_event + ", ID_logement=" + ID_logement + ", note_avis=" + note_avis + ", contenu_avis=" + contenu_avis + ", type_avis=" + type_avis + '}';
+    }
+
+>>>>>>> Stashed changes
     
     
     
