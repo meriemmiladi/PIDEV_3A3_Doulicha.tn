@@ -22,7 +22,7 @@ import java.util.List;
  *
  * @author marie
  */
-public class ServiceReservationLogement {
+public class ServiceReservationLogement implements IServiceReservationLogement {
     
      Connection cnx;
     public ServiceReservationLogement(){

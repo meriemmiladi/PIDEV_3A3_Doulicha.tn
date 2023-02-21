@@ -135,6 +135,20 @@ public class ModifierLogementController implements Initializable {
     }
     });
          
+         annuler.setOnAction( event->{
+        try{
+            System.out.println("home appuyé");
+            Parent page1 = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/views/AfficherLogement.fxml"));
+            Scene scene = new Scene(page1);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show(); 
+    }
+        catch (IOException ex) {
+                Logger.getLogger(ModifierLogementController.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    });
+         
          
          
           importer_image.setOnAction( event ->{

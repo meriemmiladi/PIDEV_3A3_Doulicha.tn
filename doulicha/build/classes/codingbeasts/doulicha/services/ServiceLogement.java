@@ -20,7 +20,7 @@ import java.util.List;
  *
  * @author marie
  */
-public class ServiceLogement {
+public class ServiceLogement implements IServiceLogement{
     
     Connection cnx;
     public ServiceLogement(){

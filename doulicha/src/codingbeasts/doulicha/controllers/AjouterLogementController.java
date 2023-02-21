@@ -331,29 +331,21 @@ Path destination = Paths.get(xamppFolderPath + fileName);
     }
      
       private Boolean testCapacite() {
-        int nbNonChar = 0;
-        for (int i = 1; i < capacite_logement.getText().trim().length(); i++) {
-            char ch = capacite_logement.getText().charAt(i);
-            if (!Character.isDigit(ch)) {
-                nbNonChar++;
-            }
-        }
-
-        if (nbNonChar == 0 && capacite_logement.getText().trim().length() >= 1) {
-           // checkcapacite.setImage(new Image("/codingbeats/doulicha/images/checkmark.png"));
-           // afficher un message d'erreur pour l'utilisateur
-             return true;
-        } else {
-            //checkcapacite.setImage(new Image("/codingbeats/doulicha/images/erreurcheckmark.png"));
-//                erreur = erreur + ("Pas de caractere permit dans le telephone\n");
+          try{
+          Double.parseDouble(capacite_logement.getText());
+        //checkprixnuitee.setImage(new Image("/codingbeats/doulicha/images/checkmark.png"));
+        return true;
+    } catch (NumberFormatException e) {
+       // checkprixnuitee.setImage(new Image("/codingbeats/doulicha/images/erreurcheckmark.png"));
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(null);
             alert.setContentText("Veuillez verifier la capacité du logement !");
             alert.showAndWait();
-            return false;
-
-        }
+        return false;
     }
+      }
+        
+    
       
       
       private Boolean testPrixNuitee(TextField textfield) {

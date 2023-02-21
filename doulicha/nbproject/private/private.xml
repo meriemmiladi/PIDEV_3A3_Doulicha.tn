@@ -4,26 +4,30 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/3A3/doulichaFX/src/codingbeasts/doulicha/views/Style.css</file>
-            <file>file:/C:/3A3/doulichaFX/src/codingbeasts/doulicha/controllers/AfficherLogementController.java</file>
-            <file>file:/C:/3A3/doulichaFX/src/codingbeasts/doulicha/views/ModifierReservation.fxml</file>
-            <file>file:/C:/3A3/doulichaFX/src/codingbeasts/doulicha/views/AfficherReservation.fxml</file>
-            <file>file:/C:/3A3/doulichaFX/src/codingbeasts/doulicha/views/HomeBack.fxml</file>
             <file>file:/C:/3A3/doulichaFX/src/codingbeasts/doulicha/views/HomeFront.fxml</file>
             <file>file:/C:/3A3/doulichaFX/src/codingbeasts/doulicha/controllers/AjouterLogementController.java</file>
-            <file>file:/C:/3A3/doulichaFX/src/codingbeasts/doulicha/views/ReservationUser.fxml</file>
+            <file>file:/C:/3A3/doulichaFX/src/codingbeasts/doulicha/services/IServiceReservationLogement.java</file>
             <file>file:/C:/3A3/doulichaFX/src/codingbeasts/doulicha/controllers/HomeBackController.java</file>
             <file>file:/C:/3A3/doulichaFX/src/codingbeasts/doulicha/views/AfficherLogement.fxml</file>
             <file>file:/C:/3A3/doulichaFX/src/codingbeasts/doulicha/controllers/ModifierReservationController.java</file>
             <file>file:/C:/3A3/doulichaFX/src/codingbeasts/doulicha/views/MyView.fxml</file>
+            <file>file:/C:/3A3/doulichaFX/src/codingbeasts/doulicha/views/ConsulterMesReservations.fxml</file>
+            <file>file:/C:/3A3/doulichaFX/src/codingbeasts/doulicha/views/LogementUser.fxml</file>
+            <file>file:/C:/3A3/doulichaFX/src/codingbeasts/doulicha/controllers/ConsulterMesReservationsController.java</file>
+            <file>file:/C:/3A3/doulichaFX/src/codingbeasts/doulicha/controllers/AfficherLogementController.java</file>
+            <file>file:/C:/3A3/doulichaFX/src/codingbeasts/doulicha/views/ModifierReservation.fxml</file>
+            <file>file:/C:/3A3/doulichaFX/src/codingbeasts/doulicha/views/AfficherReservation.fxml</file>
+            <file>file:/C:/3A3/doulichaFX/src/codingbeasts/doulicha/views/HomeBack.fxml</file>
+            <file>file:/C:/3A3/doulichaFX/src/codingbeasts/doulicha/views/ReservationUser.fxml</file>
+            <file>file:/C:/3A3/doulichaFX/src/codingbeasts/doulicha/services/ServiceLogement.java</file>
+            <file>file:/C:/3A3/doulichaFX/src/codingbeasts/doulicha/services/ServiceReservationLogement.java</file>
             <file>file:/C:/3A3/doulichaFX/src/codingbeasts/doulicha/controllers/ReserverLogementController.java</file>
             <file>file:/C:/3A3/doulichaFX/src/codingbeasts/doulicha/views/ModifierLogement.fxml</file>
             <file>file:/C:/3A3/doulichaFX/src/codingbeasts/doulicha/views/ReserverLogement.fxml</file>
             <file>file:/C:/3A3/doulichaFX/src/doulichafx/DoulichaFX.java</file>
             <file>file:/C:/3A3/doulichaFX/src/codingbeasts/doulicha/controllers/LogementUserController.java</file>
             <file>file:/C:/3A3/doulichaFX/src/codingbeasts/doulicha/controllers/ModifierLogementController.java</file>
-            <file>file:/C:/3A3/doulichaFX/src/codingbeasts/doulicha/views/ConsulterMesReservations.fxml</file>
-            <file>file:/C:/3A3/doulichaFX/src/codingbeasts/doulicha/views/LogementUser.fxml</file>
-            <file>file:/C:/3A3/doulichaFX/src/codingbeasts/doulicha/controllers/ConsulterMesReservationsController.java</file>
+            <file>file:/C:/3A3/doulichaFX/src/codingbeasts/doulicha/services/IServiceLogement.java</file>
             <file>file:/C:/3A3/doulichaFX/src/codingbeasts/doulicha/views/AjouterLogement.fxml</file>
         </group>
     </open-files>

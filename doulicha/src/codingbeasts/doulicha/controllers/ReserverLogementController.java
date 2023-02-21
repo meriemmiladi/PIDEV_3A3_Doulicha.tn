@@ -127,7 +127,7 @@ public class ReserverLogementController implements Initializable {
         reserver.setOnAction(event -> {  
             if(testNbPersonnes()){
         ServiceReservationLogement sr = new ServiceReservationLogement();
-        //if(testSaisie()){ 
+        if(testSaisie()){ 
 
         Reservation_logement r = new Reservation_logement();
         LocalDate dateArrivee_local = dateArrivee_reservation.getValue();
@@ -195,7 +195,7 @@ public class ReserverLogementController implements Initializable {
                 .hideAfter(Duration.seconds(5))
                 .position(Pos.BOTTOM_RIGHT);
         notificationBuilder.showInformation();
-            } });
+        } } });
     } 
     
      void setTextField( int ID_logement) {
@@ -219,30 +219,72 @@ public class ReserverLogementController implements Initializable {
 
     }
       
-      private Boolean testNbPersonnes() {
-        int nbNonChar = 0;
-        for (int i = 1; i < nbPersonnes_reservation.getText().trim().length(); i++) {
-            char ch = nbPersonnes_reservation.getText().charAt(i);
-            if (!Character.isDigit(ch)) {
-                nbNonChar++;
-            }
+       private Boolean testSaisie() {
+        String erreur = "";
+      
+        if (!testNbPersonnes()) {
+            erreur = erreur + ("Veuillez verifier le nombre de personnes correctement \n");
         }
-
-        if (nbNonChar == 0 && nbPersonnes_reservation.getText().trim().length() >= 1) {
-           // checkcapacite.setImage(new Image("/codingbeats/doulicha/images/checkmark.png"));
-           // afficher un message d'erreur pour l'utilisateur
-             return true;
-        } else {
-            //checkcapacite.setImage(new Image("/codingbeats/doulicha/images/erreurcheckmark.png"));
-//                erreur = erreur + ("Pas de caractere permit dans le telephone\n");
+       
+        if (!testDateArrivee()) {
+            erreur = erreur + ("Veuillez verifier l'adresse: \n");
+        }
+         if (!testDateDepart()) {
+            erreur = erreur + ("Veuillez saisir la capacité correctement \n");
+        }
+          
+         
+      
+        return  testNbPersonnes() && testDateArrivee() && testDateDepart() ;
+    }
+       
+       private Boolean testNbPersonnes() {
+          try{
+          Double.parseDouble(nbPersonnes_reservation.getText());
+        //checkprixnuitee.setImage(new Image("/codingbeats/doulicha/images/checkmark.png"));
+        return true;
+    } catch (NumberFormatException e) {
+       // checkprixnuitee.setImage(new Image("/codingbeats/doulicha/images/erreurcheckmark.png"));
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(null);
-            alert.setContentText("Veuillez verifier le nombre de personne inséré !");
+            alert.setContentText("Veuillez verifier le nombre de personnes inséré à la réservation !");
             alert.showAndWait();
-            return false;
-
-        }
+        return false;
     }
+      }
+        
+      
+      
+      
+      private Boolean testDateArrivee() {
+        LocalDate now = LocalDate.now();
+        if ( dateArrivee_reservation.getValue().compareTo(now) > 0) {
+                  return true;
+            } else {
+              Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setContentText("Veuillez verifier la date d'arrivée insérée !");
+            alert.showAndWait();
+              return false;
+            }
+              
+    } 
+     
+      private Boolean testDateDepart() {
+        LocalDate now = LocalDate.now();
+        if ((dateDepart_reservation.getValue().compareTo(now) > 0) && (dateDepart_reservation.getValue().isAfter(dateArrivee_reservation.getValue())) ) {
+               
+                return true;
+            } else {
+                  Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setContentText("Veuillez verifier la dated'arrivée insérée !");
+            alert.showAndWait();
+              return false;
+            }
+               
+    } 
+
      
     }    
     
