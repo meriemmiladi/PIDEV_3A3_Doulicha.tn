@@ -55,11 +55,13 @@ public class AfficherEvenementsController implements Initializable {
     @FXML
     private TableColumn<evenement, String> col_image;
     @FXML
-    private TableColumn<?, ?> col_lieu;
+    private TableColumn<evenement, String> col_lieu;
     @FXML
     private Button btn_ajout;
     @FXML
     private Button btn_gerer;
+    @FXML
+    private Button btn_gestionParticipations;
 
     /**
      * Initializes the controller class.
@@ -70,7 +72,21 @@ public class AfficherEvenementsController implements Initializable {
          ServiceEvenement evenenement = new ServiceEvenement();
         ObservableList<evenement> events = evenenement.afficherEvents();
         afficherEvenement();
-//       rechercheEvent();     
+//       rechercheEvent();   
+
+btn_gestionParticipations.setOnAction(event -> {
+
+            try {
+                Parent page1 = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/views/AfficherParticipations.fxml"));
+                Scene scene = new Scene(page1);
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException ex) {
+              Logger.getLogger(AfficherEvenementsController.class.getName()).log(Level.SEVERE, null, ex); 
+            }
+        }); 
+       
         btn_ajout.setOnAction(event -> {
 
             try {
@@ -103,6 +119,7 @@ public class AfficherEvenementsController implements Initializable {
         col_image.setCellValueFactory(new PropertyValueFactory<>("image_event"));
 
         tableEvents.setItems(events);
+        
         //search_event();
     }
 

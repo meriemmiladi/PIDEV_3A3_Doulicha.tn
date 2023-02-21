@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="781.0" prefWidth="1570.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codingbeasts.doulicha.controllers.AfficherEvenementsController">
    <center>
@@ -32,14 +33,19 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <Button fx:id="btn_ajout" layoutX="432.0" layoutY="702.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="101.0" style="-fx-background-radius: 50; -fx-background-color: #99E2F7;" text="Ajouter">
+            <Button fx:id="btn_ajout" layoutX="351.0" layoutY="698.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="101.0" style="-fx-background-radius: 50; -fx-background-color: #99E2F7;" text="Ajouter">
                <font>
                   <Font size="18.0" />
                </font></Button>
-            <Button fx:id="btn_gerer" layoutX="777.0" layoutY="698.0" mnemonicParsing="false" onAction="#gererEvenement" prefHeight="0.0" prefWidth="125.0" style="-fx-background-radius: 50; -fx-background-color: #99E2F7;" text="Gérer">
+            <Button fx:id="btn_gerer" layoutX="663.0" layoutY="698.0" mnemonicParsing="false" onAction="#gererEvenement" prefHeight="0.0" prefWidth="125.0" style="-fx-background-radius: 50; -fx-background-color: #99E2F7;" text="Gérer">
                <font>
                   <Font size="18.0" />
                </font></Button>
+            <Text layoutX="278.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Liste des évènements" wrappingWidth="510.25390625">
+               <font>
+                  <Font size="35.0" />
+               </font>
+            </Text>
          </children>
       </AnchorPane>
    </center>
@@ -76,7 +82,7 @@
                         <Image url="@../../../images/avatar-des-utilisateurs%20(1).png" />
                      </image>
                   </ImageView>
-                  <Button mnemonicParsing="false" prefHeight="48.0" prefWidth="208.0" style="-fx-background-color: transparent;" text="Gestion des participants" textFill="#2b4570">
+                  <Button fx:id="btn_gestionParticipations" mnemonicParsing="false" prefHeight="48.0" prefWidth="252.0" style="-fx-background-color: transparent;" text="Gestion des participations" textFill="#2b4570">
                      <font>
                         <Font name="Calibri" size="18.0" />
                      </font>

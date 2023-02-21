@@ -138,9 +138,9 @@ public class GererEvenementController implements Initializable {
 
     @FXML
     private void modifierEvenement(ActionEvent event) {
-         
+        
          ServiceEvenement SE = new ServiceEvenement();
-         
+          if(testSaisie()) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation de modification");
         alert.setContentText("Etes vous sur de vouloir modifier cet évènement ?");
@@ -182,6 +182,7 @@ public class GererEvenementController implements Initializable {
             stage.show();
         } catch (IOException ex) {
             Logger.getLogger(AfficherEvenementsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         }
         }
 }
@@ -245,11 +246,7 @@ void selected_item(int ID_event, String nom_event, String description_event, Str
    // imageevenement.setImage(new Image (xamppFolderPath + image_event));
    System.out.println(xamppFolderPath + image_event);
    String test = xamppFolderPath + image_event;
-   
-  /* InputStream inputStream = getClass().getResourceAsStream(test);
-Image image = new Image(inputStream);
-imageevenement.setImage(image); */
-   
+ 
     try {
             BufferedImage bufferedImage = ImageIO.read(new File(test));
             Image image = SwingFXUtils.toFXImage(bufferedImage, null);
@@ -258,21 +255,6 @@ imageevenement.setImage(image); */
             System.out.println("could not get the image");
         } 
    
-   /* File file = new File(test.replace('/' , '\\'));
-        System.out.println(file);
-        
-        Image im = null;
-        if(file.exists()){ 
-                 im = new Image(file.toURI().toString());
-        }else{
-            //im = new Image("resources/default-article.jpg"); // this is the defualt photo of the product
-        }
-         
-         this.imageevenement.setImage(im); */
- 
-//        P.setRemise(Integer.parseInt(com_remise.getValue()));
-
-//       p.setDateP(Date.valueOf(d));
     } 
 
     @FXML
@@ -310,6 +292,8 @@ Path destination = Paths.get(xamppFolderPath + fileName);
         String imagePath = "images/" + fileName;
     }
     
+    
+    
       private Boolean testSaisie() {
         String erreur = "";
       
@@ -332,41 +316,35 @@ Path destination = Paths.get(xamppFolderPath + fileName);
           if (!testPrixEvent()) {
             erreur = erreur + ("Veuillez verifier votre Prix: seulement des nombres >= 10 \n");
         }
-          if (!testImageEvent()) {
+        /*  if (!testImageEvent()) {
             erreur = erreur + ("Veuillez insérer votre Image \n");
-        }
-       /* if (!testDesc()) {
-            erreur = erreur + ("Veuillez verifier votre Nom: seulement des caractères et de nombre >= 3 \n");
-        }
-         if (!testRemise()) {
-            erreur = erreur + ("Veuillez verifier votre Nom: seulement des caractères et de nombre >= 3 \n");
-        } */
-        //return  testNomProm() || testDate() || testDesc() || testRemise() ;
-        return  testNomEvent() && testDateDebut() && testLieuEvent() && testDateFin() && testCapaciteEvent() && testPrixEvent() && testImageEvent() ;
+        }*/
+      
+        return  testNomEvent() && testDateDebut() && testLieuEvent() && testDateFin() && testCapaciteEvent() && testPrixEvent()  ;
     }
-    
-    private Boolean testNomEvent() {
-        int nbNonChar = 0;
-        for (int i = 1; i < TF_nomM.getText().trim().length(); i++) {
-            char ch = TF_nomM.getText().charAt(i);
-            if (!Character.isLetter(ch)) {
-                nbNonChar++;
-            }
-        }
-
-        if (nbNonChar == 0 && TF_nomM.getText().trim().length() >= 3) {
-            iconeNom.setImage(new Image("images/yes.png"));
-            return true;
-        } else {
-            iconeNom.setImage(new Image("images/no.png"));
-            return false;
-
+      
+   private Boolean testNomEvent() {
+    int nbNonChar = 0;
+    String nomEvent = TF_nomM.getText().trim();
+    for (int i = 0; i < nomEvent.length(); i++) {
+        char ch = nomEvent.charAt(i);
+        if (!Character.isLetter(ch) && !Character.isWhitespace(ch)) {
+            nbNonChar++;
         }
     }
+
+    if (nbNonChar == 0 && nomEvent.length() >= 3) {
+        iconeNom.setImage(new Image("images/yes.png"));
+        return true;
+    } else {
+        iconeNom.setImage(new Image("images/no.png"));
+        return false;
+    }
+}
     
-     private Boolean testImageEvent() {
+    /* private Boolean testImageEvent() {
          int nbNonChar = 0;
-        for (int i = 1; i < TF_imageM.getText().trim().length(); i++) {
+        for (int i = 0; i < TF_imageM.getText().trim().length(); i++) {
             char ch = TF_imageM.getText().charAt(i);
             if (!Character.isLetter(ch)) {
                 nbNonChar++;
@@ -380,10 +358,10 @@ Path destination = Paths.get(xamppFolderPath + fileName);
             return false;
 
         }
-    }
+    }*/
     
     private Boolean testPrixEvent() {
-        if (Integer.parseInt(TF_prixM.getText()) >= 10.0) {
+        if (Double.parseDouble(TF_prixM.getText()) >= 10.0) {
             iconecPrix.setImage(new Image("images/yes.png"));
             return true;
         } else {

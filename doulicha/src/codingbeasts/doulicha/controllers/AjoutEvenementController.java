@@ -7,6 +7,7 @@ package codingbeasts.doulicha.controllers;
 
 import codingbeasts.doulicha.entities.evenement;
 import codingbeasts.doulicha.services.ServiceEvenement;
+import javafx.scene.input.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -20,10 +21,12 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -142,6 +145,16 @@ public class AjoutEvenementController implements Initializable {
      String image_event = TF_image.getText();
      double prix_event = Double.parseDouble(TF_prix.getText());
      
+/*TF_capacite.textProperty().addListener((observable, oldValue, newValue) -> {
+    if (!newValue.matches("\\d*")) {
+        Platform.runLater(() -> TF_capacite.setStyle("-fx-text-inner-color: red;"));
+    } else {
+        Platform.runLater(() -> TF_capacite.setStyle("-fx-text-inner-color: black;"));
+    }
+});*/
+     
+ 
+     
      evenement ev = new evenement (nom_event,description_event,lieu_event,  type_event,  dateDebut_event,  dateFin_event,  capacite_event,  nombreActuel_event,  image_event,  prix_event);
         if(testSaisie()) {
      ServiceEvenement sevent = new ServiceEvenement();
@@ -166,14 +179,13 @@ public class AjoutEvenementController implements Initializable {
         }
         }
       
-       
     }
     
     private Boolean testSaisie() {
         String erreur = "";
       
         if (!testNomEvent()) {
-            erreur = erreur + ("Veuillez verifier votre Nom: seulement des caractères et de nombre >= 3 \n");
+            erreur = erreur + ("Veuillez saisir un nom valide [seulement des caractères et de taille >=3] \n");
         }
        
           if (!testDateDebut()) {
@@ -183,45 +195,40 @@ public class AjoutEvenementController implements Initializable {
             erreur = erreur + ("Veuillez saisir une date valide \n");
         }
           if (!testLieuEvent()) {
-            erreur = erreur + ("Veuillez verifier votre Lieu: seulement des caractères et de nombre >= 3 \n");
+            erreur = erreur + ("Veuillez saisir un Lieu valide [seulement des caractères et de taille >=3]\n");
         }
           if (!testCapaciteEvent()) {
-            erreur = erreur + ("Veuillez verifier votre Capacité: seulement des nombres >= 10 \n");
+            erreur = erreur + ("Veuillez saisir une capacité valide [seulement une capacité >= 10] \n");
         }
           if (!testPrixEvent()) {
-            erreur = erreur + ("Veuillez verifier votre Prix: seulement des nombres >= 10 \n");
+            erreur = erreur + ("Veuillez saisir un prix valide [seulement un prix >= 10] \n");
         }
           if (!testImageEvent()) {
             erreur = erreur + ("Veuillez insérer votre Image \n");
         }
-       /* if (!testDesc()) {
-            erreur = erreur + ("Veuillez verifier votre Nom: seulement des caractères et de nombre >= 3 \n");
-        }
-         if (!testRemise()) {
-            erreur = erreur + ("Veuillez verifier votre Nom: seulement des caractères et de nombre >= 3 \n");
-        } */
-        //return  testNomProm() || testDate() || testDesc() || testRemise() ;
+       
         return  testNomEvent() && testDateDebut() && testLieuEvent() && testDateFin() && testCapaciteEvent() && testPrixEvent() && testImageEvent() ;
     }
     
     private Boolean testNomEvent() {
-        int nbNonChar = 0;
-        for (int i = 1; i < TF_nom .getText().trim().length(); i++) {
-            char ch = TF_nom.getText().charAt(i);
-            if (!Character.isLetter(ch)) {
-                nbNonChar++;
-            }
-        }
-
-        if (nbNonChar == 0 && TF_nom.getText().trim().length() >= 3) {
-            iconeNom.setImage(new Image("images/yes.png"));
-            return true;
-        } else {
-            iconeNom.setImage(new Image("images/no.png"));
-            return false;
-
+    int nbNonChar = 0;
+    String nomEvent = TF_nom.getText().trim();
+    for (int i = 0; i < nomEvent.length(); i++) {
+        char ch = nomEvent.charAt(i);
+        if (!Character.isLetter(ch) && !Character.isWhitespace(ch)) {
+            nbNonChar++;
         }
     }
+
+    if (nbNonChar == 0 && nomEvent.length() >= 3) {
+        iconeNom.setImage(new Image("images/yes.png"));
+        return true;
+    } else {
+        iconeNom.setImage(new Image("images/no.png"));
+        return false;
+    }
+}
+
     
      private Boolean testImageEvent() {
          int nbNonChar = 0;
@@ -242,7 +249,7 @@ public class AjoutEvenementController implements Initializable {
     }
     
     private Boolean testPrixEvent() {
-        if (Integer.parseInt(TF_prix.getText()) >= 10) {
+        if (Double.parseDouble(TF_prix.getText()) >= 10) {
             iconecPrix.setImage(new Image("images/yes.png"));
             return true;
         } else {
@@ -263,6 +270,20 @@ public class AjoutEvenementController implements Initializable {
 
         }
     }
+     
+   /* public void capacite_event_Input_Validator(TextField TF_capacite) {
+    try {
+        int capacite = Integer.parseInt(TF_capacite.getText());
+        // La saisie est valide, la bordure reste inchangée.
+        TF_capacite.setStyle("-fx-border-color: null;");
+    } catch (NumberFormatException e) {
+        // La saisie n'est pas valide, la bordure devient rouge.
+        TF_capacite.setStyle("-fx-border-color: red;");
+        throw new IllegalArgumentException("La capacité de l'événement doit être un entier valide.");
+    }
+} */
+     
+     
         private Boolean testLieuEvent() {
         int nbNonChar = 0;
         for (int i = 1; i < TF_lieu .getText().trim().length(); i++) {

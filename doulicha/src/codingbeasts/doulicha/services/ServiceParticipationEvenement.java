@@ -16,6 +16,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  *
@@ -27,6 +29,33 @@ public class ServiceParticipationEvenement {
     public ServiceParticipationEvenement(){
         cnx = MyConnection.getInstance().getCnx();  
 }
+    
+        public ObservableList<participation_evenement> afficherParts()
+ { 
+       ObservableList<participation_evenement> participation_evenement = FXCollections.observableArrayList();
+
+        try {
+            Statement st = cnx.createStatement();
+            String query = "SELECT * FROM `participation_evenement`";
+            ResultSet rs = st.executeQuery(query);
+            while (rs.next()) {
+                participation_evenement part = new participation_evenement();
+                
+               part.setID_participation(rs.getInt(1));
+               part.setID_user(rs.getInt(2));
+               part.setID_event(rs.getInt(3));
+               part.setDate_participation(rs.getDate(4));
+                part.setNombre_participation(rs.getInt(5));
+                System.out.println(part);
+           participation_evenement.add(part);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("erreur");
+            System.out.println(ex);
+        }
+        return participation_evenement;
+    }
     
    /* public void ajouterParticipationEvenement(){
         
@@ -125,7 +154,20 @@ public class ServiceParticipationEvenement {
         return PartSuppression;
     }
     
-    public boolean modifierParticipationEvenement (int ID_participation,int ID_user, int ID_event, Date date_participation, int nombre_participation) {
+    
+      public void modifierParticipationEvenement(participation_evenement participation) {
+try {
+            Statement st = cnx.createStatement();
+            //nb: on ne peut pas modifier la date
+            String requete4 = "UPDATE  participation_evenement SET ID_participation  = '" + participation.getID_participation() + "', ID_user = '" + participation.getID_user() + "', ID_event = '" + participation.getID_event() + "' , date_participation = '" + participation.getDate_participation() + "', nombre_participation = '" + participation.getNombre_participation() + "' WHERE ID_participation = '" + participation.getID_participation()+ "'";
+            st.executeUpdate(requete4);
+            System.out.println("modification avec succes");
+        } catch (SQLException ex) {
+            System.out.println("erreur de modification");
+            System.out.println(ex);
+        }
+    }
+    /*public boolean modifierParticipationEvenement (int ID_participation,int ID_user, int ID_event, Date date_participation, int nombre_participation) {
         
          boolean partModification = true;
         String requete = null;
@@ -151,9 +193,24 @@ public class ServiceParticipationEvenement {
              System.err.println(ex.getMessage());
         }
         return partModification;
+    }*/
+    
+    public int getId2(String id) {
+try {
+            Statement st = cnx.createStatement();
+            
+            String req = "select ID_participation from `participation_evenement` WHERE  ID_participation LIKE '" + id + "'";
+            ResultSet rs = st.executeQuery(req);
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("erreur");
+            System.out.println(ex);
+        }
+            return 0;
     }
-    
-    
     
     
     

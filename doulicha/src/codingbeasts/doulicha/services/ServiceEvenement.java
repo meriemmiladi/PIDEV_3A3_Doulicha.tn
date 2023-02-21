@@ -274,6 +274,43 @@ try {
         }
             return 0;
     }
+         public int getId2(String id) {
+try {
+            Statement st = cnx.createStatement();
+            
+            String req = "select ID_participation from `participation_evenement` WHERE  ID_participation LIKE '" + id + "'";
+            ResultSet rs = st.executeQuery(req);
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("erreur");
+            System.out.println(ex);
+        }
+            return 0;
+    }
+ 
+     
+     
+    
+     
+     public String getNom(int id) {
+try {
+            Statement st = cnx.createStatement();
+            
+            String req = "select nom_event from `evenement` WHERE  ID_event LIKE '" + id + "'";
+            ResultSet rs = st.executeQuery(req);
+            while (rs.next()) {
+                return rs.getString(1);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("erreur");
+            System.out.println(ex);
+        }
+            return "";
+    } 
      
      
     
