@@ -4,6 +4,7 @@ import codingbeasts.doulicha.entities.Discussion;
 import java.util.List;
 import codingbeasts.doulicha.utils.MyConnection;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -36,7 +37,7 @@ public class DiscussionCRUD {
             String requete2 = "INSERT INTO discussion (ID_user,titre_discussion,contenu_discussion,date_discussion)"
                     + "VALUES (?,?,?,?)";
             PreparedStatement pst = con.prepareStatement(requete2);
-            pst.setInt(1, 1);
+            pst.setInt(1, d.getID_user());
             pst.setString(2, d.getTitre_discussion());
             pst.setString(3, d.getContenu_discussion());
             pst.setDate(4, d.getDate_discussion());
@@ -76,6 +77,18 @@ public class DiscussionCRUD {
             String requete = "UPDATE discussion SET contenu_discussion = ?  WHERE ID_discussion= ?";
             PreparedStatement pst = con.prepareStatement(requete);
             pst.setString(1, contenu_discussion);
+            pst.setInt(2, id_discussion);
+            pst.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+    }
+        public void modifierDateDiscussion(int id_discussion, Date date_discussion) {
+        try {
+            String requete = "UPDATE discussion SET date_discussion = ?  WHERE ID_discussion= ?";
+            PreparedStatement pst = con.prepareStatement(requete);
+            pst.setDate(1, date_discussion);
             pst.setInt(2, id_discussion);
             pst.executeUpdate();
 

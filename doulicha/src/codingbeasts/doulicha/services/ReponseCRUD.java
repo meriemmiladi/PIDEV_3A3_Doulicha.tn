@@ -4,6 +4,7 @@ import codingbeasts.doulicha.entities.Discussion;
 import codingbeasts.doulicha.entities.Reponse;
 import codingbeasts.doulicha.utils.MyConnection;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -37,8 +38,8 @@ public class ReponseCRUD {
             String requete2 = "INSERT INTO reponse(ID_user,ID_discussion,contenu_reponse,date_reponse)"
                     + "VALUES(?,?,?,?)";
             PreparedStatement pst = con.prepareStatement(requete2);
-            pst.setInt(1, 1);
-            pst.setInt(2, 1);
+            pst.setInt(1, r.getID_user());
+            pst.setInt(2, r.getID_discussion());
             pst.setString(3, r.getContenu_reponse());
             pst.setDate(4, r.getDate_reponse());
             pst.executeUpdate();
@@ -77,6 +78,18 @@ public class ReponseCRUD {
             String requete = "UPDATE reponse SET contenu_reponse = ?  WHERE id_reponse= ?";
             PreparedStatement pst = con.prepareStatement(requete);
             pst.setString(1, contenu_reponse);
+            pst.setInt(2, id_reponse);
+            pst.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+    }
+    public void modifierDateReponse(int id_reponse, Date date_reponse) {
+        try {
+            String requete = "UPDATE reponse SET date_reponse = ?  WHERE id_reponse= ?";
+            PreparedStatement pst = con.prepareStatement(requete);
+            pst.setDate(1, date_reponse);
             pst.setInt(2, id_reponse);
             pst.executeUpdate();
 
@@ -135,6 +148,29 @@ public class ReponseCRUD {
             String requete = "SELECT * FROM reponse WHERE ID_discussion = ?";
             PreparedStatement pst = con.prepareStatement(requete);
             pst.setInt(1, ID_discussion);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                Reponse rep = new Reponse();
+                rep.setID_reponse(rs.getInt("ID_reponse"));
+                rep.setID_user(rs.getInt("ID_user"));
+                rep.setID_discussion(rs.getInt("ID_discussion"));
+                rep.setContenu_reponse(rs.getString("contenu_reponse"));
+                rep.setDate_reponse(rs.getDate("date_reponse"));
+                reponsesDiscussions.add(rep);
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return reponsesDiscussions;
+    }
+      public List<Reponse> rechercherReponsesDiscussionUtilisateur(int ID_discussion,int ID_user) {
+        List<Reponse> reponsesDiscussions = new ArrayList<>();
+        try {
+
+            String requete = "SELECT * FROM reponse WHERE ID_discussion = ? AND ID_user=?";
+            PreparedStatement pst = con.prepareStatement(requete);
+            pst.setInt(1, ID_discussion);
+            pst.setInt(2, ID_user);
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
                 Reponse rep = new Reponse();

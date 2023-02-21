@@ -7,6 +7,7 @@ package codingbeasts.doulicha.view;
 
 import codingbeasts.doulicha.entities.Discussion;
 import codingbeasts.doulicha.services.DiscussionCRUD;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -16,13 +17,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 
 /**
@@ -46,6 +51,8 @@ public class DiscussionController implements Initializable {
     private Button trierDiscussionsParDate;
     @FXML
     private Button rechercherparNomPrenom;
+    @FXML
+    private Button home;
     @FXML
     private TextField nomTextField;
     @FXML
@@ -109,6 +116,14 @@ public class DiscussionController implements Initializable {
         nomTextField.clear();
     }
 
+      @FXML
+    public void home(ActionEvent event) throws IOException {
+        Parent pageSuivanteParent = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/view/GestionDiscussionReponse.fxml"));
+        Scene pageSuivanteScene = new Scene(pageSuivanteParent);
+        Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        appStage.setScene(pageSuivanteScene);
+        appStage.show();
+    }
     /**
      * @FXML public void handleButtonAction(ActionEvent event) {
      *

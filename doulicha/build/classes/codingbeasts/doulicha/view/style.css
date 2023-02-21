@@ -52,7 +52,7 @@
 
 .table-view .table-cell {
     -fx-alignment: center-left;
-    -fx-padding: 10px 20px;
+    -fx-padding: 20px;
 }
 
 .table-view .table-row-cell:odd {
@@ -74,14 +74,23 @@
 }
 
 /* Textes */
-.text {
+Text {
     -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
     -fx-font-size: 16;
     -fx-fill: #333333;
 }
 
 /* Champs de texte */
-.text-field {
+TextField {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-border-color: #0077C2;
+    -fx-border-width: 2;
+    -fx-text-fill: #333333;
+    -fx-prompt-text-fill: #BDBDBD;
+}
+TextArea {
     -fx-background-color: #FFFFFF;
     -fx-background-radius: 5;
     -fx-border-radius: 5;
@@ -97,7 +106,7 @@
 }
 
 /* Conteneur secondaire */
-.vbox {
+VBox {
     -fx-background-color: #F5F5F5;
     -fx-background-radius: 10;
     -fx-border-color: #0077C2;
@@ -106,7 +115,7 @@
     -fx-padding: 10;
 }
 
-.vbox > * {
+VBox > * {
     -fx-padding: 5;
 }
 .btn-add-discussion {
@@ -114,7 +123,19 @@
     -fx-background-radius: 30px;
     -fx-text-fill: white;
     -fx-font-weight: bold;
-    -fx-padding: 10px 20px;
+    -fx-padding: 20px;
     -fx-font-size: 14px;
     -fx-cursor: hand;
+}
+.ScrollPane {
+    -fx-background-color: #F0F0F0; 
+    -fx-padding: 10px;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: #0077C2; 
+}
+
+.scroll-bar:horizontal {
+    -fx-background-color: #0077C2; 
 }
