@@ -1,0 +1,34 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+
+}
+/* Style pour la VBox */
+.vbox-style {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #3FC4ED;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+}
+
+/* Style pour les boutons "supprimer" et "modifier" */
+.button-style {
+    -fx-font-weight: bold;
+    -fx-background-color: #3FC4ED;
+    -fx-text-fill: white;
+    -fx-padding: 5px 10px;
+    -fx-border-radius: 5px;
+    -fx-cursor: hand;
+}
+
+/* Style pour le bouton "supprimer" au survol */
+.button-style:hover {
+    -fx-background-color: #0077B6;
+}
+
+/* Style pour le bouton "modifier" au survol */
+.button-style.modify:hover {
+    -fx-background-color: #00B4D8;
+}

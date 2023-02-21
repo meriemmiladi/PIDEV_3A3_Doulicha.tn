@@ -31,7 +31,7 @@ public class MainClass {
         //pcd.ajouterprojet2(p2);
         //pcd.deleteprojet();
         //System.out.println(pcd.afficherprojet());
-        //pcd.modifierprojet();
+        //pcd.modifierprojet(p);
         
         
         //MyConnection mc =  MyConnection.getInstance();

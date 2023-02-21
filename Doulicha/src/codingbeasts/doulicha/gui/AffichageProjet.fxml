@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="407.0" prefWidth="568.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="codingbeasts.doulicha.gui.AffichageProjetController">
+    <stylesheets>
+        <URL value="@affichageprojet.css" />
+    </stylesheets>
+   <children>
+      <AnchorPane id="AnchorPane" prefHeight="407.0" prefWidth="597.0" styleClass="white-background" stylesheets="@interfaceprojet.css">
+         <children>
+            <VBox layoutX="-6.0" layoutY="-3.0" prefHeight="410.0" prefWidth="241.0">
+               <children>
+                  <VBox prefHeight="119.0" prefWidth="241.0" styleClass="rounded-botton-background" stylesheets="@interfaceprojet.css">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="83.0" prefWidth="226.0">
+                           <children>
+                              <Button mnemonicParsing="false" stylesheets="@interfaceprojet.css">
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                                 <graphic>
+                                    <ImageView fx:id="sortie" fitHeight="21.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" rotate="177.3" styleClass="transparent-background">
+                                       <image>
+                                          <Image url="@../../../../../../../fleche-droite.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <styleClass>
+                                    <String fx:value="transparent-background" />
+                                    <String fx:value="buttonAjoute" />
+                                 </styleClass>
+                              </Button>
+                              <FontAwesomeIcon glyphName="HOME" size="30" text="" wrappingWidth="34.0">
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </FontAwesomeIcon>
+                              <AnchorPane>
+                                 <children>
+                                    <BorderPane />
+                                 </children>
+                              </AnchorPane>
+                              <Label prefHeight="38.0" prefWidth="130.0" text="Doulicha" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="19.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <VBox prefHeight="101.0" prefWidth="226.0">
+                           <children>
+                              <HBox prefHeight="86.0" prefWidth="226.0">
+                                 <children>
+                                    <VBox prefHeight="86.0" prefWidth="69.0" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="171.0" prefWidth="226.0">
+                     <children>
+                        <ImageView fitHeight="100.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../../i2.png" />
+                           </image>
+                           <VBox.margin>
+                              <Insets left="70.0" top="20.0" />
+                           </VBox.margin>
+                        </ImageView>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="194.0" prefWidth="241.0" styleClass="rounded-top-background" stylesheets="@interfaceprojet.css">
+                     <children>
+                        <ImageView fitHeight="60.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../../i5.png" />
+                           </image>
+                           <VBox.margin>
+                              <Insets left="90.0" top="30.0" />
+                           </VBox.margin>
+                        </ImageView>
+                        <Label prefHeight="56.0" prefWidth="144.0" text="  Projet" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="70.0" top="10.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+            <VBox layoutX="235.0" prefHeight="73.0" prefWidth="366.0">
+               <children>
+                  <HBox minWidth="500.0" prefHeight="55.0" prefWidth="500.0">
+                     <children>
+                        <Button fx:id="Ajouter" mnemonicParsing="false" prefHeight="41.0" prefWidth="279.0" styleClass="buttonAjoute" stylesheets="@interfaceprojet.css" text="Ajouter" />
+                        <Button fx:id="Affichage" mnemonicParsing="false" prefHeight="39.0" prefWidth="229.0" styleClass="buttonAjoute" stylesheets="@interfaceprojet.css" text="Affichage">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <VBox prefHeight="52.0" prefWidth="241.0">
+                     <children>
+                        <ImageView fitHeight="34.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true" translateY="30.0">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </ImageView>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+            <TableView fx:id="table_projet" layoutX="235.0" layoutY="73.0" prefHeight="334.0" prefWidth="500.0">
+              <columns>
+                <TableColumn fx:id="col_ID" prefWidth="63.0" text="ID_projet" />
+                <TableColumn fx:id="col_Nom" prefWidth="71.0" text="Nom" />
+                  <TableColumn fx:id="col_Description" prefWidth="91.0" text="Description" />
+                  <TableColumn fx:id="col_Objectif" prefWidth="78.0" text="Objectif" />
+                  <TableColumn fx:id="col_Etat" prefWidth="56.0" text="Etat" />
+                  <TableColumn fx:id="col_Image" prefWidth="60.0" text="Image" />
+                  <TableColumn prefWidth="75.0" text="MS" />
+              </columns>
+            </TableView>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

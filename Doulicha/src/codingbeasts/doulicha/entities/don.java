@@ -33,6 +33,12 @@ public class don {
         this.valeur_don = valeur_don;
         this.date_don = date_don;
     }
+
+    public don(int ID_projet, float valeur_don) {
+        this.ID_projet = ID_projet;
+        this.valeur_don = valeur_don;
+    }
+    
     public don(int ID_user, int ID_projet, float valeur_don) {
        
         this.ID_user = ID_user;
@@ -108,5 +114,7 @@ public class don {
     public String toString() {
         return "don{" + "ID_don=" + ID_don + ", ID_user=" + ID_user + ", ID_projet=" + ID_projet + ", valeur_don=" + valeur_don + ", date_don=" + date_don + '}';
     }
-    
+    void recupererID(int id){
+       this.ID_projet = id;
+   }
 }

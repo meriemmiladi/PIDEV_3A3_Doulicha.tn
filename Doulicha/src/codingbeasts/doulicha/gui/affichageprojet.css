@@ -1,0 +1,24 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+
+}
+.table-view {
+    -fx-background-color:#A6D4DC;
+    -fx-background-radius:14 14 0 0;
+}
+.table-view .column-header-background{
+    -fx-background-color: #A6D4DC;
+    -fx-background-radius:14;
+    -fx-backgound-insets: 0 0 10 0;
+}
+.table-view .column-header, .table-view .filler{
+    -fx-size:50px;
+    -fx-border-vidth: 0 0 10 0;
+    -fx-background-color:transparent;
+}
+.table-view .column-header .Label{
+    -fx-text-fill: white;
+}

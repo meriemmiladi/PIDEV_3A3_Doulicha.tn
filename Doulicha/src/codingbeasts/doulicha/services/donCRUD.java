@@ -98,9 +98,9 @@ public class donCRUD {
     private void While(boolean next) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-public void deletedon() throws SQLException{
+public void deletedon(int Id_don) throws SQLException{
         try{
-        String requete = "DELETE FROM don WHERE ID_don=15";
+        String requete = "DELETE FROM don WHERE ID_don="+ Id_don;
         Statement st = cnx2.createStatement();
         st.executeUpdate(requete);
             System.out.println("inserted don"+requete);
@@ -110,9 +110,9 @@ public void deletedon() throws SQLException{
         }
 }
 
-public void modifierdon() throws SQLException{
+public void modifierdon(don d ,int id_don) throws SQLException{
         try{
-        String requete = "UPDATE don SET valeur_don = 1 WHERE id_don=16";
+        String requete = "UPDATE don SET valeur_don = '" + d.getValeur_don() + "'  WHERE ID_don=" + id_don;
         Statement st = cnx2.createStatement();
         st.executeUpdate(requete);
             System.out.println("inserted don"+requete);
@@ -121,5 +121,10 @@ public void modifierdon() throws SQLException{
         }
         
     }
+
+    public List<don> afficherdon(int id_don) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+ 
 }
 

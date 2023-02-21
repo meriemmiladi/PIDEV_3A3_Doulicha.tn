@@ -16,6 +16,10 @@ import java.util.logging.Logger;
  * @author Admin
  */
 public class MyConnection {
+
+    public static Connection getConnect() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     public String url="jdbc:mysql://localhost:3306/doulicha";
     public String login="root";
     public String pwd="";
