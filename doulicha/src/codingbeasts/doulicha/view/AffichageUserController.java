@@ -20,6 +20,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
@@ -97,7 +98,7 @@ public class AffichageUserController implements Initializable {
         UtilisateurCRUD uc = new UtilisateurCRUD();
         List<Utilisateur> myList = new ArrayList<>();
         myList = uc.afficherUtilisateur();
-        System.out.println("load service : "+myList);
+        System.out.println("liste des utilisateurs : "+myList);
         UserList=FXCollections.observableArrayList(myList);
         txttable.setItems(UserList);
 
@@ -105,7 +106,7 @@ public class AffichageUserController implements Initializable {
     
     
     
-    private void loadUser() {
+    private void AffichageUser() {
         
        // col_id.setCellValueFactory(new PropertyValueFactory<>("id_utilisateur"));
         txtnom.setCellValueFactory(new PropertyValueFactory<>("nom_user"));
@@ -116,7 +117,7 @@ public class AffichageUserController implements Initializable {
         UtilisateurCRUD uc = new UtilisateurCRUD();
         List<Utilisateur> myList = new ArrayList<>();
         myList = uc.afficherUtilisateur();
-        System.out.println("nnn : " + myList);
+        System.out.println("Liste User : " + myList);
         ObservableList<Utilisateur> observableArrayList
                 = FXCollections.observableArrayList(uc.afficherUtilisateur());
         txttable.setItems(observableArrayList);
@@ -135,7 +136,7 @@ public class AffichageUserController implements Initializable {
         String nomU = d.getNom_user();
         String prenomU = d.getPrenom_user();
         String emailU = d.getEmail_user();
-        String mdpU = d.getEmail_user();
+        String mdpU = d.getMdp_user();
 
         System.out.println("id user =" + d.getID_user());
         try {
@@ -147,7 +148,12 @@ public class AffichageUserController implements Initializable {
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             //stage.initStyle(StageStyle.UTILITY);
+             stage.setTitle("UpdateUtilisateur");
+          stage.resizableProperty().setValue(false);
             stage.show();
+            
+             stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+             stage.close();
 
         } catch (IOException ex) {
             Logger.getLogger(AffichageUserController.class.getName()).log(Level.SEVERE, null, ex);
@@ -157,7 +163,7 @@ public class AffichageUserController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        loadUser();
+        AffichageUser();
     } 
     
 }

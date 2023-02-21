@@ -13,11 +13,15 @@ import java.util.List;
  * @author Asus
  */
 public interface InterfaceUtilisateur {
-    
-      public void ajouterUtilisateur();
-      public void ajouterUtlisateur2(Utilisateur p);
-      public void modifierutilisateur(Utilisateur p);
-      public void supprimerutilisateur(int id);
-      public List<Utilisateur> afficherUtilisateur();
-      
+
+    public void ajouterUtilisateur();
+
+    public void ajouterUtlisateur2(Utilisateur p);
+
+    public void modifierutilisateur(Utilisateur p);
+
+    public void supprimerutilisateur(int id);
+
+    public List<Utilisateur> afficherUtilisateur();
+
 }

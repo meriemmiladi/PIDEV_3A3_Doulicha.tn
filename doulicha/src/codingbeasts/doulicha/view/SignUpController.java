@@ -7,14 +7,20 @@ package codingbeasts.doulicha.view;
 
 import codingbeasts.doulicha.entities.Utilisateur;
 import codingbeasts.doulicha.services.UtilisateurCRUD;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -26,8 +32,7 @@ public class SignUpController implements Initializable {
     /**
      * Initializes the controller class.
      */
-    
-     @FXML
+    @FXML
     private TextField txtnom_user;
 
     @FXML
@@ -43,25 +48,48 @@ public class SignUpController implements Initializable {
     private Button btnajouter;
 
     @FXML
-    void ajouter(ActionEvent event) {
-         String nom_user = txtnom_user.getText();
-        String prenom_user = txtprenom_user.getText();
-        String email_user = txtemail_user.getText();
-        String mdp_user = txtmdp_user.getText();
-       // String role_user = txtrole_user.getText();
-        
-        Utilisateur p = new Utilisateur(nom_user, prenom_user, email_user, mdp_user);
-        
-        UtilisateurCRUD pc = new UtilisateurCRUD();
-        pc.ajouterUtlisateur3(p);
+    void retouresignin(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("SginIn.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//        Scene scene = new Scene(root, 300, 250);
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+
+//        primaryStage.setTitle("Inscription");
+//        primaryStage.setScene(scene);
+//        primaryStage.setMaximized(true);
+//      
+//        primaryStage.show();
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
 
     }
 
-    
+    @FXML
+    void ajouter(ActionEvent event) {
+        String nom_user = txtnom_user.getText();
+        String prenom_user = txtprenom_user.getText();
+        String email_user = txtemail_user.getText();
+        String mdp_user = txtmdp_user.getText();
+        // String role_user = txtrole_user.getText();
+
+        Utilisateur p = new Utilisateur(nom_user, prenom_user, email_user, mdp_user);
+
+        UtilisateurCRUD pc = new UtilisateurCRUD();
+        pc.ajouterUtlisateur3(p);
+        txtnom_user.clear();
+        txtprenom_user.clear();
+        txtemail_user.clear();
+        txtmdp_user.clear();
+
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
+    }
+
 }

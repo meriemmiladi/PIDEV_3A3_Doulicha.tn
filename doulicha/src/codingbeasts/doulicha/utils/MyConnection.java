@@ -16,36 +16,35 @@ import java.util.logging.Logger;
  * @author Asus
  */
 public class MyConnection {
-    
-    public String url="jdbc:mysql://localhost:3306/doulicha";
-    public String login="root";
-    public String pwd="";
+
+    public String url = "jdbc:mysql://localhost:3306/doulicha";
+    public String login = "root";
+    public String pwd = "";
     Connection cnx;
     public static MyConnection instance;
-            
-         
-    public MyConnection(){
-        
+
+    public MyConnection() {
+
         try {
-          cnx =  DriverManager.getConnection(url, login, pwd);
+            cnx = DriverManager.getConnection(url, login, pwd);
             System.out.println("Connexion etablie!");
-                    
-                    } catch (SQLException ex) {
+
+        } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
-        
+
     }
-    
-    public Connection getCnx(){
+
+    public Connection getCnx() {
         return cnx;
     }
-    
-    public static MyConnection getInstance(){
-        if (instance == null){
+
+    public static MyConnection getInstance() {
+        if (instance == null) {
             instance = new MyConnection();
         }
-        return  instance;
-             
+        return instance;
+
     }
 
 }

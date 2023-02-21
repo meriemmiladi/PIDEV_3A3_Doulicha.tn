@@ -10,25 +10,23 @@ package codingbeasts.doulicha.entities;
  * @author Asus
  */
 public class Utilisateur {
-    
-     private int ID_user;
+
+    private int ID_user;
     private String nom_user;
     private String prenom_user;
     private String email_user;
     private String mdp_user;
-    private String role_user; 
+    private String role_user;
 
     public Utilisateur() {
     }
-public Utilisateur(String nom_user, String prenom_user, String email_user, String mdp_user) {
+
+    public Utilisateur(String nom_user, String prenom_user, String email_user, String mdp_user) {
         this.nom_user = nom_user;
         this.prenom_user = prenom_user;
         this.email_user = email_user;
         this.mdp_user = mdp_user;
     }
-    
-    
-    
 
     public Utilisateur(String nom_user, String prenom_user, String email_user, String mdp_user, String role_user) {
         this.nom_user = nom_user;
@@ -37,7 +35,7 @@ public Utilisateur(String nom_user, String prenom_user, String email_user, Strin
         this.mdp_user = mdp_user;
         this.role_user = role_user;
     }
-    
+
     public Utilisateur(int ID_user, String nom_user, String prenom_user, String email_user, String mdp_user, String role_user) {
         this.ID_user = ID_user;
         this.nom_user = nom_user;
@@ -99,7 +97,5 @@ public Utilisateur(String nom_user, String prenom_user, String email_user, Strin
     public String toString() {
         return "Utilisateur{" + "ID_user=" + ID_user + ", nom_user=" + nom_user + ", prenom_user=" + prenom_user + ", email_user=" + email_user + ", mdp_user=" + mdp_user + ", role_user=" + role_user + '}';
     }
-    
-   
-               
+
 }

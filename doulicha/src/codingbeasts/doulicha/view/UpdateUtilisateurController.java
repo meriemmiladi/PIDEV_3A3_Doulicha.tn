@@ -7,12 +7,18 @@ package codingbeasts.doulicha.view;
 
 import codingbeasts.doulicha.entities.Utilisateur;
 import codingbeasts.doulicha.services.UtilisateurCRUD;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -24,7 +30,6 @@ public class UpdateUtilisateurController implements Initializable {
     /**
      * Initializes the controller class.
      */
-    
     @FXML
     private TextField txtnom;
 
@@ -36,12 +41,12 @@ public class UpdateUtilisateurController implements Initializable {
 
     @FXML
     private TextField txtpassword;
-    
-     int id;
-        String U_nom;
-        String U_Prenom;
-        String U_email;
-        String mot_de_pass;
+
+    int id;
+    String U_nom;
+    String U_Prenom;
+    String U_email;
+    String mot_de_pass;
 
     @FXML
     void miseajour(ActionEvent event) {
@@ -53,28 +58,59 @@ public class UpdateUtilisateurController implements Initializable {
         Utilisateur u = new Utilisateur(id, nom, Prenom, email, mot_passe, "Utilisateur");
         UtilisateurCRUD uc = new UtilisateurCRUD();
         uc.modifierutilisateur(u);
-        System.out.println("Utilisateur a ete Mise a jour avec succes");
+//        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+//        stage.close();
+        txtnom.clear();
+        txtprenom.clear();
+        txtemail.clear();
+        txtpassword.clear();
+
+//                
+        System.out.println("Utilisateur Update");
     }
-    
-     public void setData(int id ,String nom,String prenom,String email,String mot_de_pass){
-        this.id=id;       
-        this.U_nom=nom;
-        this.U_Prenom=prenom;
-        this.U_email=email;
-        this.mot_de_pass=mot_de_pass;
-        
+
+    public void setData(int id, String nom, String prenom, String email, String mot_de_pass) {
+        this.id = id;
+        this.U_nom = nom;
+        this.U_Prenom = prenom;
+        this.U_email = email;
+        this.mot_de_pass = mot_de_pass;
+
         txtnom.setText(nom);
         txtprenom.setText(prenom);
         txtemail.setText(email);
         txtpassword.setText(mot_de_pass);
-        
-        System.out.println("nom:"+nom+"prenom:"+prenom+"email:"+email+"mot de paasse:"+mot_de_pass);
-        
-        
+
+        System.out.println("nom:" + nom + "prenom:" + prenom + "email:" + email + "mot de paasse:" + mot_de_pass);
+
     }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
+    }
+
+    @FXML
+    void retourhome(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("AffichageUser.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//        Scene scene = new Scene(root, 300, 250);
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("AffichageUser");
+            stage.resizableProperty().setValue(false);
+            stage.show();
+
+//        primaryStage.setTitle("Inscription");
+//        primaryStage.setScene(scene);
+//        primaryStage.setMaximized(true);
+//      
+//        primaryStage.show();
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+    }
+
 }

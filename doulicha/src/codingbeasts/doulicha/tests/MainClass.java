@@ -14,28 +14,20 @@ import codingbeasts.doulicha.utils.MyConnection;
  * @author Asus
  */
 public class MainClass {
-   
-    
+
     public static void main(String[] args) {
-              
-        
-        
-        
-       MyConnection mc = new MyConnection();
-       UtilisateurCRUD pcd = new  UtilisateurCRUD();
+
+        MyConnection mc = new MyConnection();
+        UtilisateurCRUD pcd = new UtilisateurCRUD();
 //       Utilisateur p3 = new Utilisateur("Admin","Admin", "Admin@Admin", "Admin", "Admin");
 //       pcd.modifierutilisateur(p3);
-       
-     
-     // Utilisateur p3 = new Utilisateur(2,"taher", "dhiflaoui", "taherdhiflaoui@esprit.tn", "2222", "role_user");
-      //pcd.ajouterUtlisateur2(p3);
+
+        // Utilisateur p3 = new Utilisateur(2,"taher", "dhiflaoui", "taherdhiflaoui@esprit.tn", "2222", "role_user");
+        //pcd.ajouterUtlisateur2(p3);
 //      Utilisateur p3 = new Utilisateur("karim", "ferjeni", "karimferjeni@esprit.tn", "3333", "role_admin");
 //        pcd.ajouterUtilisateur();
-         //  pcd.supprimerutilisateur(3);
-      
-      System.out.println(pcd.afficherUtilisateur());
-       
-       
-      
-    
-}}
+        //  pcd.supprimerutilisateur(3);
+        System.out.println(pcd.afficherUtilisateur());
+
+    }
+}

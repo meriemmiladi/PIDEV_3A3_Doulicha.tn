@@ -21,23 +21,24 @@ import javafx.stage.Stage;
  * @author Asus
  */
 public class MainClass extends Application {
-    
+
     @Override
     public void start(Stage primaryStage) {
-        try {   
-        Parent root = FXMLLoader.load(getClass().getResource("SginIn.fxml"));
-        
-        Scene scene = new Scene(root);
-        
-        primaryStage.setTitle("Inscription");
-        primaryStage.setScene(scene);
-      //  primaryStage.setMaximized(true);
-      
-        primaryStage.show();
-        
-    } catch (IOException ex){
-         System.out.println(ex.getMessage());
-    }
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("SginIn.fxml"));
+
+            Scene scene = new Scene(root);
+
+            primaryStage.setTitle("SginIn");
+            primaryStage.setScene(scene);
+            // primaryStage.setMaximized(true);
+            primaryStage.resizableProperty().setValue(false);
+
+            primaryStage.show();
+
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
     /**
@@ -46,5 +47,5 @@ public class MainClass extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    
+
 }
