@@ -22,13 +22,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-
 
 /**
  * FXML Controller class
@@ -73,12 +73,12 @@ public class DiscussionController implements Initializable {
     @FXML
     private TableColumn<Discussion, Date> colDateDiscussion;
 
-        private ObservableList<Discussion> discussions;
+    private ObservableList<Discussion> discussions;
 
     @FXML
     public void afficherDiscussions(ActionEvent event) throws SQLException {
         DiscussionCRUD dc = new DiscussionCRUD();
-        discussions =FXCollections.observableArrayList (dc.afficherDiscussions());
+        discussions = FXCollections.observableArrayList(dc.afficherDiscussions());
         tableview.setItems(discussions);
         tableview.setOpacity(1);
     }
@@ -96,11 +96,26 @@ public class DiscussionController implements Initializable {
 
     @FXML
     public void afficherDiscussionsUtilisateur(ActionEvent event) {
-        DiscussionCRUD dc = new DiscussionCRUD();
-        discussionsUser = FXCollections.observableArrayList(dc.rechercherDiscussions(Integer.parseInt(idUtilisateurTextField.getText())));
-        tableview.setItems(discussionsUser);
-        tableview.setOpacity(1);
-        idUtilisateurTextField.clear();
+        if ((idUtilisateurTextField.getText().isEmpty()) || ((Integer.parseInt(idUtilisateurTextField.getText())) == 0)) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur de saisie");
+            alert.setContentText("Le texte ne peut pas être vide ou nul");
+            alert.showAndWait();
+        } else {
+            DiscussionCRUD dc = new DiscussionCRUD();
+            discussionsUser = FXCollections.observableArrayList(dc.rechercherDiscussions(Integer.parseInt(idUtilisateurTextField.getText())));
+            if (discussionsUser.isEmpty()) {
+                tableview.setOpacity(0);
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erreur de saisie");
+                alert.setContentText("cet utilisateur n'existe pas ou n'as pas de discussions créés");
+                alert.showAndWait();
+            } else {
+                tableview.setItems(discussionsUser);
+                tableview.setOpacity(1);
+                idUtilisateurTextField.clear();
+            }
+        }
     }
 
     private ObservableList<Discussion> discussionsList;
@@ -110,13 +125,21 @@ public class DiscussionController implements Initializable {
 
         DiscussionCRUD dc = new DiscussionCRUD();
         discussionsList = FXCollections.observableArrayList(dc.rechercherDiscussions((nomTextField.getText()), prenomTextField.getText()));
-        tableview.setItems(discussionsList);
-        tableview.setOpacity(1);
-        prenomTextField.clear();
-        nomTextField.clear();
+        if (discussionsList.isEmpty()) {
+            tableview.setOpacity(0);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur de saisie");
+            alert.setContentText("cet utilisateur n'existe pas ou n'as pas de discussions créés");
+            alert.showAndWait();
+        } else {
+            tableview.setItems(discussionsList);
+            tableview.setOpacity(1);
+            prenomTextField.clear();
+            nomTextField.clear();
+        }
     }
 
-      @FXML
+    @FXML
     public void home(ActionEvent event) throws IOException {
         Parent pageSuivanteParent = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/view/GestionDiscussionReponse.fxml"));
         Scene pageSuivanteScene = new Scene(pageSuivanteParent);
@@ -124,6 +147,7 @@ public class DiscussionController implements Initializable {
         appStage.setScene(pageSuivanteScene);
         appStage.show();
     }
+
     /**
      * @FXML public void handleButtonAction(ActionEvent event) {
      *

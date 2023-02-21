@@ -17,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -54,34 +55,79 @@ public class ReponseController implements Initializable {
 
     @FXML
     public void afficherReponsesUtilisateur(ActionEvent event) throws SQLException {
-        ReponseCRUD dc = new ReponseCRUD();
-        ReponsesUser = FXCollections.observableArrayList(dc.rechercherReponses(parseInt(idUtilisateurTextField.getText())));
-        tableReponse.setItems(ReponsesUser);
-        tableReponse.setOpacity(1);
-        idUtilisateurTextField.clear();
+        if ((idUtilisateurTextField.getText().isEmpty()) || ((Integer.parseInt(idUtilisateurTextField.getText())) == 0)) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur de saisie");
+            alert.setContentText("Le texte ne peut pas être vide ou nul");
+            alert.showAndWait();
+        } else {
+            ReponseCRUD dc = new ReponseCRUD();
+            ReponsesUser = FXCollections.observableArrayList(dc.rechercherReponses(parseInt(idUtilisateurTextField.getText())));
+            if (ReponsesUser.isEmpty()) {
+                tableReponse.setOpacity(0);
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erreur de saisie");
+                alert.setContentText("cet utilisateur n'existe pas ou n'as pas de discussions créés");
+                alert.showAndWait();
+            } else {
+                tableReponse.setItems(ReponsesUser);
+                tableReponse.setOpacity(1);
+                idUtilisateurTextField.clear();
+            }
+        }
     }
     private ObservableList<Reponse> ReponsesDiscussion;
 
     @FXML
     public void afficherReponsesDiscussions(ActionEvent event) throws SQLException {
+        if ((idDiscussionTextField.getText().isEmpty()) || ((Integer.parseInt(idDiscussionTextField.getText())) == 0)) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur de saisie");
+            alert.setContentText("Le texte ne peut pas être vide ou nul");
+            alert.showAndWait();
+        }
         ReponseCRUD dc = new ReponseCRUD();
         ReponsesDiscussion = FXCollections.observableArrayList(dc.rechercherReponsesDiscussion(parseInt(idDiscussionTextField.getText())));
-        tableReponse.setItems(ReponsesDiscussion);
-        tableReponse.setOpacity(1);
-        idDiscussionTextField.clear();
+        if (ReponsesDiscussion.isEmpty()) {
+            tableReponse.setOpacity(0);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur de saisie");
+            alert.setContentText("cet discussion n'existe pas ou n'as pas de réponses");
+            alert.showAndWait();
+        } else {
+            tableReponse.setItems(ReponsesDiscussion);
+            tableReponse.setOpacity(1);
+            idDiscussionTextField.clear();
+        }
     }
     private ObservableList<Reponse> reponsesDiscussionUtilisateur;
 
     @FXML
     public void afficherReponsesDiscussionUtilisateur(ActionEvent event) {
-        ReponseCRUD dc = new ReponseCRUD();
-        reponsesDiscussionUtilisateur = FXCollections.observableArrayList(dc.rechercherReponsesDiscussionUtilisateur(parseInt(idDiscussionTextField.getText()), parseInt(idUtilisateurTextField.getText())));
-        tableReponse.setItems(reponsesDiscussionUtilisateur);
-        tableReponse.setOpacity(1);
-        idDiscussionTextField.clear();
-        idUtilisateurTextField.clear();
+        if (((idDiscussionTextField.getText().isEmpty()) || ((Integer.parseInt(idDiscussionTextField.getText())) == 0)) || ((idUtilisateurTextField.getText().isEmpty()) || ((Integer.parseInt(idUtilisateurTextField.getText())) == 0))) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur de saisie");
+            alert.setContentText("Le texte ne peut pas être vide ou nul");
+            alert.showAndWait();
+        } else {
+            ReponseCRUD dc = new ReponseCRUD();
+            reponsesDiscussionUtilisateur = FXCollections.observableArrayList(dc.rechercherReponsesDiscussionUtilisateur(parseInt(idDiscussionTextField.getText()), parseInt(idUtilisateurTextField.getText())));
+            if (reponsesDiscussionUtilisateur.isEmpty()) {
+                tableReponse.setOpacity(0);
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erreur de saisie");
+                alert.setContentText("cet utilisateur n'existe pas ou n'as pas de réponses créés sur cette discussion");
+                alert.showAndWait();
+            } else {
+                tableReponse.setItems(reponsesDiscussionUtilisateur);
+                tableReponse.setOpacity(1);
+                idDiscussionTextField.clear();
+                idUtilisateurTextField.clear();
+            }
+        }
 
     }
+
     @FXML
     public void home(ActionEvent event) throws IOException {
         Parent pageSuivanteParent = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/view/GestionDiscussionReponse.fxml"));
