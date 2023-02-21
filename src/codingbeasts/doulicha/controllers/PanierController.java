@@ -1,20 +1,21 @@
 package codingbeasts.doulicha.controllers;
 
 import codingbeasts.doulicha.entities.Commande;
+import codingbeasts.doulicha.entities.LigneCommande;
 import codingbeasts.doulicha.entities.Produit;
 import codingbeasts.doulicha.services.CommandeCrud;
+import codingbeasts.doulicha.services.LigneCommandeCrud;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -25,9 +26,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.util.Date;
+
 
 public class PanierController implements Initializable {
 
@@ -50,7 +54,7 @@ public class PanierController implements Initializable {
     private TextField sommePrixTextField;
     @FXML
     private Button btnretour;
-
+    Commande commande;
     /**
      * Initializes the controller class.
      */
@@ -58,24 +62,30 @@ public class PanierController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         
         confirme.setOnAction(event ->{
-        try {
+            try{
+            LocalDateTime dateTime = LocalDateTime.now();
+            java.sql.Date sqlDate = java.sql.Date.valueOf(dateTime.toLocalDate());
+                Commande c=new Commande(sqlDate,1);
+                CommandeCrud cc=new CommandeCrud();
+                commande=cc.ajouterCommande2(c, 1);
+                produitMap.forEach((key,value)->{
+                    LigneCommandeCrud lcc=new LigneCommandeCrud();
+                    LigneCommande lc=new LigneCommande(commande.getID_commande(), key.getID_produit(), value);
+                    lcc.ajouterLigneCommande2(lc);
+                });
                 Parent page1 = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/view/magasin.fxml"));
                 Scene scene = new Scene(page1);
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 stage.setScene(scene);
                 stage.show();
-                
-                Commande c=new Commande();
-                CommandeCrud cc=new CommandeCrud();
-                cc.ajouterCommande();
-                
-                
-                
             } catch (IOException ex) {
              System.out.println("errrrrrrrrrrr");
             }
         
         });
+        
+      
+        
         btnretour.setOnAction(event ->{
         try {
                 Parent page1 = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/view/magasin.fxml"));

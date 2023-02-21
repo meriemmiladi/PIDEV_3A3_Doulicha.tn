@@ -30,8 +30,10 @@ public class CommandeCrud {
         cnx2=MyConnection.getInstance().getCnx();
     }
     
+    
+    
     public void ajouterCommande(){
-        String requete ="INSERT INTO commande_produit (ID_user,date_commande,etat_commande) VALUES (1,'2000-01-01',1)";
+        String requete ="INSERT INTO commande_produit (ID_user,date_commande,etat_commande) VALUES (1,'2023-02-21',1)";
         try {
             Statement st = cnx2.createStatement();
             st.executeUpdate(requete);
@@ -41,25 +43,25 @@ public class CommandeCrud {
             
         }
     }
-    public void ajouterCommande2(Commande p, int ID_user){
+    
+    
+    
+    
+    public Commande ajouterCommande2(Commande p, int ID_user){
         String requete2="INSERT INTO commande_produit (ID_user,date_commande,etat_commande) VALUES (?,?,?)";
         try {
             PreparedStatement pst =cnx2.prepareStatement(requete2);
-            
-            pst.setInt(1, p.getID_user());
-            //pst.setDate(2, new java.sql.Date(p.getDate_commande().getTime()));
-            //pst.setDate(2, java.sql.Date.valueOf(p.getDate_commande().toLocalDate()));
-            //pst.setDate(2, java.sql.Date.valueOf(p.getDate_commande().toLocalDate()));
-            
+            pst.setInt(1,ID_user);
             pst.setDate(2,p.getDate_commande());
             pst.setInt(3, p.getEtat_commande());
-            pst.executeUpdate();
-            System.out.println("votre commande est ajoutée");
-            
+            pst.execute();
         } catch (SQLException ex) {
            System.err.println(ex.getMessage());
         }
+        return afficherCommande().get(afficherCommande().size()-1);
     }
+    
+    
     public List<Commande> afficherCommande(){
         List<Commande> myList= new ArrayList<>();
         try {

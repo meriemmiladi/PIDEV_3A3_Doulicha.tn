@@ -8,8 +8,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="670.0" prefWidth="1400" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codingbeasts.doulicha.controllers.AccprodController">
+<AnchorPane id="AnchorPane" prefHeight="863.0" prefWidth="1698.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codingbeasts.doulicha.controllers.AccprodController">
    <children>
       <ImageView fx:id="a" fitHeight="175.0" fitWidth="238.0" layoutX="28.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -17,39 +18,55 @@
          </image>
       </ImageView>
       <BorderPane layoutX="286.0" layoutY="42.0" prefHeight="140.0" prefWidth="849.0" style="-fx-background-color: ,,;" stylesheets="@style.css">
-         <left>
-            <Button mnemonicParsing="false" prefHeight="96.0" prefWidth="191.0" styleClass="btn_accueil" text="Afficher les Produits" textFill="#335bc2" BorderPane.alignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Button>
-         </left>
          <center>
-            <Button graphicTextGap="0.0" mnemonicParsing="false" prefHeight="96.0" prefWidth="193.0" styleClass="btn_accueil" text="Gérer les Produits" textFill="#335bc2" BorderPane.alignment="CENTER">
+            <Text fill="#308ce8" strokeType="OUTSIDE" strokeWidth="0.0" text="DOULICHA" textAlignment="CENTER" wrappingWidth="501.9453125" BorderPane.alignment="CENTER">
                <font>
-                  <Font name="System Bold" size="18.0" />
+                  <Font size="64.0" />
                </font>
-            </Button>
+            </Text>
          </center>
-         <right>
-            <Button mnemonicParsing="false" prefHeight="96.0" prefWidth="193.0" styleClass="btn_accueil" text="Modifier un Produit" textFill="#335bc2" BorderPane.alignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Button>
-         </right>
       </BorderPane>
-      <TableView fx:id="TABLEPRODUIT" layoutX="168.0" layoutY="210.0" prefHeight="355.0" prefWidth="1046.0">
+      <TableView fx:id="TABLEPRODUIT" layoutX="67.0" layoutY="432.0" prefHeight="355.0" prefWidth="1337.0">
          <columns>
             <TableColumn fx:id="ID" prefWidth="75.0" text="ID" />
-            <TableColumn fx:id="LIBELLE" prefWidth="102.0" text="LIBELLE" />
-            <TableColumn fx:id="QUANTITE" prefWidth="129.0" text="QUANTITE" />
-            <TableColumn fx:id="PTIXACHAT" prefWidth="133.0" text="PRIX ACHAT" />
-            <TableColumn fx:id="PRIXVENTE" prefWidth="117.0" text="PRIX VENTE" />
-            <TableColumn fx:id="CATEGORIE" prefWidth="148.0" text="CATEGORIE" />
-            <TableColumn fx:id="IMAGE" prefWidth="160.0" text="IMAGE" />
+            <TableColumn fx:id="LIBELLE" prefWidth="144.0" text="LIBELLE" />
+            <TableColumn fx:id="QUANTITE" prefWidth="151.0" text="QUANTITE" />
+            <TableColumn fx:id="PTIXACHAT" prefWidth="181.0" text="PRIX ACHAT" />
+            <TableColumn fx:id="PRIXVENTE" prefWidth="167.0" text="PRIX VENTE" />
+            <TableColumn fx:id="CATEGORIE" prefWidth="240.0" text="CATEGORIE" />
+            <TableColumn fx:id="IMAGE" prefWidth="243.0" text="IMAGE" />
          </columns>
       </TableView>
-      <Button fx:id="btnajout" layoutX="526.0" layoutY="586.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="138.0" text="ajouter" />
+      <Button fx:id="btnajout" layoutX="726.0" layoutY="804.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="138.0" text="ajouter" />
+      <ImageView fitHeight="186.0" fitWidth="240.0" layoutX="1427.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../img/7.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="186.0" fitWidth="205.0" layoutX="1427.0" layoutY="298.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../img/chechia-rouge-avec-kobita.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="230.0" fitWidth="205.0" layoutX="1427.0" layoutY="565.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../img/3.jpg" />
+         </image>
+      </ImageView>
+      <Button layoutX="286.0" layoutY="257.0" mnemonicParsing="false" prefHeight="96.0" prefWidth="191.0" styleClass="btn_accueil" text="statistique de vente" textFill="#335bc2">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
+      <Button graphicTextGap="0.0" layoutX="630.0" layoutY="257.0" mnemonicParsing="false" prefHeight="96.0" prefWidth="193.0" styleClass="btn_accueil" text="best seller" textFill="#335bc2">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
+      <Button layoutX="1026.0" layoutY="257.0" mnemonicParsing="false" prefHeight="96.0" prefWidth="193.0" styleClass="btn_accueil" text="promo" textFill="#335bc2">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

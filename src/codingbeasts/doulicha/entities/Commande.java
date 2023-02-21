@@ -29,6 +29,12 @@ public class Commande {
     this.date_commande = date_commande;
     this.etat_commande= etat_commande;
 }
+   
+    
+    public Commande(Date date_commande, int etat_commande) {
+    this.date_commande = date_commande;
+    this.etat_commande= etat_commande;
+}
     
     public Commande(int ID_commande,int ID_user,Date date_commande, int etat_commande) {
     this.ID_commande = ID_commande;

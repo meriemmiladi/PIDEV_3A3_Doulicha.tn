@@ -172,7 +172,7 @@ public class AjoutController implements Initializable {
             }
         }
 
-        if (nbNonChar == 0 && libelle.getText().trim().length() >= 5) {
+        if (nbNonChar == 0 && libelle.getText().trim().length() >= 3) {
             return true;
         } else {
             nolibelle.setImage(new Image("/codingbeasts/doulicha/images/faux.png"));
