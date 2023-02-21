@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DisplacementMap?>
+<?import javafx.scene.effect.FloatMap?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="750.0" prefWidth="1230.0" style="-fx-background-color: #EFF8FA;" stylesheets="@/codingbeasts/doulicha/views/Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codingbeasts.doulicha.controllers.ModifierLogementController">
+   <children>
+      <VBox layoutX="-2.0" layoutY="1.0" prefHeight="754.0" prefWidth="331.0" style="-fx-background-color: #CCE3EA;" />
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="88.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@/codingbeasts/doulicha/images/logoDoulicha.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="ajouter_logement" layoutX="65.0" layoutY="492.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="200.0" text="Ajouter un logement" textFill="#149dd3">
+         <font>
+            <Font name="System Bold Italic" size="21.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="E_RESIZE" />
+         </cursor>
+         <effect>
+            <DisplacementMap>
+               <mapData>
+                  <FloatMap />
+               </mapData>
+            </DisplacementMap>
+         </effect>
+      </Button>
+      <Button fx:id="afficher_logement" layoutX="65.0" layoutY="570.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="200.0" text="Afficher les logements">
+         <font>
+            <Font name="System Bold Italic" size="21.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="E_RESIZE" />
+         </cursor>
+         <effect>
+            <DisplacementMap>
+               <mapData>
+                  <FloatMap />
+               </mapData>
+            </DisplacementMap>
+         </effect>
+      </Button>
+      <Button fx:id="home" layoutX="-3.0" layoutY="294.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="331.0" text="Home" />
+      <Label alignment="TOP_CENTER" contentDisplay="RIGHT" layoutX="366.0" layoutY="197.0" prefHeight="21.0" prefWidth="45.0" text="Nom" />
+      <Label layoutX="371.0" layoutY="239.0" text="Description" />
+      <Label layoutX="372.0" layoutY="343.0" text="Adresse" />
+      <Label layoutX="371.0" layoutY="390.0" text="Prix de la nuitée" />
+      <Label layoutX="371.0" layoutY="432.0" text="Capacité" />
+      <Label layoutX="371.0" layoutY="481.0" text="Type" />
+      <TextField id="nom_logement" fx:id="nom_logement" layoutX="529.0" layoutY="193.0" prefHeight="31.0" prefWidth="303.0" />
+      <TextField id="adresse_logement" fx:id="adresse_logement" layoutX="529.0" layoutY="340.0" prefHeight="31.0" prefWidth="303.0" />
+      <TextField id="prixNuitee_logement" fx:id="prixNuitee_logement" layoutX="529.0" layoutY="388.0" prefHeight="31.0" prefWidth="303.0" />
+      <TextField id="capacite_logement" fx:id="capacite_logement" layoutX="529.0" layoutY="434.0" prefHeight="31.0" prefWidth="303.0" />
+      <ComboBox id="type_logement" fx:id="type_logement" editable="true" layoutX="529.0" layoutY="478.0" prefHeight="31.0" prefWidth="303.0" promptText="Type du logement">
+         <effect>
+            <Glow />
+         </effect>
+      </ComboBox>
+      <Button id="ajouter" fx:id="modifier" layoutX="529.0" layoutY="684.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="127.0" text="Modifier" />
+      <Button id="annuler_ajout" fx:id="annuler" layoutX="705.0" layoutY="681.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="127.0" text="Annuler" />
+      <TextField fx:id="description_logement" layoutX="529.0" layoutY="235.0" prefHeight="85.0" prefWidth="303.0" />
+      <Label layoutX="376.0" layoutY="528.0" text="Image" />
+      <TextField fx:id="image_logement" layoutX="529.0" layoutY="530.0" prefHeight="36.0" prefWidth="257.0" />
+      <Text fill="#476e7c" layoutX="9.0" layoutY="226.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gestion des logements" textAlignment="CENTER" wrappingWidth="331.0000022351742">
+         <font>
+            <Font name="Yu Gothic Bold" size="23.0" />
+         </font>
+      </Text>
+      <Text fill="#224754" layoutX="374.0" layoutY="56.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Modification d'un logement" wrappingWidth="585.0">
+         <font>
+            <Font name="Papyrus" size="45.0" />
+         </font>
+      </Text>
+      <Pane layoutX="329.0" layoutY="94.0" prefHeight="25.0" prefWidth="909.0" style="-fx-background-color: #CCE3EA;">
+         <children>
+            <TextField fx:id="ID_logement" disable="true" editable="false" layoutX="150.0" layoutY="1.0" visible="false" />
+         </children></Pane>
+      <Button fx:id="importer_image" layoutX="797.0" layoutY="523.0" mnemonicParsing="false" prefHeight="3.0" prefWidth="39.0" />
+      <ImageView fx:id="imageLog" fitHeight="101.0" fitWidth="168.0" layoutX="576.0" layoutY="574.0" pickOnBounds="true" preserveRatio="true" />
+   </children>
+</AnchorPane>

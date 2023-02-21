@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.DisplacementMap?>
+<?import javafx.scene.effect.FloatMap?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="750.0" prefWidth="1230.0" style="-fx-background-color: #EFF8FA;" stylesheets="@/codingbeasts/doulicha/views/Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codingbeasts.doulicha.controllers.AfficherLogementController">
+   <children>
+      <VBox layoutX="-1.0" layoutY="-2.0" prefHeight="754.0" prefWidth="331.0" style="-fx-background-color: #CCE3EA;" />
+      <Button fx:id="ajouter_logement" layoutX="57.0" layoutY="506.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="200.0" text="Ajouter un logement" textFill="#149dd3">
+         <font>
+            <Font name="System Bold Italic" size="21.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="E_RESIZE" />
+         </cursor>
+         <effect>
+            <DisplacementMap>
+               <mapData>
+                  <FloatMap />
+               </mapData>
+            </DisplacementMap>
+         </effect>
+      </Button>
+      <Button fx:id="afficher_logement" layoutX="57.0" layoutY="584.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="200.0" text="Afficher les logements">
+         <font>
+            <Font name="System Bold Italic" size="21.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="E_RESIZE" />
+         </cursor>
+         <effect>
+            <DisplacementMap>
+               <mapData>
+                  <FloatMap />
+               </mapData>
+            </DisplacementMap>
+         </effect>
+      </Button>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="72.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@/codingbeasts/doulicha/images/logoDoulicha.png" />
+         </image>
+      </ImageView>
+      <Text fill="#476e7c" layoutX="-3.0" layoutY="206.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gestion des logements" textAlignment="CENTER" wrappingWidth="331.0000022351742">
+         <font>
+            <Font name="Yu Gothic Bold" size="23.0" />
+         </font>
+      </Text>
+      <Button fx:id="home" layoutX="3.0" layoutY="274.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="324.0" text="Home" />
+      <TableView fx:id="table_view" layoutX="340.0" layoutY="165.0" prefHeight="420.0" prefWidth="881.0">
+        <columns>
+          <TableColumn fx:id="ID_logement" prefWidth="66.0" text="ID" />
+          <TableColumn fx:id="nom_logement" minWidth="4.0" prefWidth="85.0" text="Nom" />
+            <TableColumn fx:id="description_logement" minWidth="0.0" prefWidth="132.0" text="Description" />
+            <TableColumn fx:id="adresse_logement" prefWidth="110.0" text="Adresse" />
+            <TableColumn fx:id="prixNuitee_logement" prefWidth="91.0" text="PrixNuitée" />
+            <TableColumn fx:id="capacite_logement" prefWidth="82.0" text="Capacité" />
+            <TableColumn fx:id="type_logement" prefWidth="90.0" text="Type" />
+            <TableColumn fx:id="etat_logement" prefWidth="52.0" text="Etat" />
+            <TableColumn fx:id="image_logement" prefWidth="102.0" text="Image" />
+            <TableColumn fx:id="editcol" prefWidth="75.0" />
+        </columns>
+      </TableView>
+      <Pane layoutX="329.0" layoutY="74.0" prefHeight="25.0" prefWidth="901.0" style="-fx-background-color: #CCE3EA;" />
+      <Text fill="#476e7c" layoutX="339.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Affichage des logements">
+         <font>
+            <Font name="Papyrus" size="50.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

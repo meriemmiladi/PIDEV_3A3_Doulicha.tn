@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="750.0" prefWidth="1230.0" style="-fx-background-color: #EFF8FA;" stylesheets="@/codingbeasts/doulicha/views/Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codingbeasts.doulicha.controllers.AfficherReservationController">
+   <children>
+      <VBox layoutX="-2.0" layoutY="1.0" prefHeight="754.0" prefWidth="331.0" style="-fx-background-color: #CCE3EA;" />
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="82.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@/codingbeasts/doulicha/images/logoDoulicha.png" />
+         </image>
+      </ImageView>
+      <Text fill="#476e7c" layoutX="2.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Réservation des logement" textAlignment="CENTER" wrappingWidth="331.0000022351742">
+         <font>
+            <Font name="Yu Gothic Bold" size="23.0" />
+         </font>
+      </Text>
+      <Button fx:id="home" layoutX="2.0" layoutY="284.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="324.0" text="Home" />
+      <TableView fx:id="table_view" layoutX="334.0" layoutY="175.0" prefHeight="420.0" prefWidth="881.0">
+         <columns>
+            <TableColumn fx:id="ID_reservation" prefWidth="56.0" text="ID" />
+            <TableColumn fx:id="ID_user" minWidth="4.0" prefWidth="95.0" text="ID_client" />
+            <TableColumn fx:id="ID_logement" minWidth="0.0" prefWidth="115.0" text="ID_logement" />
+            <TableColumn fx:id="dateArrivee_reservation" prefWidth="137.0" text="Date Arrivée" />
+            <TableColumn fx:id="dateDepart_reservation" prefWidth="131.0" text="Date Départ" />
+            <TableColumn fx:id="nbPersonnes_reservation" prefWidth="201.0" text="Nombre de personnes" />
+            <TableColumn fx:id="montantTotal_reservation" minWidth="0.0" prefWidth="145.0" text="Montant total" />
+         </columns>
+      </TableView>
+      <Pane layoutX="329.0" layoutY="84.0" prefHeight="25.0" prefWidth="901.0" style="-fx-background-color: #CCE3EA;" />
+      <Text fill="#476e7c" layoutX="348.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Affichage des réservations">
+         <font>
+            <Font name="Papyrus" size="49.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>
