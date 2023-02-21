@@ -41,7 +41,6 @@ public class ClientDiscussionController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Date date = Date.valueOf(LocalDate.now());
         DiscussionCRUD dis = new DiscussionCRUD();
         List<Discussion> discussions = dis.afficherDiscussions();
 
@@ -163,7 +162,7 @@ public class ClientDiscussionController implements Initializable {
                         Button annulerButton = new Button("Annuler");
 
                         enregistrerButton.setOnAction(e1 -> {
-                            if (editContent.getText().trim().isEmpty()) {
+                            if (editContent.getText().isEmpty()) {
                                 Alert alert = new Alert(Alert.AlertType.ERROR);
                                 alert.setTitle("Erreur de saisie");
                                 alert.setContentText("Le texte ne peut pas être vide.");
@@ -172,10 +171,10 @@ public class ClientDiscussionController implements Initializable {
                                 reponse.setContenu_reponse(editContent.getText());
                                 reponsesBox.getChildren().clear();
                                 rep.modifierContenuReponse(reponse.getID_reponse(), editContent.getText());
-                                rep.modifierDateReponse(reponse.getID_reponse(), new Date(System.currentTimeMillis()));
-                                labelDate.setText("Modifiée le "+reponse.getDate_reponse());
+                               reponse.setDate_reponse(new Date(System.currentTimeMillis()));
+                                labelDate.setText("Modifiée le "+reponse.getDate_reponse().toString());
                                 labelContenu.setText(reponse.getContenu_reponse());
-                                reponsesBox.getChildren().addAll(labelDate, labelContenu, hbox);
+                                reponsesBox.getChildren().addAll(labelContenu, labelDate, hbox);
                                 reponsesBox.requestFocus();
                             }
                         });
@@ -237,7 +236,7 @@ public class ClientDiscussionController implements Initializable {
                 Button ajouterReponse = new Button("Partager votre réponse");
                 reponseBox.getChildren().add(ajouterReponse);
                 ajouterReponse.setOnAction((ActionEvent event1) -> {
-                    if (nouvelleReponse.getText().trim().isEmpty()) {
+                    if (nouvelleReponse.getText().isEmpty()) {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("Erreur de saisie");
                         alert.setContentText("Le texte ne peut pas être vide.");
@@ -288,7 +287,7 @@ public class ClientDiscussionController implements Initializable {
             discussionBox.getChildren().addAll(titreDiscussionArea, nouvelleDiscussionArea);
 
             publierBtn.setOnAction((ActionEvent event) -> {
-                if ((nouvelleDiscussionArea.getText().trim().isEmpty()) || (titreDiscussionArea.getText().trim().isEmpty())) {
+                if ((nouvelleDiscussionArea.getText().isEmpty()) || (titreDiscussionArea.getText().isEmpty())) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Erreur de saisie");
                     alert.setContentText("Le texte ne peut pas être vide.");
@@ -300,20 +299,19 @@ public class ClientDiscussionController implements Initializable {
                     Label labelContenu = new Label(nouvelleDiscussionArea.getText());
                     Label labelDate = new Label((new Date(System.currentTimeMillis())).toString());
                     discussionBox1.getChildren().addAll(labelTitre, labelContenu, labelDate);
-                    discussionBox.getChildren().addAll(discussionBox1);
-                    discussionBox.getChildren().clear();
+                    discussionBox.getChildren().add(discussionBox1);
+                   discussionBox.getChildren().clear();
                     reponseBox.setOpacity(0);
                     scrollPane1.setOpacity(0);
                     initialize(url, rb);
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.initStyle(StageStyle.TRANSPARENT);
                     alert.setHeaderText("ajout de discussion");
                     alert.setContentText("Discussion publiée avec succès !");
                     alert.showAndWait();
                 }
             });
-
             discussionBox.getChildren().add(publierBtn);
+            publierBtn.requestFocus();
         });
         discussionBox.getChildren().add(ajouterDiscussion);
     }

@@ -1,10 +1,8 @@
 package codingbeasts.doulicha.services;
 
-import codingbeasts.doulicha.entities.Discussion;
 import codingbeasts.doulicha.entities.Reponse;
 import codingbeasts.doulicha.utils.MyConnection;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -85,18 +83,6 @@ public class ReponseCRUD {
             System.err.println(ex.getMessage());
         }
     }
-    public void modifierDateReponse(int id_reponse, Date date_reponse) {
-        try {
-            String requete = "UPDATE reponse SET date_reponse = ?  WHERE id_reponse= ?";
-            PreparedStatement pst = con.prepareStatement(requete);
-            pst.setDate(1, date_reponse);
-            pst.setInt(2, id_reponse);
-            pst.executeUpdate();
-
-        } catch (SQLException ex) {
-            System.err.println(ex.getMessage());
-        }
-    }
 
     public List<Reponse> afficherReponses() {
         List<Reponse> reponses = new ArrayList<>();
@@ -141,7 +127,8 @@ public class ReponseCRUD {
         }
         return reponsesUtilisateur;
     }
-     public List<Reponse> rechercherReponsesDiscussion(int ID_discussion) {
+
+    public List<Reponse> rechercherReponsesDiscussion(int ID_discussion) {
         List<Reponse> reponsesDiscussions = new ArrayList<>();
         try {
 
@@ -163,7 +150,8 @@ public class ReponseCRUD {
         }
         return reponsesDiscussions;
     }
-      public List<Reponse> rechercherReponsesDiscussionUtilisateur(int ID_discussion,int ID_user) {
+
+    public List<Reponse> rechercherReponsesDiscussionUtilisateur(int ID_discussion, int ID_user) {
         List<Reponse> reponsesDiscussions = new ArrayList<>();
         try {
 
