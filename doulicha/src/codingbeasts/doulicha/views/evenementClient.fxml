@@ -18,7 +18,7 @@
    <center>
       <AnchorPane prefHeight="781.0" prefWidth="1174.0" style="-fx-background-color: #e3f5fa;" BorderPane.alignment="CENTER">
          <children>
-            <ScrollPane layoutX="160.0" layoutY="79.0" prefHeight="673.0" prefWidth="612.0">
+            <ScrollPane layoutX="109.0" layoutY="79.0" prefHeight="673.0" prefWidth="649.0">
                <content>
                   <GridPane fx:id="event_grid" prefHeight="90.0" prefWidth="800.0">
                     <rowConstraints>
@@ -75,6 +75,11 @@
                   </Button>
                </children>
             </VBox>
+            <Button fx:id="btn_retourhome" layoutX="14.0" layoutY="703.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="47.0" style="-fx-background-radius: 50; -fx-background-color: #99E2F7;" text="◀">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
    </center>

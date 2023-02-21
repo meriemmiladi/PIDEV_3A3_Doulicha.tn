@@ -62,6 +62,8 @@ public class AfficherEvenementsController implements Initializable {
     private Button btn_gerer;
     @FXML
     private Button btn_gestionParticipations;
+    @FXML
+    private Button btn_retourhome;
 
     /**
      * Initializes the controller class.
@@ -73,6 +75,19 @@ public class AfficherEvenementsController implements Initializable {
         ObservableList<evenement> events = evenenement.afficherEvents();
         afficherEvenement();
 //       rechercheEvent();   
+
+btn_retourhome.setOnAction(event -> {
+
+            try {
+                Parent page1 = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/views/homeAdmin.fxml"));
+                Scene scene = new Scene(page1);
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException ex) {
+              Logger.getLogger(AfficherEvenementsController.class.getName()).log(Level.SEVERE, null, ex); 
+            }
+        }); 
 
 btn_gestionParticipations.setOnAction(event -> {
 

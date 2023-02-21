@@ -5,6 +5,7 @@
  */
 package codingbeasts.doulicha.controllers;
 
+import codingbeasts.doulicha.interfaces.MyListener;
 import codingbeasts.doulicha.entities.evenement;
 import codingbeasts.doulicha.services.ServiceEvenement;
 import java.io.IOException;
@@ -71,6 +72,8 @@ public class EvenementClientController implements Initializable {
     private Label event_id;
     @FXML
     private Button btn_mesparticipations;
+    @FXML
+    private Button btn_retourhome;
     
 
     /**
@@ -109,6 +112,18 @@ public class EvenementClientController implements Initializable {
 
             try {
                 Parent page1 = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/views/participationClient.fxml"));
+                Scene scene = new Scene(page1);
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException ex) {
+              Logger.getLogger(AfficherEvenementsController.class.getName()).log(Level.SEVERE, null, ex); 
+            }
+        }); 
+          btn_retourhome.setOnAction(event -> {
+
+            try {
+                Parent page1 = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/views/homeClient.fxml"));
                 Scene scene = new Scene(page1);
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 stage.setScene(scene);

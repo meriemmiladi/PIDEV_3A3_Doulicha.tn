@@ -3,15 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package codingbeasts.doulicha.controllers;
+package codingbeasts.doulicha.interfaces;
 
 import codingbeasts.doulicha.entities.evenement;
+import codingbeasts.doulicha.entities.participation_evenement;
 
 /**
  *
  * @author Admin
  */
-public interface MyListener {
-     public void onClickListener(evenement event);
+public interface MyListener2 {
+     public void onClickListener(participation_evenement part);
     
 }

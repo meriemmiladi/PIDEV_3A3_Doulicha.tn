@@ -34,6 +34,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -145,13 +146,7 @@ public class AjoutEvenementController implements Initializable {
      String image_event = TF_image.getText();
      double prix_event = Double.parseDouble(TF_prix.getText());
      
-/*TF_capacite.textProperty().addListener((observable, oldValue, newValue) -> {
-    if (!newValue.matches("\\d*")) {
-        Platform.runLater(() -> TF_capacite.setStyle("-fx-text-inner-color: red;"));
-    } else {
-        Platform.runLater(() -> TF_capacite.setStyle("-fx-text-inner-color: black;"));
-    }
-});*/
+
      
  
      
@@ -271,6 +266,8 @@ public class AjoutEvenementController implements Initializable {
         }
     }
      
+     
+     
    /* public void capacite_event_Input_Validator(TextField TF_capacite) {
     try {
         int capacite = Integer.parseInt(TF_capacite.getText());
@@ -302,7 +299,7 @@ public class AjoutEvenementController implements Initializable {
 
         }
     }
-    
+
      private Boolean testDateDebut() {
         LocalDate now = LocalDate.now();
         if ( dateDebut.getValue().compareTo(now) > 0) {
@@ -330,7 +327,6 @@ public class AjoutEvenementController implements Initializable {
         
           FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Pick a banner file !");
-       // fileChooser.setInitialDirectory(new File("\\Mehdi\\ESPRIT\\pi java\\zero\\src\\Images"));
         Stage stage = new Stage();
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("JPG", "*.jpg"),

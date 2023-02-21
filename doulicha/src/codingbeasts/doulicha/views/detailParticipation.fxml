@@ -10,9 +10,14 @@
    <children>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="830.0">
          <children>
-            <Label fx:id="id_event_part" alignment="CENTER" prefHeight="100.0" prefWidth="0.0" text="ID de l'évènement">
+            <Label fx:id="id_event_part" alignment="CENTER" prefHeight="100.0" prefWidth="269.0" text="ID de l'évènement">
                <font>
-                  <Font size="1.0" />
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="id_participation" alignment="CENTER" prefHeight="0.0" prefWidth="0.0" text="id">
+               <font>
+                  <Font size="0.1" />
                </font>
             </Label>
             <Label fx:id="id_participationM" alignment="CENTER" prefHeight="100.0" prefWidth="0.0" text="ID Participation">
@@ -25,8 +30,8 @@
                   <Font size="1.0" />
                </font>
             </Label>
-            <Label fx:id="nbpart_detail" alignment="CENTER" prefHeight="98.0" prefWidth="324.0" text="Nombre de participants " />
-            <Label fx:id="datepart_detail" alignment="CENTER" prefHeight="100.0" prefWidth="256.0" text="Date de participation" />
+            <Label fx:id="nbpart_detail" alignment="CENTER" prefHeight="98.0" prefWidth="220.0" text="Nombre de participants " />
+            <Label fx:id="datepart_detail" alignment="CENTER" prefHeight="100.0" prefWidth="258.0" text="Date de participation" />
             <Button fx:id="btn_modifierpart" mnemonicParsing="false" onAction="#gererPart" prefHeight="52.0" prefWidth="149.0" style="-fx-background-radius: 50; -fx-background-color: #99E2F7;" text="Gérer">
                <font>
                   <Font size="16.0" />

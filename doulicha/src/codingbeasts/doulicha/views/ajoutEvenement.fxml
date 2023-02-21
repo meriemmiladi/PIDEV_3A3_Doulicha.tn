@@ -43,7 +43,7 @@
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <Label prefHeight="27.0" prefWidth="65.0" text="Lieu" textFill="#12225e">
+                              <Label prefHeight="38.0" prefWidth="65.0" text="Lieu" textFill="#12225e">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -53,32 +53,32 @@
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <Label prefHeight="27.0" prefWidth="72.0" text="Prix" textFill="#12225e">
+                              <Label prefHeight="37.0" prefWidth="72.0" text="Prix" textFill="#12225e">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <Label text="Description" textFill="#12225e">
+                              <Label prefHeight="30.0" prefWidth="91.0" text="Description" textFill="#12225e">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <Label text="Image" textFill="#12225e">
+                              <Label prefHeight="38.0" prefWidth="50.0" text="Image" textFill="#12225e">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <Label text="Type" textFill="#12225e">
+                              <Label prefHeight="31.0" prefWidth="39.0" text="Type" textFill="#12225e">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <Label text="Date Début" textFill="#12225e">
+                              <Label prefHeight="36.0" prefWidth="92.0" text="Date Début" textFill="#12225e">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <Label text="Date Fin" textFill="#12225e">
+                              <Label prefHeight="41.0" prefWidth="66.0" text="Date Fin" textFill="#12225e">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -109,18 +109,18 @@
                               <TextField fx:id="TF_nombreActuel" prefHeight="23.0" prefWidth="230.0" style="-fx-background-radius: 50;" />
                            </children>
                         </VBox>
-                        <VBox alignment="CENTER" prefHeight="468.0" prefWidth="70.0" spacing="26.0" HBox.hgrow="ALWAYS">
+                        <VBox alignment="TOP_CENTER" prefHeight="557.0" prefWidth="106.0" spacing="31.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <ImageView fx:id="iconeNom" fitHeight="23.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fx:id="iconeNom" fitHeight="27.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
                               <ImageView fx:id="iconeLieu" fitHeight="23.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
                               <ImageView fx:id="iconeCapacite" fitHeight="23.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
                               <ImageView fx:id="iconecPrix" fitHeight="23.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
-                              <ImageView fx:id="iconeDescription" fitHeight="23.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fx:id="iconeDescription" fitHeight="23.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true" />
                               <ImageView fx:id="iconeImage" fitHeight="23.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
                               <ImageView fx:id="iconeType" fitHeight="23.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
                               <ImageView fx:id="iconeDateDebut" fitHeight="23.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
                               <ImageView fx:id="iconeDateFin" fitHeight="23.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
-                              <ImageView fx:id="iconeNombreActuel" fitHeight="23.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fx:id="iconeNombreActuel" fitHeight="29.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
                            </children>
                         </VBox>
                      </children>

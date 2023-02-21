@@ -5,6 +5,7 @@
  */
 package codingbeasts.doulicha.controllers;
 
+import codingbeasts.doulicha.interfaces.MyListener;
 import codingbeasts.doulicha.entities.evenement;
 import codingbeasts.doulicha.entities.participation_evenement;
 import codingbeasts.doulicha.services.ServiceEvenement;
@@ -15,6 +16,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.chrono.ChronoLocalDate;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -70,20 +72,7 @@ public class AjoutParticipationController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-       /* FXMLLoader loader = new FXMLLoader();
-                    loader.setLocation(getClass().getResource("/codingbeasts/doulicha/views/detailEvenement.fxml"));
-                    
-        try {
-            Node postbox = loader.load();
-        } catch (IOException ex) {
-            Logger.getLogger(AjoutParticipationController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-                    System.out.println("TEST TEST");
-                    DetailEvenementController evc = loader.getController();
-                   // evc.setData(event, myListener, this.evenement_choisi); */
-                  
-        
+      
        btn_retour.setOnAction(event -> {
 
             try {
@@ -97,15 +86,8 @@ public class AjoutParticipationController implements Initializable {
             }
         }); 
        
-       
-       
-     
     } 
     
-    
-     
-    
-
 
     @FXML
     private void ajouterParticipation(ActionEvent event) {
@@ -146,7 +128,7 @@ public class AjoutParticipationController implements Initializable {
     notificationBuilder.showInformation();
 
     try {
-        Parent page1 = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/views/evenementClient.fxml"));
+        Parent page1 = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/views/participationClient.fxml"));
         Scene scene = new Scene(page1);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
@@ -165,8 +147,11 @@ public class AjoutParticipationController implements Initializable {
         }
         return testDatePart();
     }
+    
+    
     private Boolean testDatePart() {
         LocalDate now = LocalDate.now();
+        evenement ev = new evenement();
         if ( dateP.getValue().compareTo(now) > 0) {
                 icone_date.setImage(new Image("images/yes.png"));
                 return true;
@@ -201,80 +186,8 @@ public class AjoutParticipationController implements Initializable {
 
     }
 
-    
-    
-   
+  
 }
 
 
- /* public void initialize(URL url, ResourceBundle rb) {
-        
-        annuler.setOnAction( event->{
-        try{
-            System.out.println("annuler appuyé");
-            Parent page1 = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/views/HomeFront.fxml"));
-            Scene scene = new Scene(page1);
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(scene);
-            stage.show(); 
-    }
-        catch (IOException ex) {
-                Logger.getLogger(ReserverLogementController.class.getName()).log(Level.SEVERE, null, ex);
-    }
-    });
-        
-        
-        
-        reserver.setOnAction(event -> {        
-        ServiceReservationLogement sr = new ServiceReservationLogement();
-        //if(testSaisie()){ 
-
-        Reservation_logement r = new Reservation_logement();
-        LocalDate dateArrivee_local = dateArrivee_reservation.getValue();
-        LocalDate dateDepart_local = dateDepart_reservation.getValue();
-        Date dateDebut_event = java.sql.Date.valueOf(dateArrivee_local);
-        Date dateFin_event = java.sql.Date.valueOf(dateDepart_local);
-        
-        r.setDateArrivee_reservation(dateDebut_event);
-        r.setDateDepart_reservation(dateFin_event);
-       
-        String textC = nbPersonnes_reservation.getText();
-        try {
-            int valueC = Integer.parseInt(textC);
-            r.setNbPersonnes_reservation(valueC);
-            } catch (NumberFormatException e) {
-              System.out.println("erreur recuperation capacite!");
-            }
-     
-        // calculez le nombre de jours de la réservation
-        long nbJoursReservation = ChronoUnit.DAYS.between(dateArrivee_local, dateDepart_local);
-
-        // calculez le montant total de la réservation
-        String textI = ID_logement.getText();
-        int valueI=0;
-        try {
-             valueI = Integer.parseInt(textI);
-            } catch (NumberFormatException e) {
-              System.out.println("erreur recuperation capacite!");
-            }
-        ServiceLogement sl = new ServiceLogement();
-        double montantTotal = nbJoursReservation * (sl.recupPrixNuitee(valueI));
-        r.setMontantTotal_reservation(montantTotal);
-        r.setID_logement(valueI);
-        
-        
-        //A CHANGER A L'INTEGRATION
-        //*************************************
-        r.setID_user(2);
-         //*************************************
-        
-
-        sr.ajouterReservationLogement2(r);
-        
-       
-    } 
-    
-     
-     
-     
-    }*/
+ 

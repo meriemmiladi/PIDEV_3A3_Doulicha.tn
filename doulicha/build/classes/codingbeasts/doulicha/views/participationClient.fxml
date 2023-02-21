@@ -17,9 +17,9 @@
    <center>
       <AnchorPane prefHeight="781.0" prefWidth="1174.0" style="-fx-background-color: #e3f5fa;" BorderPane.alignment="CENTER">
          <children>
-            <ScrollPane layoutX="140.0" layoutY="90.0" prefHeight="655.0" prefWidth="957.0">
+            <ScrollPane layoutX="140.0" layoutY="90.0" prefHeight="655.0" prefWidth="872.0">
                <content>
-                  <GridPane fx:id="participation_grid" prefHeight="82.0" prefWidth="800.0">
+                  <GridPane fx:id="participation_grid" prefHeight="82.0" prefWidth="958.0">
                      <rowConstraints>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>

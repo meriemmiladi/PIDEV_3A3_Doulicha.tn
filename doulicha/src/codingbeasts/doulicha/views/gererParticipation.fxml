@@ -99,7 +99,7 @@
                         <Image url="@../../../images/time-and-calendar.png" />
                      </image>
                   </ImageView>
-                  <Button mnemonicParsing="false" prefHeight="48.0" prefWidth="212.0" style="-fx-background-color: transparent;" text="Évènements" textFill="#2b4570">
+                  <Button fx:id="btn_events" mnemonicParsing="false" prefHeight="48.0" prefWidth="212.0" style="-fx-background-color: transparent;" text="Évènements" textFill="#2b4570">
                      <font>
                         <Font name="Calibri" size="18.0" />
                      </font>

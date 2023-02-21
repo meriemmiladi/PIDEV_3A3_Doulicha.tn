@@ -67,12 +67,27 @@ public class GererParticipationController implements Initializable {
     private ImageView icone_nb;
     @FXML
     private ImageView icone_date;
+    @FXML
+    private Button btn_events;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        btn_events.setOnAction(event -> {
+
+            try {
+                Parent page1 = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/views/evenementClient.fxml"));
+                Scene scene = new Scene(page1);
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException ex) {
+              Logger.getLogger(AfficherEvenementsController.class.getName()).log(Level.SEVERE, null, ex); 
+            }
+        }); 
         // TODO
     }    
 
@@ -163,7 +178,7 @@ public class GererParticipationController implements Initializable {
             System.out.println("Cancel");
         }
         try {
-            Parent page1 = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/views/gererParticipation.fxml"));
+            Parent page1 = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/views/participationClient.fxml"));
             Scene scene = new Scene(page1);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);
@@ -172,6 +187,7 @@ public class GererParticipationController implements Initializable {
             Logger.getLogger(AfficherEvenementsController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
     
     
     

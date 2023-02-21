@@ -142,7 +142,7 @@ public class ServiceParticipationEvenement {
             if (nbSuppression == 0) {
                 System.out.println("Pas de suppression de participation effectuée");
             } else {
-               System.out.println("\"L'évènement avec l'ID " + ID_participation + " a été supprimé.\"");
+               System.out.println("\"La participation avec l'ID " + ID_participation + " a été supprimée.\"");
 
             }
 

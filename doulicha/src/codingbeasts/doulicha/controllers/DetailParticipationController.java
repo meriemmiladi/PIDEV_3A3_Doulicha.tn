@@ -5,6 +5,7 @@
  */
 package codingbeasts.doulicha.controllers;
 
+import codingbeasts.doulicha.interfaces.MyListener2;
 import codingbeasts.doulicha.entities.evenement;
 import codingbeasts.doulicha.entities.participation_evenement;
 import codingbeasts.doulicha.services.ServiceEvenement;
@@ -58,6 +59,8 @@ public class DetailParticipationController implements Initializable {
     private Label id_participationM;
     @FXML
     private Label iduser_detail;
+    @FXML
+    private Label id_participation;
 
     /**
      * Initializes the controller class.
@@ -88,7 +91,7 @@ public class DetailParticipationController implements Initializable {
                             }
           GererParticipationController HomeScene = loader.getController();
           System.out.println("aaaaa");
-          HomeScene.selected_item3(Integer.parseInt(id_participationM.getText()),Integer.parseInt(iduser_detail.getText()), Integer.parseInt(id_event_part.getText()),java.sql.Date.valueOf(datepart_detail.getText()), Integer.parseInt(nbpart_detail.getText()));
+          HomeScene.selected_item3(Integer.parseInt(id_participationM.getText()),Integer.parseInt(iduser_detail.getText()), Integer.parseInt(id_participation.getText()),java.sql.Date.valueOf(datepart_detail.getText()), Integer.parseInt(nbpart_detail.getText()));
            GererParticipationController GererParticipationController = loader.getController();
                             GererParticipationController.setUpdate(true);
                           // AjoutParticipationController.recupererID(ID_event);
@@ -119,8 +122,8 @@ public class DetailParticipationController implements Initializable {
        // this.event = event;
         this.SE=SE;
         
-       // this.id_event_part.setText(SE.getNom(part.getID_event()));
-       this.id_event_part.setText(String.valueOf(part.getID_event()));
+        this.id_event_part.setText(SE.getNom(part.getID_event()));
+      this.id_participation.setText(String.valueOf(part.getID_event()));
         this.nbpart_detail.setText(String.valueOf(part.getNombre_participation()));
         this.datepart_detail.setText(String.valueOf(part.getDate_participation()));
        this.iduser_detail.setText(String.valueOf(1));
