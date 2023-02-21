@@ -5,6 +5,8 @@
  */
 package codingbeasts.doulicha.controllers;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.io.IOException ;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,16 +26,21 @@ import javafx.stage.Stage;
  * @author aziz
  */
 public class MainView extends Application {
+    public static final String CURRENCY = "$";
     
     @Override
     public void start(Stage primaryStage) {
         
        
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/view/accprod.fxml"));
+            //Parent root = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/view/magasin.fxml"));
+//            Parent root = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/view/accprod.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/view/magasin.fxml"));
             
-            Scene scene = new Scene(root, 965, 670);
-            
+            Dimension size = Toolkit. getDefaultToolkit(). getScreenSize();
+            int width = (int)size.getWidth();
+            int height = (int)size.getHeight();
+            Scene scene = new Scene(root, width,height);
             primaryStage.setTitle("gestion produit");
             primaryStage.setScene(scene);
             primaryStage.show();

@@ -47,7 +47,11 @@ public class CommandeCrud {
             PreparedStatement pst =cnx2.prepareStatement(requete2);
             
             pst.setInt(1, p.getID_user());
-            pst.setDate(2, new java.sql.Date(p.getDate_commande().getTime()));
+            //pst.setDate(2, new java.sql.Date(p.getDate_commande().getTime()));
+            //pst.setDate(2, java.sql.Date.valueOf(p.getDate_commande().toLocalDate()));
+            //pst.setDate(2, java.sql.Date.valueOf(p.getDate_commande().toLocalDate()));
+            
+            pst.setDate(2,p.getDate_commande());
             pst.setInt(3, p.getEtat_commande());
             pst.executeUpdate();
             System.out.println("votre commande est ajoutée");

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="818.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171">
+   <children>
+      <Text layoutX="244.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FACTURE" wrappingWidth="153.0107421875">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <Text layoutX="57.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Client : mohamed azyz belaidi" wrappingWidth="202.6708984375" />
+      <Text layoutX="57.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="adresse : Résidence Essalem II, Av. Fethi Zouhir, Cebalat Ben Ammar 2083" wrappingWidth="327.6708984375" />
+   </children>
+</AnchorPane>

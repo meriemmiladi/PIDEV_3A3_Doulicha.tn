@@ -100,4 +100,12 @@ public class Produit {
     public void setImage_produit(String image_produit) {
         this.image_produit = image_produit;
     }
+
+    public Object getKey() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Object getValue() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

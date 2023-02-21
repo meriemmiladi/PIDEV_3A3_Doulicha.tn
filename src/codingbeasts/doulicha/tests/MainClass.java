@@ -64,13 +64,15 @@ public class MainClass {
         
         //*************comaaaaaaaande**********//
         
-        CommandeCrud ccd=new CommandeCrud();
-        //Commande c1=new Commande (2,new Date(2000-1-3) ,1);
-        //User u=new User();
-        
-        //*******ajout commande
-        
-        //ccd.ajouterCommande();
+        // Créer un objet Commande
+    Commande c1 = new Commande();
+
+// Créer un objet CommandeCrud
+    CommandeCrud ccd = new CommandeCrud();
+        int ID_user = 1;
+// Ajouter la commande en appelant la méthode ajouterCommande2()
+    ccd.ajouterCommande(); 
+
         
         
         //****supp commande
@@ -100,22 +102,22 @@ public class MainClass {
         //ligne commandeeee//
         
         
-        LigneCommandeCrud lcc=new LigneCommandeCrud();
-        LigneCommande l1=lcc.retreiveOneligne(1);
-        if (l1 != null) {
-        LigneCommande nouvelleLigne = new LigneCommande();
-      
-        nouvelleLigne.setQuantite_achete_ligne(12);
-
-        int idligne = 1; // ID de la ligne de commande à modifier
-        lcc.modifierLigne(idligne, nouvelleLigne);
-
-         }else{
-            System.out.println("ligne nexiste pas");
-        }
-        
-        System.out.println(""+lcc.retreiveOneligne(1));
-        //*************modifier ligne********//
+//        LigneCommandeCrud lcc=new LigneCommandeCrud();
+//        LigneCommande l1=lcc.retreiveOneligne(1);
+//        if (l1 != null) {
+//        LigneCommande nouvelleLigne = new LigneCommande();
+//      
+//        nouvelleLigne.setQuantite_achete_ligne(12);
+//
+//        int idligne = 1; // ID de la ligne de commande à modifier
+//        lcc.modifierLigne(idligne, nouvelleLigne);
+//
+//         }else{
+//            System.out.println("ligne nexiste pas");
+//        }
+//        
+//        System.out.println(""+lcc.retreiveOneligne(1));
+//        //*************modifier ligne********//
         
         
         

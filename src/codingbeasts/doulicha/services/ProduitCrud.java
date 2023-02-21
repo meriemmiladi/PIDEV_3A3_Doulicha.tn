@@ -59,6 +59,8 @@ public class ProduitCrud implements Crud<Produit> {
            System.err.println(ex.getMessage());
         }
     }
+    
+    
     public List<Produit> afficherProduit(){
         List<Produit> myList= new ArrayList<>();
         try {
@@ -125,7 +127,9 @@ public class ProduitCrud implements Crud<Produit> {
 }
     
    public Produit modifierProduit(int idProduit, Produit nouveauProduit) {
-    String requete = "UPDATE produit SET libelle_produit = ?, quantite_produit = ?, prixUachat_produit = ?, prixUvente_produit = ?, categorie_produit = ?, image_produit = ? WHERE ID_produit = ?";
+       System.out.println(""+idProduit);
+        System.out.println(""+nouveauProduit);
+       String requete = "UPDATE produit SET libelle_produit = ?, quantite_produit = ?, prixUachat_produit = ?, prixUvente_produit = ?, categorie_produit = ?, image_produit = ? WHERE ID_produit = ?";
     try {
         PreparedStatement pst = cnx2.prepareStatement(requete);
         pst.setString(1, nouveauProduit.getLibelle_produit());
