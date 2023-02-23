@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,6 +30,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -59,6 +61,11 @@ public class AffichageUserController implements Initializable {
 
     @FXML
     private TableColumn<Utilisateur, String> txtrole;
+    
+      @FXML
+    private TextField searchField;
+      
+       private FilteredList<Utilisateur> filteredList;
 
     int IndexU = -1;
 
@@ -169,12 +176,32 @@ public class AffichageUserController implements Initializable {
         UtilisateurCRUD uc = new UtilisateurCRUD();
         List<Utilisateur> myList = new ArrayList<>();
         myList = uc.afficherUtilisateur();
-        System.out.println("Liste User : " + myList);
+         filteredList = new FilteredList<>(FXCollections.observableArrayList(myList));
+           searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredList.setPredicate(utilisateur -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+                if (utilisateur.getNom_user().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (utilisateur.getEmail_user().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else {
+                    return false;
+                }
+
+            });
+       
+            txttable.setItems(filteredList);
+        });
+        System.out.println("nnn : " + myList);
         ObservableList<Utilisateur> observableArrayList
                 = FXCollections.observableArrayList(uc.afficherUtilisateur());
         txttable.setItems(observableArrayList);
-
-    }
+                   
+                   }
+                   
 
     @FXML
     void onupdate(ActionEvent event) {

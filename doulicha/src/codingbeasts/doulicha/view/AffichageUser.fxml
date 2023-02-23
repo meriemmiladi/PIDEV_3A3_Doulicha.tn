@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -44,5 +45,7 @@
             <FontAwesomeIconView glyphName="PENCIL" size="22" />
          </graphic>
       </Button>
+      <TextField fx:id="searchField" layoutX="272.0" layoutY="180.0" prefHeight="31.0" prefWidth="274.0" />
+      <FontAwesomeIconView fill="#a6d4dc" glyphName="SEARCH" layoutX="515.0" layoutY="201.0" size="20" />
    </children>
 </AnchorPane>
