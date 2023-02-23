@@ -48,9 +48,8 @@ public class ServiceEvenement {
              event.setDateDebut_event(rs.getDate(6));
              event.setDateFin_event(rs.getDate(7));
              event.setCapacite_event(rs.getInt(8));
-             event.setNombreActuel_event(rs.getInt(9));
-             event.setImage_event(rs.getString(10));
-             event.setPrix_event(rs.getDouble(11));
+             event.setImage_event(rs.getString(9));
+             event.setPrix_event(rs.getDouble(10));
            evenement.add(event);
             }
 
@@ -65,7 +64,7 @@ public class ServiceEvenement {
     
     public void ajouterEvenement(){
         
-       String requete = " INSERT INTO `evenement`(`nom_event`, `description_event`, `lieu_event`, `type_event`, `dateDebut_event`, `dateFin_event`, `capacite_event`, `nombreActuel_event`, `image_event`, `prix_event`) "
+       String requete = " INSERT INTO `evenement`(`nom_event`, `description_event`, `lieu_event`, `type_event`, `dateDebut_event`, `dateFin_event`, `capacite_event`, `image_event`, `prix_event`) "
         + "VALUES ('El hadhra','dddddd','Théatre Municipal','Artistique','2023-03-22','2023-03-22','500','0','cccccc','35')";
         
         try {
@@ -81,8 +80,8 @@ public class ServiceEvenement {
     
     public void ajouterEvenement2(evenement event){
         
-        String requete2 = " INSERT INTO `evenement`(`nom_event`, `description_event`, `lieu_event`, `type_event`, `dateDebut_event`, `dateFin_event`, `capacite_event`, `nombreActuel_event`, `image_event`, `prix_event`) "
-        + "VALUES (?,?,?,?,?,?,?,?,?,?)";
+        String requete2 = " INSERT INTO `evenement`(`nom_event`, `description_event`, `lieu_event`, `type_event`, `dateDebut_event`, `dateFin_event`, `capacite_event`, `image_event`, `prix_event`) "
+        + "VALUES (?,?,?,?,?,?,?,?,?)";
         
         try {
             //PreparedStatement pst = new MyConnection().getCnx().prepareStatement(requete2);
@@ -94,9 +93,8 @@ public class ServiceEvenement {
             pst.setDate(5, (java.sql.Date) event.getDateDebut_event());
             pst.setDate(6, (java.sql.Date) event.getDateFin_event());
             pst.setInt(7, event.getCapacite_event());
-            pst.setInt(8, event.getNombreActuel_event());
-            pst.setString(9, event.getImage_event());
-            pst.setDouble(10, event.getPrix_event());
+            pst.setString(8, event.getImage_event());
+            pst.setDouble(9, event.getPrix_event());
             
             pst.executeUpdate();
             System.out.println("Votre évènement est ajouté ");
@@ -126,9 +124,8 @@ public class ServiceEvenement {
              event.setDateDebut_event(rs.getDate(6));
              event.setDateFin_event(rs.getDate(7));
              event.setCapacite_event(rs.getInt(8));
-             event.setNombreActuel_event(rs.getInt(9));
-             event.setImage_event(rs.getString(10));
-             event.setPrix_event(rs.getDouble(11));
+             event.setImage_event(rs.getString(9));
+             event.setPrix_event(rs.getDouble(10));
              
              
              /* event.setID_event(rs.getInt("ID_event"));
@@ -139,7 +136,6 @@ public class ServiceEvenement {
              event.setDateDebut_event(rs.getDate("DateDebut_event"));
              event.setDateFin_event(rs.getDate("DateFin_event"));
              event.setCapacite_event(rs.getInt("Capacite_event"));
-             event.setNombreActuel_event(rs.getInt("NombreActuel_event"));
              event.setImage_event(rs.getString("Image_event"));
              event.setPrix_event(rs.getDouble("Prix_event")); */
              
@@ -153,41 +149,13 @@ public class ServiceEvenement {
         return ListEvenement;
     }
     
-   /* public void modifierEvenement(evenement event) {
-    
-      try {
-      // String requete4= "UPDATE logement SET nom_logement=?, description_logement=?, adresse_logement=?, prixNuitee_logement=?, capacite_logement=?, type_logement=?, etat_logement=?, image_logement=? WHERE ID_logement=?";
-     
-     String requete4= "UPDATE `evenement` SET `nom_event`=?,`description_event`=?,`lieu_event`=?,`type_event`=?,`dateDebut_event`=?,`dateFin_event`=?,`capacite_event`=?,`nombreActuel_event`=?,`image_event`=?,`prix_event`=? WHERE ID_event=?";
-     PreparedStatement pst = cnx.prepareStatement(requete4);
-
-            pst.setString(1, event.getNom_event());
-            pst.setString(2, event.getDescription_event());
-            pst.setString(3, event.getLieu_event());
-            pst.setString(4, event.getType_event());
-            pst.setDate(5, (java.sql.Date) event.getDateDebut_event());
-            pst.setDate(6, (java.sql.Date) event.getDateFin_event());
-            pst.setInt(7, event.getCapacite_event());
-            pst.setInt(8, event.getNombreActuel_event());
-            pst.setString(9, event.getImage_event());
-            pst.setDouble(10, event.getPrix_event());
-            pst.setInt(11,event.getID_event());
-            
-            
-             pst.executeUpdate();
-             System.out.println("Votre évènement est modifié");
-             
-             
-        } catch (SQLException ex){
-             System.err.println(ex.getMessage());
-        }
-      } */
+   
     
      public void modifierEvenement(evenement event) {
 try {
             Statement st = cnx.createStatement();
             //nb: on ne peut pas modifier la date
-            String requete4 = "UPDATE  evenement SET nom_event  = '" + event.getNom_event() + "', description_event = '" + event.getDescription_event() + "', lieu_event = '" + event.getLieu_event() + "' , type_event = '" + event.getType_event() + "', dateDebut_event = '" + event.getDateDebut_event() + "', dateFin_event = '" + event.getDateFin_event() + "',capacite_event = '" + event.getCapacite_event() + "', nombreActuel_event = '" + event.getNombreActuel_event()+"',image_event = '" + event.getImage_event()+"',prix_event = '" + event.getPrix_event()+"' WHERE ID_event = '" + event.getID_event()+ "'";
+            String requete4 = "UPDATE  evenement SET nom_event  = '" + event.getNom_event() + "', description_event = '" + event.getDescription_event() + "', lieu_event = '" + event.getLieu_event() + "' , type_event = '" + event.getType_event() + "', dateDebut_event = '" + event.getDateDebut_event() + "', dateFin_event = '" + event.getDateFin_event() + "',capacite_event = '" + event.getCapacite_event() + "', image_event = '" + event.getImage_event()+"', prix_event = '" + event.getPrix_event()+"' WHERE ID_event = '" + event.getID_event()+ "'";
             st.executeUpdate(requete4);
             System.out.println("modification avec succes");
         } catch (SQLException ex) {
@@ -226,37 +194,7 @@ try {
     
     
     
-     /*public boolean modifierEvenement (int ID_event, String nom_event, String descrption_event, String lieu_event, String type_event, Date dateDebut_event, Date dateFin_event, int capacite_event, int nombreActuel_event, String image_event, double prix_event) {
-        
-         boolean eventModification = true;
-        String requete = null;
-        
-        try {
-     String requete5= "UPDATE `evenement` SET `nom_event`=?,`description_event`=?,`lieu_event`=?,`type_event`=?,`dateDebut_event`=?,`dateFin_event`=?,`capacite_event`=?,`nombreActuel_event`=?,`image_event`=?,`prix_event`=? WHERE ID_event=?";
-     PreparedStatement pst = cnx.prepareStatement(requete5);
-     
-           pst.setString(1, nom_event);
-            pst.setString(2, descrption_event);
-            pst.setString(3, lieu_event);
-            pst.setString(4,type_event);
-            pst.setDate(5, (java.sql.Date) dateDebut_event);
-            pst.setDate(6, (java.sql.Date) dateFin_event);
-            pst.setInt(7, capacite_event);
-            pst.setInt(8, nombreActuel_event);
-            pst.setString(9, image_event);
-            pst.setDouble(10, prix_event);
-            pst.setInt(11,ID_event);
-
-            pst.executeUpdate();
-            eventModification = true;
-             System.out.println("Votre évènement est modifié");
-             
-        } catch (SQLException ex) {
-            eventModification = false;
-             System.err.println(ex.getMessage());
-        }
-        return eventModification;
-    }*/
+   
     
      public int getId(String id) {
 try {

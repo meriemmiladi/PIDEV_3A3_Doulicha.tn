@@ -56,8 +56,6 @@ public class GererParticipationController implements Initializable {
     @FXML
     private TextField TF_nombreM;
     @FXML
-    private DatePicker datePM;
-    @FXML
     private TextField id_partM;
     @FXML
     private TextField TF_idM;
@@ -95,7 +93,7 @@ public class GererParticipationController implements Initializable {
     private void modifierPart(ActionEvent event) {
         
          ServiceParticipationEvenement SPE = new ServiceParticipationEvenement();
-         if(testSaisie()){
+        // if(testSaisie()){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation de modification");
         alert.setContentText("Etes vous sur de vouloir modifier cet évènement ?");
@@ -109,8 +107,6 @@ public class GererParticipationController implements Initializable {
             evp.setID_event(Integer.parseInt(TF_idM.getText()));
             evp.setID_user(Integer.parseInt(TF_iduserM .getText()));
             evp.setNombre_participation(Integer.parseInt(TF_nombreM.getText()));
-            LocalDate date_local = datePM.getValue();
-            evp.setDate_participation(java.sql.Date.valueOf(date_local));
             SPE.modifierParticipationEvenement(evp);
          
             Notifications notificationBuilder = Notifications.create()
@@ -131,27 +127,18 @@ public class GererParticipationController implements Initializable {
             Logger.getLogger(AfficherEvenementsController.class.getName()).log(Level.SEVERE, null, ex);
         }
         }
-        }
+       // }
     }
     
-    private Boolean testSaisie() {
+   /* private Boolean testSaisie() {
         String erreur = "";
       
         if (!testDatePart()) {
             erreur = erreur + ("Veuillez saisir une date valide \n");
         }
         return testDatePart();
-    }
-    private Boolean testDatePart() {
-        LocalDate now = LocalDate.now();
-        if ( datePM.getValue().compareTo(now) > 0) {
-                icone_date.setImage(new Image("images/yes.png"));
-                return true;
-            } else {
-                icone_date.setImage(new Image("images/no.png"));
-            }
-                return false;
-    } 
+    }*/
+   
 
     @FXML
     private void supprimerPart(ActionEvent event) {
@@ -191,16 +178,14 @@ public class GererParticipationController implements Initializable {
     
     
     
-    void selected_item3(int ID_participation, int ID_user, int ID_event, Date date_participation, int nombre_participation) {
+    void selected_item3(int ID_participation, int ID_user, int ID_event, int nombre_participation) {
 
-        LocalDate date_local = date_participation.toLocalDate();
 
    // TF_idM.setText(String.valueOf(ID_particiation));
     id_partM.setText(String.valueOf(ID_participation));
      TF_iduserM.setText(String.valueOf(ID_user));
     TF_idM.setText(String.valueOf(ID_event));
     TF_nombreM.setText(String.valueOf(nombre_participation));
-    datePM.setValue(date_local);
    
     
    

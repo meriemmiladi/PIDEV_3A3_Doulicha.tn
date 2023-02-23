@@ -50,8 +50,6 @@ public class DetailParticipationController implements Initializable {
     @FXML
     private Label nbpart_detail;
     @FXML
-    private Label datepart_detail;
-    @FXML
     private Button btn_modifierpart;
     @FXML
     private Label id_event_part;
@@ -91,7 +89,7 @@ public class DetailParticipationController implements Initializable {
                             }
           GererParticipationController HomeScene = loader.getController();
           System.out.println("aaaaa");
-          HomeScene.selected_item3(Integer.parseInt(id_participationM.getText()),Integer.parseInt(iduser_detail.getText()), Integer.parseInt(id_participation.getText()),java.sql.Date.valueOf(datepart_detail.getText()), Integer.parseInt(nbpart_detail.getText()));
+          HomeScene.selected_item3(Integer.parseInt(id_participationM.getText()),Integer.parseInt(iduser_detail.getText()), Integer.parseInt(id_participation.getText()), Integer.parseInt(nbpart_detail.getText()));
            GererParticipationController GererParticipationController = loader.getController();
                             GererParticipationController.setUpdate(true);
                           // AjoutParticipationController.recupererID(ID_event);
@@ -125,7 +123,6 @@ public class DetailParticipationController implements Initializable {
         this.id_event_part.setText(SE.getNom(part.getID_event()));
       this.id_participation.setText(String.valueOf(part.getID_event()));
         this.nbpart_detail.setText(String.valueOf(part.getNombre_participation()));
-        this.datepart_detail.setText(String.valueOf(part.getDate_participation()));
        this.iduser_detail.setText(String.valueOf(1));
         this.id_participationM .setText(String.valueOf(part.getID_participation()));
         

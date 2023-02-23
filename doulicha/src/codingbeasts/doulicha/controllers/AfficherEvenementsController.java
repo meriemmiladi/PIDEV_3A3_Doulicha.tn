@@ -7,9 +7,12 @@ package codingbeasts.doulicha.controllers;
 
 import codingbeasts.doulicha.entities.evenement;
 import codingbeasts.doulicha.services.ServiceEvenement;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,14 +21,22 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.util.Callback;
+import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
 
 /**
  * FXML Controller class
@@ -50,8 +61,6 @@ public class AfficherEvenementsController implements Initializable {
     private TableColumn<evenement, Integer> col_capacite;
     @FXML
     private TableColumn<evenement, Integer> col_prix;
-    @FXML
-    private TableColumn<evenement, Integer> col_nombreactuel;
     @FXML
     private TableColumn<evenement, String> col_image;
     @FXML
@@ -116,7 +125,7 @@ btn_gestionParticipations.setOnAction(event -> {
         }); 
     }    
     
-        private void afficherEvenement() {
+       private void afficherEvenement() {
             ServiceEvenement evenenement = new ServiceEvenement();
         ObservableList<evenement> events = evenenement.afficherEvents();
 
@@ -130,14 +139,15 @@ btn_gestionParticipations.setOnAction(event -> {
         col_datefin.setCellValueFactory(new PropertyValueFactory<>("dateFin_event"));
         col_capacite.setCellValueFactory(new PropertyValueFactory<>("capacite_event"));
         col_prix.setCellValueFactory(new PropertyValueFactory<>("prix_event"));
-        col_nombreactuel.setCellValueFactory(new PropertyValueFactory<>("nombreActuel_event"));
         col_image.setCellValueFactory(new PropertyValueFactory<>("image_event"));
 
         tableEvents.setItems(events);
         
         //search_event();
-    }
-
+        
+    }     
+    
+  
     @FXML
     private void gererEvenement(ActionEvent event)throws IOException {
         
@@ -159,7 +169,6 @@ btn_gestionParticipations.setOnAction(event -> {
                     tableEvents.getSelectionModel().getSelectedItem().getDateDebut_event(),
                     tableEvents.getSelectionModel().getSelectedItem().getDateFin_event(),
                     tableEvents.getSelectionModel().getSelectedItem().getCapacite_event(),
-                    tableEvents.getSelectionModel().getSelectedItem().getNombreActuel_event(),
                     tableEvents.getSelectionModel().getSelectedItem().getImage_event(),
                     tableEvents.getSelectionModel().getSelectedItem().getPrix_event()
                    );

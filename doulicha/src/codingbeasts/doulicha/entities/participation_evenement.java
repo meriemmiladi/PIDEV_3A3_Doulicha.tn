@@ -15,25 +15,22 @@ public class participation_evenement {
     private int ID_participation;
     private int ID_user;
     private int ID_event;
-    private Date date_participation;
     private int nombre_participation;
     
     
     public participation_evenement() {
     }
 
-    public participation_evenement(int ID_participation, int ID_user, int ID_event, Date date_participation, int nombre_participation) {
+    public participation_evenement(int ID_participation, int ID_user, int ID_event, int nombre_participation) {
         this.ID_participation = ID_participation;
         this.ID_user = ID_user;
         this.ID_event = ID_event;
-        this.date_participation = date_participation;
         this.nombre_participation = nombre_participation;
     }
 
-    public participation_evenement(int ID_user, int ID_event, Date date_participation, int nombre_participation) {
+    public participation_evenement(int ID_user, int ID_event, int nombre_participation) {
         this.ID_user = ID_user;
         this.ID_event = ID_event;
-        this.date_participation = date_participation;
         this.nombre_participation = nombre_participation;
     }
 
@@ -61,13 +58,6 @@ public class participation_evenement {
         this.ID_event = ID_event;
     }
 
-    public Date getDate_participation() {
-        return date_participation;
-    }
-
-    public void setDate_participation(Date date_participation) {
-        this.date_participation = date_participation;
-    }
 
     public int getNombre_participation() {
         return nombre_participation;
@@ -79,7 +69,7 @@ public class participation_evenement {
 
     @Override
     public String toString() {
-        return "participation_evenement{" + "ID_participation=" + ID_participation + ", ID_user=" + ID_user + ", ID_event=" + ID_event + ", date_participation=" + date_participation + ", nombre_participation=" + nombre_participation + '}';
+        return "participation_evenement{" + "ID_participation=" + ID_participation + ", ID_user=" + ID_user + ", ID_event=" + ID_event  + ", nombre_participation=" + nombre_participation + '}';
     }
     
     

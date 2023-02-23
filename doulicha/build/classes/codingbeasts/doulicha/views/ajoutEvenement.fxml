@@ -38,12 +38,12 @@
                      <children>
                         <VBox prefHeight="270.0" prefWidth="244.0" spacing="22.0">
                            <children>
-                              <Label prefHeight="27.0" prefWidth="65.0" text="Nom" textFill="#12225e">
+                              <Label prefHeight="48.0" prefWidth="78.0" text="Nom" textFill="#12225e">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <Label prefHeight="38.0" prefWidth="65.0" text="Lieu" textFill="#12225e">
+                              <Label prefHeight="46.0" prefWidth="65.0" text="Lieu" textFill="#12225e">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -83,16 +83,11 @@
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <Label text="Nombre Actuel" textFill="#12225e">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
                            </children>
                         </VBox>
                         <VBox alignment="CENTER" prefHeight="360.0" prefWidth="363.0" spacing="23.0">
                            <children>
-                              <TextField fx:id="TF_nom" prefHeight="25.0" prefWidth="278.0" style="-fx-background-radius: 50;" />
+                              <TextField fx:id="TF_nom" prefHeight="35.0" prefWidth="363.0" style="-fx-background-radius: 50;" />
                               <TextField fx:id="TF_lieu" prefHeight="25.0" prefWidth="279.0" style="-fx-background-radius: 50;" />
                               <TextField fx:id="TF_capacite" prefHeight="25.0" prefWidth="284.0" style="-fx-background-radius: 50;" />
                               <TextField fx:id="TF_prix" prefHeight="25.0" prefWidth="285.0" style="-fx-background-radius: 50;" />
@@ -106,7 +101,6 @@
                               <ComboBox fx:id="comboType" prefHeight="33.0" prefWidth="374.0" style="-fx-background-radius: 50; -fx-background-color: #ffffff;" />
                               <DatePicker fx:id="dateDebut" prefHeight="25.0" prefWidth="363.0" style="-fx-background-radius: 50;" />
                               <DatePicker fx:id="dateFin" prefHeight="25.0" prefWidth="371.0" style="-fx-background-radius: 50;" />
-                              <TextField fx:id="TF_nombreActuel" prefHeight="23.0" prefWidth="230.0" style="-fx-background-radius: 50;" />
                            </children>
                         </VBox>
                         <VBox alignment="TOP_CENTER" prefHeight="557.0" prefWidth="106.0" spacing="31.0" HBox.hgrow="ALWAYS">

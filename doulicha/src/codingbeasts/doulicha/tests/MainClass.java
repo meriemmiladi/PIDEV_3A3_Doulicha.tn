@@ -22,7 +22,7 @@ public class MainClass {
     ServiceEvenement eventcd = new ServiceEvenement();
     java.sql.Date dateDebut = java.sql.Date.valueOf("2023-03-01");
     java.sql.Date dateFin = java.sql.Date.valueOf("2023-03-30");
-    evenement event = new evenement("ElHadhra","jfkfkf","Théatre Municipal","Artistique-Musical",dateDebut,dateFin,500,0,"lien",35);
+    evenement event = new evenement("ElHadhra","jfkfkf","Théatre Municipal","Artistique-Musical",dateDebut,dateFin,500,"lien",35);
     
     java.sql.Date dateDebut2 = java.sql.Date.valueOf("2023-03-01");
     java.sql.Date dateFin2 = java.sql.Date.valueOf("2024-03-15");
@@ -42,11 +42,10 @@ public class MainClass {
      //eventcd.supprimerEvenement(1);
      
      ServiceParticipationEvenement participationeventcd = new ServiceParticipationEvenement();
-     java.sql.Date dateParticipation = java.sql.Date.valueOf("2023-03-10"); 
-      participation_evenement participation = new participation_evenement(1,7,dateParticipation,2);
+     
+      participation_evenement participation = new participation_evenement(1,7,2);
       
-      java.sql.Date dateParticipation2 = java.sql.Date.valueOf("2023-02-28"); 
-      participation_evenement participation2 = new participation_evenement(1,9,dateParticipation2,10);
+      participation_evenement participation2 = new participation_evenement(1,9,10);
       
        // participationeventcd.ajouterParticipationEvenement(participation);
        //participationeventcd.ajouterParticipationEvenement(participation2);

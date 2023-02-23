@@ -51,7 +51,6 @@ public class AjoutParticipationController implements Initializable {
     private Button btn_retour;
     @FXML
     private TextField TF_nombre;
-    @FXML
     private DatePicker dateP;
     
     
@@ -94,11 +93,9 @@ public class AjoutParticipationController implements Initializable {
         
         
     participation_evenement part = new participation_evenement();
-    if (testSaisie()){
+   // if (testSaisie()){
     ServiceParticipationEvenement SPE = new ServiceParticipationEvenement();
-        
-    LocalDate dateParticipation_local = dateP.getValue();
-    java.sql.Date dateParticipation_event = java.sql.Date.valueOf(dateParticipation_local);
+     
     int nombre_participation = Integer.parseInt(TF_nombre.getText());
    // int ID_event = Integer.parseInt(id_part.getText());
     
@@ -110,7 +107,6 @@ public class AjoutParticipationController implements Initializable {
               System.out.println("erreur recuperation !");
             } 
         
-    part.setDate_participation(dateParticipation_event);
     part.setNombre_participation(Integer.parseInt(TF_nombre.getText()));
    // part.setID_participation(Integer.parseInt(idparticipation.getText()));
     
@@ -136,30 +132,19 @@ public class AjoutParticipationController implements Initializable {
     } catch (IOException ex) {
         Logger.getLogger(AjoutParticipationController.class.getName()).log(Level.SEVERE, null, ex);
     }
-    }
+   // }
     }
     
-    private Boolean testSaisie() {
+   /* private Boolean testSaisie() {
         String erreur = "";
       
         if (!testDatePart()) {
             erreur = erreur + ("Veuillez saisir une date valide \n");
         }
         return testDatePart();
-    }
+    } */
     
-    
-    private Boolean testDatePart() {
-        LocalDate now = LocalDate.now();
-        evenement ev = new evenement();
-        if ( dateP.getValue().compareTo(now) > 0) {
-                icone_date.setImage(new Image("images/yes.png"));
-                return true;
-            } else {
-                icone_date.setImage(new Image("images/no.png"));
-            }
-                return false;
-    } 
+   
     
     
     void selected_item2(int ID_event) {
@@ -168,11 +153,7 @@ public class AjoutParticipationController implements Initializable {
     
     } 
     
-    
-   /* void setTextField( int ID_event) {
-        this.ID_event.setText(Integer.toString(ID_event));
-    } */
-     
+   
      private boolean update;
      void setUpdate(boolean b) {
         this.update = b;

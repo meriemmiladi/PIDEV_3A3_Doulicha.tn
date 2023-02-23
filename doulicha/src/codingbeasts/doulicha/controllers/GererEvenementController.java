@@ -70,8 +70,6 @@ public class GererEvenementController implements Initializable {
     @FXML
     private TextField TF_imageM;
     @FXML
-    private TextField TF_nombreactuelM;
-    @FXML
     private DatePicker dateDebutM;
     @FXML
     private DatePicker dateFinM;
@@ -157,7 +155,6 @@ public class GererEvenementController implements Initializable {
             ev.setCapacite_event(Integer.parseInt(TF_capaciteM.getText()));
             ev.setImage_event(TF_imageM.getText());
             ev.setPrix_event(Double.parseDouble(TF_prixM.getText()));
-            ev.setNombreActuel_event(Integer.parseInt(TF_nombreactuelM.getText()));
             LocalDate dateDebut_local = dateDebutM.getValue();
             LocalDate dateFin_local = dateFinM.getValue();
             ev.setDateDebut_event(java.sql.Date.valueOf(dateDebut_local));
@@ -224,7 +221,7 @@ public class GererEvenementController implements Initializable {
     
     
 
-void selected_item(int ID_event, String nom_event, String description_event, String lieu_event, String type_event, Date dateDebut_event, Date dateFin_event, int capacite_event, int nombreActuel_event, String image_event, double prix_event) {
+void selected_item(int ID_event, String nom_event, String description_event, String lieu_event, String type_event, Date dateDebut_event, Date dateFin_event, int capacite_event, String image_event, double prix_event) {
 //       ServicePromotion P = new ServicePromotion();
 //System.out.println(id+nompromotion+description+dateP);
 
@@ -239,7 +236,6 @@ void selected_item(int ID_event, String nom_event, String description_event, Str
     TF_imageM.setText(image_event);
     TF_capaciteM.setText(String.valueOf(capacite_event));
     TF_prixM.setText(String.valueOf(prix_event));
-    TF_nombreactuelM.setText(String.valueOf(nombreActuel_event));
     dateDebutM.setValue(dateDebut_local);
     dateFinM.setValue(dateFin_local);
     

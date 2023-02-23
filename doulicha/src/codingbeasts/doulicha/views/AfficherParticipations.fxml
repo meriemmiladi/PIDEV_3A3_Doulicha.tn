@@ -20,7 +20,6 @@
               <columns>
                 <TableColumn fx:id="col_iduser" prefWidth="224.0" text="ID User" />
                 <TableColumn fx:id="col_idevent" minWidth="0.0" prefWidth="304.0" text="ID évènement" />
-                  <TableColumn fx:id="col_dateparticipation" prefWidth="307.0" text="Date de participation" />
                   <TableColumn fx:id="col_nbparticipants" prefWidth="258.0" text="Nombre de participants" />
               </columns>
             </TableView>

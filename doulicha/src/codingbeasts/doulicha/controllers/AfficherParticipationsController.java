@@ -40,7 +40,6 @@ public class AfficherParticipationsController implements Initializable {
     private TableView<participation_evenement> tableParticipations;
     @FXML
     private TableColumn<participation_evenement, Integer> col_nbparticipants;
-    @FXML
     private TableColumn<participation_evenement, Date> col_dateparticipation;
     @FXML
     private TableColumn<participation_evenement, Integer> col_iduser;

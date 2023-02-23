@@ -79,14 +79,9 @@
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <Label text="Nombre Actuel" textFill="#12225e">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
                            </children>
                         </VBox>
-                        <VBox alignment="CENTER" prefHeight="360.0" prefWidth="363.0" spacing="23.0">
+                        <VBox alignment="CENTER" prefHeight="480.0" prefWidth="363.0" spacing="23.0">
                            <children>
                               <TextField fx:id="TF_nomM" prefHeight="25.0" prefWidth="278.0" style="-fx-background-radius: 50;" />
                               <TextField fx:id="TF_lieuM" prefHeight="25.0" prefWidth="279.0" style="-fx-background-radius: 50;" />
@@ -102,7 +97,6 @@
                               <ComboBox fx:id="comboTypeM" prefHeight="33.0" prefWidth="374.0" style="-fx-background-radius: 50; -fx-background-color: #ffffff;" />
                               <DatePicker fx:id="dateDebutM" prefHeight="25.0" prefWidth="363.0" style="-fx-background-radius: 50;" />
                               <DatePicker fx:id="dateFinM" prefHeight="25.0" prefWidth="371.0" style="-fx-background-radius: 50;" />
-                              <TextField fx:id="TF_nombreactuelM" prefHeight="23.0" prefWidth="230.0" style="-fx-background-radius: 50;" />
                            </children>
                         </VBox>
                         <VBox alignment="CENTER" prefHeight="468.0" prefWidth="70.0" spacing="31.0" HBox.hgrow="ALWAYS">

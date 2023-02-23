@@ -69,8 +69,6 @@ public class AjoutEvenementController implements Initializable {
     @FXML
     private TextField TF_prix;
     @FXML
-    private TextField TF_nombreActuel;
-    @FXML
     private DatePicker dateDebut;
     @FXML
     private TextField TF_image;
@@ -142,7 +140,6 @@ public class AjoutEvenementController implements Initializable {
      Date dateDebut_event = java.sql.Date.valueOf(dateDebut_local);
      Date dateFin_event = java.sql.Date.valueOf(dateFin_local);
      int capacite_event =  Integer.parseInt(TF_capacite.getText());
-     int nombreActuel_event = Integer.parseInt(TF_nombreActuel.getText());
      String image_event = TF_image.getText();
      double prix_event = Double.parseDouble(TF_prix.getText());
      
@@ -150,7 +147,7 @@ public class AjoutEvenementController implements Initializable {
      
  
      
-     evenement ev = new evenement (nom_event,description_event,lieu_event,  type_event,  dateDebut_event,  dateFin_event,  capacite_event,  nombreActuel_event,  image_event,  prix_event);
+     evenement ev = new evenement (nom_event,description_event,lieu_event,  type_event,  dateDebut_event,  dateFin_event,  capacite_event, image_event,  prix_event);
         if(testSaisie()) {
      ServiceEvenement sevent = new ServiceEvenement();
         sevent.ajouterEvenement2(ev);
@@ -335,7 +332,6 @@ public class AjoutEvenementController implements Initializable {
             );
         File file = fileChooser.showOpenDialog(stage);
 
-// Copier le fichier dans le dossier XAMPP
 Path source = file.toPath();
 String fileName = file.getName();
 Path destination = Paths.get(xamppFolderPath + fileName);

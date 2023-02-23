@@ -31,7 +31,6 @@
                </font>
             </Label>
             <Label fx:id="nbpart_detail" alignment="CENTER" prefHeight="98.0" prefWidth="220.0" text="Nombre de participants " />
-            <Label fx:id="datepart_detail" alignment="CENTER" prefHeight="100.0" prefWidth="258.0" text="Date de participation" />
             <Button fx:id="btn_modifierpart" mnemonicParsing="false" onAction="#gererPart" prefHeight="52.0" prefWidth="149.0" style="-fx-background-radius: 50; -fx-background-color: #99E2F7;" text="Gérer">
                <font>
                   <Font size="16.0" />

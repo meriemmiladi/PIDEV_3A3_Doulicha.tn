@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -41,17 +40,11 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label text="Date de votre participation" textFill="#12225e">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="316.0" prefWidth="392.0" spacing="23.0">
                      <children>
                         <TextField fx:id="TF_nombreM" prefHeight="38.0" prefWidth="386.0" style="-fx-background-radius: 50;" />
-                        <DatePicker fx:id="datePM" prefHeight="25.0" prefWidth="363.0" style="-fx-background-radius: 50;" />
                      </children>
                   </VBox>
                </children>

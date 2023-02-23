@@ -44,8 +44,7 @@ public class ServiceParticipationEvenement {
                part.setID_participation(rs.getInt(1));
                part.setID_user(rs.getInt(2));
                part.setID_event(rs.getInt(3));
-               part.setDate_participation(rs.getDate(4));
-                part.setNombre_participation(rs.getInt(5));
+                part.setNombre_participation(rs.getInt(4));
                 System.out.println(part);
            participation_evenement.add(part);
             }
@@ -60,7 +59,7 @@ public class ServiceParticipationEvenement {
    /* public void ajouterParticipationEvenement(){
         
        
-      String requete =  "INSERT INTO `participation_evenement`(`ID_user`, `ID_event`, `date_participation`, `nombre_participation`)"
+      String requete =  "INSERT INTO `participation_evenement`(`ID_user`, `ID_event`, `nombre_participation`)"
        + "VALUES (1,9,'[value-4]','[value-5]')";
      
         try {
@@ -76,8 +75,8 @@ public class ServiceParticipationEvenement {
     
     public void ajouterParticipationEvenement(participation_evenement participation){
         
-        String requete2 = " INSERT INTO  `participation_evenement`(`ID_user`, `ID_event`, `date_participation`, `nombre_participation`)"
-       + "VALUES (?,?,?,?)";
+        String requete2 = " INSERT INTO  `participation_evenement`(`ID_user`, `ID_event`, `nombre_participation`)"
+       + "VALUES (?,?,?)";
         
         try {
             //PreparedStatement pst = new MyConnection().getCnx().prepareStatement(requete2);
@@ -86,8 +85,7 @@ public class ServiceParticipationEvenement {
            
             pst.setInt(1, participation.getID_user());
             pst.setInt(2, participation.getID_event());
-            pst.setDate(3, (java.sql.Date) participation.getDate_participation());
-            pst.setInt(4, participation.getNombre_participation());
+            pst.setInt(3, participation.getNombre_participation());
             
             pst.executeUpdate();
             System.out.println("Participation à l'évènement ajouté ");
@@ -115,8 +113,7 @@ public class ServiceParticipationEvenement {
              participation.setID_participation(rs.getInt(1));
              participation.setID_user(rs.getInt(2));
              participation.setID_event(rs.getInt(3));
-             participation.setDate_participation(rs.getDate(4));
-             participation.setNombre_participation(rs.getInt(5));
+             participation.setNombre_participation(rs.getInt(4));
             
              
              
@@ -159,7 +156,7 @@ public class ServiceParticipationEvenement {
 try {
             Statement st = cnx.createStatement();
             //nb: on ne peut pas modifier la date
-            String requete4 = "UPDATE  participation_evenement SET ID_participation  = '" + participation.getID_participation() + "', ID_user = '" + participation.getID_user() + "', ID_event = '" + participation.getID_event() + "' , date_participation = '" + participation.getDate_participation() + "', nombre_participation = '" + participation.getNombre_participation() + "' WHERE ID_participation = '" + participation.getID_participation()+ "'";
+            String requete4 = "UPDATE  participation_evenement SET ID_participation  = '" + participation.getID_participation() + "', ID_user = '" + participation.getID_user() + "', ID_event = '" + participation.getID_event() + "', nombre_participation = '" + participation.getNombre_participation() + "' WHERE ID_participation = '" + participation.getID_participation()+ "'";
             st.executeUpdate(requete4);
             System.out.println("modification avec succes");
         } catch (SQLException ex) {
@@ -167,33 +164,7 @@ try {
             System.out.println(ex);
         }
     }
-    /*public boolean modifierParticipationEvenement (int ID_participation,int ID_user, int ID_event, Date date_participation, int nombre_participation) {
-        
-         boolean partModification = true;
-        String requete = null;
-        
-        try {
-     String requete5= "UPDATE `participation_evenement` SET `ID_user`=?,`ID_event`=?,`date_participation`=?,`nombre_participation`=? WHERE ID_participation=?";
-     PreparedStatement pst = cnx.prepareStatement(requete5);
-     
-         
-            pst.setDate(3, (java.sql.Date) date_participation);
-            pst.setInt(1, ID_user);
-            pst.setInt(2, ID_event);
-            pst.setDate(3, (java.sql.Date) date_participation);
-            pst.setInt(4, nombre_participation);
-            pst.setInt(5,ID_participation);
-
-            pst.executeUpdate();
-            partModification = true;
-             System.out.println("Votre participation est modifiée");
-             
-        } catch (SQLException ex) {
-            partModification = false;
-             System.err.println(ex.getMessage());
-        }
-        return partModification;
-    }*/
+  
     
     public int getId2(String id) {
 try {
