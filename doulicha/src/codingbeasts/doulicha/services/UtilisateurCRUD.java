@@ -65,52 +65,58 @@ public class UtilisateurCRUD {
     }
 
     public void ajouterUtlisateur3(Utilisateur p) {
-       try {
-           if (p.getNom_user().isEmpty() || p.getPrenom_user().isEmpty() || p.getEmail_user().isEmpty() || p.getMdp_user().isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Champs vides");
-            alert.setHeaderText(null);
-            alert.setContentText("Veuillez remplir tous les champs.");
-            alert.showAndWait();
-            return;
-        }
-        // Valider l'email
-        if (!validerEmail(p.getEmail_user())) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Email non valide");
-            alert.setHeaderText(null);
-            alert.setContentText("L'email que vous avez entré n'est pas valide.");
-            alert.showAndWait();
-            return;
-        }
+        try {
+            if (p.getNom_user().isEmpty() || p.getPrenom_user().isEmpty() || p.getEmail_user().isEmpty() || p.getMdp_user().isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Champs vides");
+                alert.setHeaderText(null);
+                alert.setContentText("Veuillez remplir tous les champs.");
+                alert.showAndWait();
+                return;
+            }
+            // Valider l'email
+            if (!validerEmail(p.getEmail_user())) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Email non valide");
+                alert.setHeaderText(null);
+                alert.setContentText("L'email que vous avez entré n'est pas valide.");
+                alert.showAndWait();
+                return;
+            }
 
-        // Vérifier si l'utilisateur existe déjà dans la base de données
-        String query = "SELECT * FROM Utilisateur WHERE email_user = ?";
-        PreparedStatement statement = cnx2.prepareStatement(query);
-        statement.setString(1, p.getEmail_user());
-        ResultSet result = statement.executeQuery();
+            // Vérifier si l'utilisateur existe déjà dans la base de données
+            String query = "SELECT * FROM Utilisateur WHERE email_user = ?";
+            PreparedStatement statement = cnx2.prepareStatement(query);
+            statement.setString(1, p.getEmail_user());
+            ResultSet result = statement.executeQuery();
 
-        if (!result.next()) {
-            // L'utilisateur n'existe pas dans la base de données, on peut l'ajouter
-            String requete2 = "INSERT INTO Utilisateur (nom_user,prenom_user,email_user,mdp_user,role_user) " + "VALUES (?,?,?,?,'Utilisateur')";
-            PreparedStatement pst = cnx2.prepareStatement(requete2);
-            pst.setString(1, p.getNom_user());
-            pst.setString(2, p.getPrenom_user());
-            pst.setString(3, p.getEmail_user());
-            pst.setString(4, p.getMdp_user());
-            pst.executeUpdate();
-            System.out.println("Votre Personne est ajoutée ");
-        } else {
-            // L'utilisateur existe déjà dans la base de données
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Utilisateur déjà existant");
-            alert.setHeaderText(null);
-            alert.setContentText("Cet utilisateur existe déjà dans la base de données.");
-            alert.showAndWait();
+            if (!result.next()) {
+                // L'utilisateur n'existe pas dans la base de données, on peut l'ajouter
+                String requete2 = "INSERT INTO Utilisateur (nom_user,prenom_user,email_user,mdp_user,role_user) " + "VALUES (?,?,?,?,'Utilisateur')";
+                PreparedStatement pst = cnx2.prepareStatement(requete2);
+                pst.setString(1, p.getNom_user());
+                pst.setString(2, p.getPrenom_user());
+                pst.setString(3, p.getEmail_user());
+                pst.setString(4, p.getMdp_user());
+                pst.executeUpdate();
+                System.out.println("Votre Personne est ajoutée ");
+                // Ajouter une alerte de succès
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Succès");
+                alert.setHeaderText(null);
+                alert.setContentText("L'utilisateur a été ajouté avec succès.");
+                alert.showAndWait();
+            } else {
+                // L'utilisateur existe déjà dans la base de données
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Utilisateur déjà existant");
+                alert.setHeaderText(null);
+                alert.setContentText("Cet utilisateur existe déjà dans la base de données.");
+                alert.showAndWait();
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
         }
-    } catch (SQLException ex) {
-        System.err.println(ex.getMessage());
-    }
     }
 
     public void modifierutilisateur(Utilisateur p) {
@@ -160,16 +166,16 @@ public class UtilisateurCRUD {
         }
         return myList;
     }
-    
-     public boolean validerEmail(String email) {
-    // Vérifier si l'email contient un "@" et un "."
-    String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." +
-            "[a-zA-Z0-9_+&*-]+)*@" +
-            "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
-            "A-Z]{2,7}$";
-    Pattern pattern = Pattern.compile(emailRegex);
-    Matcher matcher = pattern.matcher(email);
-    return matcher.matches();
-}
+
+    public boolean validerEmail(String email) {
+        // Vérifier si l'email contient un "@" et un "."
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."
+                + "[a-zA-Z0-9_+&*-]+)*@"
+                + "(?:[a-zA-Z0-9-]+\\.)+[a-z"
+                + "A-Z]{2,7}$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
 
 }

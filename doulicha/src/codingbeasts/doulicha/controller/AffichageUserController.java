@@ -1,16 +1,17 @@
+package codingbeasts.doulicha.controller;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package codingbeasts.doulicha.view;
-
 import codingbeasts.doulicha.entities.Utilisateur;
 import codingbeasts.doulicha.services.UtilisateurCRUD;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,6 +24,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -38,7 +42,6 @@ public class AffichageUserController implements Initializable {
     /**
      * Initializes the controller class.
      */
-    
     @FXML
     private TableView<Utilisateur> txttable;
 
@@ -56,63 +59,112 @@ public class AffichageUserController implements Initializable {
 
     @FXML
     private TableColumn<Utilisateur, String> txtrole;
-    
-      int IndexU = -1;
-      
-     @FXML
+
+    int IndexU = -1;
+
+    @FXML
     void deleteuser(ActionEvent event) {
         IndexU = txttable.getSelectionModel().getSelectedCells().get(0).getRow();
         Utilisateur U;
-        int idU ;
+        int idU;
         //        IndexU = txttable.getSelectionModel().getSelectedCells().get(0).getRow();
 
-        
-        System.out.println("selected " +IndexU);
-        
-        
-        if(IndexU<=-1){
-                
-                txttable.getItems().remove(IndexU);
+        System.out.println("selected " + IndexU);
+
+        if (IndexU <= -1) {
+
+            txttable.getItems().remove(IndexU);
 ////                txttable.refresh();
-        }else{
+        } else {
 
             U = txttable.getItems().get(IndexU);
             idU = U.getID_user();
             System.out.println("data : " + U.getID_user());
             UtilisateurCRUD uc = new UtilisateurCRUD();
-            uc.supprimerutilisateur(idU);
+//            uc.supprimerutilisateur(idU);
+            Alert alert = new Alert(AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation");
+            alert.setHeaderText(null);
+            alert.setContentText("Voulez-vous vraiment supprimer l'utilisateur N°" + idU + " ?");
+            Optional<ButtonType> result = alert.showAndWait();
 
+            if (result.get() == ButtonType.OK) {
+                // Supprimer l'utilisateur de la base de données
+//                UtilisateurCRUD uc = new UtilisateurCRUD();
+                uc.supprimerutilisateur(idU);
+                // Supprimer l'utilisateur de la TableView
+                txttable.getItems().remove(IndexU);
+
+//                Alert alert = new Alert(Alert.AlertType.ERROR);
+//                alert.setTitle("delete");
+//                alert.setHeaderText(null);
+//                alert.setContentText("delete user");
+//                alert.showAndWait();
+//
+            }
+        }
+//        IndexU = txttable.getSelectionModel().getSelectedCells().get(0).getRow();
+//        Utilisateur U;
+//        int idU;
+//        //        IndexU = txttable.getSelectionModel().getSelectedCells().get(0).getRow();
+//
+//        System.out.println("selected " + IndexU);
+//
+//        if (IndexU <= -1) {
+//
+//            txttable.getItems().remove(IndexU);
+//////                txttable.refresh();
+//        } else {
+//
+//            U = txttable.getItems().get(IndexU);
+//            idU = U.getID_user();
+//            System.out.println("data : " + U.getID_user());
+//            UtilisateurCRUD uc = new UtilisateurCRUD();
+//            uc.supprimerutilisateur(idU);
+//            Alert alert = new Alert(AlertType.CONFIRMATION);
+//            alert.setTitle("Confirmation");
+//            alert.setHeaderText(null);
+//            alert.setContentText("Voulez-vous vraiment supprimer l'utilisateur N°" + idU + " ?");
+//            Optional<ButtonType> result = alert.showAndWait();
+//
+//            if (result.get() == ButtonType.OK) {
+//                // Supprimer l'utilisateur de la base de données
+//            //      UtilisateurCRUD uc = new UtilisateurCRUD();
+//                uc.supprimerutilisateur(idU);
+//                // Supprimer l'utilisateur de la TableView
+//                txttable.getItems().remove(IndexU);
+//
+//            }
+//        }
     }
-    }
-    ObservableList<Utilisateur> UserList= FXCollections.observableArrayList();
+    ObservableList<Utilisateur> UserList = FXCollections.observableArrayList();
 
     @FXML
-    void refreshuser(ActionEvent event) {
+    void refreshuser(ActionEvent event
+    ) {
         UserList.clear();
 //        col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
         txtnom.setCellValueFactory(new PropertyValueFactory<>("nom_user"));
         txtprenom.setCellValueFactory(new PropertyValueFactory<>("prenom_user"));
         txtemail.setCellValueFactory(new PropertyValueFactory<>("email_user"));
-        txtpassword.setCellValueFactory(new PropertyValueFactory<>("mdp_user"));
+        //  txtpassword.setCellValueFactory(new PropertyValueFactory<>("mdp_user"));
         txtrole.setCellValueFactory(new PropertyValueFactory<>("role_user"));
         UtilisateurCRUD uc = new UtilisateurCRUD();
         List<Utilisateur> myList = new ArrayList<>();
         myList = uc.afficherUtilisateur();
-        System.out.println("liste des utilisateurs : "+myList);
-        UserList=FXCollections.observableArrayList(myList);
+        System.out.println("liste des utilisateurs : " + myList);
+        UserList = FXCollections.observableArrayList(myList);
         txttable.setItems(UserList);
 
     }
-    
-    
-    
+
     private void AffichageUser() {
-        
-       // col_id.setCellValueFactory(new PropertyValueFactory<>("id_utilisateur"));
+
+        // col_id.setCellValueFactory(new PropertyValueFactory<>("id_utilisateur"));
         txtnom.setCellValueFactory(new PropertyValueFactory<>("nom_user"));
         txtprenom.setCellValueFactory(new PropertyValueFactory<>("prenom_user"));
         txtemail.setCellValueFactory(new PropertyValueFactory<>("email_user"));
-        txtpassword.setCellValueFactory(new PropertyValueFactory<>("mdp_user"));
+        //    txtpassword.setCellValueFactory(new PropertyValueFactory<>("mdp_user"));
         txtrole.setCellValueFactory(new PropertyValueFactory<>("role_user"));
         UtilisateurCRUD uc = new UtilisateurCRUD();
         List<Utilisateur> myList = new ArrayList<>();
@@ -121,10 +173,10 @@ public class AffichageUserController implements Initializable {
         ObservableList<Utilisateur> observableArrayList
                 = FXCollections.observableArrayList(uc.afficherUtilisateur());
         txttable.setItems(observableArrayList);
-    
-        
+
     }
-     @FXML
+
+    @FXML
     void onupdate(ActionEvent event) {
         IndexU = txttable.getSelectionModel().getSelectedCells().get(0).getRow();
         Utilisateur d;
@@ -140,7 +192,7 @@ public class AffichageUserController implements Initializable {
 
         System.out.println("id user =" + d.getID_user());
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("UpdateUtilisateur.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/codingbeasts/doulicha/view/UpdateUtilisateur.fxml"));
             Parent root = loader.load();
             UpdateUtilisateurController usc = loader.getController();
             usc.setData(idU, nomU, prenomU, emailU, mdpU);
@@ -148,12 +200,14 @@ public class AffichageUserController implements Initializable {
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             //stage.initStyle(StageStyle.UTILITY);
-             stage.setTitle("UpdateUtilisateur");
-          stage.resizableProperty().setValue(false);
+            stage.setTitle("UpdateUtilisateur");
+            stage.resizableProperty().setValue(false);
             stage.show();
+
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.close();
+
             
-             stage = (Stage)((Node) event.getSource()).getScene().getWindow();
-             stage.close();
 
         } catch (IOException ex) {
             Logger.getLogger(AffichageUserController.class.getName()).log(Level.SEVERE, null, ex);
@@ -164,6 +218,6 @@ public class AffichageUserController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         AffichageUser();
-    } 
-    
+    }
+
 }

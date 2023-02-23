@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package codingbeasts.doulicha.view;
+package codingbeasts.doulicha.controller;
 
 import codingbeasts.doulicha.entities.Utilisateur;
 import codingbeasts.doulicha.services.UtilisateurCRUD;
@@ -17,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -50,7 +51,7 @@ public class SignUpController implements Initializable {
     @FXML
     void retouresignin(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("SginIn.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/view/SginIn.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 //        Scene scene = new Scene(root, 300, 250);
             Scene scene = new Scene(root);
@@ -84,6 +85,8 @@ public class SignUpController implements Initializable {
         txtprenom_user.clear();
         txtemail_user.clear();
         txtmdp_user.clear();
+
+        
 
     }
 
