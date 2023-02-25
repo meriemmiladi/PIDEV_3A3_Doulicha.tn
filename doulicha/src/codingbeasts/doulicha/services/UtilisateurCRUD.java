@@ -92,12 +92,13 @@ public class UtilisateurCRUD {
 
             if (!result.next()) {
                 // L'utilisateur n'existe pas dans la base de données, on peut l'ajouter
-                String requete2 = "INSERT INTO Utilisateur (nom_user,prenom_user,email_user,mdp_user,role_user) " + "VALUES (?,?,?,?,'Utilisateur')";
+                String requete2 = "INSERT INTO Utilisateur (nom_user,prenom_user,email_user,mdp_user,role_user,status_user) " + "VALUES (?,?,?,?,?,'actif')";
                 PreparedStatement pst = cnx2.prepareStatement(requete2);
                 pst.setString(1, p.getNom_user());
                 pst.setString(2, p.getPrenom_user());
                 pst.setString(3, p.getEmail_user());
                 pst.setString(4, p.getMdp_user());
+                pst.setString(5, "Utilisateur");
                 pst.executeUpdate();
                 System.out.println("Votre Personne est ajoutée ");
                 // Ajouter une alerte de succès
@@ -121,7 +122,7 @@ public class UtilisateurCRUD {
 
     public void modifierutilisateur(Utilisateur p) {
         try {
-            String req = "UPDATE `Utilisateur` SET `Nom_user` = '" + p.getNom_user() + "', `Prenom_user` = '" + p.getPrenom_user() + "', `Email_user` = '" + p.getEmail_user() + "', `Mdp_user` = '" + p.getMdp_user() + "', `Role_user` = '" + p.getRole_user() + "' WHERE `Utilisateur`.`ID_user` = " + p.getID_user();
+            String req = "UPDATE `Utilisateur` SET `Nom_user` = '" + p.getNom_user() + "', `Prenom_user` = '" + p.getPrenom_user() + "', `Email_user` = '" + p.getEmail_user() + "', `Mdp_user` = '" + p.getMdp_user() + "', `Role_user` = '" + p.getRole_user()+ "', `Mdp_user` = '" + p.getMdp_user() + "', `Status_user` = '" + p.getStatus_user() + "' WHERE `Utilisateur`.`ID_user` = " + p.getID_user();
             Statement st = cnx2.createStatement();
             st.executeUpdate(req);
             System.out.println("Utilisateur updated !");
@@ -158,6 +159,7 @@ public class UtilisateurCRUD {
                 p.setEmail_user(rs.getString("Email_user"));
                 p.setMdp_user(rs.getString("Mdp_user"));
                 p.setRole_user(rs.getString("Role_user"));
+                p.setStatus_user(rs.getString("status_user"));
                 myList.add(p);
 
             }

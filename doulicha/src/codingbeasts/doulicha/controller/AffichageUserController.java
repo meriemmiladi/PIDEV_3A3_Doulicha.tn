@@ -61,11 +61,14 @@ public class AffichageUserController implements Initializable {
 
     @FXML
     private TableColumn<Utilisateur, String> txtrole;
-    
-      @FXML
+
+    @FXML
+    private TableColumn<Utilisateur, String> txtstatus;
+
+    @FXML
     private TextField searchField;
-      
-       private FilteredList<Utilisateur> filteredList;
+
+    private FilteredList<Utilisateur> filteredList;
 
     int IndexU = -1;
 
@@ -156,6 +159,7 @@ public class AffichageUserController implements Initializable {
         txtemail.setCellValueFactory(new PropertyValueFactory<>("email_user"));
         //  txtpassword.setCellValueFactory(new PropertyValueFactory<>("mdp_user"));
         txtrole.setCellValueFactory(new PropertyValueFactory<>("role_user"));
+        txtstatus.setCellValueFactory(new PropertyValueFactory<>("status_user"));
         UtilisateurCRUD uc = new UtilisateurCRUD();
         List<Utilisateur> myList = new ArrayList<>();
         myList = uc.afficherUtilisateur();
@@ -173,11 +177,12 @@ public class AffichageUserController implements Initializable {
         txtemail.setCellValueFactory(new PropertyValueFactory<>("email_user"));
         //    txtpassword.setCellValueFactory(new PropertyValueFactory<>("mdp_user"));
         txtrole.setCellValueFactory(new PropertyValueFactory<>("role_user"));
+        txtstatus.setCellValueFactory(new PropertyValueFactory<>("status_user"));
         UtilisateurCRUD uc = new UtilisateurCRUD();
         List<Utilisateur> myList = new ArrayList<>();
         myList = uc.afficherUtilisateur();
-         filteredList = new FilteredList<>(FXCollections.observableArrayList(myList));
-           searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+        filteredList = new FilteredList<>(FXCollections.observableArrayList(myList));
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredList.setPredicate(utilisateur -> {
                 if (newValue == null || newValue.isEmpty()) {
                     return true;
@@ -192,16 +197,15 @@ public class AffichageUserController implements Initializable {
                 }
 
             });
-       
+
             txttable.setItems(filteredList);
         });
         System.out.println("nnn : " + myList);
         ObservableList<Utilisateur> observableArrayList
                 = FXCollections.observableArrayList(uc.afficherUtilisateur());
         txttable.setItems(observableArrayList);
-                   
-                   }
-                   
+
+    }
 
     @FXML
     void onupdate(ActionEvent event) {
@@ -233,8 +237,6 @@ public class AffichageUserController implements Initializable {
 
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.close();
-
-            
 
         } catch (IOException ex) {
             Logger.getLogger(AffichageUserController.class.getName()).log(Level.SEVERE, null, ex);

@@ -20,6 +20,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -44,6 +45,11 @@ public class UpdateUtilisateurController implements Initializable {
 
     @FXML
     private TextField txtpassword;
+    
+    @FXML
+    private ChoiceBox<String> statusChoiceBox;
+    
+    private  String[] choixstatus = {"actif","inactif"};
 
     int id;
     String U_nom;
@@ -58,9 +64,10 @@ public class UpdateUtilisateurController implements Initializable {
         String prenom = txtprenom.getText();
         String email = txtemail.getText();
         String mot_passe = txtpassword.getText();
+       String statut = statusChoiceBox.getValue();
 
 // Vérifier que tous les champs sont remplis
-        if (nom.isEmpty() || prenom.isEmpty() || email.isEmpty()) {
+        if (nom.isEmpty() || prenom.isEmpty() || email.isEmpty() ) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur de saisie");
             alert.setHeaderText(null);
@@ -69,7 +76,7 @@ public class UpdateUtilisateurController implements Initializable {
             return;
         }
 
-        Utilisateur u = new Utilisateur(id, nom, prenom, email, mot_passe, "Utilisateur");
+        Utilisateur u = new Utilisateur(id, nom, prenom, email, mot_passe, "Utilisateur",statut);
         UtilisateurCRUD uc = new UtilisateurCRUD();
           Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
@@ -134,7 +141,7 @@ public class UpdateUtilisateurController implements Initializable {
         txtnom.setText(nom);
         txtprenom.setText(prenom);
         txtemail.setText(email);
-        //    txtpassword.setText(mot_de_pass);
+        txtpassword.setText(mot_de_pass);
 
         System.out.println("nom:" + nom + "prenom:" + prenom + "email:" + email + "mot de paasse:" + mot_de_pass);
 
@@ -142,6 +149,7 @@ public class UpdateUtilisateurController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+          statusChoiceBox.getItems().addAll(choixstatus);
         // TODO
     }
 

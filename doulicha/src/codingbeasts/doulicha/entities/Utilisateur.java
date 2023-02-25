@@ -20,6 +20,26 @@ public class Utilisateur {
     private String email_user;
     private String mdp_user;
     private String role_user;
+     private String status_user; // nouveau champ pour le statut de l'utilisateur
+
+    public String getStatus_user() {
+        return status_user;
+    }
+
+    public void setStatus_user(String status_user) {
+        this.status_user = status_user;
+    }
+
+    public Utilisateur(int ID_user, String nom_user, String prenom_user, String email_user, String mdp_user, String role_user, String status_user) {
+        this.ID_user = ID_user;
+        this.nom_user = nom_user;
+        this.prenom_user = prenom_user;
+        this.email_user = email_user;
+        this.mdp_user = mdp_user;
+        this.role_user = role_user;
+        this.status_user = status_user;
+    }
+   
 
     public Utilisateur() {
     }
@@ -110,9 +130,9 @@ public class Utilisateur {
         }
     }
 
+   
     @Override
     public String toString() {
-        return "Utilisateur{" + "ID_user=" + ID_user + ", nom_user=" + nom_user + ", prenom_user=" + prenom_user + ", email_user=" + email_user + ", mdp_user=" + mdp_user + ", role_user=" + role_user + '}';
+        return "Utilisateur{" + "ID_user=" + ID_user + ", nom_user=" + nom_user + ", prenom_user=" + prenom_user + ", email_user=" + email_user + ", mdp_user=" + mdp_user + ", role_user=" + role_user + ", status_user=" + status_user +  '}';
     }
-
 }

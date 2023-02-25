@@ -71,11 +71,11 @@ public class SginInController implements Initializable {
 
     @FXML
     void openhome(ActionEvent event) {
-
-        Connection cnx2;
+ Connection cnx2;
         cnx2 = MyConnection.getInstance().getCnx();
         String nom = txtnom.getText();
-         String pass = hashMotDePasse(txtpassword.getText());
+        //  String pass = txtpassword.getText();
+        String pass = hashMotDePasse(txtpassword.getText());
         if (nom.isEmpty() || pass.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur de saisie");
@@ -91,43 +91,55 @@ public class SginInController implements Initializable {
                 statement.setString(2, pass);
                 ResultSet rs = statement.executeQuery();
                 if (rs.next()) {
-                    // L'utilisateur existe, vérifier le rôle
-                    String role = rs.getString("role_user");
-                    if (role.equals("Admin")) {
-                        // L'utilisateur a le rôle d'administrateur, ouvrir la fenêtre d'accueil
-                        System.out.println("bien!");
-                        Stage home = new Stage();
-                        try {
-                            fxml = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/view/AffichageUser.fxml"));
-                            Scene scene = new Scene(fxml);
-                            home.setScene(scene);
-                            home.show();
-                            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                            stage.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    } else if (role.equals("Utilisateur")) {
-                        // L'utilisateur a le rôle d'utilisateur, ouvrir la fenêtre d'accueil utilisateur
-                        Stage home = new Stage();
-                        try {
-                            fxml = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/view/Dashboard.fxml"));
-                            Scene scene = new Scene(fxml);
-                            home.setScene(scene);
-                            home.show();
-                            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                            stage.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
-                    } else {
-                        // L'utilisateur n'a pas le rôle d'administrateur
+                    // L'utilisateur existe, vérifier le statut
+                    String statut = rs.getString("status_user");
+                    if (statut.equals("inactif")) {
+                        // L'utilisateur est désactivé
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("Erreur de connexion");
                         alert.setHeaderText(null);
-                        alert.setContentText("Vous n'êtes pas autorisé à accéder à cette page.");
+                        alert.setContentText("Votre compte a été désactivé par l'administrateur. Veuillez contacter l'administrateur pour plus d'informations.");
                         alert.showAndWait();
+                    } else {
+                        // L'utilisateur est actif, vérifier le rôle
+                        String role = rs.getString("role_user");
+                        if (role.equals("Admin")) {
+                            // L'utilisateur a le rôle d'administrateur, ouvrir la fenêtre d'accueil
+                            System.out.println("bien!");
+                            Stage home = new Stage();
+                            try {
+                                fxml = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/view/AffichageUser.fxml"));
+                                Scene scene = new Scene(fxml);
+                                home.setScene(scene);
+                                home.show();
+                                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                                stage.close();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        } else if (role.equals("Utilisateur")) {
+                            // L'utilisateur a le rôle d'utilisateur, ouvrir la fenêtre d'accueil utilisateur
+                            Stage home = new Stage();
+                            try {
+                                fxml = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/view/Dashboard.fxml"));
+                                Scene scene = new Scene(fxml);
+                                home.setScene(scene);
+                                home.show();
+                                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                                stage.close();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+//else {
+//                        // L'utilisateur n'a pas le rôle d'administrateur
+//                        Alert alert = new Alert(Alert.AlertType.ERROR);
+//                        alert.setTitle("Erreur de connexion");
+//                        alert.setHeaderText(null);
+//                        alert.setContentText("Vous n'êtes pas autorisé à accéder à cette page.");
+//                        alert.showAndWait();
+//                    }
                     }
                 } else {
                     // L'utilisateur n'existe pas ou le mot de passe est incorrect
@@ -140,31 +152,6 @@ public class SginInController implements Initializable {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-//        String nom = txtnom.getText();
-//        String pass = txtpassword.getText();
-//        if (nom.equals("Admin") && pass.equals("Admin")) {
-//            System.out.println("Heloo");
-////          VBox.getScene().getWindow().hide();
-//            Stage home = new Stage();
-//            try {
-//                fxml = FXMLLoader.load(getClass().getResource("AffichageUser.fxml"));
-//                Scene scene = new Scene(fxml);
-//                home.setScene(scene);
-//                home.resizableProperty().setValue(false);
-//                home.setTitle("AffichageUser");
-//                home.show();
-//                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//                stage.close();
-//
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//
-//            }
-//
-//        } else {
-//            System.out.println("nom ou mot de passe incorrecte!");
-//        }
-
         }
     }
     
