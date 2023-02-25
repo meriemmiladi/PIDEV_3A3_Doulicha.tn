@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="white-background" stylesheets="@interfaceprojet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codingbeasts.doulicha.gui.InterfaceProjetController">
+<AnchorPane id="AnchorPane" prefHeight="407.0" prefWidth="766.0" styleClass="white-background" stylesheets="@interfaceprojet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codingbeasts.doulicha.gui.InterfaceProjetController">
    <children>
       <VBox layoutX="-6.0" layoutY="-3.0" prefHeight="410.0" prefWidth="241.0">
          <children>
@@ -103,7 +103,7 @@
             </VBox>
          </children>
       </VBox>
-      <VBox layoutX="235.0" prefHeight="73.0" prefWidth="366.0">
+      <VBox layoutX="235.0" prefHeight="73.0" prefWidth="530.0">
          <children>
             <HBox prefHeight="51.0" prefWidth="361.0">
                <children>
@@ -122,11 +122,11 @@
             </VBox>
          </children>
       </VBox>
-      <TextField fx:id="tfnom_projet" layoutX="428.0" layoutY="75.0" prefHeight="25.0" prefWidth="144.0" promptText="Nom_projet" style="-fx-background-color: transparent; -fx-border-color: #3FC4ED; -fx-border-width: 0px 0px 2px 0px;" />
-      <TextField fx:id="tfdescription_projet" layoutX="425.0" layoutY="137.0" promptText="Description_projet" style="-fx-background-color: transparent; -fx-border-color: #3FC4ED; -fx-border-width: 0px 0px 2px 0px;" />
-      <TextField fx:id="tfobjectif_projet" layoutX="426.0" layoutY="189.0" promptText="Objectif_projet" style="-fx-background-color: transparent; -fx-border-color: #3FC4ED; -fx-border-width: 0px 0px 2px 0px;" />
-      <TextField fx:id="tfetat_projet" layoutX="426.0" layoutY="243.0" promptText="Etat_projet" style="-fx-background-color: transparent; -fx-border-color: #3FC4ED; -fx-border-width: 0px 0px 2px 0px;" />
-      <TextField fx:id="tfimage_projet" layoutX="426.0" layoutY="300.0" promptText="Image_projet" style="-fx-background-color: transparent; -fx-border-color: #3FC4ED; -fx-border-width: 0px 0px 2px 0px;" />
+      <TextField fx:id="tfnom_projet" layoutX="428.0" layoutY="75.0" prefHeight="27.0" prefWidth="185.0" promptText="Nom_projet" style="-fx-background-color: transparent; -fx-border-color: #3FC4ED; -fx-border-width: 0px 0px 2px 0px;" />
+      <TextField fx:id="tfdescription_projet" layoutX="425.0" layoutY="137.0" prefHeight="27.0" prefWidth="185.0" promptText="Description_projet" style="-fx-background-color: transparent; -fx-border-color: #3FC4ED; -fx-border-width: 0px 0px 2px 0px;" />
+      <TextField fx:id="tfobjectif_projet" layoutX="426.0" layoutY="189.0" prefHeight="27.0" prefWidth="185.0" promptText="Objectif_projet" style="-fx-background-color: transparent; -fx-border-color: #3FC4ED; -fx-border-width: 0px 0px 2px 0px;" />
+      <TextField fx:id="tfetat_projet" layoutX="426.0" layoutY="243.0" prefHeight="27.0" prefWidth="185.0" promptText="Etat_projet" style="-fx-background-color: transparent; -fx-border-color: #3FC4ED; -fx-border-width: 0px 0px 2px 0px;" />
+      <TextField fx:id="tfimage_projet" layoutX="426.0" layoutY="300.0" prefHeight="27.0" prefWidth="185.0" promptText="Image_projet" style="-fx-background-color: transparent; -fx-border-color: #3FC4ED; -fx-border-width: 0px 0px 2px 0px;" />
       <Label layoutX="273.0" layoutY="135.0" prefHeight="30.0" prefWidth="120.0" styleClass="Label" stylesheets="@interfaceprojet.css" text="    Description_projet" />
       <Label layoutX="273.0" layoutY="188.0" prefHeight="30.0" prefWidth="120.0" styleClass="Label" stylesheets="@interfaceprojet.css" text="    Objectif_projet" />
       <Label layoutX="273.0" layoutY="242.0" prefHeight="30.0" prefWidth="120.0" styleClass="Label" stylesheets="@interfaceprojet.css" text="     Etat_projet" />

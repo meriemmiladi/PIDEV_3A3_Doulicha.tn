@@ -32,3 +32,88 @@
 .button-style.modify:hover {
     -fx-background-color: #00B4D8;
 }
+
+/* Style pour le fond de l'interface */
+.root {
+    -fx-background-color: #F8F8F8;
+}
+
+/* Style pour le titre */
+.titre {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #3FC4ED;
+}
+
+/* Style pour la boîte contenant la liste de projets */
+#projetListe {
+    -fx-padding: 20px;
+}
+
+/* Style pour les boîtes contenant les informations de chaque projet */
+.contentBox {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #3FC4ED;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-padding: 10px;
+    -fx-spacing: 10px;
+}
+
+/* Style pour le label affichant le nom du projet */
+.nomLabel {
+    -fx-font-weight: bold;
+}
+.objectifLabel {
+    -fx-text-fill: red;
+}
+/* Style pour les labels affichant la description, l'objectif et l'état du projet */
+.descriptionLabel,.etatLabel {
+    -fx-font-size: 14px;
+}
+.obj{
+    -fx-font-size: 50px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #3FC4ED;
+}
+/* Style pour le bouton de suppression */
+.replyButton {
+    -fx-background-color: #3FC4ED;
+    -fx-text-fill: #FFFFFF;
+    -fx-border-color: #FFFFFF;
+    -fx-border-width: 2px;
+    -fx-border-radius : 5px;
+    -fx-padding: 10px;
+    -fx-border-insets: 10px;
+    -fx-background-insets: 10px;
+}
+
+.replyButton:hover {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #3FC4ED;
+}
+
+/* Style pour le bouton de modification */
+.modifierButton {
+    -fx-background-color: #3FC4ED;
+    -fx-text-fill: #FFFFFF;
+    -fx-border-color: #FFFFFF;
+    -fx-border-width: 2px;
+    -fx-border-radius : 5px;
+    -fx-padding: 10px;
+    -fx-border-insets: 10px;
+    -fx-background-insets: 10px;
+}
+
+.modifierButton:hover {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #3FC4ED;
+}
+.modifierButton:pressed {
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.7) , 10,0,0,1 ); 
+    -fx-effect: innershadow( gaussian , rgba(0,0,0,0.7) , 20,0,0,0 );
+}
+.replyButton:pressed {
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.7) , 10,0,0,1 ); 
+    -fx-effect: innershadow( gaussian , rgba(0,0,0,0.7) , 20,0,0,0 );
+}

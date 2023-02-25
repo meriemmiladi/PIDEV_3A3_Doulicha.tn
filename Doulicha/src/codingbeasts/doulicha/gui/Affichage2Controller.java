@@ -66,22 +66,27 @@ public class Affichage2Controller implements Initializable {
             VBox contentBox = new VBox();
             // créer un Label pour afficher le nom du projet
             Label nomLabel = new Label("Nom_Projet : " + projet.getNom_projet());
-            nomLabel.setStyle("-fx-font-weight: bold;");
+            nomLabel.getStyleClass().add("nomLabel");
 
             // créer un Label pour afficher la description du projet
             Label descriptionLabel = new Label("Description : " + projet.getDescription_projet());
-            nomLabel.setStyle("-fx-font-weight: bold;");
+            descriptionLabel.getStyleClass().add("descriptionLabel");
             // créer un Label pour afficher l'objectif du projet
-            Label objectifLabel = new Label("Objectif : " + projet.getObjectif_projet());
-            nomLabel.setStyle("-fx-font-weight: bold;");
+           Label obj = new Label("Objectif");
+            obj.getStyleClass().add("objectifLabel");
+            obj.getStyleClass().add("nomLabel");
+            Label objectifLabel = new Label(obj.getText()+ ":" + projet.getObjectif_projet());
             // créer un Label pour afficher l'état du projet
-            Label etatLabel = new Label("État : " + projet.getEtat_projet());
-            nomLabel.setStyle("-fx-font-weight: bold;");
+             
+  
             // créer une ImageView pour afficher l'image du projet
             Label imageView = new Label("Path d Image : " + projet.getImage_projet());
-            nomLabel.setStyle("-fx-font-weight: bold;");
+            imageView.getStyleClass().add("imageView");
             
             Button replyButton = new Button("supprimer");
+            Button modifierButton = new Button("Modifier");
+            replyButton.getStyleClass().add("replyButton");
+            modifierButton.getStyleClass().add("modifierButton");
             replyButton.setOnAction((ActionEvent event) -> {
                 try {
                     dis.deleteprojet(projet.getId_projet()); // appel de la méthode deleteprojet avec l'id du projet
@@ -90,9 +95,9 @@ public class Affichage2Controller implements Initializable {
                     Logger.getLogger(Affichage2Controller.class.getName()).log(Level.SEVERE, null, ex);
                 }
             });
-            replyButton.setStyle("-fx-font-weight: bold;");
+            
             // créer un bouton pour modifier le projet
-            Button modifierButton = new Button("Modifier");
+        
             modifierButton.setOnAction((ActionEvent event) -> {
                 try {
                     // charger la vue AjouterProjet.fxml
@@ -106,21 +111,18 @@ public class Affichage2Controller implements Initializable {
                     // afficher la vue AjouterProjet.fxml
                     Scene scene = new Scene(root);
                     Stage stage = new Stage();
+                    scene.getStylesheets().add("Affichage2.css");
                     stage.setScene(scene);
                     stage.show();
                 } catch (IOException ex) {
                     Logger.getLogger(Affichage2Controller.class.getName()).log(Level.SEVERE, null, ex);
                 }
             });
-            modifierButton.setStyle("-fx-font-weight: bold;");
-            modifierButton.getLayoutX();
-            // ajouter les Labels et l'ImageView à la VBox
-            contentBox.getChildren().addAll(nomLabel, descriptionLabel, objectifLabel, etatLabel, imageView, replyButton,modifierButton);
+            HBox buttonsBox = new HBox();
+            buttonsBox.getChildren().addAll(replyButton, modifierButton);
+            contentBox.getChildren().addAll(nomLabel, descriptionLabel, objectifLabel, imageView,buttonsBox);
             contentBox.setSpacing(10);
             contentBox.setStyle("-fx-background-color: #ffffff; -fx-border-color: #3FC4ED; -fx-border-width: 2px; -fx-border-radius: 5px;");
-            contentBox.getStyleClass().add("vbox-style");
-            replyButton.getStyleClass().add("button-style");
-            modifierButton.getStyleClass().addAll("button-style", "modify");
             return contentBox;
             
         }).map((contentBox) -> {
