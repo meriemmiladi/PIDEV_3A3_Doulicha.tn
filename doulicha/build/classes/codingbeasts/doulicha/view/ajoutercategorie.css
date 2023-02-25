@@ -36,3 +36,22 @@
     -fx-background-color: #A6D4DC;
     -fx-background-radius: 20 0 20 0;
 }
+/* Ajouter un style pour le ScrollPane */
+.scroll-pane {
+  -fx-background-color: #A6D4DC;
+  -fx-background-radius: 5;
+  -fx-border-color: #3FC4ED;
+  -fx-border-radius: 5;
+  -fx-border-width: 1;
+  -fx-padding: 10;
+}
+
+/* Ajouter un style pour le ComboBox */
+.combo-box {
+  -fx-background-color: #A6D4DC;
+  -fx-background-radius: 5;
+  -fx-border-color: #3FC4ED;
+  -fx-border-radius: 5;
+  -fx-border-width: 1;
+  -fx-padding: 5 30 5 10;
+}

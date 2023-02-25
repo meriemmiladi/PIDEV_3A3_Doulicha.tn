@@ -5,9 +5,6 @@
  */
 package codingbeasts.doulicha.tests;
 
-<<<<<<< Updated upstream
-import condingbeasts.doulicha.utils.MyConnection;
-=======
 import codingbeasts.doulicha.entities.avis;
 import codingbeasts.doulicha.entities.categorie_avis;
 import codingbeasts.doulicha.entities.reclamation;
@@ -26,19 +23,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
->>>>>>> Stashed changes
 
 /**
  *
  * @author HP
  */
 public class MainClass {
-<<<<<<< Updated upstream
-    public static void main (String[] args){
-    MyConnection mc =  MyConnection.getInstance();
-    }
-}
-=======
     public static void main (String[] args)throws SQLException{
     //MyConnection mc =  MyConnection.getInstance();
     //MyConnection mc2 =  MyConnection.getInstance();
@@ -63,4 +53,3 @@ public class MainClass {
     }
 }
 
->>>>>>> Stashed changes

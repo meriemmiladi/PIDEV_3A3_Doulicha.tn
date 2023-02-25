@@ -130,7 +130,8 @@ if(nomUtilisateur == null) {
     Alert alert = new Alert(AlertType.WARNING);
     alert.setContentText("Veuillez sélectionner une valeur pour le champ Nom d'utilisateur.");
     alert.showAndWait();
-} else if(nomLogement == null && nomEvent == null) {
+} 
+/* else if(nomLogement == null && nomEvent == null) {
     Alert alert = new Alert(AlertType.WARNING);
     alert.setContentText("Veuillez sélectionner une valeur pour le champ Nom de logement ou Nom d'événement.");
     alert.showAndWait();
@@ -138,7 +139,7 @@ if(nomUtilisateur == null) {
     Alert alert = new Alert(AlertType.WARNING);
     alert.setContentText("Veuillez sélectionner une seule valeur pour le champ Nom de logement ou Nom d'événement.");
     alert.showAndWait();
-}
+} */
     
         if (idCategorieString.isEmpty() || noteAvisString.isEmpty() || contenuAvis.isEmpty() || typeAvis.isEmpty()) {
         // Affichage d'un message d'erreur si un champ est vide

@@ -8,23 +8,32 @@ package codingbeasts.doulicha.controller;
 import codingbeasts.doulicha.entities.avis;
 import codingbeasts.doulicha.services.serviceAvis;
 import codingbeasts.doulicha.services.serviceCategorie;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 /**
@@ -71,49 +80,73 @@ public class AfficheravisController implements Initializable {
             // créer un Label pour afficher l'état du projet
             Label idlogement = new Label("logement: " + serviceCategorie.getNomlogementById(avis.getID_logement()));
 
-            // créer une ImageView pour afficher l'image du projet
-            Label note = new Label("note : " +avis.getNote_avis());
+
+            HBox ratingBox = new HBox(); // créer une boîte pour les cercles de notation
+            ratingBox.setSpacing(5);
+            ratingBox.setAlignment(Pos.CENTER);
+
+            int noteAvis = avis.getNote_avis(); // obtenir la note de l'avis
+
+            // créer cinq cercles de notation
+            for (int i = 0; i < 5; i++) {
+                Circle circle = new Circle(10); // créer un cercle avec un rayon de 10 pixels
+                if (i < noteAvis) { // remplir les cercles selon la note de l'avis
+                    circle.setFill(Color.web("#3FC4ED"));
+                } else {
+                    circle.setFill(Color.LIGHTGRAY);
+                }
+                ratingBox.getChildren().add(circle); // ajouter le cercle à la boîte
+            }
             
             Label contenu = new Label(avis.getContenu_avis());
             
-            Label type = new Label(avis.getType_avis());
+            Label type = new Label("cet avis concerne un " +avis.getType_avis());
             
             Button replyButton = new Button("supprimer");
             replyButton.setOnAction((ActionEvent event) -> {
-                dis.deleteavis(avis.getID_avis()); // appel de la méthode deleteprojet avec l'id du projet
-                avisListe.getChildren().remove(contentBox); // supprime le contenu du projet de la VBox
-                 
-               
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation de suppression");
+                alert.setHeaderText("Voulez-vous vraiment supprimer cet élément ?");
+                alert.setContentText("Appuyez sur OK pour confirmer.");
+
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK){
+                    dis.deleteavis(avis.getID_avis());
+                    avisListe.getChildren().remove(contentBox);
+                } else {
+                    // l'utilisateur a appuyé sur Annuler ou fermé la fenêtre de confirmation
+                }
             });
             // créer un bouton pour modifier le projet
             Button modifierButton = new Button("Modifier");
             modifierButton.setOnAction((ActionEvent event) -> {
-                try {
-                    // charger la vue AjouterProjet.fxml
+            try {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation de modification");
+                alert.setHeaderText("Voulez-vous vraiment modifier cet avis");
+                alert.setContentText("Cette action peut affecter les données existantes !");
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.isPresent() && result.get() == ButtonType.OK) {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/codingbeasts/doulicha/view/ajouteravis.fxml"));
-                    Parent root;
-                
-                    root = loader.load();
-               
+                    Parent root = loader.load();
                     AjouteravisController controller = loader.getController();
-
-                    // pré-remplir les champs avec les valeurs du projet sélectionné
                     controller.setavis(avis);
-
-                    // afficher la vue AjouterProjet.fxml
                     Scene scene = new Scene(root);
                     Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
                     stage.setScene(scene);
                     stage.show();
-                } catch (IOException ex) {
-                    Logger.getLogger(AfficheravisController.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            });
+            } catch (IOException ex) {
+                Logger.getLogger(AfficheravisController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+
 
             // ajouter les Labels et l'ImageView à la VBox
-            contentBox.getChildren().addAll(nomcategorie,iduser,idevent,idlogement,note,contenu,type, replyButton,modifierButton);
+            contentBox.getChildren().addAll(nomcategorie,idevent,idlogement,ratingBox,contenu,type, replyButton,modifierButton);
             contentBox.setSpacing(10);
             contentBox.setStyle("-fx-background-color: #ffffff; -fx-border-color: #3FC4ED; -fx-border-width: 2px; -fx-border-radius: 5px;");
+            contentBox.setAlignment(Pos.CENTER);
             return contentBox;
         }).map((contentBox) -> {
             avisListe.getChildren().add(contentBox);

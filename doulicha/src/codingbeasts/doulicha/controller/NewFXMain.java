@@ -28,7 +28,7 @@ public class NewFXMain extends Application {
     public void start(Stage primaryStage) {
         
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/view/Pageaccueil.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/view/affichercategorie.fxml"));
             
             //Scene scene = new Scene(root, 700, 400);
             Scene scene = new Scene(root);

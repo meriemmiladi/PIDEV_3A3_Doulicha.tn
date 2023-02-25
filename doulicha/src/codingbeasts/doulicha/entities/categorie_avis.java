@@ -18,8 +18,6 @@ public class categorie_avis {
         this.nom_categorie = nom_categorie;
     }
 
-<<<<<<< Updated upstream
-=======
     public categorie_avis() {
     }
 
@@ -29,7 +27,6 @@ public class categorie_avis {
     
     
 
->>>>>>> Stashed changes
     public int getID_categorie() {
         return ID_categorie;
     }

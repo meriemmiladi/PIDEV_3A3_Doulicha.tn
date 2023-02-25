@@ -7,6 +7,7 @@ package codingbeasts.doulicha.controller;
 
 import codingbeasts.doulicha.entities.reclamation;
 import codingbeasts.doulicha.services.serviceReclamation;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -64,32 +65,34 @@ public class AfficherreclamationADminController implements Initializable {
             // créer un Label pour afficher la date de la réclamation
             Label dateReclamation = new Label("Date de la réclamation : " + reclamation.getDate_reclamation());
 
-            // créer un TextField pour permettre la modification de l'état de la réclamation
-            TextField etatField = new TextField();
-            etatField.setText(String.valueOf(reclamation.getEtat_reclamation()));
 
-            Button modifierButton = new Button("Modifier");
+
+            Button modifierButton = new Button();
+            // Initialiser le bouton avec l'état actuel de la réclamation
+            if (reclamation.getEtat_reclamation() == 1) {
+                modifierButton.setText("En attente");
+            } else {
+                modifierButton.setText("Résolue");
+            }
+
             modifierButton.setOnAction((ActionEvent event) -> {
-                // mettre à jour l'état de la réclamation avec la valeur du TextField
-                int newEtat = Integer.parseInt(etatField.getText());
+                // mettre à jour l'état de la réclamation
+                int newEtat = (reclamation.getEtat_reclamation() == 1) ? 0 : 1;
                 reclamation.setEtat_reclamation(newEtat);
                 dis.modifierreclamation2(reclamation);
 
-                // rafraîchir la page pour afficher les modifications
-                try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/codingbeasts/doulicha/view/afficherreclamationadmin.fxml"));
-                    Parent root = loader.load();
-                    Scene scene = new Scene(root);
-                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                    stage.setScene(scene);
-                    stage.show();
-                } catch (IOException ex) {
-                    Logger.getLogger(AfficherreclamationADminController.class.getName()).log(Level.SEVERE, null, ex);
+                // changer le texte du bouton en conséquence
+                if (reclamation.getEtat_reclamation() == 1) {
+                    modifierButton.setText("En attente");
+                } else {
+                    modifierButton.setText("Résolue");
                 }
+                reclamationListe.getChildren().clear();
+                initialize(url, rb);
             });
 
             // ajouter les Labels et l'ImageView à la VBox
-            contentBox.getChildren().addAll(contenuReclamation,etatReclamation,dateReclamation,etatField, modifierButton);
+            contentBox.getChildren().addAll(contenuReclamation,etatReclamation,dateReclamation, modifierButton);
             contentBox.setSpacing(10);
             contentBox.setStyle("-fx-background-color: #ffffff; -fx-border-color: #3FC4ED; -fx-border-width: 2px; -fx-border-radius: 5px;");
             return contentBox;

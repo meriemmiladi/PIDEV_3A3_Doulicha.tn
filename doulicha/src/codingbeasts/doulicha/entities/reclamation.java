@@ -24,8 +24,6 @@ public class reclamation {
         this.date_reclamation = date_reclamation;
         this.etat_reclamation = etat_reclamation;
     }
-<<<<<<< Updated upstream
-=======
     public reclamation(int ID_user, String contenu_reclamation, int etat_reclamation) {
         
         this.ID_user = ID_user;
@@ -44,7 +42,6 @@ public class reclamation {
         this.etat_reclamation = etat_reclamation;
     }
     
->>>>>>> Stashed changes
 
     public int getID_reclamation() {
         return ID_reclamation;

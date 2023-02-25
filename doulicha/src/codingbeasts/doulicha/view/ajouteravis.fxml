@@ -42,12 +42,12 @@
                   <VBox layoutY="254.0" prefHeight="146.0" prefWidth="198.0" styleClass="rounded-top-background" stylesheets="@ajoutercategorie.css">
                      <children>
                         <ImageView fx:id="idimageavis" fitHeight="63.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../../3893006.png" />
-                           </image>
                            <VBox.margin>
                               <Insets bottom="-70.0" left="60.0" right="50.0" top="20.0" />
                            </VBox.margin>
+                           <image>
+                              <Image url="@../image/3893006.png" />
+                           </image>
                         </ImageView>
                         <Label text="   Avis" textAlignment="CENTER" textFill="WHITE">
                            <font>
@@ -64,24 +64,24 @@
                   </VBox>
                   <ImageView fx:id="iddoulicha" fitHeight="117.0" fitWidth="142.0" layoutX="40.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../doulicha.png" />
+                        <Image url="@../image/doulicha.png" />
                      </image>
                   </ImageView>
                   <Button layoutX="197.0" layoutY="-5.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="198.0" styleClass="buttonAjoute" stylesheets="@ajoutercategorie.css" text="Ajouter" />
                   <Button fx:id="idafficheravis" layoutX="395.0" layoutY="-5.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="205.0" styleClass="buttonAjoute" stylesheets="@ajoutercategorie.css" text="Afficher" />
                   <Button fx:id="idajouteravis" layoutX="234.0" layoutY="361.0" mnemonicParsing="false" onAction="#idajouteravis" prefHeight="25.0" prefWidth="96.0" styleClass="bottonnAjouter" stylesheets="@ajoutercategorie.css" text="Ajouter" />
-                  <Label contentDisplay="CENTER" layoutX="205.0" layoutY="53.0" prefHeight="31.0" prefWidth="132.0" styleClass="Label" stylesheets="@ajoutercategorie.css" text="             id_user">
+                  <Label contentDisplay="CENTER" layoutX="205.0" layoutY="53.0" prefHeight="31.0" prefWidth="132.0" styleClass="Label" stylesheets="@ajoutercategorie.css" text="                user">
                      <font>
                         <Font name="System Italic" size="12.0" />
                      </font>
                   </Label>
                   <TextField fx:id="idcategorie" layoutX="367.0" layoutY="99.0" prefHeight="31.0" prefWidth="179.0" promptText=".." style="-fx-background-color: transparent; -fx-border-color: #3FC4ED; -fx-border-width: 0px 0px 2px 0px;" visible="false" />
-                  <Label contentDisplay="CENTER" layoutX="205.0" layoutY="130.0" prefHeight="31.0" prefWidth="132.0" styleClass="Label" stylesheets="@ajoutercategorie.css" text="          id_logement">
+                  <Label contentDisplay="CENTER" layoutX="205.0" layoutY="130.0" prefHeight="31.0" prefWidth="132.0" styleClass="Label" stylesheets="@ajoutercategorie.css" text="           logement">
                      <font>
                         <Font name="System Italic" size="12.0" />
                      </font>
                   </Label>
-                  <Label contentDisplay="CENTER" layoutX="205.0" layoutY="163.0" prefHeight="31.0" prefWidth="132.0" styleClass="Label" stylesheets="@ajoutercategorie.css" text="         id_evennement">
+                  <Label contentDisplay="CENTER" layoutX="205.0" layoutY="163.0" prefHeight="31.0" prefWidth="132.0" styleClass="Label" stylesheets="@ajoutercategorie.css" text="            evennement">
                      <font>
                         <Font name="System Italic" size="12.0" />
                      </font>
