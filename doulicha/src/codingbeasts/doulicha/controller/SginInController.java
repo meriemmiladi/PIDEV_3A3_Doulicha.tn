@@ -8,6 +8,8 @@ package codingbeasts.doulicha.controller;
 import codingbeasts.doulicha.utils.MyConnection;
 import java.io.IOException;
 import java.net.URL;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -73,7 +75,7 @@ public class SginInController implements Initializable {
         Connection cnx2;
         cnx2 = MyConnection.getInstance().getCnx();
         String nom = txtnom.getText();
-        String pass = txtpassword.getText();
+         String pass = hashMotDePasse(txtpassword.getText());
         if (nom.isEmpty() || pass.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur de saisie");
@@ -163,6 +165,20 @@ public class SginInController implements Initializable {
 //            System.out.println("nom ou mot de passe incorrecte!");
 //        }
 
+        }
+    }
+    
+    public String hashMotDePasse(String motDePasse) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] hashBytes = md.digest(motDePasse.getBytes());
+            StringBuilder sb = new StringBuilder();
+            for (byte b : hashBytes) {
+                sb.append(String.format("%02x", b));
+            }
+            return sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
         }
     }
 

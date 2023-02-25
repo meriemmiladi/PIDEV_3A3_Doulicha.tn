@@ -5,6 +5,9 @@
  */
 package codingbeasts.doulicha.entities;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 /**
  *
  * @author Asus
@@ -25,14 +28,14 @@ public class Utilisateur {
         this.nom_user = nom_user;
         this.prenom_user = prenom_user;
         this.email_user = email_user;
-        this.mdp_user = mdp_user;
+        this.mdp_user = hashMotDePasse(mdp_user);
     }
 
     public Utilisateur(String nom_user, String prenom_user, String email_user, String mdp_user, String role_user) {
         this.nom_user = nom_user;
         this.prenom_user = prenom_user;
         this.email_user = email_user;
-        this.mdp_user = mdp_user;
+        this.mdp_user =hashMotDePasse(mdp_user);
         this.role_user = role_user;
     }
 
@@ -41,7 +44,7 @@ public class Utilisateur {
         this.nom_user = nom_user;
         this.prenom_user = prenom_user;
         this.email_user = email_user;
-        this.mdp_user = mdp_user;
+        this.mdp_user = hashMotDePasse(mdp_user);
         this.role_user = role_user;
     }
 
@@ -91,6 +94,20 @@ public class Utilisateur {
 
     public void setRole_user(String role_user) {
         this.role_user = role_user;
+    }
+    
+    public String hashMotDePasse(String motDePasse) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] hashBytes = md.digest(motDePasse.getBytes());
+            StringBuilder sb = new StringBuilder();
+            for (byte b : hashBytes) {
+                sb.append(String.format("%02x", b));
+            }
+            return sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
