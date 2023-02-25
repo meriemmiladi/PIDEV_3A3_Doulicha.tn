@@ -28,6 +28,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -69,6 +71,12 @@ public class AffichageUserController implements Initializable {
     private TextField searchField;
 
     private FilteredList<Utilisateur> filteredList;
+    @FXML
+    private Label countLabel;
+    
+    @FXML
+    private ChoiceBox<String> filterStatus;
+
 
     int IndexU = -1;
 
@@ -170,40 +178,95 @@ public class AffichageUserController implements Initializable {
     }
 
     private void AffichageUser() {
+txtnom.setCellValueFactory(new PropertyValueFactory<>("nom_user"));
+    txtprenom.setCellValueFactory(new PropertyValueFactory<>("prenom_user"));
+    txtemail.setCellValueFactory(new PropertyValueFactory<>("email_user"));
+    txtrole.setCellValueFactory(new PropertyValueFactory<>("role_user"));
+    txtstatus.setCellValueFactory(new PropertyValueFactory<>("status_user"));
 
-        // col_id.setCellValueFactory(new PropertyValueFactory<>("id_utilisateur"));
-        txtnom.setCellValueFactory(new PropertyValueFactory<>("nom_user"));
-        txtprenom.setCellValueFactory(new PropertyValueFactory<>("prenom_user"));
-        txtemail.setCellValueFactory(new PropertyValueFactory<>("email_user"));
-        //    txtpassword.setCellValueFactory(new PropertyValueFactory<>("mdp_user"));
-        txtrole.setCellValueFactory(new PropertyValueFactory<>("role_user"));
-        txtstatus.setCellValueFactory(new PropertyValueFactory<>("status_user"));
-        UtilisateurCRUD uc = new UtilisateurCRUD();
-        List<Utilisateur> myList = new ArrayList<>();
-        myList = uc.afficherUtilisateur();
-        filteredList = new FilteredList<>(FXCollections.observableArrayList(myList));
-        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredList.setPredicate(utilisateur -> {
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
-                String lowerCaseFilter = newValue.toLowerCase();
-                if (utilisateur.getNom_user().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                } else if (utilisateur.getEmail_user().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                } else {
-                    return false;
-                }
+    UtilisateurCRUD uc = new UtilisateurCRUD();
+    List<Utilisateur> myList = uc.afficherUtilisateur();
+    FilteredList<Utilisateur> filteredList = new FilteredList<>(FXCollections.observableList(myList));
 
-            });
+    searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+        filteredList.setPredicate(utilisateur
+                -> (newValue == null || newValue.isEmpty())
+                || utilisateur.getNom_user().toLowerCase().contains(newValue.toLowerCase())
+                || utilisateur.getStatus_user().toLowerCase().contains(newValue.toLowerCase())
+                || utilisateur.getEmail_user().toLowerCase().contains(newValue.toLowerCase())
+        );
 
-            txttable.setItems(filteredList);
-        });
-        System.out.println("nnn : " + myList);
-        ObservableList<Utilisateur> observableArrayList
-                = FXCollections.observableArrayList(uc.afficherUtilisateur());
-        txttable.setItems(observableArrayList);
+        // Mise à jour du label countLabel lors de la recherche
+        if (filterStatus.getValue().equals("inactif")) {
+            int count = getFilteredUtilisateurs("inactif").size();
+            countLabel.setText(count + " utilisateurs inactifs");
+        } else {
+            countLabel.setText("");
+        }
+
+        txttable.setItems(filteredList);
+    });
+
+    filterStatus.valueProperty().addListener((observable, oldValue, newValue) -> {
+        filteredList.setPredicate(user -> (newValue.equals("Tous")) ? true : user.getStatus_user().equals(newValue));
+
+        // Mise à jour du label countLabel lors du changement de filtre
+        if (newValue.equals("inactif")) {
+            int count = getFilteredUtilisateurs("inactif").size();
+            countLabel.setText(count + " utilisateurs inactifs");
+        } else {
+            countLabel.setText("");
+        }
+    });
+
+    txttable.setItems(filteredList);
+}
+
+private List<Utilisateur> getFilteredUtilisateurs(String status) {
+    UtilisateurCRUD uc = new UtilisateurCRUD();
+    List<Utilisateur> userList = uc.afficherUtilisateur();
+    List<Utilisateur> filteredList = new ArrayList<>();
+
+    for (Utilisateur user : userList) {
+        if (user.getStatus_user().equals(status)) {
+            filteredList.add(user);
+        }
+    }
+
+    return filteredList;
+//        // col_id.setCellValueFactory(new PropertyValueFactory<>("id_utilisateur"));
+//        txtnom.setCellValueFactory(new PropertyValueFactory<>("nom_user"));
+//        txtprenom.setCellValueFactory(new PropertyValueFactory<>("prenom_user"));
+//        txtemail.setCellValueFactory(new PropertyValueFactory<>("email_user"));
+//        //    txtpassword.setCellValueFactory(new PropertyValueFactory<>("mdp_user"));
+//        txtrole.setCellValueFactory(new PropertyValueFactory<>("role_user"));
+//        txtstatus.setCellValueFactory(new PropertyValueFactory<>("status_user"));
+//        UtilisateurCRUD uc = new UtilisateurCRUD();
+//        List<Utilisateur> myList = new ArrayList<>();
+//        myList = uc.afficherUtilisateur();
+//        filteredList = new FilteredList<>(FXCollections.observableArrayList(myList));
+//        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+//            filteredList.setPredicate(utilisateur -> {
+//                if (newValue == null || newValue.isEmpty()) {
+//                    return true;
+//                }
+//                String lowerCaseFilter = newValue.toLowerCase();
+//                if (utilisateur.getNom_user().toLowerCase().contains(lowerCaseFilter)) {
+//                    return true;
+//                } else if (utilisateur.getEmail_user().toLowerCase().contains(lowerCaseFilter)) {
+//                    return true;
+//                } else {
+//                    return false;
+//                }
+//
+//            });
+//
+//            txttable.setItems(filteredList);
+//        });
+//        System.out.println("nnn : " + myList);
+//        ObservableList<Utilisateur> observableArrayList
+//                = FXCollections.observableArrayList(uc.afficherUtilisateur());
+//        txttable.setItems(observableArrayList);
 
     }
 
@@ -246,7 +309,21 @@ public class AffichageUserController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        AffichageUser();
-    }
+      ObservableList<String> statusOptions = FXCollections.observableArrayList("Tous", "actif", "inactif");
+    filterStatus.setItems(statusOptions);
+    filterStatus.setValue("Tous");
 
+      AffichageUser();
+
+    // Mise à jour du label countLabel lors du changement de filtre
+    filterStatus.valueProperty().addListener((observable, oldValue, newValue) -> {
+        if (newValue.equals("Tous")) {
+            countLabel.setText("");
+        } else {
+            int count = getFilteredUtilisateurs(newValue).size();
+            countLabel.setText(count + " utilisateurs ");
+        }
+    });
+
+}
 }

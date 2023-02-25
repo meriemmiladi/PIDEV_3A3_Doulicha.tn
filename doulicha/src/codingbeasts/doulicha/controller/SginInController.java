@@ -110,6 +110,7 @@ public class SginInController implements Initializable {
                             try {
                                 fxml = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/view/AffichageUser.fxml"));
                                 Scene scene = new Scene(fxml);
+                                
                                 home.setScene(scene);
                                 home.show();
                                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

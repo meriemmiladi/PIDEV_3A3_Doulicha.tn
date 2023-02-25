@@ -2,6 +2,8 @@
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -9,10 +11,11 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="497.0" prefWidth="857.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codingbeasts.doulicha.controller.AffichageUserController">
+<AnchorPane id="AnchorPane" prefHeight="609.0" prefWidth="925.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codingbeasts.doulicha.controller.AffichageUserController">
    <children>
-      <Pane layoutY="-1.0" prefHeight="504.0" prefWidth="257.0" style="-fx-background-color: #A6D4DC;">
+      <Pane layoutY="-1.0" prefHeight="620.0" prefWidth="257.0" style="-fx-background-color: #A6D4DC;">
          <children>
             <ImageView fitHeight="116.0" fitWidth="123.0" layoutX="63.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -21,32 +24,40 @@
             </ImageView>
          </children>
       </Pane>
-      <Pane layoutX="257.0" layoutY="45.0" prefHeight="125.0" prefWidth="600.0" style="-fx-background-color: #A6D4DC;" />
-      <TableView fx:id="txttable" layoutX="257.0" layoutY="216.0" prefHeight="288.0" prefWidth="600.0">
+      <Pane layoutX="257.0" layoutY="45.0" prefHeight="125.0" prefWidth="670.0" style="-fx-background-color: #A6D4DC;">
+         <children>
+            <Label fx:id="countLabel" layoutX="426.0" layoutY="63.0" prefHeight="35.0" prefWidth="226.0">
+               <font>
+                  <Font name="System Bold Italic" size="24.0" />
+               </font>
+            </Label>
+         </children></Pane>
+      <TableView fx:id="txttable" layoutX="257.0" layoutY="216.0" prefHeight="403.0" prefWidth="670.0">
         <columns>
-          <TableColumn fx:id="txtnom" prefWidth="75.0" text="Nom" />
-          <TableColumn fx:id="txtprenom" prefWidth="121.0" text="Prenom" />
-            <TableColumn fx:id="txtemail" prefWidth="187.0" text="Email" />
-            <TableColumn fx:id="txtrole" prefWidth="142.0" text="Role" />
-            <TableColumn fx:id="txtstatus" prefWidth="75.0" text="status" />
+          <TableColumn fx:id="txtnom" prefWidth="114.0" text="Nom" />
+          <TableColumn fx:id="txtprenom" prefWidth="82.0" text="Prenom" />
+            <TableColumn fx:id="txtemail" prefWidth="201.0" text="Email" />
+            <TableColumn fx:id="txtrole" prefWidth="128.0" text="Role" />
+            <TableColumn fx:id="txtstatus" prefWidth="144.0" text="status" />
         </columns>
       </TableView>
-      <Button contentDisplay="GRAPHIC_ONLY" layoutX="795.0" layoutY="179.0" mnemonicParsing="false" onAction="#deleteuser" text="Button">
+      <Button contentDisplay="GRAPHIC_ONLY" layoutX="677.0" layoutY="178.0" mnemonicParsing="false" onAction="#deleteuser" text="Button">
          <graphic>
             <FontAwesomeIconView fill="#9b0b31" glyphName="TRASH" size="22" />
          </graphic>
       </Button>
-      <Button contentDisplay="GRAPHIC_ONLY" layoutX="692.0" layoutY="179.0" mnemonicParsing="false" onAction="#refreshuser" text="Button">
+      <Button contentDisplay="GRAPHIC_ONLY" layoutX="573.0" layoutY="179.0" mnemonicParsing="false" onAction="#refreshuser" text="Button">
          <graphic>
             <FontAwesomeIconView fill="#a6d4dc" glyphName="REFRESH" size="22" />
          </graphic>
       </Button>
-      <Button contentDisplay="GRAPHIC_ONLY" layoutX="743.0" layoutY="179.0" mnemonicParsing="false" onAction="#onupdate" text="Button">
+      <Button contentDisplay="GRAPHIC_ONLY" layoutX="623.0" layoutY="178.0" mnemonicParsing="false" onAction="#onupdate" text="Button">
          <graphic>
             <FontAwesomeIconView glyphName="PENCIL" size="22" />
          </graphic>
       </Button>
       <TextField fx:id="searchField" layoutX="272.0" layoutY="180.0" prefHeight="31.0" prefWidth="274.0" />
       <FontAwesomeIconView fill="#a6d4dc" glyphName="SEARCH" layoutX="515.0" layoutY="201.0" size="20" />
+      <ChoiceBox fx:id="filterStatus" layoutX="757.0" layoutY="179.0" prefWidth="150.0" />
    </children>
 </AnchorPane>
