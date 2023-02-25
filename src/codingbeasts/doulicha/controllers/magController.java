@@ -70,7 +70,7 @@ public class magController implements Initializable {
     Map<Produit,Integer> produitMap=new HashMap<Produit,Integer>();
     private void setChosen(Produit produit) {
         produitActuel=produit;
-        SpinnerValueFactory<Integer> valueFactory =new SpinnerValueFactory.IntegerSpinnerValueFactory(0, produit.getQuantite_produit(), 0);
+        SpinnerValueFactory<Integer> valueFactory =new SpinnerValueFactory.IntegerSpinnerValueFactory(1, produit.getQuantite_produit(), 1);
         spinnerId.setValueFactory(valueFactory);
         NameLable.setText(produit.getLibelle_produit());
         PriceLabel.setText(MainView.CURRENCY + produit.getPrixUvente_produit());

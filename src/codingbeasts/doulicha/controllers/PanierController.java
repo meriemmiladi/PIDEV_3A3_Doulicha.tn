@@ -5,6 +5,7 @@ import codingbeasts.doulicha.entities.LigneCommande;
 import codingbeasts.doulicha.entities.Produit;
 import codingbeasts.doulicha.services.CommandeCrud;
 import codingbeasts.doulicha.services.LigneCommandeCrud;
+import codingbeasts.doulicha.services.ProduitCrud;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -31,6 +32,10 @@ import javafx.util.Callback;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.util.Date;
+import javafx.geometry.Pos;
+import javafx.scene.control.TableCell;
+import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
 
 
 public class PanierController implements Initializable {
@@ -72,6 +77,8 @@ public class PanierController implements Initializable {
                     LigneCommandeCrud lcc=new LigneCommandeCrud();
                     LigneCommande lc=new LigneCommande(commande.getID_commande(), key.getID_produit(), value);
                     lcc.ajouterLigneCommande2(lc);
+                    Notifications notificationBuilder = Notifications.create().title("Validation commande").text("Commande validé").graphic(null).hideAfter(Duration.seconds(8)).position(Pos.BOTTOM_RIGHT);
+        notificationBuilder.showInformation();
                 });
                 Parent page1 = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/view/magasin.fxml"));
                 Scene scene = new Scene(page1);
@@ -149,5 +156,36 @@ public class PanierController implements Initializable {
         double total = calculateTotalPrice();
     sommePrixTextField.setText(String.format("%.2f", total));
     }
+    
+    private void addDeleteButtonToTable() {
+    TableColumn<Entry<Produit, Integer>, Void> column = new TableColumn<>();
+    Callback<TableColumn<Entry<Produit, Integer>, Void>, TableCell<Entry<Produit, Integer>, Void>> cellFactory = col -> {
+        final TableCell<Entry<Produit, Integer>, Void> cell = new TableCell<Entry<Produit, Integer>, Void>() {
+            private final Button deleteButton = new Button("Delete");
+            {
+                deleteButton.setOnAction(event -> {
+                    Entry<Produit, Integer> data = getTableView().getItems().get(getIndex());
+//                    ProduitCrud c = new ProduitCrud();
+//                    c.deleteProduit(data.getKey().getID_produit());
+//                    getTableView().getItems().remove(data);
+                        System.out.println("yasmiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiine");
+                });
+            }
+            @Override
+            public void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(deleteButton);
+                }
+            }
+        };
+        return cell;
+    };
+    column.setCellFactory(cellFactory);
+    tableView.getColumns().add(column);
+}
+
     
 }

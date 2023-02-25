@@ -11,7 +11,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,6 +27,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -56,7 +60,9 @@ public class AccprodController implements Initializable {
     private TableColumn<Produit, String> IMAGE;
     @FXML
     private Button btnajout;
-
+    @FXML
+    private TextField recherche;
+    
     /**
      * Initializes the controller class.
      */
@@ -147,7 +153,60 @@ public class AccprodController implements Initializable {
     }
     
     
+    ///////////////////recherche//////////
+ void search_product() {
+        
+        ProduitCrud c = new ProduitCrud();
+        List<Produit> produits = c.afficherProduit();
+       ObservableList<Produit> observableProduits = FXCollections.observableList(produits);
+        LIBELLE.setCellValueFactory(new PropertyValueFactory<>("libelle_produit"));
+       QUANTITE.setCellValueFactory(new PropertyValueFactory<>("quantite_produit"));
+       PTIXACHAT.setCellValueFactory(new PropertyValueFactory<>("prixUachat_produit"));
+       PRIXVENTE.setCellValueFactory(new PropertyValueFactory<>("prixUvente_produit"));
+       CATEGORIE.setCellValueFactory(new PropertyValueFactory<>("categorie_produit"));
+       IMAGE.setCellValueFactory(new PropertyValueFactory<>("image_produit"));;
+       
     
+       TABLEPRODUIT.setItems(observableProduits);
+
+  FilteredList<Produit> filteredData = new FilteredList<Produit>(observableProduits, b -> true);
+
+
+    recherche.textProperty().addListener((observable, oldValue, newValue) -> {
+        filteredData.setPredicate((Produit prd) -> {
+            if (newValue == null || newValue.isEmpty()) {
+                return true;
+            }
+            String lowerCaseFilter = newValue.toLowerCase();
+
+            if (prd.getLibelle_produit().toLowerCase().indexOf(lowerCaseFilter) != -1 ) {
+                return true;
+            } else if (prd.getCategorie_produit().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                return true;
+            }
+            else if (String.valueOf(prd.getPrixUachat_produit()).indexOf(lowerCaseFilter) != -1){
+                return true;
+            }
+            else if (String.valueOf(prd.getPrixUvente_produit()).indexOf(lowerCaseFilter) != -1){
+                return true;
+            }
+            else if (String.valueOf(prd.getQuantite_produit()).indexOf(lowerCaseFilter) != -1){
+                return true;
+            }
+            if (prd.getImage_produit().toLowerCase().indexOf(lowerCaseFilter) != -1 ) {
+                return true;
+            }
+
+            else
+                return false;
+        });
+    });
+    SortedList<Produit> sortedData = new SortedList<>(filteredData);
+    sortedData.comparatorProperty().bind(TABLEPRODUIT.comparatorProperty());
+    TABLEPRODUIT.setItems(sortedData);
+}
+
+ /////////////////////////////////////////
     
         private void addDleteButtonToTable() {
         TableColumn<Produit, Void> column= new TableColumn<>();

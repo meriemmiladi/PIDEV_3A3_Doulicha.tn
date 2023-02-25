@@ -35,7 +35,7 @@ public class MainView extends Application {
         try {
             //Parent root = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/view/magasin.fxml"));
 //            Parent root = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/view/accprod.fxml"));
-            Parent root = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/view/magasin.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/view/Accueil.fxml"));
             
             Dimension size = Toolkit. getDefaultToolkit(). getScreenSize();
             int width = (int)size.getWidth();

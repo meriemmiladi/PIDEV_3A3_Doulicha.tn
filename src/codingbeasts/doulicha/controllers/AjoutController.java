@@ -128,7 +128,7 @@ public class AjoutController implements Initializable {
         ProduitCrud pc = new ProduitCrud();       
         pc.ajouterProduit2(p);     
         Notifications notificationBuilder = Notifications.create().title("Ajout du produit").text("votre produit a bien été ajouté.").graphic(null).hideAfter(Duration.seconds(8)).position(Pos.BOTTOM_RIGHT);
-       notificationBuilder.showInformation();
+        notificationBuilder.showInformation();
         try {
             Parent page1 = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/view/Accprod.fxml"));
             Scene scene = new Scene(page1);
@@ -208,7 +208,7 @@ public class AjoutController implements Initializable {
                 } catch (IOException ex) {
                     System.out.println("could not get the image");
                 }
-            String imagePath = "images/" + fileName;
+            String imagePath = "/imag/" + fileName;
     }
     
     
