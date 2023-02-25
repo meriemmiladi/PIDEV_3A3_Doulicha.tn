@@ -125,6 +125,15 @@ public void modifierdon(don d ,int id_don) throws SQLException{
     public List<don> afficherdon(int id_don) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
- 
+public double calculerSommeDons() {
+    donCRUD dis = new donCRUD();
+    List<don> dons = dis.afficherdon();
+    double somme = 0;
+    for (don d : dons) {
+        somme += d.getValeur_don();
+        System.out.println(somme);
+    }
+    return somme;
+}
 }
 

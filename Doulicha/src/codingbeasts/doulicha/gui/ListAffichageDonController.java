@@ -46,73 +46,77 @@ public class ListAffichageDonController implements Initializable {
     private VBox donListe;
     @FXML
     private Button tfretourne3;
+    @FXML
+    private Label sommeDonsLabel;
+    private donCRUD dis;
+
 
     /**
      * Initializes the controller class.
      */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-        donCRUD dis = new donCRUD();
-        List<don> dons = dis.afficherdon();
-
-        // boucle pour ajouter chaque projet à la VBox
-        dons.stream().map((don don) -> {
-            VBox contentBox = new VBox();
-            // créer un Label pour afficher le nom du projet
-            Label valeurLabel = new Label("valeur  : " + don.getValeur_don());
-            valeurLabel.setStyle("-fx-font-weight: bold;");
-
-            // créer un Label pour afficher la description du projet
-            Label dateLabel = new Label("date  : " + don.getDate_don());
-
-            // créer un Label pour afficher l'objectif du projet
-            
-            
-            
-            Button replyButton = new Button("supprimer");
-            replyButton.setOnAction((ActionEvent event) -> {
-                try {
-                    dis.deletedon(don.getID_don()); 
-                    donListe.getChildren().remove(contentBox); // supprime le contenu du projet de la VBox
-                } catch (SQLException ex) {
-                    Logger.getLogger(ListAffichageDonController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            });
-            Button modifierButton = new Button("Modifier");
-            modifierButton.setOnAction((ActionEvent event) -> {
-                try {
-                    // charger la vue AjouterProjet.fxml
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("AjouterDon.fxml"));
-                    Parent root = loader.load();
-                    AjouterDonController controller = loader.getController();
-
-                    // pré-remplir les champs avec les valeurs du projet sélectionné
-                    controller.setdon(don);
-
-                    // afficher la vue AjouterProjet.fxml
-                    Scene scene = new Scene(root);
-                    Stage stage = new Stage();
-                    stage.setScene(scene);
-                    stage.show();
-                } catch (IOException ex) {
-                    Logger.getLogger(Affichage2Controller.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            });
-            contentBox.getChildren().addAll(valeurLabel, dateLabel, replyButton,modifierButton);
-            contentBox.setSpacing(10);
-            contentBox.setStyle("-fx-background-color: #ffffff; -fx-border-color: #3FC4ED; -fx-border-width: 2px; -fx-border-radius: 5px;");
-            contentBox.getStyleClass().add("vbox-style");
-            replyButton.getStyleClass().add("button-style");
-            modifierButton.getStyleClass().addAll("button-style", "modify");
-            return contentBox;
-        }).map((contentBox) -> {
-            donListe.getChildren().add(contentBox);
-            return contentBox;
-        }).forEachOrdered((_item) -> {
-            donListe.setSpacing(10);
-        });
+   public double calculerSommeDons() {
+    donCRUD dis = new donCRUD();
+    List<don> dons = dis.afficherdon();
+    double somme = 0;
+    for (don d : dons) {
+        somme += d.getValeur_don();
+        System.out.println(somme);
     }
+    return somme;
+}
+
+@Override
+public void initialize(URL url, ResourceBundle rb) {
+    donCRUD dis = new donCRUD();
+    List<don> dons = dis.afficherdon();
+    double somme = calculerSommeDons();
+    sommeDonsLabel.setText("Total des dons " + somme + "£");
+    sommeDonsLabel.setStyle("-fx-font-weight: bold;");
+    for (don d : dons) {
+        VBox contentBox = new VBox();
+        Label valeurLabel = new Label("Valeur : " + d.getValeur_don() + "€");
+        valeurLabel.setStyle("-fx-font-weight: bold;");
+        Label dateLabel = new Label("Date : " + d.getDate_don());
+        Button replyButton = new Button("Supprimer");
+        replyButton.getStyleClass().add("replyButton");
+        replyButton.setOnAction((ActionEvent event) -> {
+            try {
+                dis.deletedon(d.getID_don()); 
+                donListe.getChildren().remove(contentBox); 
+            } catch (SQLException ex) {
+                Logger.getLogger(ListAffichageDonController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        Button modifierButton = new Button("Modifier");
+        modifierButton.getStyleClass().add("modifierButton");
+        modifierButton.setOnAction((ActionEvent event) -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("AjouterDon.fxml"));
+                Parent root = loader.load();
+                AjouterDonController controller = loader.getController();
+                controller.setdon(d);
+                Scene scene = new Scene(root);
+                Stage stage = new Stage();
+                scene.getStylesheets().add("listaffichagedon.css");
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException ex) {
+                Logger.getLogger(Affichage2Controller.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        HBox buttonsBox = new HBox();
+        buttonsBox.getChildren().addAll(replyButton, modifierButton);
+        contentBox.getChildren().addAll(valeurLabel, dateLabel,buttonsBox);
+        contentBox.setSpacing(10);
+        contentBox.setStyle("-fx-background-color: #ffffff; -fx-border-color: #3FC4ED; -fx-border-width: 2px; -fx-border-radius: 5px;");
+        contentBox.getStyleClass().add("vbox-style");
+        replyButton.getStyleClass().add("button-style");
+        modifierButton.getStyleClass().addAll("button-style", "modify");
+        donListe.getChildren().add(contentBox);
+    }
+    donListe.setSpacing(10);
+}
+
 
     @FXML
     private void retourne3(ActionEvent event) {
