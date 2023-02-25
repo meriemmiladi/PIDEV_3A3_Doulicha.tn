@@ -25,6 +25,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -52,33 +53,50 @@ public class AffichageProjetUserController implements Initializable {
     private int id_projet;
     @FXML
     private Button tfaffichage2;
+    @FXML
+    private TextField searchField;
+    @FXML
+    private Button searchButton;
+    
+    
     
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+public void initialize(URL url, ResourceBundle rb) {
+    afficherProjets();
+    searchButton.setOnAction(this::rechercherProjet);
+}
+
+private void rechercherProjet(ActionEvent event) {
+    try {
+        String searchTerm = searchField.getText().trim();
         projetCRUD dis = new projetCRUD();
-        List<projet> projets = dis.afficherprojet();
+        List<projet> myList = dis.rechercherProjet(searchTerm);
+        projetListe.getChildren().clear();
+        myList.stream().map((projet projet) -> {
+            VBox contentBox = createContentBox(projet);
+            return contentBox;
+        }).forEachOrdered((contentBox) -> {
+            projetListe.getChildren().add(contentBox);
+        });
+    } catch (SQLException ex) {
+        Logger.getLogger(Affichage2Controller.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}
 
-        // boucle pour ajouter chaque projet à la VBox
-        projets.stream().map((projet projet) -> {
-            VBox contentBox = new VBox();
-            // créer un Label pour afficher le nom du projet
-            Label nomLabel = new Label(projet.getNom_projet());
-            nomLabel.setStyle("-fx-font-weight: bold;");
-
-            // créer un Label pour afficher la description du projet
-            Label descriptionLabel = new Label(projet.getDescription_projet());
-
-            // créer un Label pour afficher l'objectif du projet
-            Label objectifLabel = new Label("Objectif : " + projet.getObjectif_projet());
-
-            // créer un Label pour afficher l'état du projet
-            Label etatLabel = new Label("État : " + projet.getEtat_projet());
-
-            // créer une ImageView pour afficher l'image du projet
-            Label imageView = new Label(projet.getImage_projet());
-            
-            
-            Button savedon = new Button("Ajouterdon");
+private VBox createContentBox(projet projet) {
+    VBox contentBox = new VBox();
+    Label nomLabel = new Label(projet.getNom_projet());
+    nomLabel.getStyleClass().add("nomLabel");
+    Label descriptionLabel = new Label(projet.getDescription_projet());
+    descriptionLabel.getStyleClass().add("descriptionLabel");
+    Label obj = new Label("Objectif");
+    obj.getStyleClass().add("objectifLabel");
+    obj.getStyleClass().add("nomLabel");
+    Label objectifLabel = new Label(obj.getText()+ ":" + projet.getObjectif_projet());
+    Label imageView = new Label(projet.getImage_projet());
+    imageView.getStyleClass().add("imageView");
+    
+    Button savedon = new Button("Ajouterdon");
             savedon.setOnAction((ActionEvent event) -> {
                 try {
                     // charger la vue AjouterProjet.fxml
@@ -103,23 +121,27 @@ public class AffichageProjetUserController implements Initializable {
                 donCRUD rep = new donCRUD();
                
             });
-            
-            
-            
-        contentBox.getChildren().addAll(nomLabel, descriptionLabel, objectifLabel, etatLabel, imageView,savedon);
-            contentBox.setSpacing(10);
-            contentBox.setStyle("-fx-background-color: #ffffff; -fx-border-color: #3FC4ED; -fx-border-width: 2px; -fx-border-radius: 5px;");
-            contentBox.getStyleClass().add("vbox-style");
-            savedon.getStyleClass().add("button-style");
-            
-            return contentBox;
-        }).map((contentBox) -> {
-            projetListe.getChildren().add(contentBox);
-            return contentBox;
-        }).forEachOrdered((_item) -> {
-            projetListe.setSpacing(10);
-        });
-    }
+    
+    
+  
+    
+    contentBox.getChildren().addAll(nomLabel, descriptionLabel, objectifLabel, imageView, savedon);
+    contentBox.setSpacing(10);
+    contentBox.getStyleClass().add("vbox-style");
+    return contentBox;
+}
+private void afficherProjets() {
+    projetCRUD dis = new projetCRUD();
+    List<projet> myList = dis.afficherprojet();
+    myList.stream().map((projet projet) -> {
+        VBox contentBox = createContentBox(projet);
+        return contentBox;
+    }).forEachOrdered((contentBox) -> {
+        projetListe.getChildren().add(contentBox);
+    });
+    projetListe.setSpacing(10);
+}
+    
 
     @FXML
     private void affichage2(ActionEvent event) {

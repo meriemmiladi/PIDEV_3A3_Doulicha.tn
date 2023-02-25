@@ -126,7 +126,6 @@
       <TextField fx:id="tfdescription_projet" layoutX="425.0" layoutY="137.0" prefHeight="27.0" prefWidth="185.0" promptText="Description_projet" style="-fx-background-color: transparent; -fx-border-color: #3FC4ED; -fx-border-width: 0px 0px 2px 0px;" />
       <TextField fx:id="tfobjectif_projet" layoutX="426.0" layoutY="189.0" prefHeight="27.0" prefWidth="185.0" promptText="Objectif_projet" style="-fx-background-color: transparent; -fx-border-color: #3FC4ED; -fx-border-width: 0px 0px 2px 0px;" />
       <TextField fx:id="tfetat_projet" layoutX="426.0" layoutY="243.0" prefHeight="27.0" prefWidth="185.0" promptText="Etat_projet" style="-fx-background-color: transparent; -fx-border-color: #3FC4ED; -fx-border-width: 0px 0px 2px 0px;" />
-      <TextField fx:id="tfimage_projet" layoutX="426.0" layoutY="300.0" prefHeight="27.0" prefWidth="185.0" promptText="Image_projet" style="-fx-background-color: transparent; -fx-border-color: #3FC4ED; -fx-border-width: 0px 0px 2px 0px;" />
       <Label layoutX="273.0" layoutY="135.0" prefHeight="30.0" prefWidth="120.0" styleClass="Label" stylesheets="@interfaceprojet.css" text="    Description_projet" />
       <Label layoutX="273.0" layoutY="188.0" prefHeight="30.0" prefWidth="120.0" styleClass="Label" stylesheets="@interfaceprojet.css" text="    Objectif_projet" />
       <Label layoutX="273.0" layoutY="242.0" prefHeight="30.0" prefWidth="120.0" styleClass="Label" stylesheets="@interfaceprojet.css" text="     Etat_projet" />
@@ -134,5 +133,6 @@
       <Label layoutX="273.0" layoutY="73.0" prefHeight="30.0" prefWidth="120.0" styleClass="Label" stylesheets="@interfaceprojet.css" text="     Nom_projet" />
       <Button fx:id="btn_valider" layoutX="284.0" layoutY="355.0" mnemonicParsing="false" onAction="#saveProjet" prefHeight="38.0" prefWidth="144.0" styleClass="bottonnAjouter" stylesheets="@interfaceprojet.css" text="Ajouter" />
       <Button fx:id="btn_valider1" layoutX="443.0" layoutY="355.0" mnemonicParsing="false" onAction="#saveProjet2" prefHeight="38.0" prefWidth="144.0" styleClass="bottonnAjouter" stylesheets="@interfaceprojet.css" text="Enregistrer" />
+      <Button fx:id="btnImage" layoutX="435.0" layoutY="302.0" mnemonicParsing="false" onAction="#importImage" prefHeight="25.0" prefWidth="165.0" text="Button" />
    </children>
 </AnchorPane>

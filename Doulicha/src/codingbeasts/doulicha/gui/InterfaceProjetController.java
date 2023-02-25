@@ -8,8 +8,13 @@ package codingbeasts.doulicha.gui;
 import codingbeasts.doulicha.entities.don;
 import codingbeasts.doulicha.entities.projet;
 import codingbeasts.doulicha.services.projetCRUD;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -17,12 +22,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -38,7 +47,6 @@ public class InterfaceProjetController implements Initializable {
     private TextField tfobjectif_projet;
     @FXML
     private TextField tfetat_projet;
-    @FXML
     private TextField tfimage_projet;
     @FXML
     private Button btn_valider;
@@ -47,7 +55,14 @@ public class InterfaceProjetController implements Initializable {
     @FXML
     private Button tfAffichage;
     
-
+    public Image image;
+    
+    public String fileName;
+    public Path source ;
+    public Path destination ;
+    public String imagePath ;
+    @FXML
+    private Button btnImage;
     /**
      * Initializes the controller class.
      */
@@ -67,10 +82,10 @@ public class InterfaceProjetController implements Initializable {
     
     String objectif_projet_str = tfobjectif_projet.getText();
     String etat_projet_str = tfetat_projet.getText();
-    String image_projet = tfimage_projet.getText();
+   
 
     // Vérification de la validité des entrées de l'utilisateur
-    if (nom_projet.isEmpty() || description_projet.isEmpty() || objectif_projet_str.isEmpty() || etat_projet_str.isEmpty() || image_projet.isEmpty()) {
+    if (nom_projet.isEmpty() || description_projet.isEmpty() || objectif_projet_str.isEmpty() || etat_projet_str.isEmpty()) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Erreur de saisie");
         alert.setHeaderText("Certains champs sont vides");
@@ -100,7 +115,7 @@ public class InterfaceProjetController implements Initializable {
     float objectif_projet = Float.parseFloat(objectif_projet_str);
     int etat_projet = Integer.parseInt(etat_projet_str);
         
-        projet p = new projet(nom_projet,description_projet,objectif_projet,etat_projet,image_projet);
+        projet p = new projet(nom_projet,description_projet,objectif_projet,etat_projet,imagePath);
         projetCRUD pc = new projetCRUD();
         pc.ajouterprojet2(p);
         
@@ -137,6 +152,9 @@ public class InterfaceProjetController implements Initializable {
         this.id_projet = projet.getId_projet();
         }
     }
+
+    
+    
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -176,4 +194,29 @@ public class InterfaceProjetController implements Initializable {
     void setdon(don don) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    @FXML
+private void importImage(ActionEvent event) {
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Choose an image file");
+    fileChooser.getExtensionFilters().addAll(
+        new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif")
+    );
+    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    File selectedFile = fileChooser.showOpenDialog(stage);
+    if (selectedFile != null) {
+        try {
+            fileName = selectedFile.getName();
+             source = selectedFile.toPath();
+             destination = Paths.get("C:/xampp/htdocs/img/" + fileName);
+
+             System.out.println("image"+destination);
+            Files.copy(source, destination, StandardCopyOption.REPLACE_EXISTING);
+
+             imagePath = "C:/xampp/htdocs/img/" + fileName;
+        } catch (Exception e) {
+            System.out.println("Failed to load image file.");
+            e.printStackTrace();
+        }
+    }
+}
 }
