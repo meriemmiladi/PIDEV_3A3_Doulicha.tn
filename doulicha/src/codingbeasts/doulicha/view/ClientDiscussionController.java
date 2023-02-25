@@ -1,26 +1,31 @@
 package codingbeasts.doulicha.view;
 
+import codingbeasts.doulicha.services.PerspectiveService;
 import codingbeasts.doulicha.entities.Discussion;
 import codingbeasts.doulicha.entities.Reponse;
 import codingbeasts.doulicha.services.DiscussionCRUD;
 import codingbeasts.doulicha.services.ReponseCRUD;
+import com.google.api.services.commentanalyzer.v1alpha1.model.AnalyzeCommentResponse;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import codingbeasts.doulicha.services.PerspectiveService;
+import com.google.api.services.commentanalyzer.v1alpha1.model.AttributeScores;
+import java.util.Map;
 
 import javafx.stage.StageStyle;
 
@@ -38,6 +43,48 @@ public class ClientDiscussionController implements Initializable {
 
     @FXML
     private Button newDiscussionButton;
+    
+private void analyzeReponse(String content) {
+    try {
+        AnalyzeCommentResponse response = PerspectiveService.analyzeComment(content);
+        Map<String, AttributeScores> attributeScores = response.getAttributeScores();
+        AttributeScores summaryScore = attributeScores.get("SUMMARY");
+        Float toxicityScore = summaryScore.getSummaryScore().getValue();
+
+        if (response != null && toxicityScore != null && toxicityScore > 0.9) {
+            Alert alert = new Alert(AlertType.WARNING, "Discussion contains toxic content!");
+            alert.showAndWait();
+        }
+    } catch (IOException e) {
+        Alert alert = new Alert(AlertType.ERROR, "Error analyzing discussion!");
+        alert.showAndWait();
+    }
+}
+
+
+
+  
+ private void analyzeDiscussion(String content,Button b) {
+    try {
+        AnalyzeCommentResponse response = PerspectiveService.analyzeComment(content);
+        Map<String, AttributeScores> attributeScores = response.getAttributeScores();
+        AttributeScores summaryScore = attributeScores.get("SUMMARY");
+        Float toxicityScore = summaryScore.getSummaryScore().getValue();
+
+        if (response != null && toxicityScore != null) {
+            if (toxicityScore > 0.9) {
+                Alert alert = new Alert(AlertType.WARNING, "Response contains toxic content!");
+                alert.showAndWait();
+                b.setDisable(true); // disable submit button if toxic
+            } else {
+                b.setDisable(false); // enable submit button if not toxic
+            }
+        }
+    } catch (IOException e) {
+        Alert alert = new Alert(AlertType.ERROR, "Error analyzing response!");
+        alert.showAndWait();
+    }
+}
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -75,7 +122,7 @@ public class ClientDiscussionController implements Initializable {
                 TextArea editContent = new TextArea(discussion.getContenu_discussion());
                 Button enregistrerButton = new Button("Enregistrer");
                 Button annulerButton = new Button("Annuler");
-                enregistrerButton.setOnAction(e -> {
+                enregistrerButton.setOnAction((ActionEvent e) -> {
                     if (editContent.getText().isEmpty()) {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("Erreur de saisie");
@@ -285,7 +332,8 @@ public class ClientDiscussionController implements Initializable {
             Button publierBtn = new Button("Publier");
             publierBtn.getStyleClass().add("btn-add-discussion");
             discussionBox.getChildren().addAll(titreDiscussionArea, nouvelleDiscussionArea);
-
+            analyzeDiscussion(nouvelleDiscussionArea.getText(),publierBtn);
+                                                                        analyzeDiscussion(titreDiscussionArea.getText(),publierBtn);
             publierBtn.setOnAction((ActionEvent event) -> {
                 if ((nouvelleDiscussionArea.getText().isEmpty()) || (titreDiscussionArea.getText().isEmpty())) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -293,6 +341,7 @@ public class ClientDiscussionController implements Initializable {
                     alert.setContentText("Le texte ne peut pas être vide.");
                     alert.showAndWait();
                 } else {
+                                  
                     dis.ajouterDiscussion(new Discussion(1, titreDiscussionArea.getText(), nouvelleDiscussionArea.getText(), new Date(System.currentTimeMillis())));
                     VBox discussionBox1 = new VBox();
                     Label labelTitre = new Label(titreDiscussionArea.getText());
