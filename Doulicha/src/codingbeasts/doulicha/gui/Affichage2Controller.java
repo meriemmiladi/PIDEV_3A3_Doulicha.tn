@@ -7,6 +7,7 @@ package codingbeasts.doulicha.gui;
 
 import codingbeasts.doulicha.entities.projet;
 import codingbeasts.doulicha.services.projetCRUD;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -27,6 +28,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -40,8 +42,6 @@ import javafx.stage.Stage;
 public class Affichage2Controller implements Initializable {
 
     @FXML
-    private Button btn_valider;
-    @FXML
     private VBox VBox1;
     @FXML
     private HBox HBox1;
@@ -50,88 +50,107 @@ public class Affichage2Controller implements Initializable {
     @FXML
     private VBox projetListe;
     @FXML
+    private Button searchButton;
+    @FXML
     private Button tfretourne;
+    @FXML
+    private TextField searchField;
+    
 
     /**
      * Initializes the controller class.
      */
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-   projetCRUD dis = new projetCRUD();
-        List<projet> projets = dis.afficherprojet();
-
-        // boucle pour ajouter chaque projet à la VBox
-        projets.stream().map((projet projet) -> {
-            VBox contentBox = new VBox();
-            // créer un Label pour afficher le nom du projet
-            Label nomLabel = new Label("Nom_Projet : " + projet.getNom_projet());
-            nomLabel.getStyleClass().add("nomLabel");
-
-            // créer un Label pour afficher la description du projet
-            Label descriptionLabel = new Label("Description : " + projet.getDescription_projet());
-            descriptionLabel.getStyleClass().add("descriptionLabel");
-            // créer un Label pour afficher l'objectif du projet
-           Label obj = new Label("Objectif");
+        afficherProjets();
+        searchButton.setOnAction(this::rechercherProjet);
+        
+    }
+    private void rechercherProjet(ActionEvent event) {
+        try {
+            String searchTerm = searchField.getText().trim();
+            projetCRUD dis = new projetCRUD();
+            List<projet> myList = dis.rechercherProjet(searchTerm);
+            projetListe.getChildren().clear();
+            myList.stream().map((projet projet) -> {
+                VBox contentBox = createContentBox(projet);
+                return contentBox;
+            }).forEachOrdered((contentBox) -> {
+                projetListe.getChildren().add(contentBox);
+            });
+        } catch (SQLException ex) {
+            Logger.getLogger(Affichage2Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private VBox createContentBox(projet projet) {
+        VBox contentBox = new VBox();
+        Label nomLabel = new Label(projet.getNom_projet());
+       nomLabel.getStyleClass().add("nomLabel");
+        Label descriptionLabel = new Label(projet.getDescription_projet());
+        descriptionLabel.getStyleClass().add("descriptionLabel");
+        Label obj = new Label("Objectif");
             obj.getStyleClass().add("objectifLabel");
             obj.getStyleClass().add("nomLabel");
             Label objectifLabel = new Label(obj.getText()+ ":" + projet.getObjectif_projet());
-            // créer un Label pour afficher l'état du projet
-             
-  
-            // créer une ImageView pour afficher l'image du projet
-            Label imageView = new Label("Path d Image : " + projet.getImage_projet());
-            imageView.getStyleClass().add("imageView");
-            
-            Button replyButton = new Button("supprimer");
-            Button modifierButton = new Button("Modifier");
-            replyButton.getStyleClass().add("replyButton");
-            modifierButton.getStyleClass().add("modifierButton");
-            replyButton.setOnAction((ActionEvent event) -> {
-                try {
-                    dis.deleteprojet(projet.getId_projet()); // appel de la méthode deleteprojet avec l'id du projet
-                    projetListe.getChildren().remove(contentBox); // supprime le contenu du projet de la VBox
-                } catch (SQLException ex) {
-                    Logger.getLogger(Affichage2Controller.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            });
-            
-            // créer un bouton pour modifier le projet
         
-            modifierButton.setOnAction((ActionEvent event) -> {
-                try {
-                    // charger la vue AjouterProjet.fxml
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("InterfaceProjet.fxml"));
-                    Parent root = loader.load();
-                    InterfaceProjetController controller = loader.getController();
-
-                    // pré-remplir les champs avec les valeurs du projet sélectionné
-                    controller.setProjet(projet);
-
-                    // afficher la vue AjouterProjet.fxml
-                    Scene scene = new Scene(root);
-                    Stage stage = new Stage();
-                    scene.getStylesheets().add("Affichage2.css");
-                    stage.setScene(scene);
-                    stage.show();
-                } catch (IOException ex) {
-                    Logger.getLogger(Affichage2Controller.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            });
-            HBox buttonsBox = new HBox();
-            buttonsBox.getChildren().addAll(replyButton, modifierButton);
-            contentBox.getChildren().addAll(nomLabel, descriptionLabel, objectifLabel, imageView,buttonsBox);
-            contentBox.setSpacing(10);
-            contentBox.setStyle("-fx-background-color: #ffffff; -fx-border-color: #3FC4ED; -fx-border-width: 2px; -fx-border-radius: 5px;");
-            return contentBox;
-            
-        }).map((contentBox) -> {
-            projetListe.getChildren().add(contentBox);
-            return contentBox;
-        }).forEachOrdered((_item) -> {
-            projetListe.setSpacing(10);
+        
+        
+        Label imageView = new Label(projet.getImage_projet());
+        imageView.getStyleClass().add("imageView");
+        
+        Button replyButton = new Button("supprimer");
+        replyButton.getStyleClass().add("replyButton");
+        replyButton.setOnAction((ActionEvent event) -> {
+            try {
+                projetCRUD dis = new projetCRUD();
+                dis.deleteprojet(projet.getId_projet());
+                projetListe.getChildren().remove(contentBox);
+            } catch (SQLException ex) {
+                Logger.getLogger(Affichage3Controller.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
+        Button modifierButton = new Button("Modifier");
+        modifierButton.getStyleClass().add("modifierButton");
+        modifierButton.setOnAction((ActionEvent event) -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("InterfaceProjet.fxml"));
+                Parent root = loader.load();
+                InterfaceProjetController controller = loader.getController();
+                controller.setProjet(projet);
+                Scene scene = new Scene(root);
+                Stage stage = new Stage();
+                scene.getStylesheets().add("Affichage2.css");
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException ex) {
+                Logger.getLogger(Affichage3Controller.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        HBox buttonsBox = new HBox();
+        buttonsBox.getChildren().addAll(replyButton, modifierButton);
+        buttonsBox.getStyleClass().add("buttonsBox");
+        contentBox.getChildren().addAll(nomLabel, descriptionLabel, objectifLabel,imageView,buttonsBox);
+        contentBox.setSpacing(10);
+        contentBox.setStyle("-fx-background-color: #ffffff; -fx-border-color: #3FC4ED; -fx-border-width: 2px; -fx-border-radius: 5px;");
+        return contentBox;
+        
     }
+    
+    private void afficherProjets() {
+        projetCRUD dis = new projetCRUD();
+        List<projet> myList = dis.afficherprojet();
+        myList.stream().map((projet projet) -> {
+            VBox contentBox = createContentBox(projet);
+            return contentBox;
+        }).forEachOrdered((contentBox) -> {
+            projetListe.getChildren().add(contentBox);
+        });
+        projetListe.setSpacing(10);
+    }
+
+    
+
     @FXML
     private void retourne(ActionEvent event) {
         try {

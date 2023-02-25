@@ -22,91 +22,92 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-/**
- * FXML Controller class
- *
- * @author Admin
- */
 public class Affichage3Controller implements Initializable {
-
+    
     @FXML
     private VBox projetListe;
-
-    
+    @FXML
+    private TextField searchField;
+    @FXML
+    private Button searchButton;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // code pour initialiser le contrôleur
-
-        // récupérer la liste de projets à partir de la base de données avec la méthode afficherprojet()
-
-        projetCRUD dis = new projetCRUD();
-        List<projet> projets = dis.afficherprojet();
-
-        // boucle pour ajouter chaque projet à la VBox
-        projets.stream().map((projet projet) -> {
-            VBox contentBox = new VBox();
-            // créer un Label pour afficher le nom du projet
-            Label nomLabel = new Label(projet.getNom_projet());
-            nomLabel.setStyle("-fx-font-weight: bold;");
-
-            // créer un Label pour afficher la description du projet
-            Label descriptionLabel = new Label(projet.getDescription_projet());
-
-            // créer un Label pour afficher l'objectif du projet
-            Label objectifLabel = new Label("Objectif : " + projet.getObjectif_projet());
-
-            // créer un Label pour afficher l'état du projet
-            Label etatLabel = new Label("État : " + projet.getEtat_projet());
-
-            // créer une ImageView pour afficher l'image du projet
-            Label imageView = new Label(projet.getImage_projet());
-            
-            Button replyButton = new Button("supprimer");
-            replyButton.setOnAction((ActionEvent event) -> {
-                try {
-                    dis.deleteprojet(projet.getId_projet()); // appel de la méthode deleteprojet avec l'id du projet
-                    projetListe.getChildren().remove(contentBox); // supprime le contenu du projet de la VBox
-                } catch (SQLException ex) {
-                    Logger.getLogger(Affichage3Controller.class.getName()).log(Level.SEVERE, null, ex);
-                }
+        afficherProjets();
+        searchButton.setOnAction(this::rechercherProjet);
+        
+    }
+    private void rechercherProjet(ActionEvent event) {
+        try {
+            String searchTerm = searchField.getText().trim();
+            projetCRUD dis = new projetCRUD();
+            List<projet> myList = dis.rechercherProjet(searchTerm);
+            projetListe.getChildren().clear();
+            myList.stream().map((projet projet) -> {
+                VBox contentBox = createContentBox(projet);
+                return contentBox;
+            }).forEachOrdered((contentBox) -> {
+                projetListe.getChildren().add(contentBox);
             });
-            // créer un bouton pour modifier le projet
-            Button modifierButton = new Button("Modifier");
-            modifierButton.setOnAction((ActionEvent event) -> {
-                try {
-                    // charger la vue AjouterProjet.fxml
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("InterfaceProjet.fxml"));
-                    Parent root = loader.load();
-                    InterfaceProjetController controller = loader.getController();
-
-                    // pré-remplir les champs avec les valeurs du projet sélectionné
-                    controller.setProjet(projet);
-
-                    // afficher la vue AjouterProjet.fxml
-                    Scene scene = new Scene(root);
-                    Stage stage = new Stage();
-                    stage.setScene(scene);
-                    stage.show();
-                } catch (IOException ex) {
-                    Logger.getLogger(Affichage3Controller.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            });
-
-            // ajouter les Labels et l'ImageView à la VBox
-            contentBox.getChildren().addAll(nomLabel, descriptionLabel, objectifLabel, etatLabel, imageView,replyButton,modifierButton);
-            contentBox.setSpacing(10);
-            contentBox.setStyle("-fx-background-color: #ffffff; -fx-border-color: #3FC4ED; -fx-border-width: 2px; -fx-border-radius: 5px;");
-            return contentBox;
-        }).map((contentBox) -> {
-            projetListe.getChildren().add(contentBox);
-            return contentBox;
-        }).forEachOrdered((_item) -> {
-            projetListe.setSpacing(10);
+        } catch (SQLException ex) {
+            Logger.getLogger(Affichage3Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private VBox createContentBox(projet projet) {
+        VBox contentBox = new VBox();
+        Label nomLabel = new Label(projet.getNom_projet());
+        nomLabel.setStyle("-fx-font-weight: bold;");
+        Label descriptionLabel = new Label(projet.getDescription_projet());
+        Label objectifLabel = new Label("Objectif : " + projet.getObjectif_projet());
+        Label etatLabel = new Label("État : " + projet.getEtat_projet());
+        Label imageView = new Label(projet.getImage_projet());
+        Button replyButton = new Button("supprimer");
+        replyButton.setOnAction((ActionEvent event) -> {
+            try {
+                projetCRUD dis = new projetCRUD();
+                dis.deleteprojet(projet.getId_projet());
+                projetListe.getChildren().remove(contentBox);
+            } catch (SQLException ex) {
+                Logger.getLogger(Affichage3Controller.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
+        Button modifierButton = new Button("Modifier");
+        modifierButton.setOnAction((ActionEvent event) -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("InterfaceProjet.fxml"));
+                Parent root = loader.load();
+                InterfaceProjetController controller = loader.getController();
+                controller.setProjet(projet);
+                Scene scene = new Scene(root);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException ex) {
+                Logger.getLogger(Affichage3Controller.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        contentBox.getChildren().addAll(nomLabel, descriptionLabel, objectifLabel, etatLabel, imageView, replyButton, modifierButton);
+        contentBox.setSpacing(10);
+        contentBox.setStyle("-fx-background-color: #ffffff; -fx-border-color: #3FC4ED; -fx-border-width: 2px; -fx-border-radius: 5px;");
+        return contentBox;
+        
+    }
+    
+    private void afficherProjets() {
+        projetCRUD dis = new projetCRUD();
+        List<projet> myList = dis.afficherprojet();
+        myList.stream().map((projet projet) -> {
+            VBox contentBox = createContentBox(projet);
+            return contentBox;
+        }).forEachOrdered((contentBox) -> {
+            projetListe.getChildren().add(contentBox);
+        });
+        projetListe.setSpacing(10);
     }
 }
+

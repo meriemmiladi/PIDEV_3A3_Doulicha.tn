@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.activation.DataSource;
 /**
  *
  * @author Admin
@@ -125,11 +126,82 @@ public List<projet> afficherprojet (){
     return p;
 }
 
+/*
+public List<projet> rechercherProjet(String critere) {
+    List<projet> projets = new ArrayList<>();
+    Connection conn = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+    
+    try {
+       
+        String query = "SELECT * FROM projet WHERE nom_projet LIKE ? OR description_projet LIKE ?";
+        PreparedStatement pst = cnx2.prepareStatement(query);
+        ps = conn.prepareStatement(query);
+        ps.setString(1, "%" + critere + "%");
+        ps.setString(2, "%" + critere + "%");
+        rs = ps.executeQuery();
+        
+        while (rs.next()) {
+            projet projet = new projet();
+            projet.setId_projet(rs.getInt("id_projet"));
+            projet.setNom_projet(rs.getString("nom_projet"));
+            projet.setDescription_projet(rs.getString("description_projet"));
+            projet.setObjectif_projet((float) rs.getDouble("objectif_projet"));
+            projet.setEtat_projet(rs.getInt("etat_projet"));
+            projet.setImage_projet(rs.getString("image_projet"));
+            projets.add(projet);
+            
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    } 
+    
+    return projets;
+}
+*/
+    public List<projet> rechercherProjet(String searchTerm) throws SQLException {
+    List<projet> myList = new ArrayList<>();
+    String sql = "SELECT * FROM projet WHERE nom_projet LIKE ?";
+    try (PreparedStatement statement = cnx2.prepareStatement(sql)) {
+        statement.setString(1, "%" + searchTerm + "%");
+        ResultSet resultSet = statement.executeQuery();
+        while (resultSet.next()) {
+            projet projet = new projet();
+            projet.setId_projet(resultSet.getInt("id_projet"));
+            projet.setNom_projet(resultSet.getString("nom_projet"));
+            projet.setDescription_projet(resultSet.getString("description_projet"));
+            projet.setObjectif_projet(resultSet.getFloat("objectif_projet"));
+            projet.setEtat_projet(resultSet.getInt("etat_projet"));
+            projet.setImage_projet(resultSet.getString("image_projet"));
+            myList.add(projet);
+        }
+        System.out.println(" projet"+sql);
+    }
+    return myList;
+}
+    /*
+public List<projet> rechercherProjet(String nom, String prenom) {
+        List<projet> projet = new ArrayList<>();
+        try {
 
+            String requete = "SELECT * FROM projet WHERE nom_projet = ?";
+            PreparedStatement pst = cnx2.prepareStatement(requete);
+            pst.setString(1, nom);
+            
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                int ID_user = rs.getInt(1);
+               projet.addAll(0, rechercherProjet(ID_projet));
+              
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return projet;
 
-
-
-
+    }
+    */
     /*
     public void modifierprojet2(projet p,int id_projet) throws SQLException {
         System.out.println(id_projet);
@@ -150,6 +222,8 @@ public List<projet> afficherprojet (){
 }
 
    */
+
+    
 }
     
  
