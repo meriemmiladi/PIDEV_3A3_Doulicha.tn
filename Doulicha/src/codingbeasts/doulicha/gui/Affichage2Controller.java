@@ -106,7 +106,7 @@ public class Affichage2Controller implements Initializable {
             imageView.getStyleClass().add("imageView");
             imageView.setFitWidth(200);
             imageView.setFitHeight(120);
-            
+            imageView.setTranslateX(120);
             imageView.setImage(imageS);
             
             Label nomLabel = new Label(projet.getNom_projet());
