@@ -5,6 +5,11 @@
  */
 package codingbeasts.doulicha.gui;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Charge;
@@ -13,8 +18,12 @@ import com.stripe.model.Token;
 import com.stripe.param.CustomerCreateParams;
 import com.stripe.param.CustomerUpdateParams;
 import com.stripe.param.TokenCreateParams;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -53,6 +62,8 @@ public class PaiementController implements Initializable {
     private double p;
     @FXML
     private Button Annulerr;
+    @FXML
+    private Button Annulerr1;
 
     /**
      * Initializes the controller class.
@@ -107,7 +118,7 @@ public class PaiementController implements Initializable {
         Charge charge = Charge.create(chargeParams);
 
         System.out.println("Charge created: " + charge.getId());
-        
+        pdfPayment(cprix,charge.getId(),nom,mail,num);
         
     }
 
@@ -131,4 +142,54 @@ public class PaiementController implements Initializable {
         System.err.println(ex.getMessage());
     }
     }
+  
+
+    @FXML
+     public void pdfPayment(String cprix, String id, String nom, String mail, String num) {
+    LocalDateTime now = LocalDateTime.now();
+
+    try {
+        //Create Document instance.
+        Document document = new Document();
+
+        //Create OutputStream instance.
+        OutputStream outputStream =
+                new FileOutputStream(new File("C:\\xampp\\htdocs\\" + "Facture de don " + id + ".pdf"));
+
+        //Create PDFWriter instance.
+        PdfWriter.getInstance(document, outputStream);
+
+        //Open the document.
+        document.open();
+
+        //Create and add title paragraph to the document.
+        Paragraph title = new Paragraph("Facture de paiement", new Font(Font.FontFamily.TIMES_ROMAN, 20, Font.BOLD));
+        title.setAlignment(Element.ALIGN_CENTER);
+        title.setSpacingAfter(20);
+        document.add(title);
+
+        //Create and add customer info paragraph to the document.
+        Paragraph customerInfo = new Paragraph("Nom : " + nom + "\nE-mail : " + mail + "\nNuméro de carte : " + num);
+        customerInfo.setAlignment(Element.ALIGN_LEFT);
+        document.add(customerInfo);
+
+        //Create and add content paragraph to the document.
+        Paragraph content = new Paragraph("Vous avez effectué un paiement d'un montant de " + cprix + " euros.");
+        content.setAlignment(Element.ALIGN_LEFT);
+        document.add(content);
+
+        Paragraph date = new Paragraph("Date de paiement : " + now + ".");
+        date.setAlignment(Element.ALIGN_LEFT);
+        document.add(date);
+
+        //Close document and outputStream.
+        document.close();
+        outputStream.close();
+
+        System.out.println("Pdf created successfully.");
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+}
 }
