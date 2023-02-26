@@ -146,7 +146,7 @@
                </children>
             </VBox>
             <Label fx:id="sommeDonsLabel" layoutX="341.0" layoutY="364.0" prefHeight="29.0" prefWidth="144.0" />
-            <Button layoutX="530.0" layoutY="366.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Paiement" />
+            <Button layoutX="530.0" layoutY="366.0" mnemonicParsing="false" onAction="#PayerDon" prefHeight="25.0" prefWidth="120.0" text="Paiement" />
          </children>
       </AnchorPane>
    </children>

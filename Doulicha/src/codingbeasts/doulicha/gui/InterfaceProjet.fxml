@@ -107,8 +107,8 @@
          <children>
             <HBox prefHeight="51.0" prefWidth="361.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="174.0" styleClass="buttonAjoute" stylesheets="@interfaceprojet.css" text="Ajouter" />
-                  <Button fx:id="tfAffichage" mnemonicParsing="false" onAction="#affichage" prefHeight="36.0" prefWidth="192.0" styleClass="buttonAjoute" stylesheets="@interfaceprojet.css" text="Affichage" />
+                  <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="284.0" styleClass="buttonAjoute" stylesheets="@interfaceprojet.css" text="Ajouter" />
+                  <Button fx:id="tfAffichage" mnemonicParsing="false" onAction="#affichage" prefHeight="36.0" prefWidth="256.0" styleClass="buttonAjoute" stylesheets="@interfaceprojet.css" text="Affichage" />
                </children>
             </HBox>
             <VBox prefHeight="52.0" prefWidth="241.0">
@@ -122,17 +122,17 @@
             </VBox>
          </children>
       </VBox>
-      <TextField fx:id="tfnom_projet" layoutX="428.0" layoutY="75.0" prefHeight="27.0" prefWidth="185.0" promptText="Nom_projet" style="-fx-background-color: transparent; -fx-border-color: #3FC4ED; -fx-border-width: 0px 0px 2px 0px;" />
-      <TextField fx:id="tfdescription_projet" layoutX="425.0" layoutY="137.0" prefHeight="27.0" prefWidth="185.0" promptText="Description_projet" style="-fx-background-color: transparent; -fx-border-color: #3FC4ED; -fx-border-width: 0px 0px 2px 0px;" />
-      <TextField fx:id="tfobjectif_projet" layoutX="426.0" layoutY="189.0" prefHeight="27.0" prefWidth="185.0" promptText="Objectif_projet" style="-fx-background-color: transparent; -fx-border-color: #3FC4ED; -fx-border-width: 0px 0px 2px 0px;" />
-      <TextField fx:id="tfetat_projet" layoutX="426.0" layoutY="243.0" prefHeight="27.0" prefWidth="185.0" promptText="Etat_projet" style="-fx-background-color: transparent; -fx-border-color: #3FC4ED; -fx-border-width: 0px 0px 2px 0px;" />
-      <Label layoutX="273.0" layoutY="135.0" prefHeight="30.0" prefWidth="120.0" styleClass="Label" stylesheets="@interfaceprojet.css" text="    Description_projet" />
-      <Label layoutX="273.0" layoutY="188.0" prefHeight="30.0" prefWidth="120.0" styleClass="Label" stylesheets="@interfaceprojet.css" text="    Objectif_projet" />
-      <Label layoutX="273.0" layoutY="242.0" prefHeight="30.0" prefWidth="120.0" styleClass="Label" stylesheets="@interfaceprojet.css" text="     Etat_projet" />
-      <Label layoutX="273.0" layoutY="299.0" prefHeight="30.0" prefWidth="120.0" styleClass="Label" stylesheets="@interfaceprojet.css" text="     Image_projet" />
-      <Label layoutX="273.0" layoutY="73.0" prefHeight="30.0" prefWidth="120.0" styleClass="Label" stylesheets="@interfaceprojet.css" text="     Nom_projet" />
-      <Button fx:id="btn_valider" layoutX="284.0" layoutY="355.0" mnemonicParsing="false" onAction="#saveProjet" prefHeight="38.0" prefWidth="144.0" styleClass="bottonnAjouter" stylesheets="@interfaceprojet.css" text="Ajouter" />
-      <Button fx:id="btn_valider1" layoutX="443.0" layoutY="355.0" mnemonicParsing="false" onAction="#saveProjet2" prefHeight="38.0" prefWidth="144.0" styleClass="bottonnAjouter" stylesheets="@interfaceprojet.css" text="Enregistrer" />
-      <Button fx:id="btnImage" layoutX="435.0" layoutY="302.0" mnemonicParsing="false" onAction="#importImage" prefHeight="25.0" prefWidth="165.0" text="Button" />
+      <TextField fx:id="tfnom_projet" layoutX="495.0" layoutY="75.0" prefHeight="27.0" prefWidth="185.0" promptText="Nom_projet" style="-fx-background-color: transparent; -fx-border-color: #3FC4ED; -fx-border-width: 0px 0px 2px 0px;" />
+      <TextField fx:id="tfdescription_projet" layoutX="495.0" layoutY="137.0" prefHeight="27.0" prefWidth="185.0" promptText="Description_projet" style="-fx-background-color: transparent; -fx-border-color: #3FC4ED; -fx-border-width: 0px 0px 2px 0px;" />
+      <TextField fx:id="tfobjectif_projet" layoutX="495.0" layoutY="189.0" prefHeight="27.0" prefWidth="185.0" promptText="Objectif_projet" style="-fx-background-color: transparent; -fx-border-color: #3FC4ED; -fx-border-width: 0px 0px 2px 0px;" />
+      <TextField fx:id="tfetat_projet" layoutX="495.0" layoutY="244.0" prefHeight="27.0" prefWidth="185.0" promptText="Etat_projet" style="-fx-background-color: transparent; -fx-border-color: #3FC4ED; -fx-border-width: 0px 0px 2px 0px;" />
+      <Label layoutX="305.0" layoutY="136.0" prefHeight="30.0" prefWidth="120.0" styleClass="Label" stylesheets="@interfaceprojet.css" text="    Description_projet" />
+      <Label layoutX="305.0" layoutY="188.0" prefHeight="30.0" prefWidth="120.0" styleClass="Label" stylesheets="@interfaceprojet.css" text="    Objectif_projet" />
+      <Label layoutX="308.0" layoutY="243.0" prefHeight="30.0" prefWidth="120.0" styleClass="Label" stylesheets="@interfaceprojet.css" text="     Etat_projet" />
+      <Label layoutX="305.0" layoutY="300.0" prefHeight="30.0" prefWidth="120.0" styleClass="Label" stylesheets="@interfaceprojet.css" text="     Image_projet" />
+      <Label layoutX="305.0" layoutY="74.0" prefHeight="30.0" prefWidth="120.0" styleClass="Label" stylesheets="@interfaceprojet.css" text="     Nom_projet" />
+      <Button fx:id="btn_valider" layoutX="339.0" layoutY="355.0" mnemonicParsing="false" onAction="#saveProjet" prefHeight="38.0" prefWidth="144.0" styleClass="bottonnAjouter" stylesheets="@interfaceprojet.css" text="Ajouter" />
+      <Button fx:id="btn_valider1" layoutX="564.0" layoutY="355.0" mnemonicParsing="false" onAction="#saveProjet2" prefHeight="38.0" prefWidth="144.0" styleClass="bottonnAjouter" stylesheets="@interfaceprojet.css" text="Enregistrer" />
+      <Button fx:id="btnImage" layoutX="495.0" layoutY="302.0" mnemonicParsing="false" onAction="#importImage" prefHeight="25.0" prefWidth="165.0" text="Importer Image" />
    </children>
 </AnchorPane>

@@ -22,6 +22,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,7 +35,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -105,13 +109,13 @@ public class Affichage2Controller implements Initializable {
             Image imageS = new Image(inputstream);
             imageView.getStyleClass().add("imageView");
             imageView.setFitWidth(200);
-            imageView.setFitHeight(120);
-            imageView.setTranslateX(120);
+            imageView.setFitHeight(100);
+            imageView.setTranslateX(100);
             imageView.setImage(imageS);
             
-            Label nomLabel = new Label(projet.getNom_projet());
+            Label nomLabel = new Label(" Nom_projet: " + projet.getNom_projet());
             nomLabel.getStyleClass().add("nomLabel");
-            Label descriptionLabel = new Label(projet.getDescription_projet());
+            Label descriptionLabel = new Label("Description : " + projet.getDescription_projet());
             descriptionLabel.getStyleClass().add("descriptionLabel");
             Label obj = new Label("Objectif");
             obj.getStyleClass().add("objectifLabel");
@@ -123,14 +127,34 @@ public class Affichage2Controller implements Initializable {
             Button replyButton = new Button("supprimer");
             replyButton.getStyleClass().add("replyButton");
             replyButton.setOnAction((ActionEvent event) -> {
-                try {
-                    projetCRUD dis = new projetCRUD();
-                    dis.deleteprojet(projet.getId_projet());
-                    projetListe.getChildren().remove(contentBox);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Affichage3Controller.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }); 
+    // Vérifier si un projet est sélectionné avant de supprimer
+    if (projetListe.getChildren().contains(contentBox)) {
+        // Demander confirmation avant de supprimer
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation de suppression");
+        alert.setHeaderText("Êtes-vous sûr de vouloir supprimer ce projet ?");
+        alert.setContentText(projet.getNom_projet());
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            projetCRUD dis = new projetCRUD();
+            try {
+                dis.deleteprojet(projet.getId_projet()); // appel de la méthode deleteprojet avec l'id du projet
+                projetListe.getChildren().remove(contentBox); // supprime le contenu du projet de la VBox
+            } catch (SQLException ex) {
+                Logger.getLogger(Affichage3Controller.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    } else {
+        // Afficher un message d'erreur si aucun projet n'est sélectionné
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Erreur");
+        alert.setHeaderText("Aucun projet sélectionné");
+        alert.setContentText("Veuillez sélectionner un projet avant de cliquer sur le bouton Supprimer.");
+
+        alert.showAndWait();
+    }
+});
             Button modifierButton = new Button("Modifier");
             modifierButton.getStyleClass().add("modifierButton");
             modifierButton.setOnAction((ActionEvent event) -> {
@@ -150,7 +174,7 @@ public class Affichage2Controller implements Initializable {
             });
              VBox butonsBox = new VBox();
             butonsBox.getChildren().addAll(nomLabel,descriptionLabel, objectifLabel);
-            butonsBox.setStyle(" -fx-padding: 40px 20; -fx-line-spacing: 30px;");
+            butonsBox.setStyle(" -fx-padding: 40px 10; -fx-line-spacing: 30px;");
             HBox buttonsBox = new HBox();
             buttonsBox.getChildren().addAll(butonsBox, imageView);
             HBox butttonsBox = new HBox();

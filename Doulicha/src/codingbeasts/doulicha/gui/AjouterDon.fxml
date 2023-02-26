@@ -16,12 +16,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codingbeasts.doulicha.gui.AjouterDonController">
+<AnchorPane id="AnchorPane" prefHeight="407.0" prefWidth="763.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codingbeasts.doulicha.gui.AjouterDonController">
     <stylesheets>
         <URL value="@ajouterdon.css" />
     </stylesheets>
    <children>
-      <AnchorPane id="AnchorPane" prefHeight="406.0" prefWidth="601.0" styleClass="white-background" stylesheets="@interfaceprojet.css">
+      <AnchorPane id="AnchorPane" prefHeight="407.0" prefWidth="763.0" styleClass="white-background" stylesheets="@interfaceprojet.css">
          <children>
             <VBox layoutX="-6.0" layoutY="-3.0" prefHeight="410.0" prefWidth="241.0">
                <children>
@@ -110,12 +110,13 @@
                   </VBox>
                </children>
             </VBox>
-            <VBox layoutX="235.0" prefHeight="73.0" prefWidth="366.0">
+            <VBox layoutX="235.0" prefHeight="73.0" prefWidth="529.0">
                <children>
                   <HBox prefHeight="51.0" prefWidth="361.0">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="174.0" styleClass="buttonAjoute" stylesheets="@interfaceprojet.css" text="Ajouter" />
-                        <Button fx:id="tfAffichage1" mnemonicParsing="false" onAction="#affichage1" prefHeight="36.0" prefWidth="192.0" styleClass="buttonAjoute" stylesheets="@interfaceprojet.css" text="Affichage" />
+                        <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="195.0" styleClass="buttonAjoute" stylesheets="@interfaceprojet.css" text="Ajouter" />
+                        <Button fx:id="tfAffichage1" mnemonicParsing="false" onAction="#affichage1" prefHeight="36.0" prefWidth="181.0" styleClass="buttonAjoute" stylesheets="@interfaceprojet.css" text="Affichage" />
+                        <ComboBox fx:id="idnomutilisateur" prefHeight="35.0" prefWidth="162.0" styleClass="bottonnAjouter" stylesheets="@interfaceprojet.css" />
                      </children>
                   </HBox>
                   <VBox prefHeight="52.0" prefWidth="241.0">
@@ -129,13 +130,12 @@
                   </VBox>
                </children>
             </VBox>
-            <TextField fx:id="tfvaleur_don" layoutX="418.0" layoutY="104.0" prefHeight="25.0" prefWidth="144.0" promptText="Valeur_Don" style="-fx-background-color: transparent; -fx-border-color: #3FC4ED; -fx-border-width: 0px 0px 2px 0px;" />
-            <Label layoutX="271.0" layoutY="102.0" prefHeight="30.0" prefWidth="120.0" styleClass="Label" stylesheets="@interfaceprojet.css" text="     Valeur_Don" />
+            <TextField fx:id="tfvaleur_don" layoutX="481.0" layoutY="104.0" prefHeight="27.0" prefWidth="211.0" promptText="Valeur_Don" style="-fx-background-color: transparent; -fx-border-color: #3FC4ED; -fx-border-width: 0px 0px 2px 0px;" />
+            <Label layoutX="271.0" layoutY="102.0" prefHeight="30.0" prefWidth="150.0" styleClass="Label" stylesheets="@interfaceprojet.css" text="     Valeur_Don" />
             
-            <Button fx:id="btn_valider" layoutX="284.0" layoutY="269.0" mnemonicParsing="false" onAction="#savedon" prefHeight="38.0" prefWidth="144.0" styleClass="bottonnAjouter" stylesheets="@interfaceprojet.css" text="Ajouter" />
-            <Button fx:id="btn_valider1" layoutX="428.0" layoutY="269.0" mnemonicParsing="false" onAction="#savedon2" prefHeight="38.0" prefWidth="144.0" styleClass="bottonnAjouter" stylesheets="@interfaceprojet.css" text="Enregistrer" />
+            <Button fx:id="btn_valider" layoutX="310.0" layoutY="223.0" mnemonicParsing="false" onAction="#savedon" prefHeight="38.0" prefWidth="144.0" styleClass="bottonnAjouter" stylesheets="@interfaceprojet.css" text="Ajouter" />
+            <Button fx:id="btn_valider1" layoutX="508.0" layoutY="223.0" mnemonicParsing="false" onAction="#savedon2" prefHeight="38.0" prefWidth="144.0" styleClass="bottonnAjouter" stylesheets="@interfaceprojet.css" text="Enregistrer" />
             <TextField fx:id="tfProjetId" layoutX="259.0" layoutY="165.0" prefHeight="25.0" prefWidth="144.0" promptText="Valeur_Don" style="-fx-background-color: transparent; -fx-border-color: #3FC4ED; -fx-border-width: 0px 0px 2px 0px;" visible="false" />
-            <ComboBox fx:id="idnomutilisateur" layoutX="415.0" layoutY="166.0" prefWidth="150.0" styleClass="bottonnAjouter" stylesheets="@interfaceprojet.css" />
          </children>
       </AnchorPane>
    </children>

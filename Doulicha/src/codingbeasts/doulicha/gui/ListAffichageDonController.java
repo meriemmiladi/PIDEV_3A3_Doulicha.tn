@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,7 +23,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
@@ -79,14 +83,19 @@ public void initialize(URL url, ResourceBundle rb) {
         Label dateLabel = new Label("Date : " + d.getDate_don());
         Button replyButton = new Button("Supprimer");
         replyButton.getStyleClass().add("replyButton");
+        
         replyButton.setOnAction((ActionEvent event) -> {
+        Alert alert = new Alert(AlertType.CONFIRMATION, "Êtes-vous sûr de vouloir supprimer cet enregistrement ?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
             try {
-                dis.deletedon(d.getID_don()); 
-                donListe.getChildren().remove(contentBox); 
-            } catch (SQLException ex) {
-                Logger.getLogger(ListAffichageDonController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });
+            dis.deletedon(d.getID_don()); 
+            donListe.getChildren().remove(contentBox); 
+        } catch (SQLException ex) {
+            Logger.getLogger(ListAffichageDonController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+});
         Button modifierButton = new Button("Modifier");
         modifierButton.getStyleClass().add("modifierButton");
         modifierButton.setOnAction((ActionEvent event) -> {
@@ -104,8 +113,26 @@ public void initialize(URL url, ResourceBundle rb) {
                 Logger.getLogger(Affichage2Controller.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
+        Button paiement = new Button("paiement");
+        paiement.getStyleClass().add("paiement");
+        paiement.setOnMouseClicked((event)->{
+            try {
+                FXMLLoader loader = new  FXMLLoader(getClass().getResource("Paiement.fxml"));
+                Parent root = loader.load();
+                PaiementController controller = loader.getController();
+                double aaa = d.getValeur_don();
+                int aa = (int) aaa;
+                controller.setData(aa);
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException ex) {
+                Logger.getLogger(ListAffichageDonController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
+        });
         HBox buttonsBox = new HBox();
-        buttonsBox.getChildren().addAll(replyButton, modifierButton);
+        buttonsBox.getChildren().addAll(replyButton, modifierButton,paiement);
         contentBox.getChildren().addAll(valeurLabel, dateLabel,buttonsBox);
         contentBox.setSpacing(10);
         contentBox.setStyle("-fx-background-color: #ffffff; -fx-border-color: #3FC4ED; -fx-border-width: 2px; -fx-border-radius: 5px;");
@@ -129,6 +156,12 @@ public void initialize(URL url, ResourceBundle rb) {
         System.err.println(ex.getMessage());
     }
     }
+
+    @FXML
+    private void PayerDon(ActionEvent event) {
+    }
+
+   
                 }
 
              
