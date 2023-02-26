@@ -209,6 +209,7 @@ try {
     }
     return totalParticipations;
 }
+   
   
  public int getUserByEvent(int idEvent, int idUser) {
     int total = 0;

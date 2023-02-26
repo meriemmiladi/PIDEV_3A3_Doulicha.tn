@@ -266,6 +266,45 @@ try {
         }
             return "";
     } 
+        public String getDateDebut(int id) {
+    try {
+        Statement st = cnx.createStatement();
+
+        String req = "SELECT dateDebut_event FROM evenement WHERE ID_event = " + id;
+        ResultSet rs = st.executeQuery(req);
+
+        while (rs.next()) {
+            return rs.getString("dateDebut_event");
+        }
+    } catch (SQLException ex) {
+        System.out.println("Erreur lors de la récupération de la date de début de l'événement");
+        System.out.println(ex);
+    }
+
+    return "";
+}
+        public String getDateFin(int id) {
+    try {
+        Statement st = cnx.createStatement();
+
+        String req = "SELECT dateFin_event FROM evenement WHERE ID_event = " + id;
+        ResultSet rs = st.executeQuery(req);
+
+        while (rs.next()) {
+            return rs.getString("dateFin_event");
+        }
+    } catch (SQLException ex) {
+        System.out.println("Erreur lors de la récupération de la date de fin de l'événement");
+        System.out.println(ex);
+    }
+
+    return "";
+}
+
+        
+        
+        
+        
             public int getCapacite(int id) {
 try {
             Statement st = cnx.createStatement();

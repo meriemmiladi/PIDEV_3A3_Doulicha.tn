@@ -32,9 +32,11 @@ import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
@@ -43,10 +45,13 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.chrono.ChronoLocalDate;
+import java.util.Calendar;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -69,6 +74,9 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import javax.imageio.ImageIO;
 import javax.swing.text.Document;
+import net.fortuna.ical4j.model.property.ProdId;
+//import net.fortuna.ical4j.model.Calendar;
+
 import org.controlsfx.control.Notifications;
 
 /**
@@ -149,9 +157,9 @@ private void ajouterParticipation(ActionEvent event) throws SQLException, Docume
     
     int idParticipation = SPE.getIdDerniereParticipation();
    
-    
+   
     // Générer le QR code
-    String codeData = "ID_user: " + ev.getNomUser(part.getID_user()) + ", ID_participation: " + idParticipation + ", ID_event: " + ev.getNom(part.getID_event());
+    String codeData = "ID_user: " + ev.getNomUser(part.getID_user()) + ", ID_participation: " + idParticipation + ", ID_event: " + ev.getNom(part.getID_event()) + ", dateDebut_event: " + ev.getDateDebut(part.getID_event()) + ", dateFin_event: " + ev.getDateFin(part.getID_event());
     String filePath = "src/qrcode/qrcode.pdf";
     int size = 250;
     String fileType = "png";
@@ -164,6 +172,29 @@ private void ajouterParticipation(ActionEvent event) throws SQLException, Docume
         e.printStackTrace();
     }
     
+    // Créer un lien iCalendar avec les dates de début et de fin de l'évènement
+String icalData = "BEGIN:VCALENDAR\n" +
+                  "VERSION:2.0\n" +
+                  "BEGIN:VEVENT\n" +
+                  "SUMMARY:" + ev.getNom(part.getID_event()) + "\n" +
+                  "DTSTART:" + ev.getDateDebut(part.getID_event()).replace("-", "") + "\n" +
+                  "DTEND:" + ev.getDateFin(part.getID_event()).replace("-", "") + "\n" +
+                  "END:VEVENT\n" +
+                  "END:VCALENDAR";
+
+String icalLink = "data:text/calendar;base64," + icalData;
+
+// Générer le QR code avec le lien iCalendar
+String icalFilePath = "src/qrcode/ical_qrcode.png";
+int icalSize = 250;
+try {
+    QRCodeWriter qrCodeWriter = new QRCodeWriter();
+    BitMatrix bitMatrix = qrCodeWriter.encode(icalLink, BarcodeFormat.QR_CODE, icalSize, icalSize);
+    MatrixToImageWriter.writeToFile(bitMatrix, "png", new File(icalFilePath));
+} catch (WriterException e) {
+    e.printStackTrace();
+} 
+    
       // Exporter les informations de la participation en PDF avec le QR code
  DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
 Date date = new Date(System.currentTimeMillis());
@@ -173,62 +204,55 @@ String pdfPath = "src/PDF/" + fileName;
 
 com.itextpdf.text.Document document = new com.itextpdf.text.Document();
 PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(pdfPath));
+writer.setBoxSize("art", new Rectangle(36, 36, 550, 800));
+
 document.open();
-document.add(new Paragraph("Participation"));
-document.add(new Paragraph("ID utilisateur : " + ev.getNomUser(part.getID_user())));
-document.add(new Paragraph("ID participation : " + idParticipation));
-document.add(new Paragraph("ID événement : " + ev.getNom(part.getID_event()) ));
+
+
+
+    // Ajouter un titre coloré
+    Font titleFont = new Font(Font.FontFamily.HELVETICA, 18,Font.BOLD | Font.UNDERLINE, new BaseColor(135, 206, 235));
+    Paragraph title = new Paragraph("Details de votre participation", titleFont);
+    title.setAlignment(Element.ALIGN_CENTER);
+    document.add(title);
+   
+//document.add(new Paragraph("Participation"));
+document.add(new Paragraph("Votre nom : " + ev.getNomUser(part.getID_user())));
+document.add(new Paragraph("Numero de votre participation : " + idParticipation));
+document.add(new Paragraph("Nom de l'évènement : " + ev.getNom(part.getID_event()) ));
+document.add(new Paragraph("Date de début : " + ev.getDateDebut(part.getID_event()) ));
+document.add(new Paragraph("Date de fin : " + ev.getDateFin(part.getID_event()) ));
+
+
+
+// Ajouter le QR code
 Image qrImage = Image.getInstance(qrFile.getAbsolutePath());
+qrImage.setAlignment(Element.ALIGN_CENTER);
 qrImage.scaleAbsolute(200, 200);
 document.add(qrImage);
+
+
+// Dessiner le cadre autour de tout le PDF
+Rectangle rect = writer.getBoxSize("art");
+PdfContentByte cb = writer.getDirectContent();
+cb.rectangle(rect.getLeft(), rect.getBottom(), rect.getWidth(), rect.getHeight());
+cb.stroke();
+
+// Ajouter le QR code contenant le lien iCalendar au PDF
+Image icalQrImage = Image.getInstance(icalFilePath);
+icalQrImage.setAlignment(Element.ALIGN_CENTER);
+icalQrImage.scaleAbsolute(200, 200);
+document.add(icalQrImage);
+
+
+
+
+
+
 document.close();
 writer.close();
-  /*DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
-Date date = new Date(System.currentTimeMillis());
-String fileName = "participation_" + idParticipation + "_" + dateFormat.format(date) + ".pdf";
-String pdfPath = "src/PDF/" + fileName;
 
-// Définition des styles de police et de couleur personnalisés
-Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.BLUE);
-Font subtitleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 14, BaseColor.DARK_GRAY);
-Font textFont = FontFactory.getFont(FontFactory.HELVETICA, 12, BaseColor.BLACK);
-
-
-// Création d'un document avec des marges personnalisées
-com.itextpdf.text.Document document = new com.itextpdf.text.Document(PageSize.A4, 50, 50, 50, 50);
-
-// Ajout d'un en-tête personnalisé
-/*Header header = new HeaderFooter(new Phrase("Participation", titleFont), false);
-header.setAlignment(Element.ALIGN_CENTER);
-document.setHeader(header);
-
-PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(pdfPath));
-document.open();
-
-
-
-// Ajout des informations de participation avec des styles de police personnalisés
-document.add(new Paragraph("ID utilisateur : " + ev.getNomUser(part.getID_user()), subtitleFont));
-document.add(new Paragraph("ID participation : " + idParticipation, subtitleFont));
-document.add(new Paragraph("ID événement : " + ev.getNom(part.getID_event()), subtitleFont));
-
-// Ajout d'une image QR personnalisée avec une légende
-Image qrImage = Image.getInstance(qrFile.getAbsolutePath());
-qrImage.scaleAbsolute(200, 200);
-qrImage.setAlignment(Element.ALIGN_CENTER);
-document.add(qrImage);
-document.add(new Paragraph("Scan QR pour accéder à la participation", textFont));
-
-document.add(new Chunk(""));
-PdfContentByte canvas = writer.getDirectContent();
-Rectangle rectangle = new Rectangle(document.getPageSize());
-rectangle.setBackgroundColor(new BaseColor(193, 226, 248)); // couleur bleu ciel
-canvas.rectangle(rectangle);
-
-document.close();
-writer.close();*/
-
-    
+ 
     Notifications notificationBuilder = Notifications.create()
             .title("Ajout PARTICIPATION")
             .text("Votre participation a bien été enregistrée.")
@@ -280,6 +304,15 @@ writer.close();*/
        }
      }
 }
+
+
+
+
+
+
+
+
+
  /*@FXML
     private void ajouterParticipation(ActionEvent event) throws SQLException, DocumentException, IOException  {
         
