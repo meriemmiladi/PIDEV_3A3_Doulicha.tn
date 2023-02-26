@@ -129,7 +129,7 @@ public void initialize(URL url, ResourceBundle rb) {
             } catch (IOException ex) {
                 Logger.getLogger(ListAffichageDonController.class.getName()).log(Level.SEVERE, null, ex);
             }
-        
+            contentBox.getChildren().clear();
         });
         HBox buttonsBox = new HBox();
         buttonsBox.getChildren().addAll(replyButton, modifierButton,paiement);

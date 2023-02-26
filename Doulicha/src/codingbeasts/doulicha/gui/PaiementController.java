@@ -86,6 +86,7 @@ public class PaiementController implements Initializable {
        String cprix= prix.getText();
        int p = Integer.parseInt(cprix)*100 ;
        
+       
         
                 Stripe.apiKey = "sk_test_51Mf1wLLusEKclnk8QPGDh0xRPSORk53EJvGWiiYcyPJY5KMHEziRmaJyjtDhiBTQVI3ddwWMZXIDVV1uuGw4w6fo00Bkad1CYS";
         CustomerCreateParams.Builder customerCreateParamsBuilder = new CustomerCreateParams.Builder()
@@ -119,6 +120,9 @@ public class PaiementController implements Initializable {
 
         System.out.println("Charge created: " + charge.getId());
         pdfPayment(cprix,charge.getId(),nom,mail,num);
+        
+        
+        
         
     }
 
@@ -192,4 +196,5 @@ public class PaiementController implements Initializable {
     }
 
 }
+     
 }
