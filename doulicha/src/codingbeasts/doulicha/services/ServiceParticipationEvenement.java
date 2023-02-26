@@ -183,7 +183,49 @@ try {
             return 0;
     }
     
-    
+   public int getIdDerniereParticipation() throws SQLException {
+    int idParticipation = 0;
+    String req = "SELECT MAX(ID_participation) FROM participation_evenement";
+     Statement st = cnx.createStatement();
+    ResultSet rs = st.executeQuery(req);
+    if (rs.next()) {
+        idParticipation = rs.getInt(1);
+    }
+    return idParticipation;
+}
+   
+   public int getNombreParticipations(int idEvent) {
+    int totalParticipations = 0;
+    try {
+        Statement st = cnx.createStatement();
+        String req = "SELECT SUM(nombre_participation) AS total_participations FROM participation_evenement WHERE ID_event=" + idEvent;
+        ResultSet rs = st.executeQuery(req);
+        while (rs.next()) {
+            totalParticipations = rs.getInt("total_participations");
+        }
+    } catch (SQLException ex) {
+        System.out.println("erreur");
+        System.out.println(ex);
+    }
+    return totalParticipations;
+}
+  
+ public int getUserByEvent(int idEvent, int idUser) {
+    int total = 0;
+    try {
+        Statement st = cnx.createStatement();
+        String req = " SELECT COUNT(*) AS total FROM participation_evenement WHERE ID_user = " + idUser  + " AND ID_event = "  + idEvent ;
+        ResultSet rs = st.executeQuery(req);
+        while (rs.next()) {
+            total = rs.getInt("total");
+        }
+    } catch (SQLException ex) {
+        System.out.println("erreur");
+        System.out.println(ex);
+    }
+    return total;
+}
+ 
     
     
 }

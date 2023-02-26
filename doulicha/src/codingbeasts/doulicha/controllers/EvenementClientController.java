@@ -25,12 +25,14 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -74,6 +76,11 @@ public class EvenementClientController implements Initializable {
     private Button btn_mesparticipations;
     @FXML
     private Button btn_retourhome;
+    private ComboBox<?> categorie;
+    @FXML
+    private ComboBox<String> sort;
+    @FXML
+    private TextField SearchBar;
     
 
     /**
@@ -81,33 +88,68 @@ public class EvenementClientController implements Initializable {
      */
     
     
-    private void choisirEvent(evenement event) {
-        
-        
-    FXMLLoader loader = new FXMLLoader();
-    loader.setLocation(getClass().getResource("/codingbeasts/doulicha/views/detailEvenement.fxml"));
-    //Node postbox = loader.load();
-    DetailEvenementController cp = loader.getController();
-    cp.setData(event, myListener, this.evenement_choisi);
-    //event_nom.setText(event.getNom_event());
-    //event_id.setText(String.valueOf(event.getID_event()));
-    
-    int ID_event=event.getID_event();
-        System.out.println(ID_event + "ay haja");
-        
-    
-//    promo_remise.setText(promo.getRemise()+"%");
-//    promo_desc.setText(promo.getDescription());
-//    image = new Image(getClass().getResourceAsStream(promo.getImg()));
-//    promo_img.setImage(image);
-
-    }
-    
-    
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
+        ServiceEvenement SE = new ServiceEvenement();
+        List<evenement> ev = SE.afficherEvents();
+        loadEvents(ev);
+        SearchBar.textProperty().addListener((observable, oldValue, newValue) -> {
+            ServiceEvenement SEv = new ServiceEvenement();
+            List<evenement> l ;
+            l =  SE.searchEvenement(newValue);
+             loadEvents(l);
+        });
+      
+        sort.getItems().add("Prix descendant");
+        sort.getItems().add("Prix ascendant");
+        
+        sort.getSelectionModel().select("Trier");
+           ServiceEvenement se = new ServiceEvenement();
+            this.events =  se.afficherEvents();
+            loadEvents(this.events);
+      
+        if (events.size() > 0) {
+            choisirEvent(events.get(0));
+            myListener = new MyListener() {
+                @Override
+                public void onClickListener(evenement test) {
+                    choisirEvent(test);
+                }
+            };
+            
+        }
+        
+       /* event_grid.getChildren().clear();
+       // ServiceEvenement SE = new ServiceEvenement();
+       // List<evenement> ev = SE.afficherEvenements();
+        System.out.println("evenement " + ev.toString());
+        int row = 1, cl =0;
+            try{
+                for(evenement event : ev ){
+                    FXMLLoader loader = new FXMLLoader();
+                    loader.setLocation(getClass().getResource("/codingbeasts/doulicha/views/detailEvenement.fxml"));
+                    
+                    Node postbox = loader.load();
+                    System.out.println("TEST TEST");
+                    DetailEvenementController evc = loader.getController();
+                    evc.setData(event, myListener, this.evenement_choisi);
+                   
+                    if(cl== 1){
+                         cl= 0;
+                         row++;
+                    }
+                    this.event_grid.add(postbox, cl++, row);
+                    GridPane.setMargin(postbox,new Insets(10));
+                }
+                
+            }catch(IOException e){
+                System.out.println("no load for event");
+                   e.printStackTrace();
+            } */
+            
+            
+             
          btn_mesparticipations.setOnAction(event -> {
 
             try {
@@ -132,78 +174,90 @@ public class EvenementClientController implements Initializable {
               Logger.getLogger(AfficherEvenementsController.class.getName()).log(Level.SEVERE, null, ex); 
             }
         }); 
-        
-       
-       //btn_participer.setUserData(ID_event);
-       
-        /*  btn_participer.setOnAction(event -> { 
-              
             
-              FXMLLoader loader = new FXMLLoader ();
-                            loader.setLocation(getClass().getResource("/codingbeasts/doulicha/views/ajoutParticipation.fxml"));
-                            try {
-                                loader.load();
-                            } catch (IOException ex) {
-                                Logger.getLogger(EvenementClientController.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                            
-                            AjoutParticipationController AjoutParticipationController = loader.getController();
-                            AjoutParticipationController.setUpdate(true);
-                           //AjoutParticipationController.recupererID(ID_event);
-                            
-                                //ServL.supprimerLogement(Logement.getID_logement());
-                           // AjoutParticipationController.setTextField(ID_event);
-                            Parent parent = loader.getRoot();
-                            Scene scene = new Scene(parent);
-                            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                            stage.setScene(scene);
-                            stage.show();
-              
-              
-              
-              
-        }); */
-      
-        if (events.size() > 0) {
-            choisirEvent(events.get(0));
-            myListener = new MyListener() {
-                @Override
-                public void onClickListener(evenement test) {
-                    choisirEvent(test);
-                }
-            };
-            
-        }
-        
-        event_grid.getChildren().clear();
-        ServiceEvenement SE = new ServiceEvenement();
-        List<evenement> ev = SE.afficherEvenements();
-        System.out.println("evenement " + ev.toString());
+    }  
+    
+    
+private void loadEvents(List<evenement> ev){
+   /*   ServiceEvenement SE = new ServiceEvenement();
+        List<evenement> ev = SE.afficherEvenements();*/
+   
+    event_grid.getChildren().clear();
         int row = 1, cl =0;
             try{
-                for(evenement event : ev ){
+                for(evenement eve : ev ){
                     FXMLLoader loader = new FXMLLoader();
                     loader.setLocation(getClass().getResource("/codingbeasts/doulicha/views/detailEvenement.fxml"));
                     
                     Node postbox = loader.load();
-                    System.out.println("TEST TEST");
+                    //System.out.println("TEST TEST");
                     DetailEvenementController evc = loader.getController();
-                    evc.setData(event, myListener, this.evenement_choisi);
+                    evc.setData(eve, myListener, this.evenement_choisi);
                    
                     if(cl== 1){
                          cl= 0;
                          row++;
                     }
                     this.event_grid.add(postbox, cl++, row);
-                    GridPane.setMargin(postbox,new Insets(10));
+                   // GridPane.setMargin(postbox,new Insets(10));
+                event_grid.setMinWidth(Region.USE_COMPUTED_SIZE);
+                event_grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
+                event_grid.setMaxWidth(Region.USE_PREF_SIZE);
+
+                //set grid height
+                event_grid.setMinHeight(Region.USE_COMPUTED_SIZE);
+                event_grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
+                event_grid.setMaxHeight(Region.USE_PREF_SIZE);
+
+                GridPane.setMargin(postbox, new Insets(10));
                 }
             }catch(IOException e){
-                System.out.println("no load for event");
+                System.out.println("no load for event in client");
                    e.printStackTrace();
             }
-            
-    }    
+}
 
+    @FXML
+    private void onSortSelected(ActionEvent event) {
+         ServiceEvenement SE = new ServiceEvenement(); 
+        int i = sort.getSelectionModel().getSelectedIndex();
+        System.out.println(i);
+        switch(i){
+            case 0:
+                this.events =  SE.triDesc(0);
+                loadEvents(this.events);
+                break;
+                case 1:
+                this.events =  SE.triAsc(1);
+                loadEvents(this.events);
+                break;
+                
+            
+        }
+    }
+    
+     private void choisirEvent(evenement event) {
+        
+        
+    FXMLLoader loader = new FXMLLoader();
+    loader.setLocation(getClass().getResource("/codingbeasts/doulicha/views/detailEvenement.fxml"));
+    //Node postbox = loader.load();
+   /* DetailEvenementController cp = loader.getController();
+    cp.setData(event, myListener, this.evenement_choisi);
+    //event_nom.setText(event.getNom_event());
+    //event_id.setText(String.valueOf(event.getID_event()));
+    
+    int ID_event=event.getID_event();
+        System.out.println(ID_event + "ay haja");*/
+    try {
+            Parent detailEvenement = loader.load();
+            DetailEvenementController cp = loader.getController();
+            cp.setData(event, myListener, this.evenement_choisi);
+        } catch (IOException ex) {
+            Logger.getLogger(EvenementClientController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
     
 
     @FXML
@@ -235,5 +289,6 @@ public class EvenementClientController implements Initializable {
                             stage.show();
     }
 
-    
+
+   
 }

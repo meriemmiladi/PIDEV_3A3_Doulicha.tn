@@ -7,6 +7,7 @@
             <file>file:/C:/Users/Admin/Desktop/MOI/3%20ème%20année/PIDEV/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/views/afficherparticipations.css</file>
             <file>file:/C:/Users/Admin/Desktop/MOI/3%20ème%20année/PIDEV/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/views/evenementclient.css</file>
             <file>file:/C:/Users/Admin/Desktop/MOI/3%20ème%20année/PIDEV/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/controllers/GererParticipationController.java</file>
+            <file>file:/C:/Users/Admin/Desktop/MOI/3%20ème%20année/PIDEV/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/views/passEvent.fxml</file>
             <file>file:/C:/Users/Admin/Desktop/MOI/3%20ème%20année/PIDEV/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/interfaces/MyListener.java</file>
             <file>file:/C:/Users/Admin/Desktop/MOI/3%20ème%20année/PIDEV/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/entities/participation_evenement.java</file>
             <file>file:/C:/Users/Admin/Desktop/MOI/3%20ème%20année/PIDEV/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/views/participationclient.css</file>
@@ -21,8 +22,8 @@
             <file>file:/C:/Users/Admin/Desktop/MOI/3%20ème%20année/PIDEV/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/views/participationClient.fxml</file>
             <file>file:/C:/Users/Admin/Desktop/MOI/3%20ème%20année/PIDEV/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/views/ajoutparticipation.css</file>
             <file>file:/C:/Users/Admin/Desktop/MOI/3%20ème%20année/PIDEV/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/services/ServiceEvenement.java</file>
-            <file>file:/C:/Users/Admin/Desktop/MOI/3%20ème%20année/PIDEV/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/controllers/AfficherEvenementsController.java</file>
             <file>file:/C:/Users/Admin/Desktop/MOI/3%20ème%20année/PIDEV/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/views/homeadmin.css</file>
+            <file>file:/C:/Users/Admin/Desktop/MOI/3%20ème%20année/PIDEV/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/controllers/AfficherEvenementsController.java</file>
             <file>file:/C:/Users/Admin/Desktop/MOI/3%20ème%20année/PIDEV/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/interfaces/IEvenements.java</file>
             <file>file:/C:/Users/Admin/Desktop/MOI/3%20ème%20année/PIDEV/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/controllers/AjoutEvenementController.java</file>
             <file>file:/C:/Users/Admin/Desktop/MOI/3%20ème%20année/PIDEV/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/interfaces/MyListener2.java</file>
@@ -33,6 +34,7 @@
             <file>file:/C:/Users/Admin/Desktop/MOI/3%20ème%20année/PIDEV/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/controllers/DetailParticipationController.java</file>
             <file>file:/C:/Users/Admin/Desktop/MOI/3%20ème%20année/PIDEV/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/views/homeClient.fxml</file>
             <file>file:/C:/Users/Admin/Desktop/MOI/3%20ème%20année/PIDEV/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/controllers/AfficherParticipationsController.java</file>
+            <file>file:/C:/Users/Admin/Desktop/MOI/3%20ème%20année/PIDEV/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/views/passevent.css</file>
             <file>file:/C:/Users/Admin/Desktop/MOI/3%20ème%20année/PIDEV/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/controllers/HomeClientController.java</file>
             <file>file:/C:/Users/Admin/Desktop/MOI/3%20ème%20année/PIDEV/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/views/afficherevenements.css</file>
             <file>file:/C:/Users/Admin/Desktop/MOI/3%20ème%20année/PIDEV/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/controllers/Main.java</file>
@@ -42,6 +44,7 @@
             <file>file:/C:/Users/Admin/Desktop/MOI/3%20ème%20année/PIDEV/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/controllers/HomeAdminController.java</file>
             <file>file:/C:/Users/Admin/Desktop/MOI/3%20ème%20année/PIDEV/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/views/detailparticipation.css</file>
             <file>file:/C:/Users/Admin/Desktop/MOI/3%20ème%20année/PIDEV/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/views/detailParticipation.fxml</file>
+            <file>file:/C:/Users/Admin/Desktop/MOI/3%20ème%20année/PIDEV/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/controllers/PassEventController.java</file>
             <file>file:/C:/Users/Admin/Desktop/MOI/3%20ème%20année/PIDEV/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/tests/MainClass.java</file>
             <file>file:/C:/Users/Admin/Desktop/MOI/3%20ème%20année/PIDEV/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/interfaces/IParticipation_evenement.java</file>
         </group>

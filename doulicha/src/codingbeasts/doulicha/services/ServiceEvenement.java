@@ -250,6 +250,163 @@ try {
             return "";
     } 
      
+        public String getNomUser(int id) {
+try {
+            Statement st = cnx.createStatement();
+            
+            String req = "select nom_user from `utilisateur` WHERE  ID_user LIKE '" + id + "'";
+            ResultSet rs = st.executeQuery(req);
+            while (rs.next()) {
+                return rs.getString(1);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("erreur");
+            System.out.println(ex);
+        }
+            return "";
+    } 
+            public int getCapacite(int id) {
+try {
+            Statement st = cnx.createStatement();
+            
+            String req = "select capacite_event from `evenement` WHERE  ID_event LIKE '" + id + "'";
+            ResultSet rs = st.executeQuery(req);
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("erreur");
+            System.out.println(ex);
+        }
+            return 0;
+    } 
+     
+   ///////////////////////////////////////////////
+     
+    public List<evenement> searchEvenement(String snap) {
+        List<evenement> list = new ArrayList<>();
+        try{
+            Statement stm = this.cnx.createStatement();
+            String query = "SELECT * from evenement WHERE nom_event like '%"+snap+"%';";
+            ResultSet rs = stm.executeQuery(query);
+            while(rs.next()){
+                evenement event = new evenement();
+               event.setID_event(rs.getInt("ID_event"));
+             event.setNom_event(rs.getString("nom_event"));
+             event.setDescription_event(rs.getString("description_event"));
+             event.setLieu_event(rs.getString("lieu_event"));
+             event.setType_event(rs.getString("type_event"));
+             event.setDateDebut_event(rs.getDate("dateDebut_event"));
+             event.setDateFin_event(rs.getDate("dateFin_event"));
+             event.setCapacite_event(rs.getInt("capacite_event"));
+             event.setImage_event(rs.getString("image_event"));
+             event.setPrix_event(rs.getDouble("prix_event"));
+                list.add(event);
+            }
+        }catch(SQLException ex){
+            System.out.println("Could not show events");
+            list = null;
+        }
+        return list;
+    }
+    
+    
+    public List<evenement> triAsc(int id_event) {
+         List<evenement> list = new ArrayList<>();
+        //ObservableList<Article> list = FXCollections.observableArrayList();
+        try {
+            
+            String requete = "select * from evenement ORDER BY evenement.`prix_event` ASC";
+            PreparedStatement pst = cnx.prepareStatement(requete);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                evenement event = new evenement();
+                event.setID_event(rs.getInt("ID_event"));
+             event.setNom_event(rs.getString("nom_event"));
+             event.setDescription_event(rs.getString("description_event"));
+             event.setLieu_event(rs.getString("lieu_event"));
+             event.setType_event(rs.getString("type_event"));
+             event.setDateDebut_event(rs.getDate("dateDebut_event"));
+             event.setDateFin_event(rs.getDate("dateFin_event"));
+             event.setCapacite_event(rs.getInt("capacite_event"));
+             event.setImage_event(rs.getString("image_event"));
+             event.setPrix_event(rs.getDouble("prix_event"));
+                list.add(event);
+              
+             //list.add(new event(rs.getString(1), rs.getString(2), rs.getFloat(3), rs.getInt(4), rs.getString(5), rs.getInt(6),rs.getInt(7))); 
+       
+            }
+
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        } 
+
+        return list;
+    }
+    
+    public List<evenement> triDesc(int id_event) {
+         List<evenement> list = new ArrayList<>();
+        //ObservableList<Article> list = FXCollections.observableArrayList();
+        try {
+            
+            String requete = "select * from evenement ORDER BY evenement.`prix_event` DESC";
+            PreparedStatement pst = cnx.prepareStatement(requete);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                evenement event = new evenement();
+                event.setID_event(rs.getInt("ID_event"));
+             event.setNom_event(rs.getString("nom_event"));
+             event.setDescription_event(rs.getString("description_event"));
+             event.setLieu_event(rs.getString("lieu_event"));
+             event.setType_event(rs.getString("type_event"));
+             event.setDateDebut_event(rs.getDate("dateDebut_event"));
+             event.setDateFin_event(rs.getDate("dateFin_event"));
+             event.setCapacite_event(rs.getInt("capacite_event"));
+             event.setImage_event(rs.getString("image_event"));
+             event.setPrix_event(rs.getDouble("prix_event"));
+                list.add(event);
+             
+            }
+
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        } 
+
+        return list;
+    }
+    
+   
+ /*  public List<evenement> afficherEvenementParType(String x) {
+    List<evenement> list = new ArrayList<>();
+    try {
+        String requete = "SELECT event.id_event, event.nom_event, event.description_event, event.lieu_event, event.type_event, event.dateDebut_event, event.dateFin_event, event.capacite_event, event.image_event, event.prix_event FROM evenement event, type cat WHERE event.categorie_id = cat.id AND cat.nom = ?";
+        PreparedStatement pst = cnx.prepareStatement(requete);
+        pst.setString(1, x);
+        ResultSet rs = pst.executeQuery();
+        while (rs.next()) {
+            evenement event = new evenement();
+            event.setID_event(rs.getInt("id_event"));
+            event.setNom_event(rs.getString("nom_event"));
+            event.setDescription_event(rs.getString("description_event"));
+            event.setLieu_event(rs.getString("lieu_event"));
+            event.setType_event(rs.getString("type_event"));
+            event.setDateDebut_event(rs.getDate("dateDebut_event"));
+            event.setDateFin_event(rs.getDate("dateFin_event"));
+            event.setCapacite_event(rs.getInt("capacite_event"));
+            event.setImage_event(rs.getString("image_event"));
+            event.setPrix_event(rs.getDouble("prix_event"));
+            list.add(event);
+        }
+    } catch (SQLException ex) {
+        System.err.println(ex.getMessage());
+    } 
+    return list;
+} */
+
+    
+    
      
     
 }

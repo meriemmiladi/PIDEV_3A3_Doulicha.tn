@@ -33,6 +33,7 @@ public class Main extends Application {
            //Parent root = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/views/AfficherParticipations.fxml"));
            
            Parent root = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/views/homeAdmin.fxml"));
+           // Parent root = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/views/passEvent.fxml"));
            
             
             //Scene scene = new Scene(root, 700, 400);

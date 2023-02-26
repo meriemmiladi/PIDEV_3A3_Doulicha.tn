@@ -73,6 +73,7 @@ public class AfficherParticipationsController implements Initializable {
     }
 
     private void afficherPart() {
+        ServiceEvenement ev = new ServiceEvenement();
             ServiceParticipationEvenement participation = new ServiceParticipationEvenement();
        ObservableList<participation_evenement> parts = participation.afficherParts();
 
