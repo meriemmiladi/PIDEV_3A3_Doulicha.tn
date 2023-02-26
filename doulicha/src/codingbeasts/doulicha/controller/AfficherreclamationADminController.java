@@ -6,25 +6,21 @@
 package codingbeasts.doulicha.controller;
 
 import codingbeasts.doulicha.entities.reclamation;
+import codingbeasts.doulicha.services.serviceEmail;
 import codingbeasts.doulicha.services.serviceReclamation;
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -65,7 +61,7 @@ public class AfficherreclamationADminController implements Initializable {
             // créer un Label pour afficher la date de la réclamation
             Label dateReclamation = new Label("Date de la réclamation : " + reclamation.getDate_reclamation());
 
-
+            int idrec = reclamation.getID_reclamation();
 
             Button modifierButton = new Button();
             // Initialiser le bouton avec l'état actuel de la réclamation
@@ -80,9 +76,18 @@ public class AfficherreclamationADminController implements Initializable {
                 int newEtat = (reclamation.getEtat_reclamation() == 1) ? 0 : 1;
                 reclamation.setEtat_reclamation(newEtat);
                 dis.modifierreclamation2(reclamation);
+                String recipientt = dis.getEmailByReclamationId(idrec); // adresse e-mail du destinataire
+                System.out.println("l'adresse est " +recipientt);
+
 
                 // changer le texte du bouton en conséquence
                 if (reclamation.getEtat_reclamation() == 1) {
+                    String recipient = dis.getEmailByReclamationId(idrec); // adresse e-mail du destinataire
+                    System.out.println(recipient);
+                    String content = "Votre réclamation a été traitée par l'administrateur."; // contenu du message
+                    String subject = "Réclamation résolue"; // sujet du message
+                    serviceEmail diss = new serviceEmail();
+                    diss.sendMail(recipient, content, subject);
                     modifierButton.setText("En attente");
                 } else {
                     modifierButton.setText("Résolue");

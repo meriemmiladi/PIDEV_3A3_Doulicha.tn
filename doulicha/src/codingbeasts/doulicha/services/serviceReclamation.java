@@ -128,6 +128,21 @@ public class serviceReclamation implements InterfaceReclamation{
             System.err.println(ex.getMessage());
         }
     }
+        public String getEmailByReclamationId(int reclamationId) {
+        String email = "";
+        try {
+            String query = "SELECT email_user FROM utilisateur u JOIN reclamation r ON u.ID_user = r.ID_user WHERE r.ID_reclamation = ?";
+            PreparedStatement pst = cnx2.prepareStatement(query);
+            pst.setInt(1, reclamationId);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                email = rs.getString("email_user");
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return email;
+    }
 
     
  /*   

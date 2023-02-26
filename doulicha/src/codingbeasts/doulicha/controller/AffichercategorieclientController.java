@@ -6,6 +6,7 @@
 package codingbeasts.doulicha.controller;
 
 import codingbeasts.doulicha.entities.categorie_avis;
+import codingbeasts.doulicha.services.serviceAvis;
 import codingbeasts.doulicha.services.serviceCategorie;
 import java.io.IOException;
 import java.net.URL;
@@ -22,8 +23,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
@@ -53,6 +56,18 @@ public class AffichercategorieclientController implements Initializable {
             // créer un Label pour afficher le nom du projet
             Label namecategorie = new Label(categorieavis.getNom_categorie());
             namecategorie.setStyle("-fx-font-weight: bold;");
+            
+            // Créer une barre de progression pour afficher la moyenne des notes de la catégorie correspondante
+            double moyenneNotes = new serviceAvis().calculerMoyenneNotesParCategorie(categorieavis.getID_categorie());
+            ProgressBar moyenneBar = new ProgressBar(moyenneNotes / 10.0); // on divise par 10 pour avoir une valeur entre 0 et 1
+            moyenneBar.setPrefWidth(200);
+            moyenneBar.setStyle("-fx-accent: #3FC4ED;");// ajuster la largeur de la barre de progression
+
+
+            // Créer un label pour afficher la valeur de la moyenne des notes
+            Label moyenneLabel = new Label(String.format("%.1f", moyenneNotes));
+            
+            
 
  
             
@@ -73,7 +88,7 @@ public class AffichercategorieclientController implements Initializable {
                 }
             });
             // ajouter les Labels et l'ImageView à la VBox
-            contentBox.getChildren().addAll(namecategorie,ajouteravisButton);
+            contentBox.getChildren().addAll(namecategorie,moyenneBar,ajouteravisButton);
             contentBox.setSpacing(10);
             contentBox.setStyle("-fx-background-color: #ffffff; -fx-border-color: #3FC4ED; -fx-border-width: 2px; -fx-border-radius: 5px;");
             return contentBox;

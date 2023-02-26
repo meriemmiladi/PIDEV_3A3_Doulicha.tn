@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 /**
  *
  * @author Admin
@@ -110,6 +111,31 @@ public class serviceAvis implements InterfaceAvis{
         }
         
     }
+    public double calculerMoyenneNotesParCategorie(int idCategorie) {
+    double moyenne = 0.0;
+    String query = "SELECT AVG(note_avis) FROM avis WHERE ID_categorie = ?";
+
+    try (
+         PreparedStatement stmt = cnx2.prepareStatement(query)) {
+        stmt.setInt(1, idCategorie);
+        ResultSet rs = stmt.executeQuery();
+        if (rs.next()) {
+            moyenne = rs.getDouble(1);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return moyenne;
+}
+    public List<avis> afficherAvisParMotCle(String motCle) {
+    // récupérer la liste complète des avis
+    List<avis> aviss = afficheravis();
+    // filtrer les avis dont le contenu contient le mot-clé recherché
+    List<avis> avissFiltres = aviss.stream()
+            .filter(avis -> avis.getContenu_avis().toLowerCase().contains(motCle.toLowerCase()))
+            .collect(Collectors.toList());
+    return avissFiltres;
+}
 
     
  /*   
