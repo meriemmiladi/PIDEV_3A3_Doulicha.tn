@@ -141,17 +141,17 @@ public class InterfaceProjetController implements Initializable {
 */
     }
     private int id_projet;
-    public void setProjet(projet projet) {
-        if (projet != null) {
-            // affecter les propriétés de l'objet projet aux champs de texte correspondants dans la vue d'ajout/modification de projet
-            tfnom_projet.setText(projet.getNom_projet());
-            tfdescription_projet.setText(projet.getDescription_projet());
-            tfobjectif_projet.setText(Float.toString(projet.getObjectif_projet()));
-            tfetat_projet.setText(Integer.toString(projet.getEtat_projet()));
-            tfimage_projet.setText(projet.getImage_projet());
+public void setProjet(projet projet) {
+    if (projet != null) {
+        // affecter les propriétés de l'objet projet aux champs de texte correspondants dans la vue d'ajout/modification de projet
+        tfnom_projet.setText(projet.getNom_projet());
+        tfdescription_projet.setText(projet.getDescription_projet());
+        tfobjectif_projet.setText(Float.toString(projet.getObjectif_projet()));
+        tfetat_projet.setText(Integer.toString(projet.getEtat_projet()));
+         
         this.id_projet = projet.getId_projet();
-        }
     }
+}
 
     
     
@@ -168,7 +168,7 @@ public class InterfaceProjetController implements Initializable {
         String description_projet = tfdescription_projet.getText();
         float objectif_projet = Float.parseFloat(tfobjectif_projet.getText());
         int etat_projet = Integer.parseInt(tfetat_projet.getText());
-        String image_projet = tfimage_projet.getText();
+        String image_projet = btnImage.getText(); 
          
         projet p = new projet(nom_projet,description_projet,objectif_projet,etat_projet,image_projet);
         projetCRUD pc = new projetCRUD();
@@ -219,4 +219,8 @@ private void importImage(ActionEvent event) {
         }
     }
 }
+
+    private String imagePath(String image_projet) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

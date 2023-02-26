@@ -73,7 +73,7 @@ public class projetCRUD {
 
     public void modifierprojet2(projet p ,int id_projet) throws SQLException{
         try{
-        String requete = "UPDATE projet SET nom_projet  = '" + p.getNom_projet() + "', description_projet = '" + p.getDescription_projet() + "', objectif_projet = '" + p.getObjectif_projet() + "' , etat_projet = '" + p.getEtat_projet() + "', image_projet = '" + p.getImage_projet()+"'  WHERE ID_projet=" + id_projet;
+        String requete = "UPDATE projet SET nom_projet  = '" + p.getNom_projet() + "', description_projet = '" + p.getDescription_projet() + "', objectif_projet = '" + p.getObjectif_projet() + "' , etat_projet = '" + p.getEtat_projet() + "'  WHERE ID_projet=" + id_projet;
         Statement st = cnx2.createStatement();
         st.executeUpdate(requete);
             System.out.println("inserted projet"+requete);

@@ -130,7 +130,8 @@ public class Affichage2Controller implements Initializable {
                 } catch (SQLException ex) {
                     Logger.getLogger(Affichage3Controller.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }); Button modifierButton = new Button("Modifier");
+            }); 
+            Button modifierButton = new Button("Modifier");
             modifierButton.getStyleClass().add("modifierButton");
             modifierButton.setOnAction((ActionEvent event) -> {
                 try {
@@ -147,11 +148,16 @@ public class Affichage2Controller implements Initializable {
                     Logger.getLogger(Affichage3Controller.class.getName()).log(Level.SEVERE, null, ex);
                 }
             });
-             
+             VBox butonsBox = new VBox();
+            butonsBox.getChildren().addAll(nomLabel,descriptionLabel, objectifLabel);
+            butonsBox.setStyle(" -fx-padding: 40px 20; -fx-line-spacing: 30px;");
             HBox buttonsBox = new HBox();
-            buttonsBox.getChildren().addAll(replyButton, modifierButton);
-            buttonsBox.getStyleClass().add("buttonsBox");
-            contentBox.getChildren().addAll(imageView,nomLabel, descriptionLabel, objectifLabel,buttonsBox);
+            buttonsBox.getChildren().addAll(butonsBox, imageView);
+            HBox butttonsBox = new HBox();
+            butttonsBox.getChildren().addAll(replyButton, modifierButton);
+            contentBox.getChildren().addAll( buttonsBox, butttonsBox);
+            
+            
             contentBox.setSpacing(10);
             contentBox.setStyle("-fx-background-color: #ffffff; -fx-border-color: #3FC4ED; -fx-border-width: 2px; -fx-border-radius: 5px;");
             return contentBox;

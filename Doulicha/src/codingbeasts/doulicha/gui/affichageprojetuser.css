@@ -32,3 +32,22 @@
 .button-style.modify:hover {
     -fx-background-color: #00B4D8;
 }
+.butonsBox{
+    border-collapse: separate;
+    border-spacing: 200px;
+}
+.savedon{
+    -fx-background-color: #3FC4ED;
+    -fx-text-fill: #FFFFFF;
+    -fx-border-color: #FFFFFF;
+    -fx-border-width: 2px;
+    -fx-border-radius : 5px;
+    -fx-padding: 10px;
+    -fx-border-insets: 10px;
+    -fx-background-insets: 10px;
+}
+
+.savedon:hover {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #3FC4ED;
+}

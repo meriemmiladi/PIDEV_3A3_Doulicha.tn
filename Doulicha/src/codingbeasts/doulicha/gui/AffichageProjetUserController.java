@@ -9,6 +9,8 @@ import codingbeasts.doulicha.entities.don;
 import codingbeasts.doulicha.entities.projet;
 import codingbeasts.doulicha.services.donCRUD;
 import codingbeasts.doulicha.services.projetCRUD;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -26,6 +28,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -84,26 +88,47 @@ private void rechercherProjet(ActionEvent event) {
 }
 
 private VBox createContentBox(projet projet) {
-    VBox contentBox = new VBox();
-    Label nomLabel = new Label(projet.getNom_projet());
-    nomLabel.getStyleClass().add("nomLabel");
-    Label descriptionLabel = new Label(projet.getDescription_projet());
-    descriptionLabel.getStyleClass().add("descriptionLabel");
-    Label obj = new Label("Objectif");
-    obj.getStyleClass().add("objectifLabel");
-    obj.getStyleClass().add("nomLabel");
-    Label objectifLabel = new Label(obj.getText()+ ":" + projet.getObjectif_projet());
-    Label imageView = new Label(projet.getImage_projet());
-    imageView.getStyleClass().add("imageView");
-    
-    Button savedon = new Button("Ajouterdon");
+     
+        try {
+            FileInputStream inputstream = null;
+            VBox contentBox = new VBox();
+            
+            ImageView imageView = new ImageView();
+            inputstream = new FileInputStream(projet.getImage_projet());
+            Image imageS = new Image(inputstream);
+            imageView.getStyleClass().add("imageView");
+            imageView.setFitWidth(200);
+            imageView.setFitHeight(120);
+            imageView.setTranslateX(120);
+            imageView.setImage(imageS);
+            
+            Label nomLabel = new Label("Nom_projet :" + projet.getNom_projet());
+            nomLabel.getStyleClass().add("nomLabel");
+            nomLabel.setStyle("-fx-font-weight: bold;");
+            Label descriptionLabel = new Label("Description :" + projet.getDescription_projet());
+            descriptionLabel.getStyleClass().add("descriptionLabel");
+            Label obj = new Label("Objectif");
+            obj.getStyleClass().add("objectifLabel");
+            obj.getStyleClass().add("nomLabel");
+            Label objectifLabel = new Label(obj.getText()+ ":" + projet.getObjectif_projet());
+            
+            
+            Button savedon = new Button("Ajouterdon");
+            savedon.setStyle("-fx-background-color: #3FC4ED;\n" +
+                               "    -fx-text-fill: #FFFFFF;\n" +
+                               "    -fx-border-color: #FFFFFF;\n" +
+                               "    -fx-border-width: 2px;\n" +
+                               "    -fx-border-radius : 5px;\n" +
+                               "    -fx-padding: 10px;\n" +
+                               "    -fx-border-insets: 10px;\n" +
+                               "    -fx-background-insets: 10px;");
             savedon.setOnAction((ActionEvent event) -> {
                 try {
                     // charger la vue AjouterProjet.fxml
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("AjouterDon.fxml"));
                     Parent root = loader.load();
-                   AjouterDonController AjouterDonController = loader.getController();
-                   
+                    AjouterDonController AjouterDonController = loader.getController();
+                    
                     //AjouterDonController controller = loader.getController();
                     this.id_projet = projet.getId_projet();
                     AjouterDonController.recupererID(id_projet);
@@ -113,6 +138,7 @@ private VBox createContentBox(projet projet) {
                     
                     Scene scene = new Scene(root);
                     Stage stage = new Stage();
+                    scene.getStylesheets().add("affichageprojetuser.css");
                     stage.setScene(scene);
                     stage.show();
                 } catch (IOException ex) {
@@ -121,15 +147,24 @@ private VBox createContentBox(projet projet) {
                 donCRUD rep = new donCRUD();
                
             });
-    
-    
-  
-    
-    contentBox.getChildren().addAll(nomLabel, descriptionLabel, objectifLabel, imageView, savedon);
-    contentBox.setSpacing(10);
-    contentBox.getStyleClass().add("vbox-style");
-    return contentBox;
+            VBox butonsBox = new VBox();
+            butonsBox.getChildren().addAll(nomLabel,descriptionLabel, objectifLabel);
+            butonsBox.setStyle(" -fx-padding: 40px 20; -fx-line-spacing: 30px;");
+            HBox buttonsBox = new HBox();
+            buttonsBox.getChildren().addAll(butonsBox, imageView);
+            
+            
+            contentBox.getChildren().addAll( buttonsBox,  savedon);
+            contentBox.setSpacing(10);
+            contentBox.getStyleClass().add("vbox-style");
+            return contentBox;
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(AffichageProjetUserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return null;
 }
+
 private void afficherProjets() {
     projetCRUD dis = new projetCRUD();
     List<projet> myList = dis.afficherprojet();

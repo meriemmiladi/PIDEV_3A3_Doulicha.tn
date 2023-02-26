@@ -37,6 +37,10 @@ public class projet {
     public projet() {
        
     }
+
+    public projet(String nom_projet, String description_projet, float objectif_projet, int etat_projet) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     public int getId_projet() {
         return ID_projet;
     }
