@@ -69,7 +69,6 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <TextField layoutX="633.0" layoutY="385.0" />
       <TextField fx:id="recherche" layoutX="611.0" layoutY="384.0" />
    </children>
 </AnchorPane>

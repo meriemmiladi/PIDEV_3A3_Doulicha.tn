@@ -137,5 +137,26 @@ public class LigneCommandeCrud {
     }
 }
     
+    public List<LigneCommande> retreiveLigneCommandeByIdCommande(int i){
+        List<LigneCommande> ligneCommandeList=new ArrayList() ;
+        String request = "SELECT * FROM ligne_commande WHERE ID_commande=?";
+    try {
+        PreparedStatement pst = cnx2.prepareStatement(request);
+        pst.setInt(1, i);
+        ResultSet rs = pst.executeQuery();
+        while(rs.next()){
+            LigneCommande ligneCommande=new LigneCommande();
+            ligneCommande.setID_commande(rs.getInt("ID_commande"));
+            ligneCommande.setID_ligne(rs.getInt("ID_ligne"));
+            ligneCommande.setID_produit(rs.getInt("ID_produit"));
+            ligneCommande.setQuantite_achete_ligne(rs.getInt("quantite_achete_ligne"));
+            ligneCommandeList.add(ligneCommande);
+        }
+    } catch (SQLException ex) {
+        System.err.println(ex.getMessage());
+    }
+    return ligneCommandeList;
+    }
+    
     
 }

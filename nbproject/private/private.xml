@@ -5,15 +5,7 @@
         <group>
             <file>file:/C:/Users/scola/Documents/NetBeansProjects/JDBC/PIDEV_3A3_Doulicha.tn/src/codingbeasts/doulicha/controllers/MainView.java</file>
             <file>file:/C:/Users/scola/Documents/NetBeansProjects/JDBC/PIDEV_3A3_Doulicha.tn/src/codingbeasts/doulicha/controllers/PanierController.java</file>
-            <file>file:/C:/Users/scola/Documents/NetBeansProjects/JDBC/PIDEV_3A3_Doulicha.tn/src/codingbeasts/doulicha/entities/Commande.java</file>
-            <file>file:/C:/Users/scola/Documents/NetBeansProjects/JDBC/PIDEV_3A3_Doulicha.tn/src/codingbeasts/doulicha/view/accprod.fxml</file>
-            <file>file:/C:/Users/scola/Documents/NetBeansProjects/JDBC/PIDEV_3A3_Doulicha.tn/src/codingbeasts/doulicha/controllers/magController.java</file>
-            <file>file:/C:/Users/scola/Documents/NetBeansProjects/JDBC/PIDEV_3A3_Doulicha.tn/src/codingbeasts/doulicha/controllers/AjoutController.java</file>
-            <file>file:/C:/Users/scola/Documents/NetBeansProjects/JDBC/PIDEV_3A3_Doulicha.tn/src/codingbeasts/doulicha/controllers/AccprodController.java</file>
-            <file>file:/C:/Users/scola/Documents/NetBeansProjects/JDBC/PIDEV_3A3_Doulicha.tn/src/codingbeasts/doulicha/view/accueil.fxml</file>
-            <file>file:/C:/Users/scola/Documents/NetBeansProjects/JDBC/PIDEV_3A3_Doulicha.tn/src/codingbeasts/doulicha/view/AccueilController.java</file>
-            <file>file:/C:/Users/scola/Documents/NetBeansProjects/JDBC/PIDEV_3A3_Doulicha.tn/src/codingbeasts/doulicha/controllers/AccueilController.java</file>
-            <file>file:/C:/Users/scola/Documents/NetBeansProjects/JDBC/PIDEV_3A3_Doulicha.tn/src/codingbeasts/doulicha/services/CommandeCrud.java</file>
+            <file>file:/C:/Users/scola/Documents/NetBeansProjects/JDBC/PIDEV_3A3_Doulicha.tn/src/codingbeasts/doulicha/tests/MainClass.java</file>
         </group>
     </open-files>
 </project-private>

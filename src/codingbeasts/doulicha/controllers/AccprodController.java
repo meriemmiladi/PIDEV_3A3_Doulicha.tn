@@ -15,14 +15,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.chart.PieChart.Data;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -43,7 +41,7 @@ public class AccprodController implements Initializable {
     @FXML
     private ImageView a;
     @FXML
-    private TableView<Produit> TABLEPRODUIT;
+        private TableView<Produit> TABLEPRODUIT;
     @FXML
     private TableColumn<Produit, String> ID;
     @FXML
@@ -62,18 +60,15 @@ public class AccprodController implements Initializable {
     private Button btnajout;
     @FXML
     private TextField recherche;
-    
+    List<Produit> produits;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-       
-       ProduitCrud p = new ProduitCrud();
-       List<Produit> produits = p.afficherProduit();
+
        afficherprod();
-       
+       search_product();
        
        btnajout.setOnAction(event ->{
            try {
@@ -83,16 +78,47 @@ public class AccprodController implements Initializable {
                 stage.setScene(scene);
                 stage.show();
             } catch (IOException ex) {
-               System.out.println("errooooor"); 
+               System.out.println(ex); 
             }
        });
     }    
 
+    void search_product() {
+
+        ObservableList<Produit> observableProduits = FXCollections.observableList(produits);
+        LIBELLE.setCellValueFactory(new PropertyValueFactory<>("libelle_produit"));
+        QUANTITE.setCellValueFactory(new PropertyValueFactory<>("quantite_produit"));
+        PTIXACHAT.setCellValueFactory(new PropertyValueFactory<>("prixUachat_produit"));
+        PRIXVENTE.setCellValueFactory(new PropertyValueFactory<>("prixUvente_produit"));
+        CATEGORIE.setCellValueFactory(new PropertyValueFactory<>("categorie_produit"));
+        IMAGE.setCellValueFactory(new PropertyValueFactory<>("image_produit"));
+        TABLEPRODUIT.setItems(observableProduits);   
+        FilteredList<Produit> filteredData = new FilteredList(observableProduits, b -> true); 
+        recherche.textProperty().addListener((observable, oldValue, newValue) -> {
+        filteredData.setPredicate((Produit prd) -> {
+            System.out.println(newValue);
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+                if (prd.getLibelle_produit().toLowerCase().contains(lowerCaseFilter) ) {
+                    return true;
+                }else if (prd.getCategorie_produit().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                }else{
+                    return false;
+                }
+            });
+        });
+        SortedList<Produit> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(TABLEPRODUIT.comparatorProperty());
+        TABLEPRODUIT.setItems(sortedData);
+}
+
     
-   
     public void afficherprod(){
        ProduitCrud c = new ProduitCrud();
-       List<Produit> produits = c.afficherProduit();
+       produits = c.afficherProduit();
        ID.setCellValueFactory(new PropertyValueFactory<>("ID_produit"));
        LIBELLE.setCellValueFactory(new PropertyValueFactory<>("libelle_produit"));
        QUANTITE.setCellValueFactory(new PropertyValueFactory<>("quantite_produit"));
@@ -101,7 +127,6 @@ public class AccprodController implements Initializable {
        CATEGORIE.setCellValueFactory(new PropertyValueFactory<>("categorie_produit"));
        IMAGE.setCellValueFactory(new PropertyValueFactory<>("image_produit"));
        TABLEPRODUIT.getItems().addAll(produits);
-        
        addUpdateButtonToTable();
        addDleteButtonToTable();
         
@@ -153,60 +178,7 @@ public class AccprodController implements Initializable {
     }
     
     
-    ///////////////////recherche//////////
- void search_product() {
-        
-        ProduitCrud c = new ProduitCrud();
-        List<Produit> produits = c.afficherProduit();
-       ObservableList<Produit> observableProduits = FXCollections.observableList(produits);
-        LIBELLE.setCellValueFactory(new PropertyValueFactory<>("libelle_produit"));
-       QUANTITE.setCellValueFactory(new PropertyValueFactory<>("quantite_produit"));
-       PTIXACHAT.setCellValueFactory(new PropertyValueFactory<>("prixUachat_produit"));
-       PRIXVENTE.setCellValueFactory(new PropertyValueFactory<>("prixUvente_produit"));
-       CATEGORIE.setCellValueFactory(new PropertyValueFactory<>("categorie_produit"));
-       IMAGE.setCellValueFactory(new PropertyValueFactory<>("image_produit"));;
-       
-    
-       TABLEPRODUIT.setItems(observableProduits);
-
-  FilteredList<Produit> filteredData = new FilteredList<Produit>(observableProduits, b -> true);
-
-
-    recherche.textProperty().addListener((observable, oldValue, newValue) -> {
-        filteredData.setPredicate((Produit prd) -> {
-            if (newValue == null || newValue.isEmpty()) {
-                return true;
-            }
-            String lowerCaseFilter = newValue.toLowerCase();
-
-            if (prd.getLibelle_produit().toLowerCase().indexOf(lowerCaseFilter) != -1 ) {
-                return true;
-            } else if (prd.getCategorie_produit().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-                return true;
-            }
-            else if (String.valueOf(prd.getPrixUachat_produit()).indexOf(lowerCaseFilter) != -1){
-                return true;
-            }
-            else if (String.valueOf(prd.getPrixUvente_produit()).indexOf(lowerCaseFilter) != -1){
-                return true;
-            }
-            else if (String.valueOf(prd.getQuantite_produit()).indexOf(lowerCaseFilter) != -1){
-                return true;
-            }
-            if (prd.getImage_produit().toLowerCase().indexOf(lowerCaseFilter) != -1 ) {
-                return true;
-            }
-
-            else
-                return false;
-        });
-    });
-    SortedList<Produit> sortedData = new SortedList<>(filteredData);
-    sortedData.comparatorProperty().bind(TABLEPRODUIT.comparatorProperty());
-    TABLEPRODUIT.setItems(sortedData);
-}
-
- /////////////////////////////////////////
+   
     
         private void addDleteButtonToTable() {
         TableColumn<Produit, Void> column= new TableColumn<>();

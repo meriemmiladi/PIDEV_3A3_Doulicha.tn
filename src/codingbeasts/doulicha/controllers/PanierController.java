@@ -32,10 +32,35 @@ import javafx.util.Callback;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
 import javafx.geometry.Pos;
 import javafx.scene.control.TableCell;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+//import javax.swing.text.Document;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.awt.Desktop;
+import java.io.File;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+
 
 
 public class PanierController implements Initializable {
@@ -60,39 +85,146 @@ public class PanierController implements Initializable {
     @FXML
     private Button btnretour;
     Commande commande;
+    private static final String API_URL = "https://invoice-generator.com";
+//    private static final String API_URL = "https://jsonplaceholder.typicode.com/posts";
+    private static final String POST_DATA = "{\n" +
+"    \"from\":\"doulicha\",\n" +
+"    \"number\":1,\n" +
+"    \"items\":[{\n" +
+"      \"name\": \"Gizmo\",\n" +
+"      \"quantity\": 10,\n" +
+"      \"unit_cost\": 99.99,\n" +
+"      \"description\": \"The best gizmos there are around.\"\n" +
+"    },{\n" +
+"      \"name\": \"Gizmo\",\n" +
+"      \"quantity\": 10,\n" +
+"      \"unit_cost\": 99.99,\n" +
+"      \"description\": \"The best gizmos there are around.\"\n" +
+"    }]\n" +
+"}";
+
     /**
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url1, ResourceBundle rb) {
         
         confirme.setOnAction(event ->{
-            try{
-            LocalDateTime dateTime = LocalDateTime.now();
-            java.sql.Date sqlDate = java.sql.Date.valueOf(dateTime.toLocalDate());
-                Commande c=new Commande(sqlDate,1);
-                CommandeCrud cc=new CommandeCrud();
-                commande=cc.ajouterCommande2(c, 1);
-                produitMap.forEach((key,value)->{
-                    LigneCommandeCrud lcc=new LigneCommandeCrud();
-                    LigneCommande lc=new LigneCommande(commande.getID_commande(), key.getID_produit(), value);
-                    lcc.ajouterLigneCommande2(lc);
-                    Notifications notificationBuilder = Notifications.create().title("Validation commande").text("Commande validé").graphic(null).hideAfter(Duration.seconds(8)).position(Pos.BOTTOM_RIGHT);
-        notificationBuilder.showInformation();
-                });
-                Parent page1 = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/view/magasin.fxml"));
-                Scene scene = new Scene(page1);
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                stage.setScene(scene);
-                stage.show();
-            } catch (IOException ex) {
-             System.out.println("errrrrrrrrrrr");
+            CommandeCrud commandeCrud=new CommandeCrud();
+            LigneCommandeCrud ligneCommandeCrud=new LigneCommandeCrud();
+            Commande commande=commandeCrud.retreiveOneOrder(20);
+            List<LigneCommande> ligneCommandeListe=ligneCommandeCrud.retreiveLigneCommandeByIdCommande(commande.getID_commande());
+            try {
+            URL url = new URL(API_URL);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-Type", "application/json; utf-8");
+            conn.setRequestProperty("Accept", "application/json");
+            conn.setDoOutput(true);
+
+            // Send the request body
+            byte[] postData = POST_DATA.getBytes();
+            conn.getOutputStream().write(postData);
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String inputLine;
+            StringBuilder response = new StringBuilder();
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
             }
+            in.close();
+            
+             String responseData = response.toString();
+        System.out.println(responseData);
+
+        // Parse the JSON response and extract the data you need
+        JSONObject jsonObject = new JSONObject(responseData);
+        String invoiceNumber = jsonObject.getString("number");
+        String invoiceFrom = jsonObject.getString("from");
+        JSONArray items = jsonObject.getJSONArray("items");
+
+        // Create a new PDF document
+        Document document = new Document();
+        PdfWriter.getInstance(document, new FileOutputStream("post.pdf"));
+        document.open();
+
+        // Add the invoice number and from fields to the document
+        document.add(new Paragraph("Invoice Number: " + invoiceNumber));
+        document.add(new Paragraph("From: " + invoiceFrom));
+
+        // Add the items to the document
+        for (int i = 0; i < items.length(); i++) {
+            JSONObject item = items.getJSONObject(i);
+            String name = item.getString("name");
+            int quantity = item.getInt("quantity");
+            double unitCost = item.getDouble("unit_cost");
+            String description = item.getString("description");
+
+            document.add(new Paragraph(name + " x " + quantity + " @ $" + unitCost + " = $" + (quantity * unitCost)));
+            document.add(new Paragraph(description));
+            document.add(new Paragraph(""));
+        }
+
+        document.close();
+
+        // Open the PDF file with the default PDF viewer on your system
+        File pdfFile = new File("post.pdf");
+        Desktop.getDesktop().open(pdfFile);
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+});
+            //add to pdf document
+            
+            
+//            Document document = new Document();
+//            PdfWriter.getInstance(document, new FileOutputStream("post.pdf"));
+//            document.open();
+//            
+//            // Ouvre le fichier PDF avec l'application PDF par défaut installée sur votre système
+////        File pdfFile = new File("post.pdf");
+////        Desktop.getDesktop().open(pdfFile);
+////        } catch (IOException e) {
+////        e.printStackTrace();
+//            
+//            String responseData = response.toString();
+//            System.out.println(responseData);
+////            //String title = responseData.split("\"title\":")[1].split(",")[0];
+////            String id = responseData.split("\"id\":")[1].split(",")[0];
+////            System.out.println("Title: " + title + ", ID: " + id);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//            
+//            
+            
         
-        });
+//            try{
+//            LocalDateTime dateTime = LocalDateTime.now();
+//            java.sql.Date sqlDate = java.sql.Date.valueOf(dateTime.toLocalDate());
+//                Commande c=new Commande(sqlDate,1);
+//                CommandeCrud cc=new CommandeCrud();
+//                commande=cc.ajouterCommande2(c, 1);
+//                produitMap.forEach((key,value)->{
+//                    LigneCommandeCrud lcc=new LigneCommandeCrud();
+//                    LigneCommande lc=new LigneCommande(commande.getID_commande(), key.getID_produit(), value);
+//                    lcc.ajouterLigneCommande2(lc);
+//                    Notifications notificationBuilder = Notifications.create().title("Validation commande").text("Commande validé").graphic(null).hideAfter(Duration.seconds(8)).position(Pos.BOTTOM_RIGHT);
+//        notificationBuilder.showInformation();
+//                });
+//                Parent page1 = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/view/magasin.fxml"));
+//                Scene scene = new Scene(page1);
+//                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//                stage.setScene(scene);
+//                stage.show();
+//            } catch (IOException ex) {
+//             System.out.println("errrrrrrrrrrr");
+//            }
+//       });
         
-      
-        
+    
+
         btnretour.setOnAction(event ->{
         try {
                 Parent page1 = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/view/magasin.fxml"));

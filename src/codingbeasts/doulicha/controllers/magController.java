@@ -151,7 +151,12 @@ public class magController implements Initializable {
             }
         } catch (IOException e) {
         }
+        
+        //////////////////recherche//////////
+        
+        ///////////////////////////////////////
+        
     }
 
-    }    
+    }  
     

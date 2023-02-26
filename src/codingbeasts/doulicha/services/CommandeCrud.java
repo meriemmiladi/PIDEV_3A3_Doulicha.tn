@@ -93,7 +93,7 @@ public class CommandeCrud {
         ResultSet rs = pst.executeQuery();
         if (rs.next()) {
             Commande commande = new Commande();
-            commande.setID_user(rs.getInt("ID_commande"));
+            commande.setID_commande(rs.getInt("ID_commande"));
             return commande;
         }
     } catch (SQLException ex) {

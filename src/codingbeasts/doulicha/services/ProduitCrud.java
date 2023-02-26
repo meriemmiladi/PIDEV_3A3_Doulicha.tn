@@ -5,6 +5,7 @@
  */
 package codingbeasts.doulicha.services;
 
+import codingbeasts.doulicha.controllers.AccprodController;
 import codingbeasts.doulicha.entities.Commande;
 import codingbeasts.doulicha.entities.Produit;
 import codingbeasts.doulicha.utils.MyConnection;
@@ -78,7 +79,6 @@ public class ProduitCrud implements Crud<Produit> {
                 p.setCategorie_produit(rs.getString("categorie_produit"));
                 p.setImage_produit(rs.getString("image_produit"));
                 myList.add(p);
-                
             }
             
             

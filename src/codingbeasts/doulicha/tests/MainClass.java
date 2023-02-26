@@ -16,6 +16,7 @@ import codingbeasts.doulicha.services.UserCrude;
 import codingbeasts.doulicha.utils.MyConnection;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -25,6 +26,9 @@ import java.util.Date;
 public class MainClass {
     public static void main(String[] args){
         MyConnection mc = MyConnection.getInstance();
+        LigneCommandeCrud ligneCommandeCrud=new LigneCommandeCrud();
+        List<LigneCommande> listeLigneCommande=ligneCommandeCrud.retreiveLigneCommandeByIdCommande(20);
+        
         //MyConnection mc2 = MyConnection.getInstance();
         //System.out.println(mc.hashCode()+ "-" +mc2.hashCode());
         
@@ -65,13 +69,13 @@ public class MainClass {
         //*************comaaaaaaaande**********//
         
         // Créer un objet Commande
-    Commande c1 = new Commande();
-
-// Créer un objet CommandeCrud
-    CommandeCrud ccd = new CommandeCrud();
-        int ID_user = 1;
-// Ajouter la commande en appelant la méthode ajouterCommande2()
-    ccd.ajouterCommande(); 
+//    Commande c1 = new Commande();
+//
+//// Créer un objet CommandeCrud
+//    CommandeCrud ccd = new CommandeCrud();
+//        int ID_user = 1;
+//// Ajouter la commande en appelant la méthode ajouterCommande2()
+//    ccd.ajouterCommande(); 
 
         
         

@@ -5,6 +5,7 @@
  */
 package codingbeasts.doulicha.controllers;
 
+import codingbeasts.doulicha.services.ProduitCrud;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.io.IOException ;
@@ -33,9 +34,11 @@ public class MainView extends Application {
         
        
         try {
-            //Parent root = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/view/magasin.fxml"));
+
+//            Parent root = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/view/magasin.fxml"));
 //            Parent root = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/view/accprod.fxml"));
-            Parent root = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/view/Accueil.fxml"));
+//            Parent root = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/view/Accueil.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/view/panier.fxml"));
             
             Dimension size = Toolkit. getDefaultToolkit(). getScreenSize();
             int width = (int)size.getWidth();
@@ -47,6 +50,8 @@ public class MainView extends Application {
         } catch (IOException ex) {
             Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+
        
     }
 

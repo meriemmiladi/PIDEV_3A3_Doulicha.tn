@@ -42,7 +42,7 @@ public class AccueilController implements Initializable {
                 stage.setScene(scene);
                 stage.show();
             } catch (IOException ex) {
-               System.out.println("errooooor"); 
+               System.out.println(ex); 
             }
        });
         user.setOnAction(event ->{
