@@ -265,9 +265,7 @@ Path destination = Paths.get(xamppFolderPath + fileName);
             erreur = erreur + ("Veuillez verifier le nom du logement correctement \n");
         }
        
-        if (!testAdresse()) {
-            erreur = erreur + ("Veuillez verifier l'adresse: \n");
-        }
+        
          if ((!testCapacite())&&(!(capacite_logement.getText().isEmpty()))) {
             erreur = erreur + ("Veuillez saisir la capacité correctement \n");
         }
@@ -276,7 +274,7 @@ Path destination = Paths.get(xamppFolderPath + fileName);
         }
          
       
-        return  testNom() && testAdresse() && testCapacite() && testPrixNuitee(prixNuitee_logement);
+        return  testNom() && testCapacite() && testPrixNuitee(prixNuitee_logement);
     }
        
      

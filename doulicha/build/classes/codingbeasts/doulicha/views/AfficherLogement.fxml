@@ -80,8 +80,9 @@
             <Font name="Papyrus" size="50.0" />
          </font>
       </Text>
-      <Button fx:id="excel" layoutX="673.0" layoutY="603.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="159.0" text="Exporter en Excel" />
+      <Button fx:id="excel" layoutX="772.0" layoutY="603.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="159.0" text="Exporter en Excel" />
       <TextField fx:id="recherche" layoutX="454.0" layoutY="126.0" prefHeight="34.0" prefWidth="183.0" />
       <Label layoutX="347.0" layoutY="127.0" prefHeight="34.0" prefWidth="107.0" text="Rechercher" />
+      <Button fx:id="stat" layoutX="532.0" layoutY="602.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="168.0" text="Statistiques" />
    </children>
 </AnchorPane>

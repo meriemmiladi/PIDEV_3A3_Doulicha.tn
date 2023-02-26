@@ -7,6 +7,27 @@ and open the template in the editor.
     Created on : 10 mars 2021, 16:04:20
     Author     : mariem
 */
+.pie-chart {
+    -fx-pie-colors: #2841e1, #bfcbd2, #030360, #375d7a, #33a9e8;
+}
+
+.pie-legend {
+    -fx-padding: 10px;
+    -fx-border-color: #ddd;
+    -fx-border-radius: 5px;
+    -fx-background-color: #f5f5f5;
+}
+
+.pie-legend-item-symbol {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0;
+}
+
+.pie-legend-item {
+    -fx-padding: 5px 10px;
+    -fx-font-size: 14px;
+}
+
 .root {
     -fx-background-image: url("C:/Users/marie/OneDrive/Images/fond1.jpg");
 

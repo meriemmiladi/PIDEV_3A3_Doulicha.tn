@@ -98,6 +98,8 @@ public class AfficherLogementController implements Initializable {
     private Button excel;
     @FXML
     private TextField recherche;
+    @FXML
+    private Button stat;
 
     /**
      * Initializes the controller class.
@@ -108,10 +110,25 @@ public class AfficherLogementController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         afficherLogementList();
         recherche_avance();
+        
+        
        
-    
+    stat.setOnAction( event->{
+        try{
+            System.out.println("Bouton stat appuyé");
+            Parent page1 = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/views/StatistiqueLogement.fxml"));
+            Scene scene = new Scene(page1);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show(); 
+    }
+        catch (IOException ex) {
+                Logger.getLogger(HomeBackController.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    });
+         
 
-    // Ajout du gestionnaire d'événements
+    
     excel.setOnAction(event -> {
         System.out.println("excel appuyé");
         genererExcel(event);
