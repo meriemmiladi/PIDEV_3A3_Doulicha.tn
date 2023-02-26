@@ -268,10 +268,10 @@ Path destination = Paths.get(xamppFolderPath + fileName);
         if (!testAdresse()) {
             erreur = erreur + ("Veuillez verifier l'adresse: \n");
         }
-         if (!testCapacite()) {
+         if ((!testCapacite())&&(!(capacite_logement.getText().isEmpty()))) {
             erreur = erreur + ("Veuillez saisir la capacité correctement \n");
         }
-          if (!testPrixNuitee(prixNuitee_logement)) {
+          if ((!testPrixNuitee(prixNuitee_logement))&&(!(prixNuitee_logement.getText().isEmpty()))) {
             erreur = erreur + ("Veuillez saisir le prix correctement \n");
         }
          
@@ -291,7 +291,7 @@ Path destination = Paths.get(xamppFolderPath + fileName);
             }
         }
 
-        if (nbNonChar == 0 && nom_logement.getText().trim().length() >= 3) {
+        if ((nbNonChar == 0 )&& (nom_logement.getText().trim().length() >= 3)&&(!(nom_logement.getText().isEmpty()))) {
             //checknom.setImage(new Image("/codingbeats/doulicha/images/checkmark.png"));
             return true;
         } else {
@@ -315,7 +315,7 @@ Path destination = Paths.get(xamppFolderPath + fileName);
             }
         }
 
-        if (nbNonChar == 0 && adresse_logement.getText().trim().length() >= 3) {
+        if ((nbNonChar == 0 )&& (adresse_logement.getText().trim().length() >= 3) && (!(adresse_logement.getText().isEmpty()))){
             //checkadresse.setImage(new Image("/codingbeats/doulicha/images/checkmark.png"));
             return true;
         } else {

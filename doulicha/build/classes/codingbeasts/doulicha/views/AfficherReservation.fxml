@@ -27,8 +27,8 @@
       <Button fx:id="home" layoutX="2.0" layoutY="284.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="324.0" text="Home" />
       <TableView fx:id="table_view" layoutX="334.0" layoutY="175.0" prefHeight="420.0" prefWidth="881.0">
          <columns>
-            <TableColumn fx:id="ID_reservation" prefWidth="56.0" text="ID" />
-            <TableColumn fx:id="ID_user" minWidth="4.0" prefWidth="95.0" text="ID_client" />
+            <TableColumn fx:id="ID_reservation" minWidth="9.0" prefWidth="9.0" visible="false" />
+            <TableColumn fx:id="ID_user" minWidth="4.0" prefWidth="142.0" text="ID_client" />
             <TableColumn fx:id="ID_logement" minWidth="0.0" prefWidth="115.0" text="ID_logement" />
             <TableColumn fx:id="dateArrivee_reservation" prefWidth="137.0" text="Date Arrivée" />
             <TableColumn fx:id="dateDepart_reservation" prefWidth="131.0" text="Date Départ" />

@@ -125,10 +125,11 @@ public class ReserverLogementController implements Initializable {
         
         
         reserver.setOnAction(event -> {  
+            System.out.println("reserver appuyé");
             if(testNbPersonnes()){
         ServiceReservationLogement sr = new ServiceReservationLogement();
         if(testSaisie()){ 
-
+            System.out.println("test1");
         Reservation_logement r = new Reservation_logement();
         LocalDate dateArrivee_local = dateArrivee_reservation.getValue();
         LocalDate dateDepart_local = dateDepart_reservation.getValue();
@@ -176,7 +177,7 @@ public class ReserverLogementController implements Initializable {
         
 
         sr.ajouterReservationLogement2(r);
-        
+         System.out.println("test2");
         try{
         Parent page1 = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/views/ConsulterMesReservations.fxml"));
             Scene scene = new Scene(page1);
@@ -196,6 +197,7 @@ public class ReserverLogementController implements Initializable {
                 .position(Pos.BOTTOM_RIGHT);
         notificationBuilder.showInformation();
         } } });
+         System.out.println("test3");
     } 
     
      void setTextField( int ID_logement) {
@@ -222,8 +224,8 @@ public class ReserverLogementController implements Initializable {
        private Boolean testSaisie() {
         String erreur = "";
       
-        if (!testNbPersonnes()) {
-            erreur = erreur + ("Veuillez verifier le nombre de personnes correctement \n");
+        if (!testNbPersonnes()&&(!(nbPersonnes_reservation.getText().isEmpty()))) {
+            erreur = erreur + ("Veuillez entrer le nombre de personnes correctement \n");
         }
        
         if (!testDateArrivee()) {
@@ -239,31 +241,32 @@ public class ReserverLogementController implements Initializable {
     }
        
        private Boolean testNbPersonnes() {
-          try{
-          Double.parseDouble(nbPersonnes_reservation.getText());
-        //checkprixnuitee.setImage(new Image("/codingbeats/doulicha/images/checkmark.png"));
-        return true;
-    } catch (NumberFormatException e) {
-       // checkprixnuitee.setImage(new Image("/codingbeats/doulicha/images/erreurcheckmark.png"));
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText(null);
-            alert.setContentText("Veuillez verifier le nombre de personnes inséré à la réservation !");
-            alert.showAndWait();
-        return false;
+        try {
+        Integer.parseInt(nbPersonnes_reservation.getText()) ;
+       
+       return true;}
+        
+     catch (NumberFormatException ex) {
+        Alert alert = new Alert(Alert.AlertType.ERROR, "Veuillez entrer le nombre de personnes correctement !");
+        alert.showAndWait();
+         return false;
+        
     }
-      }
+       
+       }
+      
         
       
       
       
       private Boolean testDateArrivee() {
         LocalDate now = LocalDate.now();
-        if ( dateArrivee_reservation.getValue().compareTo(now) > 0) {
+        if (( dateArrivee_reservation.getValue().compareTo(now) > 0)&& (!(dateArrivee_reservation.getValue().toString().trim().isEmpty()) )) {
                   return true;
             } else {
               Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(null);
-            alert.setContentText("Veuillez verifier la date d'arrivée insérée !");
+            alert.setContentText("Veuillez verifier la date d'arrivée !");
             alert.showAndWait();
               return false;
             }
@@ -272,13 +275,13 @@ public class ReserverLogementController implements Initializable {
      
       private Boolean testDateDepart() {
         LocalDate now = LocalDate.now();
-        if ((dateDepart_reservation.getValue().compareTo(now) > 0) && (dateDepart_reservation.getValue().isAfter(dateArrivee_reservation.getValue())) ) {
+        if ((dateDepart_reservation.getValue().compareTo(now) > 0) && (dateDepart_reservation.getValue().isAfter(dateArrivee_reservation.getValue()))&& (!(dateDepart_reservation.getValue().toString().trim().isEmpty()) )) {
                
                 return true;
             } else {
                   Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(null);
-            alert.setContentText("Veuillez verifier la dated'arrivée insérée !");
+            alert.setContentText("Veuillez verifier la date d'arrivée !");
             alert.showAndWait();
               return false;
             }

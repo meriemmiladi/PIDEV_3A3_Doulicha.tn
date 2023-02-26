@@ -35,6 +35,45 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.io.FileNotFoundException;
+
+import java.io.FileOutputStream;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+//import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.*;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.PdfContentByte;
+import java.util.Optional;
+import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
 
 /**
  * FXML Controller class
@@ -127,24 +166,40 @@ public class ConsulterMesReservationsController implements Initializable {
             
             Button modifierButton = new Button("Modifier ma réservation") ;
             Button supprimerButton = new Button("Supprimer ma réservation") ;
+            Button PdfButton=new Button("Télecharger ma réservation");
+            
             if(MaReservation.editPossible(MaReservation.getDateArrivee_reservation()))
             {
 //************* SUPPRIMER RESERVATION *********************
             supprimerButton.setOnAction((ActionEvent event) -> {
                     try{
+                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Annulation de réservation");
+        alert.setContentText("Etes vous sur de vouloir annuler votre réservation ?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
             System.out.println("Bouton supprimerButton appuyé");
             sr.supprimerReservationLogement(MaReservation.getID_reservation());
+            Notifications notificationBuilder = Notifications.create()
+                .title("Reservation Annulée")
+                .text("La réservation a été bien annulée  !")
+                .graphic(null)
+                .hideAfter(Duration.seconds(5))
+                .position(Pos.BOTTOM_RIGHT);
+        notificationBuilder.showInformation();
             refreshTable();
             Parent page1 = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/views/ConsulterMesReservations.fxml"));
             Scene scene = new Scene(page1);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);
             stage.show(); 
-    }
+    }}
         catch (Exception ex) {
                 Logger.getLogger(ConsulterMesReservationsController.class.getName()).log(Level.SEVERE, null, ex);
     }
-            });
+                    });
+            
+            
  //************* MODIFIER RESERVATION *********************          
                         modifierButton.setOnAction((ActionEvent event) -> {
                             System.out.println("Bouton modifierButton appuyé");
@@ -181,9 +236,89 @@ public class ConsulterMesReservationsController implements Initializable {
                           supprimerButton.setDisable(true);
                           modifierButton.setDisable(true);
              }
+             
+             PdfButton.setOnAction((event) -> {
+                 
+       //**************
+      /*  String message = "Voici votre réservation \n\n";
+
+        String file_name = "src/PDF/Réservation.pdf";
+        Document document = new Document();
+                try {
+                    PdfWriter.getInstance(document, new FileOutputStream(file_name));
+                } catch (Exception ex) {ex.getStackTrace();}
+              
+        document.open();
+        try{
+         document.add(new Paragraph("Nom du logement réservé : " + sl.recupNomLogement(MaReservation.getID_logement())));
+            document.add(new Paragraph("Date d'arrivée : " + MaReservation.getDateArrivee_reservation()));
+            document.add(new Paragraph("Date de départ : " + MaReservation.getDateDepart_reservation()));
+            document.add(new Paragraph("Nombre de personnes : " + MaReservation.getNbPersonnes_reservation()));
+            document.add(new Paragraph("Montant total : " + MaReservation.getMontantTotal_reservation()));
+        }catch(Exception e)
+        {
+           e.getStackTrace();
+        }
+       
+        document.close();
+
+    }*/
+      
+
+String fileName = "Résercation N°" + MaReservation.getID_reservation() + ".pdf";
+String pdfPath = "src/PDF/" + fileName;
+
+
+com.itextpdf.text.Document document = new com.itextpdf.text.Document();
+PdfWriter writer;
+                try {
+                    writer = PdfWriter.getInstance(document, new FileOutputStream(pdfPath));
+                    
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(ConsulterMesReservationsController.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (DocumentException ex) {
+                    Logger.getLogger(ConsulterMesReservationsController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+document.open();
+                try {
+                    document.add(new Paragraph("Détails de votre réservation"));
+                } catch (DocumentException ex) {
+                    Logger.getLogger(ConsulterMesReservationsController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                try {
+                    document.add(new Paragraph("Nom du logement : " +sl.recupNomLogement(MaReservation.getID_logement())));
+                } catch (DocumentException ex) {
+                    Logger.getLogger(ConsulterMesReservationsController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                try {
+                    document.add(new Paragraph("Date d'arrivée : " + MaReservation.getDateArrivee_reservation()));
+                } catch (DocumentException ex) {
+                    Logger.getLogger(ConsulterMesReservationsController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                try {
+                    document.add(new Paragraph(" Date de départ : " + MaReservation.getDateDepart_reservation() ));
+                } catch (DocumentException ex) {
+                    Logger.getLogger(ConsulterMesReservationsController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                try {
+                    document.add(new Paragraph(" Nombre de personnes : " + MaReservation.getNbPersonnes_reservation() ));
+                } catch (DocumentException ex) {
+                    Logger.getLogger(ConsulterMesReservationsController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                try {
+                    document.add(new Paragraph(" *******************************Montant total à payer : " + MaReservation.getMontantTotal_reservation()+" DT *******************************" ));
+                } catch (DocumentException ex) {
+                    Logger.getLogger(ConsulterMesReservationsController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+
+document.close();
+//writer.close();
+                     //********************
+             });
         
 
-            contentBox.getChildren().addAll(nomLabel, dateArriveeLabel,dateDepartLabel,nbPersonnesLabel, montantTotalLabel,modifierButton, supprimerButton);
+            contentBox.getChildren().addAll(nomLabel, dateArriveeLabel,dateDepartLabel,nbPersonnesLabel, montantTotalLabel,modifierButton, supprimerButton,PdfButton);
             contentBox.setSpacing(10);
             contentBox.setStyle("-fx-background-color: #BFDCE4  ; -fx-border-color: #BFDCE4  ; -fx-border-width: 2px; -fx-border-radius: 5px;");
             return contentBox;

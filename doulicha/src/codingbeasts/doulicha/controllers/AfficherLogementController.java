@@ -38,12 +38,25 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.StageStyle;
 import codingbeasts.doulicha.utils.MyConnection;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.sql.Connection;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
+import javafx.event.ActionEvent;
+import javafx.scene.control.Cell;
+import javafx.scene.control.TablePosition;
+import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
+import static org.apache.poi.sl.usermodel.ObjectMetaData.Application.lookup;
+import org.apache.poi.sl.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 /**
  * FXML Controller class
  *
@@ -81,6 +94,10 @@ public class AfficherLogementController implements Initializable {
     private TableColumn<Logement, String> editcol;
     
     Logement Logement = null;
+    @FXML
+    private Button excel;
+    @FXML
+    private TextField recherche;
 
     /**
      * Initializes the controller class.
@@ -90,6 +107,16 @@ public class AfficherLogementController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         afficherLogementList();
+        recherche_avance();
+       
+    
+
+    // Ajout du gestionnaire d'événements
+    excel.setOnAction(event -> {
+        System.out.println("excel appuyé");
+        genererExcel(event);
+    });
+  
         
         home.setOnAction( event->{
         try{
@@ -118,11 +145,157 @@ public class AfficherLogementController implements Initializable {
                 Logger.getLogger(AfficherLogementController.class.getName()).log(Level.SEVERE, null, ex);
     }
     });
-    }  
+      
+        
+ 
+
+
+        
+        /* excel.setOnAction(event-> {
+            
+        FileChooser fileChooser = new FileChooser();
+    fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel Files", "*.xlsx"));
+    File file = fileChooser.showSaveDialog(null);
+    if (file != null) {
+        try (Workbook workbook = new XSSFWorkbook()) {
+            org.apache.poi.ss.usermodel.Sheet sheet = workbook.createSheet("Logements");
+            
+            Row headerRow = sheet.createRow(0);
+headerRow.createCell(0).setCellValue("Nom ");
+headerRow.createCell(1).setCellValue("Description");
+headerRow.createCell(2).setCellValue("Adresse");
+headerRow.createCell(3).setCellValue("Prix Nuitée");
+headerRow.createCell(4).setCellValue("capacité");
+headerRow.createCell(5).setCellValue("type");
+headerRow.createCell(6).setCellValue("etat");
+headerRow.createCell(7).setCellValue("image");
+
+ObservableList<TablePosition> selectedCells = table_view.getSelectionModel().getSelectedCells();
+for (TablePosition tablePosition : selectedCells) {
+    Row row = sheet.createRow(tablePosition.getRow()+1);
+    row.createCell(0).setCellValue((String) table_view.getColumns().get(0).getCellData(tablePosition.getRow()));
+    row.createCell(1).setCellValue((String) table_view.getColumns().get(1).getCellData(tablePosition.getRow()));
+    row.createCell(2).setCellValue((String) table_view.getColumns().get(2).getCellData(tablePosition.getRow()));
+    row.createCell(3).setCellValue((String) table_view.getColumns().get(3).getCellData(tablePosition.getRow()));
+    row.createCell(4).setCellValue((String) table_view.getColumns().get(4).getCellData(tablePosition.getRow()));
+    row.createCell(5).setCellValue((String) table_view.getColumns().get(5).getCellData(tablePosition.getRow()));
+    row.createCell(6).setCellValue((String) table_view.getColumns().get(6).getCellData(tablePosition.getRow()));
+    row.createCell(7).setCellValue((String) table_view.getColumns().get(7).getCellData(tablePosition.getRow()));
+}*/
+
+                     
+           /* ObservableList<TableColumn<Logement, ?>> columns = table_view.getColumns();
+            int rowIndex = 0;
+            Row row = sheet.createRow(rowIndex++);
+            for (int i = 0; i < columns.size(); i++) {
+                row.createCell(i).setCellValue(columns.get(i).getText());
+            }
+            ObservableList<Logement> items = table_view.getItems();
+            for (int i = 0; i < items.size(); i++) {
+                row = sheet.createRow(rowIndex++);
+                for (int j = 0; j < columns.size(); j++) {
+                    TableColumn<Logement, ?> column = columns.get(j);
+                    String cellValue = column.getCellData(items.get(i)).toString();
+                    row.createCell(j).setCellValue(cellValue);
+                }
+            }*/
+            /*try (FileOutputStream fos = new FileOutputStream(file)) {
+                workbook.write(fos);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+       
+        
+        });*/
+    }
+    
+    public void recherche_avance() {
+        System.out.println("*******************");
+
+        FilteredList<Logement> filtereddata = new FilteredList<>(listL, b -> true);
+        System.out.println(recherche.getText());
+        recherche.textProperty().addListener((observable, oldvalue, newValue) -> {
+            filtereddata.setPredicate((Logement logement) -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowercasefilter = newValue.toLowerCase();
+                if (logement.getNom_logement().toLowerCase().indexOf(lowercasefilter) != -1) {
+                    return true;
+                } else if (logement.getAdresse_logement().toLowerCase().indexOf(lowercasefilter) != -1) {
+                    return true;
+                } else if (logement.getType_logement().toLowerCase().indexOf(lowercasefilter) != -1) {
+                    return true;
+                } else {
+                    return false;
+                }
+
+            });
+
+        });
+        //System.out.println(filtereddata);
+        SortedList<Logement> sorteddata = new SortedList<>(filtereddata);
+        sorteddata.comparatorProperty().bind(table_view.comparatorProperty());
+        table_view.setItems(filtereddata);
+    }
+
+      
     
       ServiceLogement ServL = new ServiceLogement();
         //ObservableList<Logement> listL = (ObservableList < Logement >) ServL.afficherLogement();
         ObservableList<Logement> listL = FXCollections.observableList(ServL.afficherLogement());
+        
+              public void genererExcel(ActionEvent event) {
+    // Créer un nouveau Workbook Excel
+    Workbook workbook = new XSSFWorkbook();
+
+    // Créer une feuille dans le Workbook
+      org.apache.poi.ss.usermodel.Sheet sheet = workbook.createSheet("Logements");
+
+    // Récupérer les données de la TableView
+    ObservableList<Logement> logements = table_view.getItems();
+
+    // Ajouter les en-têtes de colonne à la première ligne de la feuille
+    Row headerRow = sheet.createRow(0);
+    headerRow.createCell(0).setCellValue("Nom du logement");
+    headerRow.createCell(1).setCellValue("Description du logement");
+    headerRow.createCell(2).setCellValue("Adresse du logement");
+    headerRow.createCell(3).setCellValue("Prix par nuitée");
+    headerRow.createCell(4).setCellValue("Capacité du logement");
+    headerRow.createCell(5).setCellValue("Type du logement");
+    headerRow.createCell(6).setCellValue("État du logement");
+    headerRow.createCell(7).setCellValue("Image du logement");
+
+    // Ajouter les données de chaque logement à une ligne de la feuille
+    int rowNum = 1;
+    for (Logement logement : logements) {
+        Row row = sheet.createRow(rowNum++);
+        row.createCell(0).setCellValue(logement.getNom_logement());
+        row.createCell(1).setCellValue(logement.getDescription_logement());
+        row.createCell(2).setCellValue(logement.getAdresse_logement());
+        row.createCell(3).setCellValue(logement.getPrixNuitee_logement());
+        row.createCell(4).setCellValue(logement.getCapacite_logement());
+        row.createCell(5).setCellValue(logement.getType_logement());
+        if (logement.getEtat_logement()==0){
+        row.createCell(6).setCellValue("Disponible");}
+        else{
+           row.createCell(6).setCellValue("Réservé");}  
+        
+        row.createCell(7).setCellValue(logement.getImage_logement());
+    }
+
+    // Écrire les données dans un fichier Excel
+    try {
+        FileOutputStream outputStream = new FileOutputStream("logements.xlsx");
+        workbook.write(outputStream);
+        //workbook.close();
+        //outputStream.close();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+       }
         
         
     private void refreshTable() {

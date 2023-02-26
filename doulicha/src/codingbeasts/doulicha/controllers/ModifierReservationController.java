@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,6 +28,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -127,6 +129,14 @@ public class ModifierReservationController implements Initializable {
         
         
         modifier.setOnAction(event -> { 
+            
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation de modification");
+        alert.setContentText("Etes vous sur de vouloir modifier votre réservation ?");
+        Optional<ButtonType> result = alert.showAndWait();
+        
+        if (result.get() == ButtonType.OK){
+            
             if (testNbPersonnes())
             {
         ServiceReservationLogement sr = new ServiceReservationLogement();
@@ -203,7 +213,7 @@ public class ModifierReservationController implements Initializable {
                 .hideAfter(Duration.seconds(5))
                 .position(Pos.BOTTOM_RIGHT);
         notificationBuilder.showInformation();
-        } }});
+        }} }});
       
     }    
     
@@ -242,15 +252,15 @@ public class ModifierReservationController implements Initializable {
       private Boolean testSaisie() {
         String erreur = "";
       
-        if (!testNbPersonnes()) {
-            erreur = erreur + ("Veuillez verifier le nombre de personnes correctement \n");
+        if (!testNbPersonnes()&&(!(nbPersonnes_reservation.getText().isEmpty()))) {
+            erreur = erreur + ("Veuillez entrer le nombre de personnes correctement \n");
         }
        
         if (!testDateArrivee()) {
-            erreur = erreur + ("Veuillez verifier l'adresse: \n");
+            erreur = erreur + ("Veuillez vérifier la date d'arrivée: \n");
         }
          if (!testDateDepart()) {
-            erreur = erreur + ("Veuillez saisir la capacité correctement \n");
+            erreur = erreur + ("Veuillez vérifier la date de départ \n");
         }
           
          

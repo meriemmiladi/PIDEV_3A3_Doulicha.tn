@@ -2,8 +2,10 @@
 
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DisplacementMap?>
 <?import javafx.scene.effect.FloatMap?>
 <?import javafx.scene.image.Image?>
@@ -60,8 +62,8 @@
       <Button fx:id="home" layoutX="3.0" layoutY="274.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="324.0" text="Home" />
       <TableView fx:id="table_view" layoutX="340.0" layoutY="165.0" prefHeight="420.0" prefWidth="881.0">
         <columns>
-          <TableColumn fx:id="ID_logement" prefWidth="66.0" text="ID" />
-          <TableColumn fx:id="nom_logement" minWidth="4.0" prefWidth="85.0" text="Nom" />
+          <TableColumn fx:id="ID_logement" minWidth="7.0" prefWidth="7.0" visible="false" />
+          <TableColumn fx:id="nom_logement" minWidth="4.0" prefWidth="144.0" text="Nom" />
             <TableColumn fx:id="description_logement" minWidth="0.0" prefWidth="132.0" text="Description" />
             <TableColumn fx:id="adresse_logement" prefWidth="110.0" text="Adresse" />
             <TableColumn fx:id="prixNuitee_logement" prefWidth="91.0" text="PrixNuitée" />
@@ -78,5 +80,8 @@
             <Font name="Papyrus" size="50.0" />
          </font>
       </Text>
+      <Button fx:id="excel" layoutX="673.0" layoutY="603.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="159.0" text="Exporter en Excel" />
+      <TextField fx:id="recherche" layoutX="454.0" layoutY="126.0" prefHeight="34.0" prefWidth="183.0" />
+      <Label layoutX="347.0" layoutY="127.0" prefHeight="34.0" prefWidth="107.0" text="Rechercher" />
    </children>
 </AnchorPane>

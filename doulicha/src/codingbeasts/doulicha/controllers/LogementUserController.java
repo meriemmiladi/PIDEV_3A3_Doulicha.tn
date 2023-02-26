@@ -9,6 +9,12 @@ import codingbeasts.doulicha.entities.Logement;
 import codingbeasts.doulicha.services.ServiceLogement;
 import codingbeasts.doulicha.entities.Reservation_logement;
 import codingbeasts.doulicha.services.ServiceReservationLogement;
+import com.google.maps.GeoApiContext;
+import com.google.maps.GeocodingApi;
+import com.google.maps.errors.ApiException;
+import com.google.maps.model.GeocodingResult;
+import com.google.maps.model.LatLng;
+import com.teamdev.jxmaps.javafx.MapView;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -31,8 +37,14 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
+import static jdk.nashorn.internal.objects.NativeFunction.function;
+import okhttp3.Authenticator;
+import org.slf4j.*;
+import com.teamdev.jxmaps.ch.*;
 
 /**
  * FXML Controller class
@@ -114,10 +126,29 @@ public class LogementUserController implements Initializable {
             descriptionLabel.setStyle( "-fx-text-fill: #3D6A78 ; -fx-font: 20px GothamMedium; -fx-font-weight: bold; ");
             Label adresseLabel = new Label("Adresse: "+ logement.getAdresse_logement());
             adresseLabel.setStyle( "-fx-text-fill: #3D6A78 ; -fx-font: 20px GothamMedium; -fx-font-weight: bold; ");
+            
+            
+            
             Label typeLabel = new Label(logement.getType_logement());
             typeLabel.setStyle( "-fx-text-fill: #3D6A78 ; -fx-font: 20px GothamMedium ; -fx-font-weight: bold; ");
             Label etatLabel = new Label() ;
             Button reserverButton = new Button("Réserver") ;
+            //*******************************
+            Button mapButton = new Button("map") ;
+             mapButton.setOnAction((ActionEvent event) -> {
+                 try{
+                           System.out.println("Bouton map appuyé");
+            Parent page1 = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/views/MapCord.fxml"));
+            Scene scene = new Scene(page1);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show(); 
+                 } catch (IOException ex) {
+                                Logger.getLogger(AfficherLogementController.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+             });
+             
+             //**********************************
             if(logement.getEtat_logement()== 0)
             {
                 int ID_logement=logement.getID_logement();
@@ -189,12 +220,13 @@ public class LogementUserController implements Initializable {
         } 
             
             
-            contentBox.getChildren().addAll(imageLog,nomLabel, typeLabel,descriptionLabel, adresseLabel,prixNuiteeLabel, capaciteLabel, etatLabel,reserverButton);
+            contentBox.getChildren().addAll(imageLog,nomLabel, typeLabel,descriptionLabel, adresseLabel,prixNuiteeLabel, capaciteLabel, etatLabel,reserverButton,mapButton);
             contentBox.setSpacing(10);
             contentBox.setStyle("-fx-background-color: #BFDCE4  ; -fx-border-color: #BFDCE4 ; -fx-border-width: 2px; -fx-border-radius: 5px;");
             return contentBox;
         }).map((contentBox) -> {
-            LogementBox.getChildren().add(contentBox);
+            LogementBox.getChildren().add((Node)contentBox);
+            
             return contentBox;
         })  .forEachOrdered((_item) -> {
             LogementBox.setSpacing(10);
@@ -206,5 +238,6 @@ public class LogementUserController implements Initializable {
          * création d'une nouvelle discussion ici });
          */
     }
+    
     
 }
