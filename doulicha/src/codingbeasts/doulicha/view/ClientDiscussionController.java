@@ -24,12 +24,25 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import codingbeasts.doulicha.services.PerspectiveService;
+import static codingbeasts.doulicha.services.PerspectiveService.getToxicity;
+import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
+import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.json.JsonFactory;
 import com.google.api.services.commentanalyzer.v1alpha1.model.AttributeScores;
+import com.google.api.services.commentanalyzer.v1alpha1.model.Score;
+import java.io.File;
+import java.security.GeneralSecurityException;
+import java.util.Arrays;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javafx.stage.StageStyle;
 
+
 public class ClientDiscussionController implements Initializable {
+    
 
     @FXML
     private VBox discussionBox;
@@ -43,48 +56,29 @@ public class ClientDiscussionController implements Initializable {
 
     @FXML
     private Button newDiscussionButton;
-    
-private void analyzeReponse(String content) {
-    try {
-        AnalyzeCommentResponse response = PerspectiveService.analyzeComment(content);
-        Map<String, AttributeScores> attributeScores = response.getAttributeScores();
-        AttributeScores summaryScore = attributeScores.get("SUMMARY");
-        Float toxicityScore = summaryScore.getSummaryScore().getValue();
 
-        if (response != null && toxicityScore != null && toxicityScore > 0.9) {
-            Alert alert = new Alert(AlertType.WARNING, "Discussion contains toxic content!");
+  /*  private void analyzeDiscussion(String content, Button b) {
+        try {
+            AnalyzeCommentResponse response = PerspectiveService.analyzeComment(content);
+            Map<String, AttributeScores> attributeScores = response.getAttributeScores();
+            AttributeScores summaryScore = attributeScores.get("SUMMARY");
+            Score score = summaryScore.getSummaryScore();
+            Float toxicityScore = score.getValue();
+
+            if (response != null && toxicityScore != null) {
+                if (toxicityScore > 0.9) {
+                    Alert alert = new Alert(AlertType.WARNING, "Response contains toxic content!");
+                    alert.showAndWait();
+                    b.setDisable(true); // disable submit button if toxic
+                } else {
+                    b.setDisable(false); // enable submit button if not toxic
+                }
+            }
+        } catch (IOException e) {
+            Alert alert = new Alert(AlertType.ERROR, "Error analyzing response!");
             alert.showAndWait();
         }
-    } catch (IOException e) {
-        Alert alert = new Alert(AlertType.ERROR, "Error analyzing discussion!");
-        alert.showAndWait();
-    }
-}
-
-
-
-  
- private void analyzeDiscussion(String content,Button b) {
-    try {
-        AnalyzeCommentResponse response = PerspectiveService.analyzeComment(content);
-        Map<String, AttributeScores> attributeScores = response.getAttributeScores();
-        AttributeScores summaryScore = attributeScores.get("SUMMARY");
-        Float toxicityScore = summaryScore.getSummaryScore().getValue();
-
-        if (response != null && toxicityScore != null) {
-            if (toxicityScore > 0.9) {
-                Alert alert = new Alert(AlertType.WARNING, "Response contains toxic content!");
-                alert.showAndWait();
-                b.setDisable(true); // disable submit button if toxic
-            } else {
-                b.setDisable(false); // enable submit button if not toxic
-            }
-        }
-    } catch (IOException e) {
-        Alert alert = new Alert(AlertType.ERROR, "Error analyzing response!");
-        alert.showAndWait();
-    }
-}
+    } */
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -135,16 +129,16 @@ private void analyzeReponse(String content) {
                         contentTextLabel.setText(discussion.getContenu_discussion());
                         dis.modifierDateDiscussion(discussion.getID_discussion(), new Date(System.currentTimeMillis()));
                         dateLabel.setText("modifiée le " + new Date(System.currentTimeMillis()).toString());
-                        contentBox.getChildren().addAll(hbox2,vbox, contentTextLabel, replyButton);
-                                                        contentBox.requestFocus();
+                        contentBox.getChildren().addAll(hbox2, vbox, contentTextLabel, replyButton);
+                        contentBox.requestFocus();
 
                     }
                 });
 
                 annulerButton.setOnAction(e -> {
                     contentBox.getChildren().clear();
-                    contentBox.getChildren().addAll(hbox2,vbox, contentTextLabel, replyButton);
-                                                    contentBox.requestFocus();
+                    contentBox.getChildren().addAll(hbox2, vbox, contentTextLabel, replyButton);
+                    contentBox.requestFocus();
 
                 });
 
@@ -191,7 +185,7 @@ private void analyzeReponse(String content) {
                 reponses.stream().map((Reponse reponse) -> {
                     VBox reponsesBox = new VBox();
                     Label labelContenu = new Label(reponse.getContenu_reponse());
-                    Label labelDate = new Label("Dernière modification le "+reponse.getDate_reponse().toString());
+                    Label labelDate = new Label("Dernière modification le " + reponse.getDate_reponse().toString());
                     reponsesBox.getChildren().addAll(labelContenu, labelDate);
                     reponsesBox.setStyle("-fx-background-color: #ffffff; -fx-border-color: #3FC4ED; -fx-border-width: 2px; -fx-border-radius: 5px;");
                     Button modifierReponse = new Button("Modifier la réponse");
@@ -218,8 +212,8 @@ private void analyzeReponse(String content) {
                                 reponse.setContenu_reponse(editContent.getText());
                                 reponsesBox.getChildren().clear();
                                 rep.modifierContenuReponse(reponse.getID_reponse(), editContent.getText());
-                               reponse.setDate_reponse(new Date(System.currentTimeMillis()));
-                                labelDate.setText("Modifiée le "+reponse.getDate_reponse().toString());
+                                reponse.setDate_reponse(new Date(System.currentTimeMillis()));
+                                labelDate.setText("Modifiée le " + reponse.getDate_reponse().toString());
                                 labelContenu.setText(reponse.getContenu_reponse());
                                 reponsesBox.getChildren().addAll(labelContenu, labelDate, hbox);
                                 reponsesBox.requestFocus();
@@ -229,7 +223,7 @@ private void analyzeReponse(String content) {
                         annulerButton.setOnAction(e1 -> {
                             reponsesBox.getChildren().clear();
                             reponsesBox.getChildren().addAll(hbox, labelDate, labelContenu);
-                                                            reponsesBox.requestFocus();
+                            reponsesBox.requestFocus();
 
                         });
 
@@ -246,18 +240,18 @@ private void analyzeReponse(String content) {
                         confirmerSupressionButton1.setOnAction((ActionEvent e3) -> {
                             reponseBox.getChildren().removeAll(reponsesBox);
                             reponsesBox.getChildren().clear();
-                                                            reponsesBox.requestFocus();
+                            reponsesBox.requestFocus();
 
                         });
                         annulerSuppressionButton1.setOnAction(e3 -> {
                             reponsesBox.getChildren().clear();
                             reponsesBox.getChildren().addAll(labelDate, labelContenu, hbox);
-                                                            reponsesBox.requestFocus();
+                            reponsesBox.requestFocus();
 
                         });
                         reponsesBox.getChildren().clear();
                         reponsesBox.getChildren().addAll(labelDate, labelContenu, alertTextLabel1, confirmerSupressionButton1, annulerSuppressionButton1);
-                                                        reponsesBox.requestFocus();
+                        reponsesBox.requestFocus();
 
                     });
 
@@ -332,33 +326,75 @@ private void analyzeReponse(String content) {
             Button publierBtn = new Button("Publier");
             publierBtn.getStyleClass().add("btn-add-discussion");
             discussionBox.getChildren().addAll(titreDiscussionArea, nouvelleDiscussionArea);
-            analyzeDiscussion(nouvelleDiscussionArea.getText(),publierBtn);
-                                                                        analyzeDiscussion(titreDiscussionArea.getText(),publierBtn);
-            publierBtn.setOnAction((ActionEvent event) -> {
-                if ((nouvelleDiscussionArea.getText().isEmpty()) || (titreDiscussionArea.getText().isEmpty())) {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Erreur de saisie");
-                    alert.setContentText("Le texte ne peut pas être vide.");
-                    alert.showAndWait();
-                } else {
-                                  
-                    dis.ajouterDiscussion(new Discussion(1, titreDiscussionArea.getText(), nouvelleDiscussionArea.getText(), new Date(System.currentTimeMillis())));
-                    VBox discussionBox1 = new VBox();
-                    Label labelTitre = new Label(titreDiscussionArea.getText());
-                    Label labelContenu = new Label(nouvelleDiscussionArea.getText());
-                    Label labelDate = new Label((new Date(System.currentTimeMillis())).toString());
-                    discussionBox1.getChildren().addAll(labelTitre, labelContenu, labelDate);
-                    discussionBox.getChildren().add(discussionBox1);
-                   discussionBox.getChildren().clear();
-                    reponseBox.setOpacity(0);
-                    scrollPane1.setOpacity(0);
-                    initialize(url, rb);
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setHeaderText("ajout de discussion");
-                    alert.setContentText("Discussion publiée avec succès !");
-                    alert.showAndWait();
-                }
-            });
+         
+              
+          publierBtn.setOnAction((ActionEvent event) -> {
+    String titre = titreDiscussionArea.getText().trim();
+    String contenu = nouvelleDiscussionArea.getText().trim();
+    
+    if (titre.isEmpty() || contenu.isEmpty()) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Erreur de saisie");
+        alert.setContentText("Le titre et le contenu ne peuvent pas être vides.");
+        alert.showAndWait();
+    } else if (titre.length() > 50 || contenu.length() > 500) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Erreur de saisie");
+        alert.setContentText("Le titre ne peut pas dépasser 50 caractères, et le contenu ne peut pas dépasser 500 caractères.");
+        alert.showAndWait();
+    } else if (!contenu.matches("^[a-zA-Z0-9,.!? ]*$")) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Erreur de saisie");
+        alert.setContentText("Le contenu ne peut contenir que des lettres, des chiffres et les caractères suivants : , . ! ?");
+        alert.showAndWait();
+    } else {
+        double toxicity = 0;
+        try {
+            toxicity = getToxicity(contenu);
+        } catch (IOException ex) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setContentText("Une erreur s'est produite lors du calcul de la toxicité du texte. Veuillez réessayer plus tard.");
+            alert.showAndWait();
+            return;
+        } catch (GeneralSecurityException ex) {
+            System.err.println(ex.getMessage());
+        }
+        
+        if (toxicity < 0.7) {                    
+            dis.ajouterDiscussion(new Discussion(1, titre, contenu, new Date(System.currentTimeMillis())));
+            VBox discussionBox1 = new VBox();
+            Label labelTitre = new Label(titre);
+            Label labelContenu = new Label(contenu);
+            Label labelDate = new Label((new Date(System.currentTimeMillis())).toString());
+            discussionBox1.getChildren().addAll(labelTitre, labelContenu, labelDate);
+            discussionBox.getChildren().add(discussionBox1);
+            discussionBox.getChildren().clear();
+            reponseBox.setOpacity(0);
+            scrollPane1.setOpacity(0);
+            initialize(url, rb);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("ajout de discussion");
+            alert.setContentText("Discussion publiée avec succès !");
+            alert.showAndWait();
+        } else {
+            if(toxicity>0.9){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Texte inapproprié");
+            alert.setContentText("Le contenu est très toxique.");
+            alert.showAndWait();
+        }
+            else{
+                  Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Texte inapproprié");
+            alert.setContentText("Le contenu est inapproprié.");
+            alert.showAndWait();
+            }
+        }
+        
+    }
+});
+
             discussionBox.getChildren().add(publierBtn);
             publierBtn.requestFocus();
         });
