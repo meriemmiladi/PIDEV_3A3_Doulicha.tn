@@ -40,9 +40,7 @@ import java.util.logging.Logger;
 
 import javafx.stage.StageStyle;
 
-
 public class ClientDiscussionController implements Initializable {
-    
 
     @FXML
     private VBox discussionBox;
@@ -57,7 +55,7 @@ public class ClientDiscussionController implements Initializable {
     @FXML
     private Button newDiscussionButton;
 
-  /*  private void analyzeDiscussion(String content, Button b) {
+    /*  private void analyzeDiscussion(String content, Button b) {
         try {
             AnalyzeCommentResponse response = PerspectiveService.analyzeComment(content);
             Map<String, AttributeScores> attributeScores = response.getAttributeScores();
@@ -79,7 +77,6 @@ public class ClientDiscussionController implements Initializable {
             alert.showAndWait();
         }
     } */
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         DiscussionCRUD dis = new DiscussionCRUD();
@@ -277,34 +274,62 @@ public class ClientDiscussionController implements Initializable {
                 Button ajouterReponse = new Button("Partager votre réponse");
                 reponseBox.getChildren().add(ajouterReponse);
                 ajouterReponse.setOnAction((ActionEvent event1) -> {
-                    if (nouvelleReponse.getText().isEmpty()) {
+                   
+                    String contenu = nouvelleReponse.getText().trim();
+
+                    if (!contenu.matches("^[a-zA-Z0-9,.!? ]*$")) {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("Erreur de saisie");
-                        alert.setContentText("Le texte ne peut pas être vide.");
+                        alert.setContentText("Le contenu ne peut contenir que des lettres, des chiffres et les caractères suivants : , . ! ?");
                         alert.showAndWait();
                     } else {
-                        rep.ajouterReponse(new Reponse(1, id, nouvelleReponse.getText(), new Date(System.currentTimeMillis())));
-                        nouvelleReponse.setOpacity(0);
-                        ajouterReponse.setOpacity(0);
-                        VBox reponsesBox1 = new VBox();
-                        Label labelContenu = new Label(nouvelleReponse.getText());
-                        Label labelDate = new Label((new Date(System.currentTimeMillis())).toString());
-                        reponsesBox1.getChildren().addAll(labelContenu, labelDate);
-                        reponseBox.getChildren().addAll(reponsesBox1);
-                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.initStyle(StageStyle.TRANSPARENT);
-                        alert.setHeaderText(null);
-                        alert.setContentText("Réponse ajoutée avec succès !");
-                        alert.showAndWait();
-                    }
+                        double toxicity = 0;
+                        try {
+                            toxicity = getToxicity(contenu);
+                        } catch (IOException ex) {
+                            Alert alert = new Alert(Alert.AlertType.ERROR);
+                            alert.setTitle("Erreur");
+                            alert.setContentText("Une erreur s'est produite lors du calcul de la toxicité du texte. Veuillez réessayer plus tard.");
+                            alert.showAndWait();
+                            return;
+                        } catch (GeneralSecurityException ex) {
+                            System.err.println(ex.getMessage());
+                        }
 
-                }
-                );
-                reponseBox.setOpacity(1);
-                scrollPane1.setOpacity(1);
+                        if (toxicity < 0.7) {
+                            rep.ajouterReponse(new Reponse(1, id, nouvelleReponse.getText(), new Date(System.currentTimeMillis())));
+                            VBox discussionBox1 = new VBox();
+                            Label labelContenu = new Label(contenu);
+                            Label labelDate = new Label((new Date(System.currentTimeMillis())).toString());
+                            nouvelleReponse.setOpacity(0);
+                            ajouterReponse.setOpacity(0);
+                            VBox reponsesBox1 = new VBox();
+                            reponsesBox1.getChildren().addAll(labelContenu, labelDate);
+                            reponseBox.getChildren().addAll(reponsesBox1);
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setHeaderText("ajout de réponse");
+                            alert.setContentText("Réponse publiée avec succès !");
+                            alert.showAndWait();
+                        } else {
+                            if (toxicity > 0.9) {
+                                Alert alert = new Alert(Alert.AlertType.WARNING);
+                                alert.setTitle("Texte inapproprié");
+                                alert.setContentText("Le contenu est très toxique.");
+                                alert.showAndWait();
+                            } else {
+                                Alert alert = new Alert(Alert.AlertType.WARNING);
+                                alert.setTitle("Texte inapproprié");
+                                alert.setContentText("Le contenu est inapproprié.");
+                                alert.showAndWait();
+                            }
+                        }
+
+                    }
+                });
 
             });
-
+            reponseBox.setOpacity(1);
+            scrollPane1.setOpacity(1);
             contentBox.setSpacing(10);
             contentBox.setStyle("-fx-background-color: #ffffff; -fx-border-color: #3FC4ED; -fx-border-width: 2px; -fx-border-radius: 5px;");
             return contentBox;
@@ -326,74 +351,72 @@ public class ClientDiscussionController implements Initializable {
             Button publierBtn = new Button("Publier");
             publierBtn.getStyleClass().add("btn-add-discussion");
             discussionBox.getChildren().addAll(titreDiscussionArea, nouvelleDiscussionArea);
-         
-              
-          publierBtn.setOnAction((ActionEvent event) -> {
-    String titre = titreDiscussionArea.getText().trim();
-    String contenu = nouvelleDiscussionArea.getText().trim();
-    
-    if (titre.isEmpty() || contenu.isEmpty()) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Erreur de saisie");
-        alert.setContentText("Le titre et le contenu ne peuvent pas être vides.");
-        alert.showAndWait();
-    } else if (titre.length() > 50 || contenu.length() > 500) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Erreur de saisie");
-        alert.setContentText("Le titre ne peut pas dépasser 50 caractères, et le contenu ne peut pas dépasser 500 caractères.");
-        alert.showAndWait();
-    } else if (!contenu.matches("^[a-zA-Z0-9,.!? ]*$")) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Erreur de saisie");
-        alert.setContentText("Le contenu ne peut contenir que des lettres, des chiffres et les caractères suivants : , . ! ?");
-        alert.showAndWait();
-    } else {
-        double toxicity = 0;
-        try {
-            toxicity = getToxicity(contenu);
-        } catch (IOException ex) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setContentText("Une erreur s'est produite lors du calcul de la toxicité du texte. Veuillez réessayer plus tard.");
-            alert.showAndWait();
-            return;
-        } catch (GeneralSecurityException ex) {
-            System.err.println(ex.getMessage());
-        }
-        
-        if (toxicity < 0.7) {                    
-            dis.ajouterDiscussion(new Discussion(1, titre, contenu, new Date(System.currentTimeMillis())));
-            VBox discussionBox1 = new VBox();
-            Label labelTitre = new Label(titre);
-            Label labelContenu = new Label(contenu);
-            Label labelDate = new Label((new Date(System.currentTimeMillis())).toString());
-            discussionBox1.getChildren().addAll(labelTitre, labelContenu, labelDate);
-            discussionBox.getChildren().add(discussionBox1);
-            discussionBox.getChildren().clear();
-            reponseBox.setOpacity(0);
-            scrollPane1.setOpacity(0);
-            initialize(url, rb);
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setHeaderText("ajout de discussion");
-            alert.setContentText("Discussion publiée avec succès !");
-            alert.showAndWait();
-        } else {
-            if(toxicity>0.9){
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Texte inapproprié");
-            alert.setContentText("Le contenu est très toxique.");
-            alert.showAndWait();
-        }
-            else{
-                  Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Texte inapproprié");
-            alert.setContentText("Le contenu est inapproprié.");
-            alert.showAndWait();
-            }
-        }
-        
-    }
-});
+
+            publierBtn.setOnAction((ActionEvent event) -> {
+                String titre = titreDiscussionArea.getText().trim();
+                String contenu = nouvelleDiscussionArea.getText().trim();
+
+                if (titre.isEmpty() || contenu.isEmpty()) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Erreur de saisie");
+                    alert.setContentText("Le titre et le contenu ne peuvent pas être vides.");
+                    alert.showAndWait();
+                } else if (titre.length() > 50 || contenu.length() > 500) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Erreur de saisie");
+                    alert.setContentText("Le titre ne peut pas dépasser 50 caractères, et le contenu ne peut pas dépasser 500 caractères.");
+                    alert.showAndWait();
+                } else if (!contenu.matches("^[a-zA-Z0-9,.!? ]*$")) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Erreur de saisie");
+                    alert.setContentText("Le contenu ne peut contenir que des lettres, des chiffres et les caractères suivants : , . ! ?");
+                    alert.showAndWait();
+                } else {
+                    double toxicity = 0;
+                    try {
+                        toxicity = getToxicity(contenu);
+                    } catch (IOException ex) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Erreur");
+                        alert.setContentText("Une erreur s'est produite lors du calcul de la toxicité du texte. Veuillez réessayer plus tard.");
+                        alert.showAndWait();
+                        return;
+                    } catch (GeneralSecurityException ex) {
+                        System.err.println(ex.getMessage());
+                    }
+
+                    if (toxicity < 0.7) {
+                        dis.ajouterDiscussion(new Discussion(1, titre, contenu, new Date(System.currentTimeMillis())));
+                        VBox discussionBox1 = new VBox();
+                        Label labelTitre = new Label(titre);
+                        Label labelContenu = new Label(contenu);
+                        Label labelDate = new Label((new Date(System.currentTimeMillis())).toString());
+                        discussionBox1.getChildren().addAll(labelTitre, labelContenu, labelDate);
+                        discussionBox.getChildren().add(discussionBox1);
+                        discussionBox.getChildren().clear();
+                        reponseBox.setOpacity(0);
+                        scrollPane1.setOpacity(0);
+                        initialize(url, rb);
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setHeaderText("ajout de discussion");
+                        alert.setContentText("Discussion publiée avec succès !");
+                        alert.showAndWait();
+                    } else {
+                        if (toxicity > 0.9) {
+                            Alert alert = new Alert(Alert.AlertType.WARNING);
+                            alert.setTitle("Texte inapproprié");
+                            alert.setContentText("Le contenu est très toxique.");
+                            alert.showAndWait();
+                        } else {
+                            Alert alert = new Alert(Alert.AlertType.WARNING);
+                            alert.setTitle("Texte inapproprié");
+                            alert.setContentText("Le contenu est inapproprié.");
+                            alert.showAndWait();
+                        }
+                    }
+
+                }
+            });
 
             discussionBox.getChildren().add(publierBtn);
             publierBtn.requestFocus();
