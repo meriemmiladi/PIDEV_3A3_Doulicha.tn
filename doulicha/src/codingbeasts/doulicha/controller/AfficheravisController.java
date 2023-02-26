@@ -66,6 +66,7 @@ public class AfficheravisController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
     serviceAvis dis = new serviceAvis();
         List<avis> aviss = dis.afficheravis();
 
@@ -268,6 +269,19 @@ public class AfficheravisController implements Initializable {
     }
 
     Label contenu = new Label(avis.getContenu_avis());
+            Button translateButton = new Button("Traduire");
+        translateButton.setOnAction((ActionEvent event) -> {
+            try {
+                String originalText = contenu.getText();
+                String translatedText = translate("en", "fr", originalText);
+                System.out.println("Original text: " + originalText);
+                System.out.println("Translated text: " + translatedText);
+
+                contenu.setText(translatedText);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
 
     Label type = new Label("cet avis concerne un " +avis.getType_avis());
 
@@ -312,7 +326,7 @@ public class AfficheravisController implements Initializable {
 
 
             // ajouter les Labels et l'ImageView à la VBox
-            contentBox.getChildren().addAll(nomcategorie,idevent,idlogement,ratingBox,contenu,type, replyButton,modifierButton);
+            contentBox.getChildren().addAll(nomcategorie,idevent,idlogement,ratingBox,contenu,translateButton,type, replyButton,modifierButton);
             contentBox.setSpacing(10);
             contentBox.setStyle("-fx-background-color: #ffffff; -fx-border-color: #3FC4ED; -fx-border-width: 2px; -fx-border-radius: 5px;");
             contentBox.setAlignment(Pos.CENTER);
@@ -334,6 +348,9 @@ public class AfficheravisController implements Initializable {
 
     return translatedText;
     }
+    
+    
+    
 }
 
 

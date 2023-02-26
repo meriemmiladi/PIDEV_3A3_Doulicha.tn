@@ -4,10 +4,12 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/HP/Desktop/doulicha/src/codingbeasts/doulicha/controller/AfficheravisController.java</file>
+            <file>file:/C:/Users/HP/Desktop/doulicha/src/codingbeasts/doulicha/controller/AjouterreclamationController.java</file>
             <file>file:/C:/Users/HP/Desktop/doulicha/src/codingbeasts/doulicha/controller/AffichercategorieController.java</file>
             <file>file:/C:/Users/HP/Desktop/doulicha/src/codingbeasts/doulicha/controller/AffichercategorieclientController.java</file>
             <file>file:/C:/Users/HP/Desktop/doulicha/src/codingbeasts/doulicha/services/serviceAvis.java</file>
             <file>file:/C:/Users/HP/Desktop/doulicha/src/codingbeasts/doulicha/entities/translator.java</file>
+            <file>file:/C:/Users/HP/Desktop/doulicha/src/codingbeasts/doulicha/controller/AjoutercategorieController.java</file>
             <file>file:/C:/Users/HP/Desktop/doulicha/src/codingbeasts/doulicha/controller/AfficherreclamationADminController.java</file>
             <file>file:/C:/Users/HP/Desktop/doulicha/src/codingbeasts/doulicha/services/serviceEmail.java</file>
         </group>

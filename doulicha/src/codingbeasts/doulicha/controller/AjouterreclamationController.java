@@ -43,7 +43,6 @@ public class AjouterreclamationController implements Initializable {
     private TextField idcontecureclamation;
     @FXML
     private Button idajouterreclamation;
-    @FXML
     private TextField idetat;
     @FXML
     private ComboBox<String> idnomutilisateur;
@@ -78,25 +77,13 @@ public class AjouterreclamationController implements Initializable {
     String nomUtilisateur = idnomutilisateur.getValue();
         System.out.println(nomUtilisateur);
     String contenuReclamation = idcontecureclamation.getText();
-    String etatReclamation = idetat.getText();
     if (contenuReclamation.isEmpty()) {
         Alert alert = new Alert(Alert.AlertType.ERROR, "Le contenu de la réclamation ne peut pas être vide !");
         alert.showAndWait();
         return;
     }
 
-    try {
-        int etat = Integer.parseInt(etatReclamation);
-        if (etat != 0) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "L'état de la réclamation doit être égal à 0 !");
-            alert.showAndWait();
-            return;
-        }
-    } catch (NumberFormatException ex) {
-        Alert alert = new Alert(Alert.AlertType.ERROR, "L'état de la réclamation doit être un entier !");
-        alert.showAndWait();
-        return;
-    }
+
     
     try {
         Connection cnx = MyConnection.getInstance().getCnx();
@@ -112,12 +99,11 @@ public class AjouterreclamationController implements Initializable {
         }
         
         // Insérer la nouvelle réclamation dans la table 'reclamation'
-        String queryInsert = "INSERT INTO reclamation (id_user, contenu_reclamation, etat_reclamation, date_reclamation) VALUES (?, ?, ?, ?)";
+        String queryInsert = "INSERT INTO reclamation (id_user, contenu_reclamation, etat_reclamation, date_reclamation) VALUES (?, ?, 0, ?)";
         PreparedStatement pstInsert = cnx.prepareStatement(queryInsert);
         pstInsert.setInt(1, idUser);
         pstInsert.setString(2, contenuReclamation);
-        pstInsert.setString(3, etatReclamation);
-        pstInsert.setDate(4, new java.sql.Date(new java.util.Date().getTime())); // Utiliser la date actuelle
+        pstInsert.setDate(3, new java.sql.Date(new java.util.Date().getTime())); // Utiliser la date actuelle
         pstInsert.executeUpdate();
         
         System.out.println("La réclamation a été ajoutée avec succès !");
@@ -141,7 +127,7 @@ public class AjouterreclamationController implements Initializable {
         public void setreclamation(reclamation reclamation) {
         if (reclamation != null) {
             // affecter les propriétés de l'objet projet aux champs de texte correspondants dans la vue d'ajout/modification de projet
-            idetat.setText(Integer.toString(reclamation.getEtat_reclamation()));
+
             idcontecureclamation.setText(reclamation.getContenu_reclamation());
         this.id_reclamation = reclamation.getID_reclamation();
 
@@ -166,22 +152,30 @@ public class AjouterreclamationController implements Initializable {
     }
 
     @FXML
-    private void savereclamation2(ActionEvent event) {
+    private void savereclamation2(ActionEvent event) throws IOException {
     String contenuReclamation = idcontecureclamation.getText();
-    String etatReclamation = idetat.getText();
     
     try {
         Connection cnx = MyConnection.getInstance().getCnx();
         
         // Mettre à jour la réclamation dans la table 'reclamation'
-        String queryUpdate = "UPDATE reclamation SET contenu_reclamation = ?, etat_reclamation = ? WHERE id_reclamation = ?";
+        String queryUpdate = "UPDATE reclamation SET contenu_reclamation = ? WHERE id_reclamation = ?";
         PreparedStatement pstUpdate = cnx.prepareStatement(queryUpdate);
         pstUpdate.setString(1, contenuReclamation);
-        pstUpdate.setString(2, etatReclamation);
-        pstUpdate.setInt(3, id_reclamation);
+        pstUpdate.setInt(2, id_reclamation);
         pstUpdate.executeUpdate();
         
         System.out.println("La réclamation a été mise à jour avec succès !");
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow(); 
+        currentStage.close();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/codingbeasts/doulicha/view/afficherreclamation.fxml"));
+        Parent root = loader.load();
+
+        // Obtenir la scène courante et la remplacer par la nouvelle scène
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
         
     } catch (SQLException ex) {
         System.err.println(ex.getMessage());
