@@ -25,7 +25,7 @@ public void start(Stage primaryStage) {
     try {
  
 
-    Parent root = FXMLLoader.load(getClass().getResource("AffichageProjetUser.fxml"));
+    Parent root = FXMLLoader.load(getClass().getResource("Paiement.fxml"));
     Scene scene = new Scene(root);
     
     primaryStage.setScene(scene);
