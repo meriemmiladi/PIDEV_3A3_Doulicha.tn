@@ -178,7 +178,7 @@ public class AffichageUserController implements Initializable {
     }
 
     private void AffichageUser() {
-txtnom.setCellValueFactory(new PropertyValueFactory<>("nom_user"));
+    txtnom.setCellValueFactory(new PropertyValueFactory<>("nom_user"));
     txtprenom.setCellValueFactory(new PropertyValueFactory<>("prenom_user"));
     txtemail.setCellValueFactory(new PropertyValueFactory<>("email_user"));
     txtrole.setCellValueFactory(new PropertyValueFactory<>("role_user"));

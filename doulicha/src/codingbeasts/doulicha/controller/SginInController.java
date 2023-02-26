@@ -5,6 +5,7 @@
  */
 package codingbeasts.doulicha.controller;
 
+import static codingbeasts.doulicha.entities.PasswordUtils.encrypt;
 import codingbeasts.doulicha.utils.MyConnection;
 import java.io.IOException;
 import java.net.URL;
@@ -50,6 +51,27 @@ public class SginInController implements Initializable {
 
     @FXML
     private Button btnSignIn;
+    
+     @FXML
+    void oubliemotdepasse(ActionEvent event) {
+          try {
+            Parent root = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/view/OublieMotdepasse.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//        Scene scene = new Scene(root, 300, 250);
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+
+//        primaryStage.setTitle("Inscription");
+//        primaryStage.setScene(scene);
+//        primaryStage.setMaximized(true);
+//      
+//        primaryStage.show();
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+    }
 
     @FXML
     void onsave(ActionEvent event) {
@@ -75,7 +97,7 @@ public class SginInController implements Initializable {
         cnx2 = MyConnection.getInstance().getCnx();
         String nom = txtnom.getText();
         //  String pass = txtpassword.getText();
-        String pass = hashMotDePasse(txtpassword.getText());
+        String pass = encrypt(txtpassword.getText());
         if (nom.isEmpty() || pass.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur de saisie");

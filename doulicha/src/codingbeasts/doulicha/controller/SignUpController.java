@@ -5,6 +5,7 @@
  */
 package codingbeasts.doulicha.controller;
 
+import codingbeasts.doulicha.entities.Email;
 import codingbeasts.doulicha.entities.Utilisateur;
 import codingbeasts.doulicha.services.UtilisateurCRUD;
 import java.io.IOException;
@@ -22,6 +23,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javax.mail.MessagingException;
 
 /**
  * FXML Controller class
@@ -81,12 +83,28 @@ public class SignUpController implements Initializable {
 
         UtilisateurCRUD pc = new UtilisateurCRUD();
         pc.ajouterUtlisateur3(p);
+
+//        Email emailsend = new Email("skanderbedwi1@gmail.com", "vaqyvsdjobpxpudo", email_user, "Confirmation d'inscription", "Marhbe " + nom_user + " " + prenom_user + ",\n\nVotre inscription a été confirmée avec succès!");
+//        try {
+//            emailsend.sendEmail();
+//            Alert alerte = new Alert(Alert.AlertType.INFORMATION);
+//            alerte.setTitle("Confirmation d'inscription");
+//            alerte.setHeaderText("Inscription réussie!");
+//            alerte.setContentText("Un email de confirmation a été envoyé à l'adresse " + email_user + ".");
+//            alerte.showAndWait();
+//        } catch (MessagingException ex) {
+//            Alert alerte = new Alert(Alert.AlertType.ERROR);
+//            alerte.setTitle("Erreur lors de l'envoi de l'email");
+//            alerte.setHeaderText("Erreur lors de l'envoi de l'email de confirmation");
+//            alerte.setContentText("Veuillez réessayer plus tard.");
+//            alerte.showAndWait();
+//            System.out.println(ex.getMessage());
+//        }
+
         txtnom_user.clear();
         txtprenom_user.clear();
         txtemail_user.clear();
         txtmdp_user.clear();
-
-        
 
     }
 
