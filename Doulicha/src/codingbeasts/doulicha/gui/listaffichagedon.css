@@ -1,7 +1,7 @@
 /*
  * Empty Stylesheet file.
  */
-
+.donneesBarre{-fx-bar-fill: red;}
 .mainFxmlClass {
 
 }

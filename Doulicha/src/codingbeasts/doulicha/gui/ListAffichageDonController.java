@@ -12,17 +12,26 @@ import codingbeasts.doulicha.services.projetCRUD;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -72,6 +81,7 @@ public class ListAffichageDonController implements Initializable {
 @Override
 public void initialize(URL url, ResourceBundle rb) {
     donCRUD dis = new donCRUD();
+   
     List<don> dons = dis.afficherdon();
     double somme = calculerSommeDons();
     sommeDonsLabel.setText("Total des dons " + somme + "£");
@@ -161,6 +171,69 @@ public void initialize(URL url, ResourceBundle rb) {
     private void PayerDon(ActionEvent event) {
     }
 
+public Map<String, Double> getDonneesDonsParObjectif() {
+    donCRUD dis = new donCRUD();
+    List<don> dons = dis.afficherdon();
+    projetCRUD diss = new projetCRUD();
+    List<projet> projets = diss.afficherprojet();
+    Map<String, Double> donnees = new HashMap<>();
+    for (don d : dons) {
+        for (projet p : projets) {
+            if (p.getId_projet() == d.getID_projet()) {
+                String objectif = p.getObjectif_projet()+"";
+                double valeurDon = d.getValeur_don();
+                if (donnees.containsKey(objectif)) {
+                    donnees.put(objectif, donnees.get(objectif) + valeurDon);
+                } else {
+                    donnees.put(objectif, valeurDon);
+                }
+            }
+        }
+    }
+    return donnees;
+}
+
+
+
+
+
+
+   
+    @FXML
+   public void afficherGraphiqueDonsParObjectif() {
+    Map<String, Double> donnees = getDonneesDonsParObjectif();
+
+    CategoryAxis xAxis = new CategoryAxis();
+    NumberAxis yAxis = new NumberAxis();
+    BarChart<String, Number> barChart = new BarChart<>(xAxis, yAxis);
+    xAxis.setLabel("Montant total des dons");
+    yAxis.setLabel("Objectifs");
+    XYChart.Series<String, Number> series = new XYChart.Series<>();
+    ObservableList<XYChart.Data<String, Number>> donneesSeries = FXCollections.observableArrayList();
+
+    for (Map.Entry<String, Double> entry : donnees.entrySet()) {
+        String objectif = entry.getKey();
+        double sommeDons = entry.getValue();
+        XYChart.Data<String, Number> donneesBarre = new XYChart.Data<>(objectif, sommeDons);
+        donneesSeries.add(donneesBarre);
+        
+    }
+    series.getData().addAll(donneesSeries);
+    barChart.getData().add(series);
+
+    // Changer la couleur des barres
+    for (XYChart.Data<String, Number> data : series.getData()) {
+        Node barre = data.getNode();
+        barre.setStyle("-fx-bar-fill: #00CED1;");
+    }
+    
+
+    // Afficher le graphique dans une nouvelle fenêtre
+    Stage stage = new Stage();
+    stage.setScene(new Scene(barChart, 200, 300));
+    stage.show();
+}
+   
    
                 }
 
