@@ -10,6 +10,7 @@ import codingbeasts.doulicha.services.serviceReclamation;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,7 +21,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
@@ -68,34 +71,43 @@ public class AfficherreclamationController implements Initializable {
             
             Button replyButton = new Button("supprimer");
             replyButton.setOnAction((ActionEvent event) -> {
-                dis.deletereclamation(reclamation.getID_reclamation()); // appel de la méthode deleteprojet avec l'id du projet
-                reclamationListe.getChildren().remove(contentBox); // supprime le contenu du projet de la VBox
-                 
-               
+                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation de suppression");
+                alert.setHeaderText("Voulez-vous vraiment supprimer cet élément ?");
+                alert.setContentText("Appuyez sur OK pour confirmer.");
+
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK){
+                    dis.deletereclamation(reclamation.getID_reclamation());
+                    reclamationListe.getChildren().remove(contentBox);
+                } else {
+                    // l'utilisateur a appuyé sur Annuler ou fermé la fenêtre de confirmation
+                }
             });
             // créer un bouton pour modifier le projet
             Button modifierButton = new Button("Modifier");
             modifierButton.setOnAction((ActionEvent event) -> {
-                try {
-                    // charger la vue AjouterProjet.fxml
+
+            try {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation de modification");
+                alert.setHeaderText("Voulez-vous vraiment modifier cette reclamation");
+                alert.setContentText("Cette action peut affecter les données existantes !");
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.isPresent() && result.get() == ButtonType.OK) {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/codingbeasts/doulicha/view/ajouterreclamation.fxml"));
-                    Parent root;
-                
-                    root = loader.load();
-               
+                    Parent root = loader.load();
                     AjouterreclamationController controller = loader.getController();
-
-                    // pré-remplir les champs avec les valeurs du projet sélectionné
                     controller.setreclamation(reclamation);
-
                     Scene scene = new Scene(root);
-                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
                     stage.setScene(scene);
                     stage.show();
-                } catch (IOException ex) {
-                    Logger.getLogger(AfficherreclamationController.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            });
+            } catch (IOException ex) {
+                Logger.getLogger(AfficherreclamationController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
 
             // ajouter les Labels et l'ImageView à la VBox
             contentBox.getChildren().addAll(contenureclamation,etatreclamation,datereclamation, replyButton,modifierButton);

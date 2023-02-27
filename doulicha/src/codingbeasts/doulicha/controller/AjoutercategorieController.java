@@ -82,15 +82,11 @@ public class AjoutercategorieController implements Initializable {
             alert.setHeaderText(null);
             alert.setContentText("Le champ nom de catégorie ne peut pas être vide !");
             alert.showAndWait();
-        }else{
-            // créer une instance de la classe categorie_avis et l'ajouter à la base de données
-            categorie_avis p = new categorie_avis(nom_categorie);
-            serviceCategorie pc2 = new serviceCategorie();
-            pc2.ajoutercategorie2(p);
-            // afficher un message de confirmation pour l'utilisateur
-            // vider le champ nom de catégorie
-            idnomcategorie.clear();
+            return;
         }
+        categorie_avis p = new categorie_avis(nom_categorie);
+        serviceCategorie pc2 = new serviceCategorie();
+        pc2.ajoutercategorie2(p);
         Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow(); 
         currentStage.close();
                 // Charger la nouvelle vue

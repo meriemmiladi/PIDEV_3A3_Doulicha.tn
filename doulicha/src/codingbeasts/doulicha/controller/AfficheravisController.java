@@ -68,7 +68,9 @@ public class AfficheravisController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+    }
     
+    public void afficherAvis() {
     serviceAvis dis = new serviceAvis();
         List<avis> aviss = dis.afficheravis();
 
@@ -193,6 +195,127 @@ public class AfficheravisController implements Initializable {
         });
         
         
+    }
+    
+        public void afficherAvisParCategorie(int ID_categorie) {
+        serviceAvis dis = new serviceAvis();
+        List<avis> aviss = dis.afficherAvisParCategorie(ID_categorie);
+
+        // boucle pour ajouter chaque avis à la VBox
+        aviss.stream().map((avis avis) -> {
+            VBox contentBox = new VBox();
+
+            // créer un Label pour afficher la description du projet
+            Label  iduser = new Label("user: " + serviceCategorie.getNomuserById(avis.getID_user()));
+
+            // créer un Label pour afficher l'objectif du projet
+            Label idevent = new Label("event: " + serviceCategorie.getNomeventById(avis.getID_event()));
+
+            // créer un Label pour afficher l'état du projet
+            Label idlogement = new Label("logement: " + serviceCategorie.getNomlogementById(avis.getID_logement()));
+
+
+            HBox ratingBox = new HBox(); // créer une boîte pour les cercles de notation
+            ratingBox.setSpacing(5);
+            ratingBox.setAlignment(Pos.CENTER);
+
+            int noteAvis = avis.getNote_avis(); // obtenir la note de l'avis
+                
+            // créer cinq cercles de notation
+            for (int i = 0; i < 5; i++) {
+                Circle circle = new Circle(10); // créer un cercle avec un rayon de 10 pixels
+                if (i < noteAvis) { // remplir les cercles selon la note de l'avis
+                    circle.setFill(Color.web("#3FC4ED"));
+                } else {
+                    circle.setFill(Color.LIGHTGRAY);
+                }
+                ratingBox.getChildren().add(circle); // ajouter le cercle à la boîte
+            }
+
+            
+            Label contenu = new Label(avis.getContenu_avis());
+            Button translateButton = new Button("Traduire");
+            translateButton.setOnAction((ActionEvent event) -> {
+            try {
+                String originalText = contenu.getText();
+                String detectedLang = LanguageDetection.detectLanguage(originalText);
+                System.out.println(detectedLang);
+
+                String targetLang = "";
+                if (detectedLang.equals("fr")) {
+                    targetLang = "en";
+                } else if (detectedLang.equals("en")) {
+                    targetLang = "fr";
+                } else {
+                    System.err.println("Unable to detect language of text: " + originalText);
+                    return;
+                }
+
+                String translatedText = translate(detectedLang, targetLang, originalText);
+                System.out.println("Original text: " + originalText);
+                System.out.println("Detected language: " + detectedLang);
+                System.out.println("Target language: " + targetLang);
+                System.out.println("Translated text: " + translatedText);
+
+                contenu.setText(translatedText);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            });
+            Label type = new Label("cet avis concerne un " +avis.getType_avis());
+            
+            Button replyButton = new Button("supprimer");
+            replyButton.setOnAction((ActionEvent event) -> {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation de suppression");
+                alert.setHeaderText("Voulez-vous vraiment supprimer cet élément ?");
+                alert.setContentText("Appuyez sur OK pour confirmer.");
+
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK){
+                    dis.deleteavis(avis.getID_avis());
+                    avisListe.getChildren().remove(contentBox);
+                } else {
+                    // l'utilisateur a appuyé sur Annuler ou fermé la fenêtre de confirmation
+                }
+            });
+            // créer un bouton pour modifier le projet
+            Button modifierButton = new Button("Modifier");
+            modifierButton.setOnAction((ActionEvent event) -> {
+            try {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation de modification");
+                alert.setHeaderText("Voulez-vous vraiment modifier cet avis");
+                alert.setContentText("Cette action peut affecter les données existantes !");
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.isPresent() && result.get() == ButtonType.OK) {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/codingbeasts/doulicha/view/ajouteravis.fxml"));
+                    Parent root = loader.load();
+                    AjouteravisController controller = loader.getController();
+                    controller.setavis(avis);
+                    Scene scene = new Scene(root);
+                    Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+                    stage.setScene(scene);
+                    stage.show();
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(AfficheravisController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+
+
+            // ajouter les Labels et l'ImageView à la VBox
+            contentBox.getChildren().addAll(idevent,idlogement,ratingBox,contenu,translateButton ,type, replyButton,modifierButton);
+            contentBox.setSpacing(10);
+            contentBox.setStyle("-fx-background-color: #ffffff; -fx-border-color: #3FC4ED; -fx-border-width: 2px; -fx-border-radius: 5px;");
+            contentBox.setAlignment(Pos.CENTER);
+            return contentBox;
+        }).map((contentBox) -> {
+            avisListe.getChildren().add(contentBox);
+            return contentBox;
+        }).forEachOrdered((_item) -> {
+            avisListe.setSpacing(10);
+        });
     }
     
     

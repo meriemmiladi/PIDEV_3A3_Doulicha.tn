@@ -18,12 +18,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 /**
@@ -66,15 +70,29 @@ public class AfficheravisadminController implements Initializable {
             // créer un Label pour afficher l'état du projet
             Label idlogement = new Label("id logement: " + avis.getID_logement());
 
-            // créer une ImageView pour afficher l'image du projet
-            Label note = new Label("note : " +avis.getNote_avis());
+            HBox ratingBox = new HBox(); // créer une boîte pour les cercles de notation
+            ratingBox.setSpacing(5);
+            ratingBox.setAlignment(Pos.CENTER);
+
+            int noteAvis = avis.getNote_avis(); // obtenir la note de l'avis
+                
+            // créer cinq cercles de notation
+            for (int i = 0; i < 5; i++) {
+                Circle circle = new Circle(10); // créer un cercle avec un rayon de 10 pixels
+                if (i < noteAvis) { // remplir les cercles selon la note de l'avis
+                    circle.setFill(Color.web("#3FC4ED"));
+                } else {
+                    circle.setFill(Color.LIGHTGRAY);
+                }
+                ratingBox.getChildren().add(circle); // ajouter le cercle à la boîte
+            }
             
             Label contenu = new Label(avis.getContenu_avis());
             
             Label type = new Label(avis.getType_avis());
             
             // ajouter les Labels et l'ImageView à la VBox
-            contentBox.getChildren().addAll(nomcategorie,iduser,idevent,idlogement,note,contenu,type);
+            contentBox.getChildren().addAll(nomcategorie,iduser,idevent,idlogement,ratingBox,contenu,type);
             contentBox.setSpacing(10);
             contentBox.setStyle("-fx-background-color: #ffffff; -fx-border-color: #3FC4ED; -fx-border-width: 2px; -fx-border-radius: 5px;");
             return contentBox;

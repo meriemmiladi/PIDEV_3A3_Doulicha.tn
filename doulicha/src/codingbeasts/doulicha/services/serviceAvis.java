@@ -136,7 +136,25 @@ public class serviceAvis implements InterfaceAvis{
             .collect(Collectors.toList());
     return avissFiltres;
 }
+    
+    
+    public List<avis> afficherAvisParCategorie(int ID_categorie) {
+    List<avis> avisList = new ArrayList<>();
+    try {
+        PreparedStatement ps = cnx2.prepareStatement("SELECT * FROM avis WHERE ID_categorie = ?");
+        ps.setInt(1, ID_categorie);
+        ResultSet rs = ps.executeQuery();
 
+        while (rs.next()) {
+            avis a = new avis(rs.getInt("ID_avis"),rs.getInt("ID_user"),rs.getInt("ID_event"),rs.getInt("ID_logement"),rs.getInt("note_avis"), rs.getString("contenu_avis"),rs.getString("type_avis"));
+            avisList.add(a);
+        }
+        System.out.println("Liste des avis de la catégorie avec ID " + ID_categorie + " récupérée avec succès !");
+    } catch (SQLException ex) {
+        System.err.println("Erreur lors de la récupération des avis de la catégorie avec ID " + ID_categorie + " : " + ex.getMessage());
+    }
+    return avisList;
+}
     
  /*   
     

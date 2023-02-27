@@ -87,8 +87,23 @@ public class AffichercategorieclientController implements Initializable {
                     ex.printStackTrace();
                 }
             });
+            Button afficherAvisButton = new Button("Afficher les avis");
+            afficherAvisButton.setOnAction(event -> {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/codingbeasts/doulicha/view/afficheravis.fxml"));
+                    Parent root = loader.load();
+                    AfficheravisController controller = loader.getController();
+                    controller.afficherAvisParCategorie(categorieavis.getID_categorie());
+                    Scene scene = new Scene(root);
+                    Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+                    stage.setScene(scene);
+                    stage.showAndWait();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            });
             // ajouter les Labels et l'ImageView à la VBox
-            contentBox.getChildren().addAll(namecategorie,moyenneBar,ajouteravisButton);
+            contentBox.getChildren().addAll(namecategorie,moyenneBar,ajouteravisButton,afficherAvisButton);
             contentBox.setSpacing(10);
             contentBox.setStyle("-fx-background-color: #ffffff; -fx-border-color: #3FC4ED; -fx-border-width: 2px; -fx-border-radius: 5px;");
             return contentBox;
@@ -106,6 +121,8 @@ public class AffichercategorieclientController implements Initializable {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/codingbeasts/doulicha/view/afficheravis.fxml"));
         Parent root = loader.load();
+        AfficheravisController controller = loader.getController();
+        controller.afficherAvis();
         Scene scene = btnafficher.getScene();
         scene.setRoot(root);
         Stage currentStage = (Stage) btnafficher.getScene().getWindow();

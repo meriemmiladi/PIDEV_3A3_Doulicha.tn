@@ -155,17 +155,26 @@ if(nomUtilisateur == null) {
 
     // Vérification que noteAvis est un entier
     int noteAvis;
-    try {
-        noteAvis = Integer.parseInt(noteAvisString);
-    } catch (NumberFormatException e) {
-        // Affichage d'un message d'erreur si noteAvis n'est pas un entier
+try {
+    noteAvis = Integer.parseInt(noteAvisString);
+    if (noteAvis < 0 || noteAvis > 5) {
+        // Affichage d'un message d'erreur si noteAvis n'est pas comprise entre 0 et 5
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle("Erreur de saisie");
-        alert.setHeaderText("La note doit être un entier !");
-        alert.setContentText("Veuillez entrer une note entière pour continuer.");
+        alert.setHeaderText("La note doit être un entier compris entre 0 et 5 !");
+        alert.setContentText("Veuillez entrer une note entière entre 0 et 5 pour continuer.");
         alert.showAndWait();
         return;
     }
+} catch (NumberFormatException e) {
+    // Affichage d'un message d'erreur si noteAvis n'est pas un entier
+    Alert alert = new Alert(AlertType.ERROR);
+    alert.setTitle("Erreur de saisie");
+    alert.setHeaderText("La note doit être un entier compris entre 0 et 5 !");
+    alert.setContentText("Veuillez entrer une note entière entre 0 et 5 pour continuer.");
+    alert.showAndWait();
+    return;
+}
         
     Connection cnx = MyConnection.getInstance().getCnx();
         
@@ -213,6 +222,8 @@ if(nomUtilisateur == null) {
     // Redirection vers la page d'affichage des avis
     FXMLLoader loader = new FXMLLoader(getClass().getResource("/codingbeasts/doulicha/view/afficheravis.fxml"));
     Parent root = loader.load();
+    AfficheravisController controller = loader.getController();
+    controller.afficherAvisParCategorie(idCategorie);
     Scene scene = new Scene(root);
     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     stage.setScene(scene);
