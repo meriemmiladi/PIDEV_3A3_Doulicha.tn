@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -33,6 +34,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
@@ -84,6 +87,47 @@ public class PaiementController implements Initializable {
        String cAnn= year.getText();
        String ccvc= cvc.getText();
        String cprix= prix.getText();
+       
+       // Vérification que tous les champs sont remplis
+if (mail.isEmpty() || nom.isEmpty() || num.isEmpty() || cmois.isEmpty() || cAnn.isEmpty() || ccvc.isEmpty() || cprix.isEmpty()) {
+Alert alert = new Alert(AlertType.WARNING);
+alert.setTitle("Attention");
+alert.setHeaderText("Certains champs sont vides");
+alert.setContentText("Veuillez remplir tous les champs");
+alert.showAndWait();
+return;
+}
+
+if (!mail.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) {
+    Alert alert = new Alert(AlertType.WARNING);
+    alert.setTitle("Attention");
+    alert.setHeaderText("Format de l'adresse email invalide");
+    alert.setContentText("Veuillez saisir une adresse email valide");
+    alert.showAndWait();
+    return;
+}
+
+if (!num.matches("\\d{16}")) {
+    Alert alert = new Alert(AlertType.WARNING);
+    alert.setTitle("Attention");
+    alert.setHeaderText("Format du numéro de carte invalide");
+    alert.setContentText("Le numéro de carte doit contenir 16 chiffres");
+    alert.showAndWait();
+    return;
+}
+int mois = Integer.parseInt(cmois);
+int annee = Integer.parseInt(cAnn);
+
+// Vérification que la date d'expiration est future
+if (annee < Calendar.getInstance().get(Calendar.YEAR) || (annee == Calendar.getInstance().get(Calendar.YEAR) && mois < (Calendar.getInstance().get(Calendar.MONTH) + 1))) {
+Alert alert = new Alert(AlertType.WARNING);
+alert.setTitle("Attention");
+alert.setHeaderText("Date d'expiration de la carte invalide");
+alert.setContentText("La date d'expiration de la carte doit être future");
+alert.showAndWait();
+return;
+}
+
        int p = Integer.parseInt(cprix)*100 ;
        
        

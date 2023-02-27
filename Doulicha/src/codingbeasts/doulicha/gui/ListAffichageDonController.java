@@ -62,6 +62,8 @@ public class ListAffichageDonController implements Initializable {
     @FXML
     private Label sommeDonsLabel;
     private donCRUD dis;
+    @FXML
+    private Button statistique;
 
 
     /**
@@ -167,9 +169,6 @@ public void initialize(URL url, ResourceBundle rb) {
     }
     }
 
-    @FXML
-    private void PayerDon(ActionEvent event) {
-    }
 
 public Map<String, Double> getDonneesDonsParObjectif() {
     donCRUD dis = new donCRUD();
