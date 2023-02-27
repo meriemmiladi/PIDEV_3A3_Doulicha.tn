@@ -1,11 +1,9 @@
 package codingbeasts.doulicha.view;
 
-import codingbeasts.doulicha.services.PerspectiveService;
 import codingbeasts.doulicha.entities.Discussion;
 import codingbeasts.doulicha.entities.Reponse;
 import codingbeasts.doulicha.services.DiscussionCRUD;
 import codingbeasts.doulicha.services.ReponseCRUD;
-import com.google.api.services.commentanalyzer.v1alpha1.model.AnalyzeCommentResponse;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
@@ -15,7 +13,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -23,22 +20,11 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import codingbeasts.doulicha.services.PerspectiveService;
 import static codingbeasts.doulicha.services.PerspectiveService.getToxicity;
-import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
-import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.json.JsonFactory;
-import com.google.api.services.commentanalyzer.v1alpha1.model.AttributeScores;
-import com.google.api.services.commentanalyzer.v1alpha1.model.Score;
-import java.io.File;
 import java.security.GeneralSecurityException;
-import java.util.Arrays;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import javafx.stage.StageStyle;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.ToggleButton;
 
 public class ClientDiscussionController implements Initializable {
 
@@ -49,11 +35,32 @@ public class ClientDiscussionController implements Initializable {
 
     @FXML
     private ScrollPane scrollPane;
+
     @FXML
     private ScrollPane scrollPane1;
 
     @FXML
+    ToggleButton darkModeToggle = new ToggleButton("Dark Mode");
+    @FXML
     private Button newDiscussionButton;
+
+    @FXML
+    public void darkMode(ActionEvent event) {
+        Scene scene = darkModeToggle.getScene();
+        if (darkModeToggle.isSelected()) {
+            scrollPane.getStylesheets().remove("codingbeasts/doulicha/view/style.css");
+            scrollPane1.getStylesheets().remove("codingbeasts/doulicha/view/style.css");
+            scrollPane.getStylesheets().add("codingbeasts/doulicha/view/dark.css");
+            scrollPane1.getStylesheets().add("codingbeasts/doulicha/view/dark.css");
+            darkModeToggle.setText("Light Mode");
+        } else {
+            scrollPane.getStylesheets().remove("codingbeasts/doulicha/view/dark.css");
+            scrollPane1.getStylesheets().remove("codingbeasts/doulicha/view/dark.css");
+            scrollPane.getStylesheets().add("codingbeasts/doulicha/view/style.css");
+            scrollPane1.getStylesheets().add("codingbeasts/doulicha/view/style.css");
+            darkModeToggle.setText("Dark mode");
+        }
+    }
 
     /*  private void analyzeDiscussion(String content, Button b) {
         try {
@@ -79,20 +86,32 @@ public class ClientDiscussionController implements Initializable {
     } */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        if (darkModeToggle.isSelected()) {
+            scrollPane.getStylesheets().remove("codingbeasts/doulicha/view/style.css");
+            scrollPane1.getStylesheets().remove("codingbeasts/doulicha/view/style.css");
+            scrollPane.getStylesheets().add("codingbeasts/doulicha/view/dark.css");
+            scrollPane1.getStylesheets().add("codingbeasts/doulicha/view/dark.css");
+        } else {
+            scrollPane.getStylesheets().remove("codingbeasts/doulicha/view/dark.css");
+            scrollPane1.getStylesheets().remove("codingbeasts/doulicha/view/dark.css");
+            scrollPane.getStylesheets().add("codingbeasts/doulicha/view/style.css");
+            scrollPane1.getStylesheets().add("codingbeasts/doulicha/view/style.css");
+        }
         DiscussionCRUD dis = new DiscussionCRUD();
         List<Discussion> discussions = dis.afficherDiscussions();
 
         discussions.stream().map((Discussion discussion) -> {
             VBox contentBox = new VBox();
+            contentBox.setId("#VBoxx");
             int id = discussion.getID_discussion();
             Label titleLabel = new Label(discussion.getTitre_discussion());
             titleLabel.setFont(new Font(40));
+
             Label dateLabel = new Label("dernière modification le " + discussion.getDate_discussion().toString());
 
             VBox vbox = new VBox();
 
             vbox.getChildren().addAll(titleLabel, dateLabel);
-
             TextArea contentTextLabel = new TextArea(discussion.getContenu_discussion());
             contentTextLabel.setEditable(false);
 
@@ -172,7 +191,8 @@ public class ClientDiscussionController implements Initializable {
             contentBox.getChildren().addAll(vbox, contentTextLabel, replyButton);
 
             replyButton.setOnAction((ActionEvent event) -> {
-
+                reponseBox.setOpacity(1);
+                scrollPane1.setOpacity(1);
                 reponseBox.getChildren().clear();
                 scrollPane1.setFitToWidth(false);
 
@@ -183,7 +203,9 @@ public class ClientDiscussionController implements Initializable {
                     VBox reponsesBox = new VBox();
                     Label labelContenu = new Label(reponse.getContenu_reponse());
                     Label labelDate = new Label("Dernière modification le " + reponse.getDate_reponse().toString());
-                    reponsesBox.getChildren().addAll(labelContenu, labelDate);
+                    VBox vboxx = new VBox();
+                    vboxx.getChildren().addAll(labelContenu, labelDate);
+                    reponsesBox.getChildren().addAll(vboxx);
                     reponsesBox.setStyle("-fx-background-color: #ffffff; -fx-border-color: #3FC4ED; -fx-border-width: 2px; -fx-border-radius: 5px;");
                     Button modifierReponse = new Button("Modifier la réponse");
                     Button supprimerReponse = new Button("supprimer la réponse");
@@ -210,16 +232,21 @@ public class ClientDiscussionController implements Initializable {
                                 reponsesBox.getChildren().clear();
                                 rep.modifierContenuReponse(reponse.getID_reponse(), editContent.getText());
                                 reponse.setDate_reponse(new Date(System.currentTimeMillis()));
+                                vboxx.getChildren().clear();
+
                                 labelDate.setText("Modifiée le " + reponse.getDate_reponse().toString());
                                 labelContenu.setText(reponse.getContenu_reponse());
-                                reponsesBox.getChildren().addAll(labelContenu, labelDate, hbox);
+                                vboxx.getChildren().addAll(labelContenu, labelDate);
+                                reponsesBox.getChildren().addAll(vboxx, hbox);
                                 reponsesBox.requestFocus();
                             }
                         });
 
                         annulerButton.setOnAction(e1 -> {
                             reponsesBox.getChildren().clear();
-                            reponsesBox.getChildren().addAll(hbox, labelDate, labelContenu);
+                            vboxx.getChildren().clear();
+                            vboxx.getChildren().addAll(labelContenu, labelDate);
+                            reponsesBox.getChildren().addAll(vboxx, hbox);
                             reponsesBox.requestFocus();
 
                         });
@@ -274,7 +301,7 @@ public class ClientDiscussionController implements Initializable {
                 Button ajouterReponse = new Button("Partager votre réponse");
                 reponseBox.getChildren().add(ajouterReponse);
                 ajouterReponse.setOnAction((ActionEvent event1) -> {
-                   
+
                     String contenu = nouvelleReponse.getText().trim();
 
                     if (!contenu.matches("^[a-zA-Z0-9,.!? ]*$")) {

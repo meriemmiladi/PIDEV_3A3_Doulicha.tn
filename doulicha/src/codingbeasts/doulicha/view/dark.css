@@ -1,14 +1,14 @@
 /* Couleurs de la charte graphique */
 #primary-color {
-    -fx-background-color: #0077C2;
+    -fx-background-color: #222;
 }
 #secondary-color {
-    -fx-background-color: #64B5F6;
+    -fx-background-color: #444;
 }
 
 /* Boutons */
 .button {
-    -fx-background-color: linear-gradient(to bottom, #0077C2, #0093C4);
+    -fx-background-color: linear-gradient(to bottom, #222, #444);
     -fx-background-radius: 30px;
     -fx-text-fill: white;
     -fx-font-weight: bold;
@@ -18,12 +18,12 @@
 }
 
 .button:hover {
-    -fx-background-color: linear-gradient(to bottom, #0093C4, #0077C2);
+    -fx-background-color: linear-gradient(to bottom, #444, #222);
 }
 
 /* Boutons ronds */
 .round-button {
-    -fx-background-color: linear-gradient(to bottom, #0077C2, #0093C4);
+    -fx-background-color: linear-gradient(to bottom, #222, #444);
     -fx-background-radius: 50%;
     -fx-text-fill: white;
     -fx-font-weight: bold;
@@ -33,16 +33,16 @@
 }
 
 .round-button:hover {
-    -fx-background-color: linear-gradient(to bottom, #0093C4, #0077C2);
+    -fx-background-color: linear-gradient(to bottom, #444, #222);
 }
 
 /* TableView */
 .table-view {
-    -fx-background-color: #F7F7F7;
+    -fx-background-color: #222;
 }
 
 .table-view .column-header-background {
-    -fx-background-color: #0077C2;
+    -fx-background-color: #444;
 }
 
 .table-view .column-header {
@@ -56,11 +56,11 @@
 }
 
 .table-view .table-row-cell:odd {
-    -fx-background-color: #F2F2F2;
+    -fx-background-color: #333;
 }
 
 .table-view .table-row-cell:hover {
-    -fx-background-color: #D9D9D9;
+    -fx-background-color: #444;
 }
 
 /* Animations */
@@ -77,46 +77,73 @@
 Text {
     -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
     -fx-font-size: 16;
-    -fx-fill: #333333;
 }
 
 /* Champs de texte */
 TextField {
-    -fx-background-color: #FFFFFF;
+    -fx-background-color: #444;
     -fx-background-radius: 5;
     -fx-border-radius: 5;
-    -fx-border-color: #0077C2;
+    -fx-border-color: #222;
     -fx-border-width: 2;
-    -fx-text-fill: #333333;
-    -fx-prompt-text-fill: #BDBDBD;
+    -fx-text-fill: #ffffff;
+    -fx-prompt-text-fill: #777;
 }
 TextArea {
-    -fx-background-color: #FFFFFF;
+    -fx-background-color: #444;
     -fx-background-radius: 5;
     -fx-border-radius: 5;
-    -fx-border-color: #0077C2;
+    -fx-border-color: #222;
     -fx-border-width: 2;
-    -fx-text-fill: #333333;
-    -fx-prompt-text-fill: #BDBDBD;
+    -fx-text-fill: #222;
+    -fx-prompt-text-fill: #777;
 }
 
 /* Conteneur principal */
 #AnchorPane {
-    -fx-background-color: #FFFFFF;
+    -fx-background-color: #333;
 }
 
 /* Conteneur secondaire */
 VBox {
-    -fx-background-color: #F5F5F5;
+    -fx-background-color: #222;
     -fx-background-radius: 10;
-    -fx-border-color: #0077C2;
+    -fx-border-color: #444;
     -fx-border-radius: 10;
     -fx-border-width: 2;
     -fx-padding: 10;
+      -fx-text-fill: white;
+}
+contentvbox {
+    -fx-background-color: #222;
+    -fx-background-radius: 10;
+    -fx-border-color: #444;
+    -fx-border-radius: 10;
+    -fx-border-width: 2;
+    -fx-padding: 10;
+      
+}
+VBox > VBox > VBox > Label {
+    -fx-padding: 5;
+    -fx-text-fill: black;
+
 }
 
 VBox > * {
     -fx-padding: 5;
+    -fx-text-fill: white;
+
+}
+VBox > VBox > TextArea {
+    -fx-padding: 5;
+    -fx-text-fill: black;
+
+}
+VBox > TextArea {
+    -fx-padding: 5;
+    -fx-text-fill: black;
+      -fx-prompt-text-fill: #777;
+
 }
 .btn-add-discussion {
     -fx-background-color: linear-gradient(to bottom, #FFC107, #FF9800);
@@ -125,30 +152,5 @@ VBox > * {
     -fx-font-weight: bold;
     -fx-padding: 20px;
     -fx-font-size: 14px;
-    -fx-cursor: hand;
-}
-
-.ScrollPane {
-    -fx-background-color: #F0F0F0; 
-    -fx-padding: 10px;
-}
-
-.scroll-bar:vertical {
-    -fx-background-color: #0077C2; 
-}
-
-.scroll-bar:horizontal {
-    -fx-background-color: #0077C2; 
-}
-.toggle-button {
-    -fx-background-color: #0077C2;
-    -fx-background-radius: 20px;
-    -fx-text-fill: white;
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
-    -fx-padding: 8px 16px;
-}
-
-.toggle-button:selected {
-    -fx-background-color: #64B5F6;
+    -fx-cursor:hand;
 }
