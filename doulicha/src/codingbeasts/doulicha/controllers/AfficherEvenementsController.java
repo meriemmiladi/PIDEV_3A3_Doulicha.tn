@@ -7,11 +7,18 @@ package codingbeasts.doulicha.controllers;
 
 import codingbeasts.doulicha.entities.evenement;
 import codingbeasts.doulicha.services.ServiceEvenement;
+import codingbeasts.doulicha.services.ServiceParticipationEvenement;
+//import com.sun.corba.se.impl.protocol.giopmsgheaders.Message;
+import com.twilio.Twilio;
+
+import com.twilio.rest.api.v2010.account.Message;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
+import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.concurrent.Executors;
@@ -89,8 +96,24 @@ public class AfficherEvenementsController implements Initializable {
     @FXML
     private TextField recherche;
  ServiceEvenement EV = new ServiceEvenement();
+   
+     
     ObservableList<evenement> events = FXCollections.observableArrayList(EV.afficherEvents());
     
+    
+     public static final String ACCOUNT_SID = "ACf110ae25bbef456bf8745ec2a3555b29"; 
+    public static final String AUTH_TOKEN = "4421f040491a9fd05c4e9245d3423920"; 
+ 
+    public void envoiSMS(String msg, String toNumber) { 
+        Twilio.init(ACCOUNT_SID, AUTH_TOKEN); 
+        Message message = Message.creator( 
+                new com.twilio.type.PhoneNumber(toNumber), 
+                new com.twilio.type.PhoneNumber("+12766378893"),  
+               msg)      
+            .create(); 
+ 
+        System.out.println(message.getSid()); 
+    } 
 
     /**
      * Initializes the controller class.
@@ -102,7 +125,9 @@ public class AfficherEvenementsController implements Initializable {
         ObservableList<evenement> events = evenement.afficherEvents();
         afficherEvenement();
       search_event();   
-
+      
+     
+      
 btn_retourhome.setOnAction(event -> {
 
             try {
@@ -280,8 +305,24 @@ btn_gestionParticipations.setOnAction(event -> {
                         supprimerIcone.setOnMouseClicked((MouseEvent event) -> {
                             
                             try {
+                                 ServiceParticipationEvenement SP = new ServiceParticipationEvenement();
                                 evenement = tableEvents.getSelectionModel().getSelectedItem();
+                                
+                                  // Envoyer un message à tous les numéros de téléphone des participants
+                                 List<String> numeros = SP.getNumTelsByEvent(evenement.getID_event());
+                                  String message = "Chère clientèle, nous avons le regret de vous informer de l'annulation de l'évènement " + evenement.getNom_event() + ". Nous sommes navrés de cette annulation. A la prochaine! ";
+         System.out.println(numeros + "voici les numeros" + message);
+        for (String numero : numeros) {
+            System.out.println("Envoi de message à " + numero + " : " + message);
+            envoiSMS(message, numero);
+        }
+                                 
                                 SE.supprimerEvenement(evenement.getID_event());
+                                System.out.println(evenement.getID_event());
+                               
+       
+                               
+       
                                 
                                 
                             } catch (Exception ex) {
@@ -294,7 +335,7 @@ btn_gestionParticipations.setOnAction(event -> {
                         modifierIcone.setOnMouseClicked((MouseEvent event) -> {
                             
                             try {
-                                
+                               
                                 evenement ev= new evenement();
                                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/codingbeasts/doulicha/views/gererEvenement.fxml"));
                                 Parent root = loader.load();

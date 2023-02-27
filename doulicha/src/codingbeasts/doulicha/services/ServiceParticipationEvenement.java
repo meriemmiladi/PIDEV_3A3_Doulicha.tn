@@ -45,6 +45,7 @@ public class ServiceParticipationEvenement {
                part.setID_user(rs.getInt(2));
                part.setID_event(rs.getInt(3));
                 part.setNombre_participation(rs.getInt(4));
+                part.setNum_tel(rs.getString(5));
                 System.out.println(part);
            participation_evenement.add(part);
             }
@@ -75,8 +76,8 @@ public class ServiceParticipationEvenement {
     
     public void ajouterParticipationEvenement(participation_evenement participation){
         
-        String requete2 = " INSERT INTO  `participation_evenement`(`ID_user`, `ID_event`, `nombre_participation`)"
-       + "VALUES (?,?,?)";
+        String requete2 = " INSERT INTO  `participation_evenement`(`ID_user`, `ID_event`, `nombre_participation`, `num_tel`)"
+       + "VALUES (?,?,?,?)";
         
         try {
             //PreparedStatement pst = new MyConnection().getCnx().prepareStatement(requete2);
@@ -86,6 +87,7 @@ public class ServiceParticipationEvenement {
             pst.setInt(1, participation.getID_user());
             pst.setInt(2, participation.getID_event());
             pst.setInt(3, participation.getNombre_participation());
+            pst.setString(4, participation.getNum_tel());
             
             pst.executeUpdate();
             System.out.println("Participation à l'évènement ajouté ");
@@ -114,7 +116,7 @@ public class ServiceParticipationEvenement {
              participation.setID_user(rs.getInt(2));
              participation.setID_event(rs.getInt(3));
              participation.setNombre_participation(rs.getInt(4));
-            
+            participation.setNum_tel(rs.getString(5));
              
              
              ListParticipation.add(participation);
@@ -155,8 +157,7 @@ public class ServiceParticipationEvenement {
       public void modifierParticipationEvenement(participation_evenement participation) {
 try {
             Statement st = cnx.createStatement();
-            //nb: on ne peut pas modifier la date
-            String requete4 = "UPDATE  participation_evenement SET ID_participation  = '" + participation.getID_participation() + "', ID_user = '" + participation.getID_user() + "', ID_event = '" + participation.getID_event() + "', nombre_participation = '" + participation.getNombre_participation() + "' WHERE ID_participation = '" + participation.getID_participation()+ "'";
+            String requete4 = "UPDATE  participation_evenement SET ID_participation  = '" + participation.getID_participation() + "', ID_user = '" + participation.getID_user() + "', ID_event = '" + participation.getID_event() + "', nombre_participation = '" + participation.getNombre_participation() + "', num_tel = '" + participation.getNum_tel() + "' WHERE ID_participation = '" + participation.getID_participation()+ "'";
             st.executeUpdate(requete4);
             System.out.println("modification avec succes");
         } catch (SQLException ex) {
@@ -225,6 +226,20 @@ try {
         System.out.println(ex);
     }
     return total;
+}
+ 
+ 
+ public List<String> getNumTelsByEvent(int idEvent) throws SQLException {
+    List<String> numTels = new ArrayList<>();
+    String req = "SELECT num_tel FROM participation_evenement WHERE ID_event = ?";
+    PreparedStatement ps = cnx.prepareStatement(req);
+    ps.setInt(1, idEvent);
+    ResultSet rs = ps.executeQuery();
+    while (rs.next()) {
+        String numTel = rs.getString("num_tel");
+        numTels.add(numTel);
+    }
+    return numTels;
 }
  
     

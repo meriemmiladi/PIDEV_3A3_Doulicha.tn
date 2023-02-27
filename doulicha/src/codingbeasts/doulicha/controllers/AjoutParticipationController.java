@@ -28,6 +28,8 @@ import com.itextpdf.text.Image;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfContentByte;
+import com.sun.corba.se.impl.protocol.giopmsgheaders.Message;
+import com.twilio.Twilio;
 import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.Graphics2D;
@@ -104,10 +106,15 @@ public class AjoutParticipationController implements Initializable {
     private ImageView icone_nb;
     @FXML
     private ImageView icone_date;
+    @FXML
+    private TextField TF_numtel;
 
     /**
      * Initializes the controller class.
      */
+    
+    
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
       
@@ -135,6 +142,7 @@ private void ajouterParticipation(ActionEvent event) throws SQLException, Docume
      ServiceEvenement ev = new ServiceEvenement();
      
     int nombre_participation = Integer.parseInt(TF_nombre.getText());
+    String num_tel = TF_numtel.getText();
     String textI = id_part.getText();
     int valueI=0;
     try {
@@ -144,8 +152,9 @@ private void ajouterParticipation(ActionEvent event) throws SQLException, Docume
     } 
         
     part.setNombre_participation(Integer.parseInt(TF_nombre.getText()));
+    part.setNum_tel(TF_numtel.getText());
     part.setID_event(valueI);
-    part.setID_user(2);
+    part.setID_user(3);
      int totalParticipations = SPE.getNombreParticipations(valueI);
        System.out.println(totalParticipations + "ay haja");
        System.out.println(totalParticipations < ev.getCapacite(part.getID_event()));

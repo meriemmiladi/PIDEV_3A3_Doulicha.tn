@@ -43,9 +43,9 @@ public class MainClass {
      
      ServiceParticipationEvenement participationeventcd = new ServiceParticipationEvenement();
      
-      participation_evenement participation = new participation_evenement(1,7,2);
+      participation_evenement participation = new participation_evenement(1,7,2,"0");
       
-      participation_evenement participation2 = new participation_evenement(1,9,10);
+      participation_evenement participation2 = new participation_evenement(1,9,10,"0");
       
        // participationeventcd.ajouterParticipationEvenement(participation);
        //participationeventcd.ajouterParticipationEvenement(participation2);

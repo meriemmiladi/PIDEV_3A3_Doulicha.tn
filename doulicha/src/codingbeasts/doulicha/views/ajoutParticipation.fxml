@@ -35,11 +35,17 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
+                        <Label prefHeight="27.0" prefWidth="184.0" text="Numéro de Téléphone" textFill="#12225e">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="468.0" prefWidth="400.0" spacing="23.0">
                      <children>
                         <TextField fx:id="TF_nombre" prefHeight="25.0" prefWidth="279.0" style="-fx-background-radius: 50;" />
+                        <TextField fx:id="TF_numtel" prefHeight="25.0" prefWidth="279.0" style="-fx-background-radius: 50;" />
                      </children>
                   </VBox>
                </children>
