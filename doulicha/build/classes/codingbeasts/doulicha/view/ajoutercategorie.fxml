@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -13,23 +12,6 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@ajoutercategorie.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codingbeasts.doulicha.controller.AjoutercategorieController">
    <children>
-      <VBox layoutX="-1.0" layoutY="-8.0" prefHeight="107.0" prefWidth="198.0" styleClass="rounded-botton-background" stylesheets="@ajoutercategorie.css">
-         <children>
-            <FontAwesomeIconView glyphName="HOME" size="30" textAlignment="CENTER" wrappingWidth="19.142857551574707">
-               <VBox.margin>
-                  <Insets left="50.0" top="20.0" />
-               </VBox.margin>
-            </FontAwesomeIconView>
-            <Label text="DOULICHA" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="21.0" />
-               </font>
-               <VBox.margin>
-                  <Insets left="85.0" right="5.0" top="-30.0" />
-               </VBox.margin>
-            </Label>
-         </children>
-      </VBox>
       <VBox layoutY="254.0" prefHeight="146.0" prefWidth="198.0" styleClass="rounded-top-background" stylesheets="@ajoutercategorie.css">
          <children>
             <ImageView fitHeight="63.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true">
@@ -50,13 +32,12 @@
             </Label>
          </children>
       </VBox>
-      <ImageView fitHeight="117.0" fitWidth="142.0" layoutX="41.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="117.0" fitWidth="142.0" layoutX="41.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../image/doulicha.png" />
          </image>
       </ImageView>
-      <Button layoutX="197.0" layoutY="-5.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="198.0" styleClass="buttonAjoute" stylesheets="@ajoutercategorie.css" text="Ajouter" />
-      <Button fx:id="idafficher" layoutX="395.0" layoutY="-5.0" mnemonicParsing="false" onAction="#affichercategorie" prefHeight="48.0" prefWidth="205.0" styleClass="buttonAjoute" stylesheets="@ajoutercategorie.css" text="Afficher" />
+      <Button fx:id="idafficher" layoutX="23.0" layoutY="193.0" mnemonicParsing="false" onAction="#affichercategorie" prefHeight="31.0" prefWidth="153.0" styleClass="bottonnAjouter" stylesheets="@ajoutercategorie.css" text="Afficher les catégories" />
       <Label contentDisplay="CENTER" layoutX="211.0" layoutY="105.0" prefHeight="31.0" prefWidth="117.0" styleClass="Label" stylesheets="@ajoutercategorie.css" text="     Nom Catégorie">
          <font>
             <Font name="System Italic" size="12.0" />
@@ -65,6 +46,6 @@
       <TextField fx:id="idnomcategorie" layoutX="367.0" layoutY="105.0" prefHeight="31.0" prefWidth="179.0" promptText="écrire catégorie" style="-fx-background-color: transparant; -fx-border-color: #3FC4ED; -fx-border-width: 0px 0px 2px 0px;" />
       <Button fx:id="idajoutercategorie" layoutX="248.0" layoutY="242.0" mnemonicParsing="false" onAction="#ajoutercategorie" prefHeight="25.0" prefWidth="96.0" styleClass="bottonnAjouter" stylesheets="@ajoutercategorie.css" text="Ajouter" />
       <Button fx:id="idajoutercategorie1" layoutX="395.0" layoutY="241.0" mnemonicParsing="false" onAction="#savecategorie2" prefHeight="25.0" prefWidth="96.0" styleClass="bottonnAjouter" stylesheets="@ajoutercategorie.css" text="Enregistrer" />
-      <Button fx:id="btn4" layoutX="-1.0" layoutY="108.0" mnemonicParsing="false" onAction="#action4" styleClass="bottonnAjouter" stylesheets="@ajoutercategorie.css" text="Retour" />
+      <Button fx:id="btn4" layoutX="73.0" layoutY="149.0" mnemonicParsing="false" onAction="#action4" styleClass="bottonnAjouter" stylesheets="@ajoutercategorie.css" text="Retour" />
    </children>
 </AnchorPane>

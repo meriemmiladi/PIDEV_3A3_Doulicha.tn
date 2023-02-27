@@ -7,6 +7,7 @@ package codingbeasts.doulicha.controller;
 
 import codingbeasts.doulicha.entities.avis;
 import codingbeasts.doulicha.entities.translator;
+import codingbeasts.doulicha.services.LanguageDetection;
 import codingbeasts.doulicha.services.serviceAvis;
 import codingbeasts.doulicha.services.serviceCategorie;
 import java.awt.event.MouseEvent;
@@ -38,6 +39,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
+
 /**
  * FXML Controller class
  *
@@ -66,7 +68,7 @@ public class AfficheravisController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+    
     serviceAvis dis = new serviceAvis();
         List<avis> aviss = dis.afficheravis();
 
@@ -104,20 +106,36 @@ public class AfficheravisController implements Initializable {
                 }
                 ratingBox.getChildren().add(circle); // ajouter le cercle à la boîte
             }
+
             
             Label contenu = new Label(avis.getContenu_avis());
             Button translateButton = new Button("Traduire");
             translateButton.setOnAction((ActionEvent event) -> {
-                try {
-                    String originalText = contenu.getText();
-                    String translatedText = translate("en", "fr", originalText);
-                    System.out.println("Original text: " + originalText);
-                    System.out.println("Translated text: " + translatedText);
+            try {
+                String originalText = contenu.getText();
+                String detectedLang = LanguageDetection.detectLanguage(originalText);
+                System.out.println(detectedLang);
 
-                    contenu.setText(translatedText);
-                } catch (Exception e) {
-                    e.printStackTrace();
+                String targetLang = "";
+                if (detectedLang.equals("fr")) {
+                    targetLang = "en";
+                } else if (detectedLang.equals("en")) {
+                    targetLang = "fr";
+                } else {
+                    System.err.println("Unable to detect language of text: " + originalText);
+                    return;
                 }
+
+                String translatedText = translate(detectedLang, targetLang, originalText);
+                System.out.println("Original text: " + originalText);
+                System.out.println("Detected language: " + detectedLang);
+                System.out.println("Target language: " + targetLang);
+                System.out.println("Translated text: " + translatedText);
+
+                contenu.setText(translatedText);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             });
             Label type = new Label("cet avis concerne un " +avis.getType_avis());
             
