@@ -46,7 +46,7 @@
                         <Image url="@../image/doulicha.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="idafficherreclamation" layoutX="24.0" layoutY="195.0" mnemonicParsing="false" onAction="#handleAfficherReclamation" prefHeight="31.0" prefWidth="151.0" styleClass="bottonnAjouter" stylesheets="@ajoutercategorie.css" text="Afficher les reclamations" />
+                  <Button fx:id="idafficherreclamation" layoutX="7.0" layoutY="195.0" mnemonicParsing="false" onAction="#handleAfficherReclamation" prefHeight="34.0" prefWidth="185.0" styleClass="bottonnAjouter" stylesheets="@ajoutercategorie.css" text="Afficher les reclamations" />
                   <Label contentDisplay="CENTER" layoutX="230.0" layoutY="145.0" prefHeight="31.0" prefWidth="132.0" styleClass="Label" stylesheets="@ajoutercategorie.css" text="   Contenu Reclamation">
                      <font>
                         <Font name="System Italic" size="12.0" />
@@ -60,7 +60,7 @@
                      </font>
                   </Label>
                   <ComboBox fx:id="idnomutilisateur" layoutX="390.0" layoutY="73.0" prefHeight="31.0" prefWidth="173.0" styleClass="bottonnAjouter" stylesheets="@ajoutercategorie.css" />
-                  <Button fx:id="idajouterreclamation1" layoutX="439.0" layoutY="327.0" mnemonicParsing="false" onAction="#savereclamation2" prefHeight="25.0" prefWidth="96.0" styleClass="bottonnAjouter" stylesheets="@ajoutercategorie.css" text="Enregistrer" />
+                  <Button fx:id="idajouterreclamation1" layoutX="439.0" layoutY="327.0" mnemonicParsing="false" onAction="#savereclamation2" prefHeight="34.0" prefWidth="117.0" styleClass="bottonnAjouter" stylesheets="@ajoutercategorie.css" text="Enregistrer" />
                   <Button fx:id="btn4" layoutX="51.0" layoutY="148.0" mnemonicParsing="false" onAction="#action4" prefHeight="25.0" prefWidth="96.0" styleClass="bottonnAjouter" stylesheets="@ajoutercategorie.css" text="Retour" />
                </children>
             </AnchorPane>

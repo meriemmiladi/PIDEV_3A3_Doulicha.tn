@@ -18,6 +18,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -84,10 +86,15 @@ public class AfficherreclamationADminController implements Initializable {
                 if (reclamation.getEtat_reclamation() == 1) {
                     String recipient = dis.getEmailByReclamationId(idrec); // adresse e-mail du destinataire
                     System.out.println(recipient);
-                    String content = "Votre réclamation a été traitée par l'administrateur."; // contenu du message
-                    String subject = "Réclamation résolue"; // sujet du message
+                    String content = "Réclamation résolue"; // contenu du message
+                    String subject = "Nous sommes heureux de vous informer que votre réclamation a été résolue avec succès. Nous avons pris en compte votre demande et avons travaillé pour trouver une solution qui répond à vos besoins."; // sujet du message
                     serviceEmail diss = new serviceEmail();
                     diss.sendMail(recipient, content, subject);
+                    Alert alert = new Alert(AlertType.INFORMATION);
+                    alert.setTitle("Envoi de mail");
+                    alert.setHeaderText("Le mail a été envoyé avec succès !");
+                    alert.setContentText("Le destinataire a été notifié de la résolution de sa réclamation.");
+                    alert.showAndWait();
                     modifierButton.setText("En attente");
                 } else {
                     modifierButton.setText("Résolue");

@@ -19,22 +19,34 @@
     -fx-background-color: #A6D4DC;
     -fx-background-radius: 50 50 0 0;
 }
-.button{
+
+.button {
     -fx-background-color: #3FC4ED;
-    -fx-background-radius: 0 0 0 0;
+    -fx-text-fill: black;
+    -fx-font-family: Arial;
+    -fx-font-size: 14px;
+    -fx-border-color: #A6D4DC;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-padding: 8px 15px;
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.5) , 2,0,0,1 );
+    transition: all 0.3s ease-in-out;
 }
 .buttonAjoute{
     -fx-background-color: #A6D4DC;
     -fx-background-radius: 0 0 0 0;
+    -fx-font-family: Arial;
 }
 
 .Label{
     -fx-background-color: #3FC4ED;
     -fx-background-radius: 20 0 20 0;
+    -fx-font-family: Arial;
 }
 .bottonnAjouter{
     -fx-background-color: #A6D4DC;
     -fx-background-radius: 20 0 20 0;
+    -fx-font-family: Arial;
 }
 /* Ajouter un style pour le ScrollPane */
 .scroll-pane {
@@ -54,6 +66,7 @@
   -fx-border-radius: 5;
   -fx-border-width: 1;
   -fx-padding: 5 30 5 10;
+  -fx-font-family: Arial;
 }
 
 

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -24,31 +23,6 @@
                <children>
                   <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@ajoutercategorie.css">
                      <children>
-                        <VBox layoutX="-1.0" layoutY="-8.0" prefHeight="107.0" prefWidth="198.0" styleClass="rounded-botton-background" stylesheets="@ajoutercategorie.css">
-                           <children>
-                              <FontAwesomeIconView glyphName="HOME" size="30" textAlignment="CENTER" wrappingWidth="19.142857551574707">
-                                 <VBox.margin>
-                                    <Insets left="50.0" top="20.0" />
-                                 </VBox.margin>
-                              </FontAwesomeIconView>
-                              <ImageView fitHeight="31.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" rotate="180.0">
-                                 <image>
-                                    <Image url="@../../../../../../Downloads/330858087_5996822130410927_5326625692143105632_n.png" />
-                                 </image>
-                                 <VBox.margin>
-                                    <Insets left="10.0" top="-30.0" />
-                                 </VBox.margin>
-                              </ImageView>
-                              <Label text="DOULICHA" textFill="WHITE">
-                                 <font>
-                                    <Font name="System Bold" size="21.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets left="85.0" right="5.0" top="-30.0" />
-                                 </VBox.margin>
-                              </Label>
-                           </children>
-                        </VBox>
                         <VBox layoutY="254.0" prefHeight="146.0" prefWidth="198.0" styleClass="rounded-top-background" stylesheets="@ajoutercategorie.css">
                            <children>
                               <ImageView fitHeight="63.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true">
@@ -72,21 +46,20 @@
                               </Label>
                            </children>
                         </VBox>
-                        <ImageView fitHeight="117.0" fitWidth="142.0" layoutX="40.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="117.0" fitWidth="142.0" layoutX="41.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../image/doulicha.png" />
                            </image>
                         </ImageView>
-                        <Button fx:id="btnaffichercategorie" layoutX="197.0" layoutY="-5.0" mnemonicParsing="false" onAction="#affichercategorie" prefHeight="48.0" prefWidth="198.0" styleClass="buttonAjoute" stylesheets="@ajoutercategorie.css" text="Afficher categorie" />
-                        <Button layoutX="395.0" layoutY="-5.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="205.0" styleClass="buttonAjoute" stylesheets="@ajoutercategorie.css" />
-                        <ScrollPane fx:id="ScrollPane1" layoutX="201.0" layoutY="77.0" prefHeight="322.0" prefWidth="398.0">
+                        <Button fx:id="btnaffichercategorie" layoutX="25.0" layoutY="200.0" mnemonicParsing="false" onAction="#affichercategorie" prefHeight="34.0" prefWidth="149.0" styleClass="bottonnAjouter" stylesheets="@ajoutercategorie.css" text="Afficher categorie" />
+                        <ScrollPane fx:id="ScrollPane1" layoutX="201.0" layoutY="57.0" prefHeight="342.0" prefWidth="398.0">
                            <content>
                               <VBox fx:id="avisListe" prefHeight="350.0" prefWidth="396.0" />
                            </content>
                         </ScrollPane>
-                        <Button fx:id="btn4" layoutX="3.0" layoutY="104.0" mnemonicParsing="false" onAction="#action4" styleClass="bottonnAjouter" stylesheets="@ajoutercategorie.css" text="Retour" />
-                        <TextField fx:id="searchField" layoutX="332.0" layoutY="46.0" onAction="#filtrer" />
-                        <Label layoutX="269.0" layoutY="50.0" text="Recherche" />
+                        <Button fx:id="btn4" layoutX="62.0" layoutY="146.0" mnemonicParsing="false" onAction="#action4" styleClass="bottonnAjouter" stylesheets="@ajoutercategorie.css" text="Retour" />
+                        <TextField fx:id="searchField" layoutX="332.0" layoutY="25.0" onAction="#filtrer" />
+                        <Label layoutX="273.0" layoutY="29.0" text="Recherche" />
                      </children>
                   </AnchorPane>
                </children>
