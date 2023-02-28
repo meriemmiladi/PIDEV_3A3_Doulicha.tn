@@ -22,8 +22,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import static codingbeasts.doulicha.services.PerspectiveService.getToxicity;
 import java.security.GeneralSecurityException;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.ToggleButton;
 
 public class ClientDiscussionController implements Initializable {
@@ -99,6 +104,15 @@ public class ClientDiscussionController implements Initializable {
         }
         DiscussionCRUD dis = new DiscussionCRUD();
         List<Discussion> discussions = dis.afficherDiscussions();
+        VBox mainContainer = new VBox();
+        HBox dateSelections = new HBox();
+        DatePicker fromDate = new DatePicker();
+        DatePicker toDate = new DatePicker();
+        Button showButton = new Button("Afficher");
+
+        // Ajouter les éléments dans la fenêtre
+        dateSelections.getChildren().addAll(fromDate, toDate, showButton);
+        discussionBox.getChildren().addAll(dateSelections);
 
         discussions.stream().map((Discussion discussion) -> {
             VBox contentBox = new VBox();
@@ -107,7 +121,7 @@ public class ClientDiscussionController implements Initializable {
             Label titleLabel = new Label(discussion.getTitre_discussion());
             titleLabel.setFont(new Font(40));
 
-            Label dateLabel = new Label("dernière modification le " + discussion.getDate_discussion().toString());
+            Label dateLabel = new Label(discussion.getDate_discussion().toString());
 
             VBox vbox = new VBox();
 
@@ -139,14 +153,40 @@ public class ClientDiscussionController implements Initializable {
                         alert.setContentText("Le texte ne peut pas être vide.");
                         alert.showAndWait();
                     } else {
-                        discussion.setContenu_discussion(editContent.getText());
-                        contentBox.getChildren().clear();
-                        dis.modifierContenuDiscussion(discussion.getID_discussion(), editContent.getText());
-                        contentTextLabel.setText(discussion.getContenu_discussion());
-                        dis.modifierDateDiscussion(discussion.getID_discussion(), new Date(System.currentTimeMillis()));
-                        dateLabel.setText("modifiée le " + new Date(System.currentTimeMillis()).toString());
-                        contentBox.getChildren().addAll(hbox2, vbox, contentTextLabel, replyButton);
-                        contentBox.requestFocus();
+                        double toxicity = 0;
+                        try {
+                            toxicity = getToxicity(editContent.getText());
+                        } catch (IOException ex) {
+                            Alert alert = new Alert(Alert.AlertType.ERROR);
+                            alert.setTitle("Erreur");
+                            alert.setContentText("Une erreur s'est produite lors du calcul de la toxicité du texte. Veuillez réessayer plus tard.");
+                            alert.showAndWait();
+                            return;
+                        } catch (GeneralSecurityException ex) {
+                            System.err.println(ex.getMessage());
+                        }
+                        if (toxicity < 0.7) {
+                            discussion.setContenu_discussion(editContent.getText());
+                            contentBox.getChildren().clear();
+                            dis.modifierContenuDiscussion(discussion.getID_discussion(), editContent.getText());
+                            contentTextLabel.setText(discussion.getContenu_discussion());
+                            dis.modifierDateDiscussion(discussion.getID_discussion(), new Date(System.currentTimeMillis()));
+                            dateLabel.setText(new Date(System.currentTimeMillis()).toString());
+                            contentBox.getChildren().addAll(hbox2, vbox, contentTextLabel, replyButton);
+                            contentBox.requestFocus();
+                        } else {
+                            if (toxicity > 0.9) {
+                                Alert alert = new Alert(Alert.AlertType.WARNING);
+                                alert.setTitle("Texte inapproprié");
+                                alert.setContentText("Le contenu est très toxique.");
+                                alert.showAndWait();
+                            } else {
+                                Alert alert = new Alert(Alert.AlertType.WARNING);
+                                alert.setTitle("Texte inapproprié");
+                                alert.setContentText("Le contenu est inapproprié.");
+                                alert.showAndWait();
+                            }
+                        }
 
                     }
                 });
@@ -228,17 +268,43 @@ public class ClientDiscussionController implements Initializable {
                                 alert.setContentText("Le texte ne peut pas être vide.");
                                 alert.showAndWait();
                             } else {
-                                reponse.setContenu_reponse(editContent.getText());
-                                reponsesBox.getChildren().clear();
-                                rep.modifierContenuReponse(reponse.getID_reponse(), editContent.getText());
-                                reponse.setDate_reponse(new Date(System.currentTimeMillis()));
-                                vboxx.getChildren().clear();
+                                double toxicity = 0;
+                                try {
+                                    toxicity = getToxicity(editContent.getText());
+                                } catch (IOException ex) {
+                                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                                    alert.setTitle("Erreur");
+                                    alert.setContentText("Une erreur s'est produite lors du calcul de la toxicité du texte. Veuillez réessayer plus tard.");
+                                    alert.showAndWait();
+                                    return;
+                                } catch (GeneralSecurityException ex) {
+                                    System.err.println(ex.getMessage());
+                                }
+                                if (toxicity < 0.7) {
+                                    reponse.setContenu_reponse(editContent.getText());
+                                    reponsesBox.getChildren().clear();
+                                    rep.modifierContenuReponse(reponse.getID_reponse(), editContent.getText());
+                                    reponse.setDate_reponse(new Date(System.currentTimeMillis()));
+                                    vboxx.getChildren().clear();
 
-                                labelDate.setText("Modifiée le " + reponse.getDate_reponse().toString());
-                                labelContenu.setText(reponse.getContenu_reponse());
-                                vboxx.getChildren().addAll(labelContenu, labelDate);
-                                reponsesBox.getChildren().addAll(vboxx, hbox);
-                                reponsesBox.requestFocus();
+                                    labelDate.setText("Modifiée le " + reponse.getDate_reponse().toString());
+                                    labelContenu.setText(reponse.getContenu_reponse());
+                                    vboxx.getChildren().addAll(labelContenu, labelDate);
+                                    reponsesBox.getChildren().addAll(vboxx, hbox);
+                                    reponsesBox.requestFocus();
+                                } else {
+                                    if (toxicity > 0.9) {
+                                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                                        alert.setTitle("Texte inapproprié");
+                                        alert.setContentText("Le contenu est très toxique.");
+                                        alert.showAndWait();
+                                    } else {
+                                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                                        alert.setTitle("Texte inapproprié");
+                                        alert.setContentText("Le contenu est inapproprié.");
+                                        alert.showAndWait();
+                                    }
+                                }
                             }
                         });
 
@@ -303,15 +369,17 @@ public class ClientDiscussionController implements Initializable {
                 ajouterReponse.setOnAction((ActionEvent event1) -> {
 
                     String contenu = nouvelleReponse.getText().trim();
-
+                   
                     if (!contenu.matches("^[a-zA-Z0-9,.!? ]*$")) {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("Erreur de saisie");
                         alert.setContentText("Le contenu ne peut contenir que des lettres, des chiffres et les caractères suivants : , . ! ?");
                         alert.showAndWait();
                     } else {
+                       
                         double toxicity = 0;
                         try {
+                         
                             toxicity = getToxicity(contenu);
                         } catch (IOException ex) {
                             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -400,7 +468,9 @@ public class ClientDiscussionController implements Initializable {
                     alert.showAndWait();
                 } else {
                     double toxicity = 0;
+                    double toxicity1=0;
                     try {
+                        toxicity1=getToxicity(titre);
                         toxicity = getToxicity(contenu);
                     } catch (IOException ex) {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -412,7 +482,7 @@ public class ClientDiscussionController implements Initializable {
                         System.err.println(ex.getMessage());
                     }
 
-                    if (toxicity < 0.7) {
+                    if (toxicity < 0.7&&toxicity1<0.7){
                         dis.ajouterDiscussion(new Discussion(1, titre, contenu, new Date(System.currentTimeMillis())));
                         VBox discussionBox1 = new VBox();
                         Label labelTitre = new Label(titre);
@@ -429,7 +499,7 @@ public class ClientDiscussionController implements Initializable {
                         alert.setContentText("Discussion publiée avec succès !");
                         alert.showAndWait();
                     } else {
-                        if (toxicity > 0.9) {
+                        if (toxicity > 0.9||toxicity1>0.9) {
                             Alert alert = new Alert(Alert.AlertType.WARNING);
                             alert.setTitle("Texte inapproprié");
                             alert.setContentText("Le contenu est très toxique.");
@@ -449,5 +519,54 @@ public class ClientDiscussionController implements Initializable {
             publierBtn.requestFocus();
         });
         discussionBox.getChildren().add(ajouterDiscussion);
+// Set the action for the "show" button
+        showButton.setOnAction((ActionEvent event2) -> {
+            LocalDate startDate = fromDate.getValue();
+            LocalDate endDate = toDate.getValue();
+
+            // Perform the date search and remove contentBoxes that don't fit within the selected date range
+            filterDiscussionsByDate(startDate, endDate);
+        });
+
     }
+    // Define a method to perform the date search and remove contentBoxes that don't fit within the selected date range
+
+    private void filterDiscussionsByDate(LocalDate startDate, LocalDate endDate) {
+        java.sql.Date sqlStartDate = java.sql.Date.valueOf(startDate);
+        java.sql.Date sqlEndDate = java.sql.Date.valueOf(endDate);
+
+        List<Node> nodesToRemove = new ArrayList<>();
+        for (Node node : discussionBox.getChildren()) {
+            if (node instanceof VBox) {
+                VBox contentBox = (VBox) node;
+                boolean hasHBox = false;
+                VBox labelBox;
+                for (Node child : contentBox.getChildren()) {
+                    if (child instanceof HBox) {
+                        hasHBox = true;
+                        break;
+                    }
+                }
+                if (hasHBox) {
+                    // Get the HBox containing the title and date labels
+                    labelBox = (VBox) contentBox.getChildren().get(1);
+                } else {
+                    labelBox = (VBox) contentBox.getChildren().get(0);
+                }
+
+                // Get the label containing the date string
+                Label dateLabel = (Label) labelBox.getChildren().get(1);
+
+                // Convert the date string to sql.Date and compare with the selected range
+                String dateString = dateLabel.getText();
+                java.sql.Date contentDate = java.sql.Date.valueOf(dateString);
+                if (contentDate.compareTo(sqlStartDate) < 0 || contentDate.compareTo(sqlEndDate) > 0) {
+                    nodesToRemove.add(contentBox);
+                }
+            }
+        }
+
+        discussionBox.getChildren().removeAll(nodesToRemove);
+    }
+
 }
