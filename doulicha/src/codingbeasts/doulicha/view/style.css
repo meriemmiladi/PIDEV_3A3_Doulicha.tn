@@ -8,7 +8,7 @@
 
 /* Boutons */
 .button {
-    -fx-background-color: linear-gradient(to bottom, #0077C2, #0093C4);
+    -fx-background-color: linear-gradient(to bottom, #3FC4ED, #A6D4DC);
     -fx-background-radius: 30px;
     -fx-text-fill: white;
     -fx-font-weight: bold;
@@ -18,12 +18,12 @@
 }
 
 .button:hover {
-    -fx-background-color: linear-gradient(to bottom, #0093C4, #0077C2);
+    -fx-background-color: linear-gradient(to bottom, #A6D4DC, #3FC4ED);
 }
 
 /* Boutons ronds */
 .round-button {
-    -fx-background-color: linear-gradient(to bottom, #0077C2, #0093C4);
+    -fx-background-color: linear-gradient(to bottom, #3FC4ED, #A6D4DC);
     -fx-background-radius: 50%;
     -fx-text-fill: white;
     -fx-font-weight: bold;
@@ -33,7 +33,7 @@
 }
 
 .round-button:hover {
-    -fx-background-color: linear-gradient(to bottom, #0093C4, #0077C2);
+    -fx-background-color: linear-gradient(to bottom, #A6D4DC, #3FC4ED);
 }
 
 /* TableView */
@@ -113,6 +113,15 @@ VBox {
     -fx-border-radius: 10;
     -fx-border-width: 2;
     -fx-padding: 10;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
+  -fx-transition: all 0.3s ease;
+}
+VBox > VBox:hover {
+  -fx-scale-x: 1.02;
+  -fx-scale-y: 1.02;
+  -fx-background-color: #f5f5f5;
+  -fx-border-color: #aaa;
+  -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 0);
 }
 
 VBox > * {
@@ -127,6 +136,16 @@ VBox > * {
     -fx-font-size: 14px;
     -fx-cursor: hand;
 }
+.btn-add-discussion1 {
+    -fx-background-color: linear-gradient(to bottom, #3FC4ED, #A6D4DC);
+    -fx-background-radius: 30px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+      -fx-padding: 10px;
+    -fx-font-size: 14px;
+  
+    -fx-cursor: hand;
+}
 
 .ScrollPane {
     -fx-background-color: #F0F0F0; 
@@ -134,14 +153,14 @@ VBox > * {
 }
 
 .scroll-bar:vertical {
-    -fx-background-color: #0077C2; 
+    -fx-background-color: #3FC4ED; 
 }
 
 .scroll-bar:horizontal {
     -fx-background-color: #0077C2; 
 }
 .toggle-button {
-    -fx-background-color: #0077C2;
+    -fx-background-color: linear-gradient(to bottom, #3FC4ED, #A6D4DC);
     -fx-background-radius: 20px;
     -fx-text-fill: white;
     -fx-font-size: 14px;
@@ -150,5 +169,5 @@ VBox > * {
 }
 
 .toggle-button:selected {
-    -fx-background-color: #64B5F6;
+    -fx-background-color: linear-gradient(to bottom, #A6D4DC, #3FC4ED);
 }

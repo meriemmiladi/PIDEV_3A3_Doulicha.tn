@@ -23,13 +23,15 @@ import javafx.scene.text.Font;
 import static codingbeasts.doulicha.services.PerspectiveService.getToxicity;
 import java.security.GeneralSecurityException;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 
 public class ClientDiscussionController implements Initializable {
 
@@ -64,6 +66,7 @@ public class ClientDiscussionController implements Initializable {
             scrollPane.getStylesheets().add("codingbeasts/doulicha/view/style.css");
             scrollPane1.getStylesheets().add("codingbeasts/doulicha/view/style.css");
             darkModeToggle.setText("Dark mode");
+            
         }
     }
 
@@ -91,27 +94,33 @@ public class ClientDiscussionController implements Initializable {
     } */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+             Button showButton = new Button("Filtrer");
+        Button resetButton = new Button("Réintialiser");
         if (darkModeToggle.isSelected()) {
+            
             scrollPane.getStylesheets().remove("codingbeasts/doulicha/view/style.css");
             scrollPane1.getStylesheets().remove("codingbeasts/doulicha/view/style.css");
             scrollPane.getStylesheets().add("codingbeasts/doulicha/view/dark.css");
             scrollPane1.getStylesheets().add("codingbeasts/doulicha/view/dark.css");
+            
         } else {
             scrollPane.getStylesheets().remove("codingbeasts/doulicha/view/dark.css");
             scrollPane1.getStylesheets().remove("codingbeasts/doulicha/view/dark.css");
             scrollPane.getStylesheets().add("codingbeasts/doulicha/view/style.css");
             scrollPane1.getStylesheets().add("codingbeasts/doulicha/view/style.css");
         }
+         showButton.getStyleClass().add("btn-add-discussion1");
+            resetButton.getStyleClass().add("btn-add-discussion1");
         DiscussionCRUD dis = new DiscussionCRUD();
         List<Discussion> discussions = dis.afficherDiscussions();
         VBox mainContainer = new VBox();
         HBox dateSelections = new HBox();
         DatePicker fromDate = new DatePicker();
         DatePicker toDate = new DatePicker();
-        Button showButton = new Button("Afficher");
+   
 
-        // Ajouter les éléments dans la fenêtre
-        dateSelections.getChildren().addAll(fromDate, toDate, showButton);
+        dateSelections.getChildren().addAll(fromDate, toDate, showButton, resetButton);
+        dateSelections.setSpacing(10);
         discussionBox.getChildren().addAll(dateSelections);
 
         discussions.stream().map((Discussion discussion) -> {
@@ -119,17 +128,16 @@ public class ClientDiscussionController implements Initializable {
             contentBox.setId("#VBoxx");
             int id = discussion.getID_discussion();
             Label titleLabel = new Label(discussion.getTitre_discussion());
-            titleLabel.setFont(new Font(40));
+            titleLabel.setFont(new Font(30));
 
             Label dateLabel = new Label(discussion.getDate_discussion().toString());
 
             VBox vbox = new VBox();
 
             vbox.getChildren().addAll(titleLabel, dateLabel);
-            TextArea contentTextLabel = new TextArea(discussion.getContenu_discussion());
-            contentTextLabel.setEditable(false);
-
-            contentTextLabel.setWrapText(true);
+         
+            TextFlow contentTextLabel = new TextFlow();
+            contentTextLabel.getChildren().add(new Text(discussion.getContenu_discussion()));
             Button replyButton = new Button("Répondre");
             Button modifierDiscussion = new Button("Modifier la discussion");
             Button supprimerDiscussion = new Button("supprimer la discussion");
@@ -169,7 +177,8 @@ public class ClientDiscussionController implements Initializable {
                             discussion.setContenu_discussion(editContent.getText());
                             contentBox.getChildren().clear();
                             dis.modifierContenuDiscussion(discussion.getID_discussion(), editContent.getText());
-                            contentTextLabel.setText(discussion.getContenu_discussion());
+                            contentTextLabel.getChildren().clear();
+                            contentTextLabel.getChildren().add(new Text(discussion.getContenu_discussion()));
                             dis.modifierDateDiscussion(discussion.getID_discussion(), new Date(System.currentTimeMillis()));
                             dateLabel.setText(new Date(System.currentTimeMillis()).toString());
                             contentBox.getChildren().addAll(hbox2, vbox, contentTextLabel, replyButton);
@@ -365,21 +374,22 @@ public class ClientDiscussionController implements Initializable {
                 reponseBox.getChildren().add(nouvelleReponse);
                 nouvelleReponse.requestFocus();
                 Button ajouterReponse = new Button("Partager votre réponse");
+                ajouterReponse.getStyleClass().add("btn-add-discussion1");
                 reponseBox.getChildren().add(ajouterReponse);
                 ajouterReponse.setOnAction((ActionEvent event1) -> {
 
                     String contenu = nouvelleReponse.getText().trim();
-                   
-                    if (!contenu.matches("^[a-zA-Z0-9,.!? ]*$")) {
+
+                    if (contenu.isEmpty()) {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("Erreur de saisie");
-                        alert.setContentText("Le contenu ne peut contenir que des lettres, des chiffres et les caractères suivants : , . ! ?");
+                        alert.setContentText("Veuillez remplir les champs !");
                         alert.showAndWait();
                     } else {
-                       
+
                         double toxicity = 0;
                         try {
-                         
+
                             toxicity = getToxicity(contenu);
                         } catch (IOException ex) {
                             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -461,16 +471,11 @@ public class ClientDiscussionController implements Initializable {
                     alert.setTitle("Erreur de saisie");
                     alert.setContentText("Le titre ne peut pas dépasser 50 caractères, et le contenu ne peut pas dépasser 500 caractères.");
                     alert.showAndWait();
-                } else if (!contenu.matches("^[a-zA-Z0-9,.!? ]*$")) {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Erreur de saisie");
-                    alert.setContentText("Le contenu ne peut contenir que des lettres, des chiffres et les caractères suivants : , . ! ?");
-                    alert.showAndWait();
                 } else {
                     double toxicity = 0;
-                    double toxicity1=0;
+                    double toxicity1 = 0;
                     try {
-                        toxicity1=getToxicity(titre);
+                        toxicity1 = getToxicity(titre);
                         toxicity = getToxicity(contenu);
                     } catch (IOException ex) {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -482,7 +487,7 @@ public class ClientDiscussionController implements Initializable {
                         System.err.println(ex.getMessage());
                     }
 
-                    if (toxicity < 0.7&&toxicity1<0.7){
+                    if (toxicity < 0.7 && toxicity1 < 0.7) {
                         dis.ajouterDiscussion(new Discussion(1, titre, contenu, new Date(System.currentTimeMillis())));
                         VBox discussionBox1 = new VBox();
                         Label labelTitre = new Label(titre);
@@ -499,7 +504,7 @@ public class ClientDiscussionController implements Initializable {
                         alert.setContentText("Discussion publiée avec succès !");
                         alert.showAndWait();
                     } else {
-                        if (toxicity > 0.9||toxicity1>0.9) {
+                        if (toxicity > 0.9 || toxicity1 > 0.9) {
                             Alert alert = new Alert(Alert.AlertType.WARNING);
                             alert.setTitle("Texte inapproprié");
                             alert.setContentText("Le contenu est très toxique.");
@@ -521,19 +526,31 @@ public class ClientDiscussionController implements Initializable {
         discussionBox.getChildren().add(ajouterDiscussion);
 // Set the action for the "show" button
         showButton.setOnAction((ActionEvent event2) -> {
+           reponseBox.getChildren().clear();
             LocalDate startDate = fromDate.getValue();
             LocalDate endDate = toDate.getValue();
 
             // Perform the date search and remove contentBoxes that don't fit within the selected date range
             filterDiscussionsByDate(startDate, endDate);
         });
+        // action pour le bouton "Réinitialiser"
+        resetButton.setOnAction((ActionEvent event3) -> {
+            resetDiscussionList();
+        });
 
     }
     // Define a method to perform the date search and remove contentBoxes that don't fit within the selected date range
 
+// variable pour stocker la liste initiale des discussions
+    private ObservableList<Node> initialDiscussionList;
+
     private void filterDiscussionsByDate(LocalDate startDate, LocalDate endDate) {
         java.sql.Date sqlStartDate = java.sql.Date.valueOf(startDate);
         java.sql.Date sqlEndDate = java.sql.Date.valueOf(endDate);
+        // Enregistrer la liste initiale des discussions si elle n'a pas encore été enregistrée
+        if (initialDiscussionList == null) {
+            initialDiscussionList = FXCollections.observableArrayList(discussionBox.getChildren());
+        }
 
         List<Node> nodesToRemove = new ArrayList<>();
         for (Node node : discussionBox.getChildren()) {
@@ -567,6 +584,13 @@ public class ClientDiscussionController implements Initializable {
         }
 
         discussionBox.getChildren().removeAll(nodesToRemove);
+    }
+
+// méthode pour réinitialiser la liste des discussions à la liste initiale enregistrée
+    private void resetDiscussionList() {
+        if (initialDiscussionList != null) {
+            discussionBox.getChildren().setAll(initialDiscussionList);
+        }
     }
 
 }

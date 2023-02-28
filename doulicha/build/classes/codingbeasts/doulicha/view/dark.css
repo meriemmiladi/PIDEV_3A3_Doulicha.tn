@@ -7,6 +7,16 @@
 }
 
 /* Boutons */
+VBox > * > Button {
+    -fx-background-color: linear-gradient(to bottom, #FFC107, #FF9800);
+    -fx-background-radius: 30px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 20px;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
+
 .button {
     -fx-background-color: linear-gradient(to bottom, #222, #444);
     -fx-background-radius: 30px;
@@ -113,7 +123,18 @@ VBox {
     -fx-border-width: 2;
     -fx-padding: 10;
       -fx-text-fill: white;
+      -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
+  -fx-transition: all 0.3s ease;
+      
 }
+VBox > VBox:hover {
+  -fx-scale-x: 1.02;
+  -fx-scale-y: 1.02;
+
+  -fx-border-color: #aaa;
+  -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 0);
+}
+
 contentvbox {
     -fx-background-color: #222;
     -fx-background-radius: 10;
@@ -121,6 +142,8 @@ contentvbox {
     -fx-border-radius: 10;
     -fx-border-width: 2;
     -fx-padding: 10;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
+  -fx-transition: all 0.3s ease;
       
 }
 VBox > VBox > VBox > Label {
@@ -145,6 +168,7 @@ VBox > TextArea {
       -fx-prompt-text-fill: #777;
 
 }
+
 .btn-add-discussion {
     -fx-background-color: linear-gradient(to bottom, #FFC107, #FF9800);
     -fx-background-radius: 30px;
@@ -153,4 +177,14 @@ VBox > TextArea {
     -fx-padding: 20px;
     -fx-font-size: 14px;
     -fx-cursor:hand;
+}
+.btn-add-discussion1 {
+    -fx-background-color: linear-gradient(to bottom, #FFC107, #FF9800);
+    -fx-background-radius: 30px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+      -fx-padding: 10px;
+    -fx-font-size: 14px;
+  
+    -fx-cursor: hand;
 }
