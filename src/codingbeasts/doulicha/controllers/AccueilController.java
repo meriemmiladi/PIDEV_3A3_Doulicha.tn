@@ -5,17 +5,25 @@
  */
 package codingbeasts.doulicha.controllers;
 
+import codingbeasts.doulicha.entities.Commande;
+import codingbeasts.doulicha.entities.LigneCommande;
+import codingbeasts.doulicha.services.CommandeCrud;
+import codingbeasts.doulicha.services.LigneCommandeCrud;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
 
 /**
  * FXML Controller class
@@ -52,8 +60,20 @@ public class AccueilController implements Initializable {
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 stage.setScene(scene);
                 stage.show();
+                CommandeCrud commandeCrud=new CommandeCrud();
+            LigneCommandeCrud ligneCommandeCrud=new LigneCommandeCrud();
+            Commande commande=commandeCrud.retreiveOneOrder(20);
+            LocalDateTime dateTime = LocalDateTime.now();
+            java.sql.Date sqlDate = java.sql.Date.valueOf(dateTime.toLocalDate());
+                Commande c=new Commande(sqlDate,0);
+                CommandeCrud cc=new CommandeCrud();
+                commande=cc.ajouterCommande2(c, 1);
+                int id_commande = commande.getID_commande();
+                
             } catch (IOException ex) {
                System.out.println("errooooor"); 
+               
+            
             }
        });
     }    

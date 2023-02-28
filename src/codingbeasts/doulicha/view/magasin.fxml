@@ -7,7 +7,6 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Spinner?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -38,26 +37,6 @@
                            </font>
                         </Label>
                      </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="65.0" prefWidth="200.0" stylesheets="@../values/style.css" VBox.vgrow="NEVER">
-                     <VBox.margin>
-                        <Insets left="30.0" right="30.0" />
-                     </VBox.margin>
-                     <children>
-                        <TextField prefHeight="40.0" prefWidth="235.0" promptText="Type here to search" styleClass="transparent" stylesheets="@../values/style.css">
-                           <HBox.margin>
-                              <Insets left="20.0" />
-                           </HBox.margin>
-                           <font>
-                              <Font name="Cambria" size="18.0" />
-                           </font>
-                        </TextField>
-                        <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" styleClass="search-button" stylesheets="@../values/style.css" text="Search" textFill="WHITE" />
-                     </children>
-                     <styleClass>
-                        <String fx:value="search-box" />
-                        <String fx:value="shadow" />
-                     </styleClass>
                   </HBox>
                   <Pane prefHeight="57.0" prefWidth="435.0" VBox.vgrow="ALWAYS" />
                   <VBox fx:id="chosenCard" alignment="CENTER" prefHeight="535.0" prefWidth="100.0" stylesheets="@../values/style.css">
@@ -97,7 +76,7 @@
                                     <Font name="Cambria" size="36.0" />
                                  </font>
                               </Label>
-                              <Spinner fx:id="spinnerId" editable="true" prefHeight="31.0" prefWidth="119.0" />
+                              <Spinner fx:id="spinnerId" prefHeight="31.0" prefWidth="119.0" />
                            </children>
                            <VBox.margin>
                               <Insets top="20.0" />
@@ -215,6 +194,11 @@
                            </children>
                         </HBox>
                         <Pane prefHeight="84.0" prefWidth="96.0" />
+                        <Button fx:id="mesachats" mnemonicParsing="false" prefHeight="92.0" prefWidth="198.0" styleClass="add-btn" stylesheets="@../values/style.css" text="mes achats" textFill="#828282">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Button>
                      </children>
                      <VBox.margin>
                         <Insets left="20.0" right="20.0" top="10.0" />

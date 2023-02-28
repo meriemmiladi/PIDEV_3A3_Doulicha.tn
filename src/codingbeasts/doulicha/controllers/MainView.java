@@ -5,10 +5,12 @@
  */
 package codingbeasts.doulicha.controllers;
 
+import codingbeasts.doulicha.services.LigneCommandeCrud;
 import codingbeasts.doulicha.services.ProduitCrud;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.io.IOException ;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -37,8 +39,8 @@ public class MainView extends Application {
 
 //            Parent root = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/view/magasin.fxml"));
 //            Parent root = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/view/accprod.fxml"));
-//            Parent root = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/view/Accueil.fxml"));
-            Parent root = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/view/panier.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/view/Accueil.fxml"));
+            //Parent root = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/view/panier.fxml"));
             
             Dimension size = Toolkit. getDefaultToolkit(). getScreenSize();
             int width = (int)size.getWidth();
@@ -59,6 +61,19 @@ public class MainView extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
+        
+        LigneCommandeCrud LCC =new LigneCommandeCrud();
+        List<Integer> lista = LCC.retourDesIdsProduits(40);
+        List<Integer> Quantities = LCC.retourDesIdsQuantite(45);
+        
+        ProduitCrud Pcc = new ProduitCrud();
+       // System.out.println(Pcc.getSelectedProducts(lista).stream().findFirst().get().getID_produit());
+//        System.out.println(Pcc.getSelectedProducts(lista).stream().findFirst().get().getLibelle_produit());
+//       
+//        System.out.println(Quantities.get(0));
+
+
         launch(args);
     }
     

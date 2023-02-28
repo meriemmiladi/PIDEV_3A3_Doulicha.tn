@@ -18,6 +18,7 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -156,6 +157,20 @@ public class LigneCommandeCrud {
         System.err.println(ex.getMessage());
     }
     return ligneCommandeList;
+    }
+    
+     public List<Integer> retourDesIdsProduits(int id_commande) {
+        return afficherLigne().stream()
+                .filter(p -> p.getID_commande()== id_commande)
+                .map(LigneCommande::getID_produit)
+                .collect(Collectors.toList());
+    }
+     
+     public List<Integer> retourDesIdsQuantite(int id_commande) {
+        return afficherLigne().stream()
+                .filter(p -> p.getID_commande()== id_commande)
+                .map(LigneCommande::getQuantite_achete_ligne)
+                .collect(Collectors.toList());
     }
     
     

@@ -29,6 +29,9 @@ public class MainClass {
         LigneCommandeCrud ligneCommandeCrud=new LigneCommandeCrud();
         List<LigneCommande> listeLigneCommande=ligneCommandeCrud.retreiveLigneCommandeByIdCommande(20);
         
+        ProduitCrud p = new ProduitCrud();
+       System.out.println(p.countQuantitybyProduct());
+                
         //MyConnection mc2 = MyConnection.getInstance();
         //System.out.println(mc.hashCode()+ "-" +mc2.hashCode());
         

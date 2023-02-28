@@ -5,11 +5,16 @@
  */
 package codingbeasts.doulicha.controllers;
 
+import codingbeasts.doulicha.entities.Commande;
+import codingbeasts.doulicha.entities.LigneCommande;
 import codingbeasts.doulicha.entities.Produit;
+import codingbeasts.doulicha.services.CommandeCrud;
+import codingbeasts.doulicha.services.LigneCommandeCrud;
 import codingbeasts.doulicha.services.ProduitCrud;
 import codingbeasts.doulicha.tests.MyListener;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,11 +24,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Spinner;
@@ -35,6 +42,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
 
 /**
  * FXML Controller class
@@ -68,6 +77,10 @@ public class magController implements Initializable {
     Produit produitActuel=new Produit();
     int qttProduit=0;
     Map<Produit,Integer> produitMap=new HashMap<Produit,Integer>();
+    @FXML
+    private ComboBox<?> sort;
+    @FXML
+    private Button mesachats;
     private void setChosen(Produit produit) {
         produitActuel=produit;
         SpinnerValueFactory<Integer> valueFactory =new SpinnerValueFactory.IntegerSpinnerValueFactory(1, produit.getQuantite_produit(), 1);
@@ -87,10 +100,23 @@ public class magController implements Initializable {
         
         ajouterpanier.setOnAction(event ->{
            produitMap.put(produitActuel, spinnerId.getValue());
+          
+             LigneCommandeCrud ligneCommandeCrud=new LigneCommandeCrud();
+             LigneCommandeCrud lcc=new LigneCommandeCrud();
+             
+               CommandeCrud commandeCrud=new CommandeCrud();
+             Commande commande=commandeCrud.lastCommand();
+             int id_commande = commande.getID_commande();
+             
+                LigneCommande lc = new LigneCommande(id_commande, (int) produitActuel.getID_produit(), spinnerId.getValue() );
+            
+              lcc.ajouterLigneCommande2(lc);
+            
        });
         
-
         
+        
+
         panier.setOnAction(event ->{
            try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/codingbeasts/doulicha/view/panier.fxml"));

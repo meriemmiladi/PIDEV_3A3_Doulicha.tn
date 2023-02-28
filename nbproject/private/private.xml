@@ -5,7 +5,13 @@
         <group>
             <file>file:/C:/Users/scola/Documents/NetBeansProjects/JDBC/PIDEV_3A3_Doulicha.tn/src/codingbeasts/doulicha/controllers/MainView.java</file>
             <file>file:/C:/Users/scola/Documents/NetBeansProjects/JDBC/PIDEV_3A3_Doulicha.tn/src/codingbeasts/doulicha/controllers/PanierController.java</file>
-            <file>file:/C:/Users/scola/Documents/NetBeansProjects/JDBC/PIDEV_3A3_Doulicha.tn/src/codingbeasts/doulicha/tests/MainClass.java</file>
+            <file>file:/C:/Users/scola/Documents/NetBeansProjects/JDBC/PIDEV_3A3_Doulicha.tn/src/codingbeasts/doulicha/entities/Commande.java</file>
+            <file>file:/C:/Users/scola/Documents/NetBeansProjects/JDBC/PIDEV_3A3_Doulicha.tn/src/codingbeasts/doulicha/controllers/magController.java</file>
+            <file>file:/C:/Users/scola/Documents/NetBeansProjects/JDBC/PIDEV_3A3_Doulicha.tn/src/codingbeasts/doulicha/services/ProduitCrud.java</file>
+            <file>file:/C:/Users/scola/Documents/NetBeansProjects/JDBC/PIDEV_3A3_Doulicha.tn/src/codingbeasts/doulicha/entities/LigneCommande.java</file>
+            <file>file:/C:/Users/scola/Documents/NetBeansProjects/JDBC/PIDEV_3A3_Doulicha.tn/src/codingbeasts/doulicha/view/magasin.fxml</file>
+            <file>file:/C:/Users/scola/Documents/NetBeansProjects/JDBC/PIDEV_3A3_Doulicha.tn/src/codingbeasts/doulicha/services/LigneCommandeCrud.java</file>
+            <file>file:/C:/Users/scola/Documents/NetBeansProjects/JDBC/PIDEV_3A3_Doulicha.tn/src/codingbeasts/doulicha/services/CommandeCrud.java</file>
         </group>
     </open-files>
 </project-private>

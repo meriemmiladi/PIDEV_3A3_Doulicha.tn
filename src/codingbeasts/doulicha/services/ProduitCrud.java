@@ -15,7 +15,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 
 
@@ -88,6 +91,8 @@ public class ProduitCrud implements Crud<Produit> {
         }
            return myList;
     }
+    
+   
     public Produit retreiveOneProduct (int ID_produit) {
     String request = "SELECT * FROM produit WHERE ID_produit=?";
     try {
@@ -151,8 +156,38 @@ public class ProduitCrud implements Crud<Produit> {
         System.err.println(ex.getMessage());
     }
     return null;
-}
-    
+    }
+   
+    public List<Produit> triAsc(int id_prod) {
+         List<Produit> list = new ArrayList<>();
+        //ObservableList<Article> list = FXCollections.observableArrayList();
+        try {
+            
+            String requete = "select * from produit ORDER BY produit.`prixUvente_produit` ASC";
+            PreparedStatement pst = cnx2.prepareStatement(requete);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+             Produit prod = new Produit();
+             prod.setID_produit(rs.getInt("ID_produit"));
+             prod.setLibelle_produit(rs.getString("libelle"));
+             prod.setQuantite_produit(rs.getInt("quantite_produit"));
+             prod.setPrixUachat_produit(rs.getDouble("prixUvente_produit"));
+             prod.setPrixUachat_produit(rs.getDouble("prixUachat_produit"));
+             prod.setCategorie_produit(rs.getString("categorie_produit"));
+             prod.setImage_produit(rs.getString("image_produit"));
+             
+                list.add(prod);
+              
+             //list.add(new event(rs.getString(1), rs.getString(2), rs.getFloat(3), rs.getInt(4), rs.getString(5), rs.getInt(6),rs.getInt(7))); 
+       
+            }
+
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        } 
+
+        return list;
+    }
     
     
     
@@ -188,5 +223,42 @@ public class ProduitCrud implements Crud<Produit> {
     @Override
     public Produit UpdateOne(Produit entity) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
+     public List<Produit> getSelectedProducts(List<Integer> ids) {
+    List<Produit> allProducts = afficherProduit();
+    List<Produit> filteredProducts = allProducts.stream()
+            .filter(p -> ids.contains(p.getID_produit()))
+            .collect(Collectors.toList());
+    return filteredProducts;
+}
+     
+//     public List<Produit> getSelectedProductsByQuantities(List<Integer> ids) {
+//    List<Produit> allProducts = afficherProduit();
+//    List<Produit> filteredProducts = allProducts.stream()
+//            .filter(p -> ids.contains(p.getQuantite_produit()))
+//            .collect(Collectors.toList());
+//    return filteredProducts;
+//}
+    
+      public Map<String, Integer> countQuantitybyProduct() {
+
+        Map<String, Integer> countQuantitybyProd = new HashMap<>();
+        List<Produit> produits = afficherProduit();
+       
+
+        for (Produit produit : produits) {
+          
+            String nomProduit = produit.getLibelle_produit() ;
+            if (countQuantitybyProd.containsKey(nomProduit)) {
+                int count = countQuantitybyProd.get(nomProduit);
+                countQuantitybyProd.put(nomProduit, produit.getQuantite_produit());
+            } else {
+                countQuantitybyProd.put(nomProduit, produit.getQuantite_produit());
+            }
+        }
+
+        return countQuantitybyProd;
     }
 }

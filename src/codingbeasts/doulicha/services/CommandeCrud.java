@@ -143,7 +143,23 @@ public class CommandeCrud {
     }
 }
 
-    
+     public Commande lastCommand() {
+    String request = "SELECT * FROM commande_produit ORDER BY ID_commande DESC LIMIT 1";
+    try {
+        Statement  pst = cnx2.prepareStatement(request);
+        
+        ResultSet rs = pst.executeQuery(request);
+        if (rs.next()) {
+            Commande commande = new Commande();
+            commande.setID_commande(rs.getInt("ID_commande"));
+            
+            return commande;
+        }
+    } catch (SQLException ex) {
+        System.err.println(ex.getMessage());
+    }
+    return null;
+}   
     
     
 }
