@@ -17,7 +17,7 @@
             <Button fx:id="btn1" layoutX="300.0" layoutY="90.0" mnemonicParsing="false" onAction="#action1" prefHeight="44.0" prefWidth="169.0" styleClass="bottonnAjouter" stylesheets="@ajoutercategorie.css" text="Ajouter categorie" />
             <Button fx:id="btn3" layoutX="300.0" layoutY="240.0" mnemonicParsing="false" onAction="#action3" prefHeight="44.0" prefWidth="169.0" styleClass="bottonnAjouter" stylesheets="@ajoutercategorie.css" text="Consulter reclamation" />
             <Button fx:id="btn2" layoutX="300.0" layoutY="165.0" mnemonicParsing="false" onAction="#action2" prefHeight="44.0" prefWidth="169.0" styleClass="bottonnAjouter" stylesheets="@ajoutercategorie.css" text="Consulter avis" />
-            <Button fx:id="btn4" layoutX="31.0" layoutY="29.0" mnemonicParsing="false" onAction="#action4" prefHeight="18.0" prefWidth="70.0" styleClass="bottonnAjouter" stylesheets="@ajoutercategorie.css" text="Retour" />
+            <Button fx:id="btn4" layoutX="31.0" layoutY="29.0" mnemonicParsing="false" onAction="#action4" prefHeight="34.0" prefWidth="90.0" styleClass="bottonnAjouter" stylesheets="@ajoutercategorie.css" text="Retour" />
          </children>
       </AnchorPane>
    </children>

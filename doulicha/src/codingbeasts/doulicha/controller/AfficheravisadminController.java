@@ -18,12 +18,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -62,13 +64,13 @@ public class AfficheravisadminController implements Initializable {
             nomcategorie.setStyle("-fx-font-weight: bold;");
 
             // créer un Label pour afficher la description du projet
-            Label  iduser = new Label("id user: " + avis.getID_user());
+            Label  iduser = new Label("user: " + serviceCategorie.getNomuserById(avis.getID_user()));
 
             // créer un Label pour afficher l'objectif du projet
-            Label idevent = new Label("id event: " + avis.getID_event());
+            Label idevent = new Label("event: " + serviceCategorie.getNomeventById(avis.getID_event()));
 
             // créer un Label pour afficher l'état du projet
-            Label idlogement = new Label("id logement: " + avis.getID_logement());
+            Label idlogement = new Label("logement: " + serviceCategorie.getNomlogementById(avis.getID_logement()));
 
             HBox ratingBox = new HBox(); // créer une boîte pour les cercles de notation
             ratingBox.setSpacing(5);
@@ -87,14 +89,18 @@ public class AfficheravisadminController implements Initializable {
                 ratingBox.getChildren().add(circle); // ajouter le cercle à la boîte
             }
             
-            Label contenu = new Label(avis.getContenu_avis());
+            TextArea contenu = new TextArea(avis.getContenu_avis());
+
+            contenu.setEditable(false);
+            contenu.setWrapText(true);
             
-            Label type = new Label(avis.getType_avis());
+            Label type = new Label("cet avis concerne un " +avis.getType_avis());
             
             // ajouter les Labels et l'ImageView à la VBox
             contentBox.getChildren().addAll(nomcategorie,iduser,idevent,idlogement,ratingBox,contenu,type);
             contentBox.setSpacing(10);
-            contentBox.setStyle("-fx-background-color: #ffffff; -fx-border-color: #3FC4ED; -fx-border-width: 2px; -fx-border-radius: 5px;");
+            contentBox.setStyle("-fx-background-color: #ffffff; -fx-border-color: #3FC4ED; -fx-border-width: 1px; -fx-border-radius: 1px;");
+            contentBox.setAlignment(Pos.CENTER);
             return contentBox;
         }).map((contentBox) -> {
             avisListe.getChildren().add(contentBox);

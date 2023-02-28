@@ -44,6 +44,8 @@ public class AffichercategorieController implements Initializable {
     private Button btnajouterr;
     @FXML
     private Button btn4;
+    @FXML
+    private Button btnHistogramme;
 
 
 
@@ -147,6 +149,20 @@ public class AffichercategorieController implements Initializable {
         currentStage.close();
     } catch (IOException ex) {
         System.err.println(ex.getMessage());
+    }
+    }
+
+    @FXML
+    private void afficherHistogramme(ActionEvent event) {
+            try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/codingbeasts/doulicha/view/histogramme.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.showAndWait();
+    } catch (IOException ex) {
+        Logger.getLogger(HistogrammeController.class.getName()).log(Level.SEVERE, null, ex);
     }
     }
 }

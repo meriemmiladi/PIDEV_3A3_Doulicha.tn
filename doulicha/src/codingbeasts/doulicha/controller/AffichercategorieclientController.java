@@ -45,8 +45,6 @@ public class AffichercategorieclientController implements Initializable {
     private Button btnafficher;
     @FXML
     private Button btn4;
-    @FXML
-    private Button btnHistogramme;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     serviceCategorie dis = new serviceCategorie();
@@ -149,7 +147,6 @@ public class AffichercategorieclientController implements Initializable {
     }
     }
 
-    @FXML
     private void afficherHistogramme(ActionEvent event) {
             try {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/codingbeasts/doulicha/view/histogramme.fxml"));
