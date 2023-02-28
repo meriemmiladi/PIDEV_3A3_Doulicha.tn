@@ -26,6 +26,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -58,7 +59,9 @@ public class AfficherreclamationController implements Initializable {
         reclamations.stream().map((reclamation reclamation) -> {
             VBox contentBox = new VBox();
             // créer un Label pour afficher le nom du projet
-            Label contenureclamation = new Label("contenu reclamation : " + reclamation.getContenu_reclamation());
+            TextArea contenureclamation = new TextArea(reclamation.getContenu_reclamation());
+            contenureclamation.setEditable(false);
+            contenureclamation.setWrapText(true);
             contenureclamation.setStyle("-fx-font-weight: bold;");
 
             // créer un Label pour afficher la description du projet
