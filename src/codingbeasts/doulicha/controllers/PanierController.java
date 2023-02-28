@@ -98,6 +98,7 @@ import com.google.api.client.http.FileContent;
 import com.google.api.client.http.HttpRequestInitializer;
 import com.google.auth.http.HttpCredentialsAdapter;
 import java.util.Collections;
+import javafx.collections.FXCollections;
 
 
 public class PanierController implements Initializable {
@@ -226,7 +227,7 @@ public class PanierController implements Initializable {
                     Logger.getLogger(PanierController.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
-                pdfPayment("11","","aziz","","");
+                pdfPayment("aziz","azyzbel@gmail.com ","ajdjzed25czx");
                 
                 
                 
@@ -710,8 +711,8 @@ public class PanierController implements Initializable {
 //    
 //     }
 //
- 
-      public void pdfPayment(String monton ,String amount,String nom,String mail,String numc) throws FileNotFoundException, DocumentException, BadElementException, IOException, GeneralSecurityException{
+    
+    public void pdfPayment(String nom,String mail,String numc) throws FileNotFoundException, DocumentException, BadElementException, IOException, GeneralSecurityException{
             
     // Create the PDF file and save it on the computer
     String fileName = nom + ".pdf"; // Use the customer's name as the file name
@@ -737,12 +738,20 @@ public class PanierController implements Initializable {
     Paragraph customerInfo = new Paragraph("Nom : " + nom + "\nE-mail : " + mail + "\nNuméro de carte : " + numc);
     customerInfo.setAlignment(Element.ALIGN_LEFT);
     document.add(customerInfo);
+      
+//    // Add content
+//    Paragraph content = new Paragraph("Vous avez effectué un paiement d'un montant de " + amount + " pound .");
+//    content.setAlignment(Element.ALIGN_LEFT);
+//    document.add(content);
 
-    // Add content
-    Paragraph content = new Paragraph("Vous avez effectué un paiement d'un montant de " + amount + " pound .");
-    content.setAlignment(Element.ALIGN_LEFT);
-    document.add(content);
-
+    
+     Iterable<Entry<Produit, Integer>> data = produitMap.entrySet();
+    for (Entry<Produit, Integer> entry : data) {
+    Produit produit = entry.getKey();
+    Integer quantite = entry.getValue();
+    Paragraph paragraph = new Paragraph(produit.getLibelle_produit()+ "      quantité  " + quantite +"      prix       "+ produit.getPrixUvente_produit()*quantite);
+    document.add(paragraph);
+    }
     // Add date
 //    Paragraph date = new Paragraph("Date de paiment : "  + now + ".");
 //    date.setAlignment(Element.ALIGN_LEFT);
@@ -777,7 +786,7 @@ public class PanierController implements Initializable {
       
             }
       
-      private Drive getDriveService() throws IOException , GeneralSecurityException{
+     private Drive getDriveService() throws IOException , GeneralSecurityException{
     GoogleCredentials credentials = GoogleCredentials.fromStream(new FileInputStream("C:\\Users\\scola\\Desktop\\sas.json"))
             .createScoped(Collections.singleton(DriveScopes.DRIVE));
                 
@@ -789,6 +798,87 @@ public class PanierController implements Initializable {
             .setApplicationName("doulicha")
             .build();
 }
+
+    
+ 
+//      public void pdfPayment(String monton ,String amount,String nom,String mail,String numc) throws FileNotFoundException, DocumentException, BadElementException, IOException, GeneralSecurityException{
+//            
+//    // Create the PDF file and save it on the computer
+//    String fileName = nom + ".pdf"; // Use the customer's name as the file name
+//    String pdfPath = "src/PDF/" + fileName; // Save the file in the Invoices folder on the computer
+//    com.itextpdf.text.Document document = new com.itextpdf.text.Document();
+//    PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(pdfPath));
+//    writer.setBoxSize("art", new Rectangle(36, 36, 550, 800));
+//    document.open();
+//
+//     //Add the logo to the document
+//    Image logo = Image.getInstance("C:\\Users\\scola\\Documents\\NetBeansProjects\\JDBC\\PIDEV_3A3_Doulicha.tn\\src\\img\\logo.png"); // Replace with the path to your logo image
+//    logo.setAlignment(Element.ALIGN_CENTER);
+//    logo.scaleToFit(200, 200);
+//    document.add(logo);
+//
+//    // Add a colored title
+//    Font titleFont = new Font(Font.FontFamily.HELVETICA, 18, Font.BOLD | Font.UNDERLINE, new BaseColor(135, 206, 235));
+//    Paragraph title = new Paragraph("Facture de paiement", titleFont);
+//    title.setAlignment(Element.ALIGN_CENTER);
+//    document.add(title);
+//
+//     //Add customer information
+//    Paragraph customerInfo = new Paragraph("Nom : " + nom + "\nE-mail : " + mail + "\nNuméro de carte : " + numc);
+//    customerInfo.setAlignment(Element.ALIGN_LEFT);
+//    document.add(customerInfo);
+//
+//    // Add content
+//    Paragraph content = new Paragraph("Vous avez effectué un paiement d'un montant de " + amount + " pound .");
+//    content.setAlignment(Element.ALIGN_LEFT);
+//    document.add(content);
+//
+//    // Add date
+////    Paragraph date = new Paragraph("Date de paiment : "  + now + ".");
+////    date.setAlignment(Element.ALIGN_LEFT);
+////    document.add(date);
+//
+//    // Close document and outputStream.
+//    document.close();
+//    writer.close();
+//
+//     //Upload the file to Google Drive
+//    Drive service = getDriveService(); // Get an instance of the Google Drive service
+//   
+//    File fileMetadata = new File();
+//    
+//    fileMetadata.setName("aaa");
+//    fileMetadata.setParents(Collections.singletonList("Invoices")); // Set the folder ID of the Invoices folder on your Google Drive
+//    java.io.File pdfFile = new java.io.File(pdfPath);
+//    FileContent mediaContent = new FileContent("application/pdf", pdfFile);
+//    File file = service.files().create(fileMetadata, mediaContent)
+//            .setFields("id")
+//            .execute();
+//    System.out.println("File ID: " + file.getId());
+//
+//    // Show a notification to the user
+//    Notifications notificationBuilder = Notifications.create()
+//            .title("Ajout PARTICIPATION")
+//            .text("Votre facture a bien été enregistrée.");
+//            
+//
+//      
+//      
+//      
+//            }
+//      
+//      private Drive getDriveService() throws IOException , GeneralSecurityException{
+//    GoogleCredentials credentials = GoogleCredentials.fromStream(new FileInputStream("C:\\Users\\scola\\Desktop\\sas.json"))
+//            .createScoped(Collections.singleton(DriveScopes.DRIVE));
+//                
+//    HttpRequestInitializer requestInitializer = new HttpCredentialsAdapter(credentials);
+//    return new Drive.Builder(
+//            new NetHttpTransport(),
+//            new JacksonFactory(),
+//            null)
+//            .setApplicationName("doulicha")
+//            .build();
+//}
 
             
 }
