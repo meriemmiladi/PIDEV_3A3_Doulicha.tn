@@ -45,6 +45,8 @@ public class AffichercategorieclientController implements Initializable {
     private Button btnafficher;
     @FXML
     private Button btn4;
+    @FXML
+    private Button btnHistogramme;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     serviceCategorie dis = new serviceCategorie();
@@ -144,6 +146,20 @@ public class AffichercategorieclientController implements Initializable {
         currentStage.close();
     } catch (IOException ex) {
         System.err.println(ex.getMessage());
+    }
+    }
+
+    @FXML
+    private void afficherHistogramme(ActionEvent event) {
+            try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/codingbeasts/doulicha/view/histogramme.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.showAndWait();
+    } catch (IOException ex) {
+        Logger.getLogger(HistogrammeController.class.getName()).log(Level.SEVERE, null, ex);
     }
     }
 }

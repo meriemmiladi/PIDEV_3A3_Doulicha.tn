@@ -34,18 +34,19 @@
                   </Label>
                </children>
             </VBox>
-            <ImageView fitHeight="117.0" fitWidth="142.0" layoutX="41.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="117.0" fitWidth="142.0" layoutX="41.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../image/doulicha.png" />
                </image>
             </ImageView>
-            <Button fx:id="btnafficher" layoutX="36.0" layoutY="204.0" mnemonicParsing="false" onAction="#afficheravis" prefHeight="31.0" prefWidth="127.0" styleClass="bottonnAjouter" stylesheets="@ajoutercategorie.css" text="Afficher avis" />
+            <Button fx:id="btnafficher" layoutX="36.0" layoutY="172.0" mnemonicParsing="false" onAction="#afficheravis" prefHeight="31.0" prefWidth="127.0" styleClass="bottonnAjouter" stylesheets="@ajoutercategorie.css" text="Afficher avis" />
             <ScrollPane fx:id="scrollpane1" layoutX="218.0" layoutY="23.0" prefHeight="354.0" prefWidth="358.0">
                <content>
                   <VBox fx:id="categorieListe" prefHeight="333.0" prefWidth="323.0" />
                </content>
             </ScrollPane>
-            <Button fx:id="btn4" layoutX="62.0" layoutY="151.0" mnemonicParsing="false" onAction="#action4" styleClass="bottonnAjouter" stylesheets="@ajoutercategorie.css" text="Retour" />
+            <Button fx:id="btn4" layoutX="62.0" layoutY="132.0" mnemonicParsing="false" onAction="#action4" styleClass="bottonnAjouter" stylesheets="@ajoutercategorie.css" text="Retour" />
+            <Button fx:id="btnHistogramme" layoutX="36.0" layoutY="213.0" mnemonicParsing="false" onAction="#afficherHistogramme" prefHeight="31.0" prefWidth="127.0" styleClass="bottonnAjouter" stylesheets="@ajoutercategorie.css" text="histogrammes" />
          </children>
       </AnchorPane>
    </children>
