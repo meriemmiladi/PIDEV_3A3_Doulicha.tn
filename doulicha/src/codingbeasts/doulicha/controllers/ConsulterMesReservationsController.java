@@ -75,6 +75,11 @@ import javafx.scene.control.ButtonType;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
 
+import com.itextpdf.text.Document;
+//import com.itextpdf.text.Image;
+import com.itextpdf.text.pdf.PdfWriter;
+
+
 /**
  * FXML Controller class
  *
@@ -219,7 +224,8 @@ public class ConsulterMesReservationsController implements Initializable {
                             
                                 //ServL.supprimerLogement(Logement.getID_logement());
                             //ModifierReservationController.setTextField(MaReservation.getID_reservation(),MaReservation.getID_logement(),MaReservation.getID_user(),MaReservation.getDateArrivee_reservation(),MaReservation.getDateDepart_reservation(),MaReservation.getNbPersonnes_reservation(),MaReservation.getMontantTotal_reservation());
-                            ModifierReservationController.setTextField(MaReservation.getDateArrivee_reservation(),MaReservation.getDateDepart_reservation(),MaReservation.getNbPersonnes_reservation());
+                            ModifierReservationController.setTextField(MaReservation.getDateArrivee_reservation(),MaReservation.getDateDepart_reservation(),MaReservation.getNbPersonnes_reservation(),MaReservation.getNum_tel());
+                            System.out.println(MaReservation.getNum_tel());
                             Parent parent = loader.getRoot();
                             Scene scene = new Scene(parent);
                             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -264,6 +270,7 @@ public class ConsulterMesReservationsController implements Initializable {
 
     }*/
       
+ 
 
 String fileName = "Résercation N°" + MaReservation.getID_reservation() + ".pdf";
 String pdfPath = "src/PDF/" + fileName;
@@ -281,7 +288,13 @@ PdfWriter writer;
                 }
 document.open();
                 try {
-                    document.add(new Paragraph("Détails de votre réservation"));
+                 
+                     
+    Font titleFont = new Font(Font.FontFamily.COURIER, 20,Font.BOLDITALIC | Font.UNDERLINE, new BaseColor(76, 187, 217));
+    Paragraph title = new Paragraph("Détails de votre réservation", titleFont);
+    title.setAlignment(Element.ALIGN_CENTER);
+    document.add(title);
+                    
                 } catch (DocumentException ex) {
                     Logger.getLogger(ConsulterMesReservationsController.class.getName()).log(Level.SEVERE, null, ex);
                 }

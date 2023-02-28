@@ -15,6 +15,27 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.util.Base64;
+import java.util.Scanner;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.entity.mime.content.ByteArrayBody;
+import org.apache.http.impl.client.HttpClientBuilder;
+
 
 /**
  *
@@ -200,6 +221,40 @@ public class ServiceLogement implements IServiceLogement{
         
     }
     
+    public String getNomUser(int id) {
+try {
+            Statement st = cnx.createStatement();
+            
+            String req = "select nom_user from utilisateur WHERE  ID_user LIKE '" + id + "'";
+            ResultSet rs = st.executeQuery(req);
+            while (rs.next()) {
+                return rs.getString(1);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("erreur");
+            System.out.println(ex);
+        }
+            return "";
+    }
+    
+    public String getPrenomUser(int id) {
+try {
+            Statement st = cnx.createStatement();
+            
+            String req = "select prenom_user from utilisateur WHERE  ID_user LIKE '" + id + "'";
+            ResultSet rs = st.executeQuery(req);
+            while (rs.next()) {
+                return rs.getString(1);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("erreur");
+            System.out.println(ex);
+        }
+            return "";
+    }
+    
     public void changerEtat0(int i){
         try{
         String req = "UPDATE logement SET etat_logement = 0 WHERE ID_logement = ?";
@@ -221,4 +276,90 @@ public class ServiceLogement implements IServiceLogement{
                  System.err.println(ex.getMessage());
                  }
     }
+    
+    public static void uploadImage(File imageFile) throws IOException {
+    HttpClient httpClient = HttpClientBuilder.create().build();
+    HttpPost httpPost = new HttpPost("http://localhost:8080/upload");
+    
+    // Read image file into byte array
+    byte[] imageData = new byte[(int) imageFile.length()];
+    try (FileInputStream fileInputStream = new FileInputStream(imageFile)) {
+      fileInputStream.read(imageData);
+    }
+    
+    // Build multipart HTTP request
+    MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+    builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+    builder.addPart("image", new ByteArrayBody(imageData, "image.jpg"));
+    HttpEntity entity = builder.build();
+    httpPost.setEntity(entity);
+    
+    // Send HTTP request and process response
+    HttpResponse response = httpClient.execute(httpPost);
+    // Process response...
+  }
+    
+    private String envoyerImage(File image) {
+        String imagePath = null;
+        try {
+            // Convertir l'image en base64
+            String base64Image = encodeImage(image);
+            
+            // Créer la requête HTTP
+            String url = "http://localhost/upload_image.php";
+            String charset = StandardCharsets.UTF_8.name();
+            String query = String.format("image=%s", URLEncoder.encode(base64Image, charset));
+            HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+            connection.setDoOutput(true);
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=" + charset);
+            try (OutputStream output = connection.getOutputStream()) {
+                output.write(query.getBytes(charset));
+            }
+            
+            // Récupérer l'URL de l'image sur le serveur web
+            if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                try (Scanner scanner = new Scanner(connection.getInputStream())) {
+                    imagePath = scanner.nextLine();
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return imagePath;
+    }
+    private String encodeImage(File image) throws IOException {
+        byte[] imageBytes = Files.readAllBytes(image.toPath());
+        return Base64.getEncoder().encodeToString(imageBytes);
+    }
+    
+     public void ajouterLogement3(Logement l, File image) {
+        // Envoyer l'image au serveur web
+        String imagePath = envoyerImage(image);
+        try {
+        String req = "INSERT INTO logement ( nom_logement,  description_logement,  adresse_logement,  prixNuitee_logement,  capacite_logement, type_logement,  etat_logement,  image_logement) "
+                + "VALUES (?,?,?,?,?,?,?,?)";
+             //PreparedStatement pst = new MyConnection().getCnx().prepareStatement(req);
+             PreparedStatement pst = cnx.prepareStatement(req);
+             pst.setString(1, l.getNom_logement());
+             pst.setString(2, l.getDescription_logement());
+             pst.setString(3, l.getAdresse_logement());
+             pst.setDouble(4, l.getPrixNuitee_logement());
+             pst.setInt(5, l.getCapacite_logement());
+             pst.setString(6, l.getType_logement());
+             pst.setInt(7, l.getEtat_logement());
+             pst.setString(8, imagePath);
+             pst.executeUpdate();
+             //pst.close();
+             //cnx.close();
+             System.out.println("Logement ajouté avec succès");
+        } catch (SQLException ex){
+             System.err.println(ex.getMessage());
+        }
+        
+       
+    }
 }
+
+
+

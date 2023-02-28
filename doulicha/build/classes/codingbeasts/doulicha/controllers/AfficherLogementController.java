@@ -38,6 +38,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.StageStyle;
 import codingbeasts.doulicha.utils.MyConnection;
+import com.google.api.services.sheets.v4.Sheets;
+import com.twilio.rest.api.v2010.account.sip.credentiallist.Credential;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.sql.Connection;
@@ -57,6 +59,9 @@ import org.apache.poi.sl.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+
+
 /**
  * FXML Controller class
  *
@@ -162,6 +167,9 @@ public class AfficherLogementController implements Initializable {
                 Logger.getLogger(AfficherLogementController.class.getName()).log(Level.SEVERE, null, ex);
     }
     });
+        
+       
+
       
         
  
@@ -227,6 +235,7 @@ for (TablePosition tablePosition : selectedCells) {
         
         });*/
     }
+
     
     public void recherche_avance() {
         System.out.println("*******************");

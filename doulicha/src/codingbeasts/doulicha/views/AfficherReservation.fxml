@@ -25,22 +25,22 @@
          </font>
       </Text>
       <Button fx:id="home" layoutX="2.0" layoutY="284.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="324.0" text="Home" />
-      <TableView fx:id="table_view" layoutX="334.0" layoutY="175.0" prefHeight="420.0" prefWidth="881.0">
-         <columns>
-            <TableColumn fx:id="ID_reservation" minWidth="9.0" prefWidth="9.0" visible="false" />
-            <TableColumn fx:id="ID_user" minWidth="4.0" prefWidth="142.0" text="ID_client" />
-            <TableColumn fx:id="ID_logement" minWidth="0.0" prefWidth="115.0" text="ID_logement" />
-            <TableColumn fx:id="dateArrivee_reservation" prefWidth="137.0" text="Date Arrivée" />
-            <TableColumn fx:id="dateDepart_reservation" prefWidth="131.0" text="Date Départ" />
-            <TableColumn fx:id="nbPersonnes_reservation" prefWidth="201.0" text="Nombre de personnes" />
-            <TableColumn fx:id="montantTotal_reservation" minWidth="0.0" prefWidth="145.0" text="Montant total" />
-         </columns>
-      </TableView>
       <Pane layoutX="329.0" layoutY="84.0" prefHeight="25.0" prefWidth="901.0" style="-fx-background-color: #CCE3EA;" />
       <Text fill="#476e7c" layoutX="348.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Affichage des réservations">
          <font>
             <Font name="Papyrus" size="49.0" />
          </font>
       </Text>
+      <TableView fx:id="table_view" layoutX="340.0" layoutY="140.0" prefHeight="588.0" prefWidth="882.0">
+         <columns>
+            <TableColumn fx:id="nom_user" prefWidth="92.0" text="Nom_user" />
+            <TableColumn fx:id="prenom_user" prefWidth="115.0" text="Prenom_user" />
+            <TableColumn fx:id="nom_logement" prefWidth="133.0" text="Nom_logement" />
+            <TableColumn fx:id="dateArrivee_reservation" prefWidth="123.0" text="Date d'arrivée" />
+            <TableColumn fx:id="dateDepart_reservation" prefWidth="134.0" text="Date de départ" />
+            <TableColumn fx:id="nbPersonnes_reservation" prefWidth="123.0" text="Nb_personnes" />
+            <TableColumn fx:id="montantTotal_reservation" prefWidth="126.0" text="Montant Total" />
+            <TableColumn fx:id="num_tel" minWidth="150.0" prefWidth="35.0" text="Téléphone" />
+         </columns></TableView>
    </children>
 </AnchorPane>

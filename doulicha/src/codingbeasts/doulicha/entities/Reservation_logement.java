@@ -16,20 +16,22 @@ public class Reservation_logement {
     private int ID_reservation,ID_user,ID_logement,nbPersonnes_reservation;
     private Date dateArrivee_reservation,dateDepart_reservation;
     private double montantTotal_reservation;
+    private String num_tel;
 
     public Reservation_logement() {
     }
 
-    public Reservation_logement(int ID_user, int ID_logement, Date dateArrivee_reservation, Date dateDepart_reservation, int nbPersonnes_reservation, double montantTotal_reservation) {
+    public Reservation_logement(int ID_user, int ID_logement, Date dateArrivee_reservation, Date dateDepart_reservation, int nbPersonnes_reservation, double montantTotal_reservation,String num_tel) {
         this.ID_user = ID_user;
         this.ID_logement = ID_logement;
         this.nbPersonnes_reservation = nbPersonnes_reservation;
         this.dateArrivee_reservation = dateArrivee_reservation;
         this.dateDepart_reservation = dateDepart_reservation;
         this.montantTotal_reservation = montantTotal_reservation;
+        this.num_tel=num_tel;
     }
 
-    public Reservation_logement(int ID_reservation, int ID_user, int ID_logement, Date dateArrivee_reservation, Date dateDepart_reservation, int nbPersonnes_reservation, double montantTotal_reservation) {
+    public Reservation_logement(int ID_reservation, int ID_user, int ID_logement, Date dateArrivee_reservation, Date dateDepart_reservation, int nbPersonnes_reservation, double montantTotal_reservation,String num_tel) {
         this.ID_reservation = ID_reservation;
         this.ID_user = ID_user;
         this.ID_logement = ID_logement;
@@ -37,6 +39,7 @@ public class Reservation_logement {
         this.dateArrivee_reservation = dateArrivee_reservation;
         this.dateDepart_reservation = dateDepart_reservation;
         this.montantTotal_reservation = montantTotal_reservation;
+        this.num_tel=num_tel;
     }
 
     
@@ -55,6 +58,13 @@ public class Reservation_logement {
     return dateArrivee.after(dateLimite);
 }
 
+    public String getNum_tel() {
+        return num_tel;
+    }
+
+    public void setNum_tel(String num_tel) {
+        this.num_tel = num_tel;
+    }
     
     public int getID_reservation() {
         return ID_reservation;

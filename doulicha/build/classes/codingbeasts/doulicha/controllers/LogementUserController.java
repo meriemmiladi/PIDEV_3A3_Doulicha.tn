@@ -349,10 +349,7 @@ reserverButton.setOnAction((ActionEvent event) -> {
         });
  
         scrollPane.setFitToWidth(false);
-        /**
-         * newDiscussionButton.setOnAction(event -> { // Ajouter le code de
-         * création d'une nouvelle discussion ici });
-         */
+       
     }
     
     

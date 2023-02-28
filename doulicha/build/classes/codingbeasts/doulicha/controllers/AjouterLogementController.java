@@ -40,11 +40,17 @@ import java.nio.file.StandardCopyOption;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.net.MalformedURLException;
 import javafx.embed.swing.SwingFXUtils;
 import java.net.URL;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 
 
 
@@ -93,6 +99,10 @@ public class AjouterLogementController implements Initializable {
     private ImageView checkprixnuitee;
     @FXML
     private ImageView checkcapacite;
+     private String path;
+     File selectedFile;
+     private String test;
+    
     
     
 
@@ -101,6 +111,51 @@ public class AjouterLogementController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+         imageLog.setOnDragOver(new EventHandler<DragEvent>() {
+            @Override
+            public void handle(DragEvent event) {
+                Dragboard db = event.getDragboard();
+                if (db.hasFiles()) {
+                    event.acceptTransferModes(TransferMode.COPY);
+                } else {
+                    event.consume();
+                }
+            }
+        });
+        // Dropping over surface
+        imageLog.setOnDragDropped(new EventHandler<DragEvent>() {
+            @Override
+            public void handle(DragEvent event) {
+                Dragboard db = event.getDragboard();
+                boolean success = false;
+                if (db.hasFiles()) {
+                    success = true;
+                    path = null;
+                    for (File file : db.getFiles()) {
+                        try {
+                            path = file.toURI().toURL().toExternalForm().toString();
+                        } catch (MalformedURLException ex) {
+                            Logger.getLogger(AjouterLogementController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        selectedFile = new File(file.getName());
+                        System.out.println("Drag and drop file done and path=" + file.getPath());//file.getAbsolutePath()="C:\Users\X\Desktop\ScreenShot.6.png"
+                        imageLog.setImage(new Image("file:"+file.getPath()));
+//                        screenshotView.setFitHeight(150);
+//                        screenshotView.setFitWidth(250);
+                       image_logement.setText(path);
+//                        tfphotourl.setText(path);
+                          test=file.getAbsolutePath();
+                    }
+                }
+                
+                event.setDropCompleted(success);
+        
+                event.consume();
+            }
+        }
+        );
+        imageLog.setImage(new Image("/codingbeasts/doulicha/images/drag-drop.gif"));
+        
        
         
     type_logement.setItems(FXCollections.observableArrayList());
@@ -161,8 +216,8 @@ public class AjouterLogementController implements Initializable {
     
         
           FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Pick a banner file !");
-        fileChooser.setInitialDirectory(new File("\\C:\\3A3\\doulichaFX\\images"));
+        fileChooser.setTitle("Pick a file !");
+        fileChooser.setInitialDirectory(new File("\\C:\\3A3\\doulichaFX2\\doulicha\\images"));
         Stage stage = new Stage();
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("JPG", "*.jpg"),
@@ -184,14 +239,16 @@ Path destination = Paths.get(xamppFolderPath + fileName);
                 Image image = SwingFXUtils.toFXImage(bufferedImage, null);
                 image_logement.setText(fileName);
                 imageLog.setImage(image);
+                selectedFile = new File(file.getName());
             } catch (IOException ex) {
                 System.out.println("could not get the image");
             }
         String imagePath = "images/" + fileName;
+       
     });
          
          
-         ajouter.setOnAction(event -> {        
+         ajouter.setOnAction((ActionEvent event) -> {        
         ServiceLogement sl = new ServiceLogement();
         if(testSaisie()){ 
 
@@ -216,6 +273,8 @@ Path destination = Paths.get(xamppFolderPath + fileName);
       
 
         sl.ajouterLogement2(l);
+        //sl.ajouterLogement3(l, selectedFile);
+        
         try{
         Parent page1 = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/views/AfficherLogement.fxml"));
             Scene scene = new Scene(page1);

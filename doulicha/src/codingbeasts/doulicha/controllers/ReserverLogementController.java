@@ -9,6 +9,7 @@ package codingbeasts.doulicha.controllers;
 import codingbeasts.doulicha.entities.Reservation_logement;
 import codingbeasts.doulicha.services.ServiceReservationLogement;
 import codingbeasts.doulicha.services.ServiceLogement;
+import codingbeasts.doulicha.services.SmsSender;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -59,6 +60,8 @@ public class ReserverLogementController implements Initializable {
     private TextField ID_logement;
     private int id;
     private String nom;
+    @FXML
+    private TextField num_tel;
 
     /**
      * Initializes the controller class.
@@ -146,7 +149,8 @@ public class ReserverLogementController implements Initializable {
             } catch (NumberFormatException e) {
               System.out.println("erreur recuperation capacite!");
             }
-     
+       r.setNum_tel(num_tel.getText());
+       
         // calculez le nombre de jours de la réservation
         long nbJoursReservation = ChronoUnit.DAYS.between(dateArrivee_local, dateDepart_local);
 
@@ -177,6 +181,13 @@ public class ReserverLogementController implements Initializable {
         
 
         sr.ajouterReservationLogement2(r);
+        //handleReservationValidation();
+        //*********************
+        //String toNumber = "+21629599189";
+        String toNumber= r.getNum_tel();
+    String messageBody = "Votre réservation de logement a été bien validée. Merci de votre confiance !";
+    SmsSender.sendSms(toNumber, messageBody);
+        //*********************
          System.out.println("test2");
         try{
         Parent page1 = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/views/ConsulterMesReservations.fxml"));
@@ -287,6 +298,14 @@ public class ReserverLogementController implements Initializable {
             }
                
     } 
+      
+private void handleReservationValidation() {
+    // code pour valider la réservation
+    String toNumber = "+21629599189";
+    String messageBody = "Votre réservation de logement a été bien validée. Merci de votre confiance !";
+    SmsSender.sendSms(toNumber, messageBody);
+}
+
 
      
     }    

@@ -57,7 +57,7 @@ VBox {
     -fx-fill: #DCF5C6;
 }
 .table-view .table-cell{
-    -fx-background-color: #6dbed6;
+    -fx-background-color:  #6dbed6;
     -fx-text-fill: #174E26;
     -fx-alignment: center;
 }

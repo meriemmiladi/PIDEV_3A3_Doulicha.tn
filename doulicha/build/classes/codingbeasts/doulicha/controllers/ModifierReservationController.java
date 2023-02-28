@@ -63,6 +63,8 @@ public class ModifierReservationController implements Initializable {
     private TextField ID_reservation;
     private TextField montantTotal_reservation;
     private int id_logement,id_reservation,id_user;
+    @FXML
+    private TextField num_tel;
 
     /**
      * Initializes the controller class.
@@ -158,6 +160,7 @@ public class ModifierReservationController implements Initializable {
             } catch (NumberFormatException e) {
               System.out.println("erreur recuperation capacite!");
             }
+        r.setNum_tel(num_tel.getText());
      
        
 
@@ -218,7 +221,7 @@ public class ModifierReservationController implements Initializable {
     }    
     
   //  void setTextField( int ID_reservation,int ID_logement,int ID_user,Date dateArrivee_reservation,Date dateDepart_reservation,int nbPersonnes_reservations,Double montantTotal_reservation ) {
-        void setTextField( Date dateArrivee_reservation,Date dateDepart_reservation,int nbPersonnes_reservations ) {
+        void setTextField( Date dateArrivee_reservation,Date dateDepart_reservation,int nbPersonnes_reservations ,String num_tel) {
         /*this.ID_reservation.setText(Integer.toString(ID_reservation));
         this.ID_logement.setText(Integer.toString(ID_logement));
         this.ID_user.setText(Integer.toString(ID_user));*/
@@ -231,6 +234,7 @@ public class ModifierReservationController implements Initializable {
         LocalDate dateD = LocalDate.parse(strDateDepart, formatter1);
         this.dateDepart_reservation.setValue(dateD);
         this.nbPersonnes_reservation.setText(Integer.toString(nbPersonnes_reservations));
+        this.num_tel.setText(num_tel);
         //this.montantTotal_reservation.setText(Double.toString(montantTotal_reservation));
         
     }
