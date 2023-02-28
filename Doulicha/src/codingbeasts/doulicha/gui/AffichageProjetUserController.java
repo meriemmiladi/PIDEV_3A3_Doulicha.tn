@@ -32,6 +32,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
 /**
@@ -102,15 +104,17 @@ private VBox createContentBox(projet projet) {
             imageView.setTranslateX(120);
             imageView.setImage(imageS);
             
-            Label nomLabel = new Label("Nom_projet :" + projet.getNom_projet());
+            TextFlow nomLabel = new TextFlow();
+            nomLabel.getChildren().add(new Text("Projet : " + projet.getNom_projet()));
             nomLabel.getStyleClass().add("nomLabel");
             nomLabel.setStyle("-fx-font-weight: bold;");
-            Label descriptionLabel = new Label("Description :" + projet.getDescription_projet());
+            TextFlow descriptionLabel = new TextFlow();
+            descriptionLabel.getChildren().add(new Text("Description :: " + projet.getDescription_projet()));
             descriptionLabel.getStyleClass().add("descriptionLabel");
             Label obj = new Label("Objectif");
             obj.getStyleClass().add("objectifLabel");
             obj.getStyleClass().add("nomLabel");
-            Label objectifLabel = new Label(obj.getText()+ ":" + projet.getObjectif_projet());
+            Label objectifLabel = new Label(obj.getText()+ "::" + projet.getObjectif_projet());
             
             
             Button savedon = new Button("Ajouterdon");
@@ -149,10 +153,10 @@ private VBox createContentBox(projet projet) {
             });
             VBox butonsBox = new VBox();
             butonsBox.getChildren().addAll(nomLabel,descriptionLabel, objectifLabel);
-            butonsBox.setStyle(" -fx-padding: 40px 10; -fx-line-spacing: 30px;");
+            butonsBox.setStyle("  -fx-line-spacing: 50px;");
             HBox buttonsBox = new HBox();
             buttonsBox.getChildren().addAll(butonsBox, imageView);
-            
+            buttonsBox.setStyle("-fx-padding: 10px 10pc 10px 10px");
             
             contentBox.getChildren().addAll( buttonsBox,  savedon);
             contentBox.setSpacing(10);
