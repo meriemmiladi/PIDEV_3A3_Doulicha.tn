@@ -149,7 +149,7 @@ private VBox createContentBox(projet projet) {
             });
             VBox butonsBox = new VBox();
             butonsBox.getChildren().addAll(nomLabel,descriptionLabel, objectifLabel);
-            butonsBox.setStyle(" -fx-padding: 40px 20; -fx-line-spacing: 30px;");
+            butonsBox.setStyle(" -fx-padding: 40px 10; -fx-line-spacing: 30px;");
             HBox buttonsBox = new HBox();
             buttonsBox.getChildren().addAll(butonsBox, imageView);
             

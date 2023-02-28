@@ -229,7 +229,7 @@ public Map<String, Double> getDonneesDonsParObjectif() {
 
     // Afficher le graphique dans une nouvelle fenêtre
     Stage stage = new Stage();
-    stage.setScene(new Scene(barChart, 200, 300));
+    stage.setScene(new Scene(barChart, 400, 400));
     stage.show();
 }
    
