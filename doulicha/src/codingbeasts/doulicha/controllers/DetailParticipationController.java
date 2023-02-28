@@ -10,6 +10,8 @@ import codingbeasts.doulicha.entities.evenement;
 import codingbeasts.doulicha.entities.participation_evenement;
 import codingbeasts.doulicha.services.ServiceEvenement;
 import codingbeasts.doulicha.services.ServiceParticipationEvenement;
+import java.awt.Desktop;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -75,7 +77,7 @@ public class DetailParticipationController implements Initializable {
         this.id_event_part.setText(SE.getNom(part.getID_event()));
       this.id_participation.setText(String.valueOf(part.getID_event()));
         this.nbpart_detail.setText(String.valueOf(part.getNombre_participation()));
-       this.iduser_detail.setText(String.valueOf(1));
+       this.iduser_detail.setText(String.valueOf(part.getID_user()));
         this.id_participationM .setText(String.valueOf(part.getID_participation()));
         
     }  
@@ -128,8 +130,31 @@ public class DetailParticipationController implements Initializable {
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
-         //    ServicePdf sp= new ServicePdf();
-        //sp.liste_PromotionPDF();
+            
+            // Chemin vers le fichier PDF
+        String filePath = "C:/xampp/htdocs/myservice/pdfs/participation_" + id_participationM.getText() + ".pdf";
+            System.out.println(filePath);
+        
+        // Créer un objet File à partir du chemin
+        File file = new File(filePath);
+        
+        // Vérifier si le fichier existe et peut être lu
+        if (file.exists() && file.canRead()) {
+            // Ouvrir le fichier PDF avec l'application par défaut
+            Desktop desktop = Desktop.getDesktop();
+            try {
+                desktop.open(file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("Le fichier PDF n'existe pas ou ne peut pas être lu.");
+        } 
+            
+            
+            
+            
+            
         }
     }
 

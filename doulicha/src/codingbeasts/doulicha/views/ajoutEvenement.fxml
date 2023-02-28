@@ -85,7 +85,7 @@
                               </Label>
                            </children>
                         </VBox>
-                        <VBox alignment="CENTER" prefHeight="360.0" prefWidth="363.0" spacing="23.0">
+                        <VBox alignment="CENTER" prefHeight="360.0" prefWidth="363.0" spacing="27.0">
                            <children>
                               <TextField fx:id="TF_nom" prefHeight="35.0" prefWidth="363.0" style="-fx-background-radius: 50;" />
                               <TextField fx:id="TF_lieu" prefHeight="25.0" prefWidth="279.0" style="-fx-background-radius: 50;" />
@@ -103,7 +103,7 @@
                               <DatePicker fx:id="dateFin" prefHeight="25.0" prefWidth="371.0" style="-fx-background-radius: 50;" />
                            </children>
                         </VBox>
-                        <VBox alignment="TOP_CENTER" prefHeight="557.0" prefWidth="106.0" spacing="31.0" HBox.hgrow="ALWAYS">
+                        <VBox alignment="TOP_CENTER" prefHeight="557.0" prefWidth="106.0" spacing="34.0" HBox.hgrow="ALWAYS">
                            <children>
                               <ImageView fx:id="iconeNom" fitHeight="27.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
                               <ImageView fx:id="iconeLieu" fitHeight="23.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
@@ -114,7 +114,6 @@
                               <ImageView fx:id="iconeType" fitHeight="23.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
                               <ImageView fx:id="iconeDateDebut" fitHeight="23.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
                               <ImageView fx:id="iconeDateFin" fitHeight="23.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
-                              <ImageView fx:id="iconeNombreActuel" fitHeight="29.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
                            </children>
                         </VBox>
                      </children>

@@ -101,11 +101,11 @@ public class ServiceParticipationEvenement {
     }  
     
     
-    public List<participation_evenement> afficherParticipations(){
+    public List<participation_evenement> afficherParticipations(int iduser){
         List<participation_evenement> ListParticipation = new ArrayList<>();
         
         try {
-         String requete3 = "SELECT * FROM participation_evenement";
+         String requete3 = "SELECT * FROM participation_evenement where ID_user LIKE '" + iduser + "'";
          
          Statement st = cnx.createStatement();
          ResultSet rs= st.executeQuery(requete3);

@@ -97,8 +97,6 @@ public class AjoutEvenementController implements Initializable {
     @FXML
     private ImageView iconeDateDebut;
     @FXML
-    private ImageView iconeNombreActuel;
-    @FXML
     private Button btn_importer;
     
     String xamppFolderPath = "C:/xampp/htdocs/images/";

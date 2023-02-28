@@ -35,14 +35,20 @@ import java.awt.Desktop;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStream;
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
+import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -72,6 +78,7 @@ import javafx.scene.control.TextField;
 //import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javax.imageio.ImageIO;
@@ -108,6 +115,10 @@ public class AjoutParticipationController implements Initializable {
     private ImageView icone_date;
     @FXML
     private TextField TF_numtel;
+    
+    private Stage stage;
+    
+    int userConnecte = 2;
 
     /**
      * Initializes the controller class.
@@ -152,9 +163,9 @@ private void ajouterParticipation(ActionEvent event) throws SQLException, Docume
     } 
         
     part.setNombre_participation(Integer.parseInt(TF_nombre.getText()));
-    part.setNum_tel(TF_numtel.getText());
+    part.setNum_tel("+216" + TF_numtel.getText());
     part.setID_event(valueI);
-    part.setID_user(3);
+    part.setID_user(userConnecte);
      int totalParticipations = SPE.getNombreParticipations(valueI);
        System.out.println(totalParticipations + "ay haja");
        System.out.println(totalParticipations < ev.getCapacite(part.getID_event()));
@@ -203,13 +214,156 @@ try {
 } catch (WriterException e) {
     e.printStackTrace();
 } 
+
+DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+Date date = new Date(System.currentTimeMillis());
+String fileName = "participation_" + idParticipation + "_" + dateFormat.format(date);
+
+// Spécifier le chemin de fichier complet
+String filePathh = "C:/xampp/htdocs/myservice/pdfs/participation_" + idParticipation + ".pdf"; 
+File file = new File(filePathh);
+if (!file.exists()) {
+    file.createNewFile();
+}
+
+/*
+// Convertir le PDF en flux de données
+ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+com.itextpdf.text.Document document = new com.itextpdf.text.Document();
+// Utiliser FileOutputStream au lieu de ByteArrayOutputStream
+FileOutputStream fileOutputStream = new FileOutputStream(fileName);
+PdfWriter writer = PdfWriter.getInstance(document, fileOutputStream);*/
+
+
+// Convertir le PDF en flux de données
+ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+com.itextpdf.text.Document document = new com.itextpdf.text.Document();
+PdfWriter writer = PdfWriter.getInstance(document, outputStream); 
+writer.setBoxSize("art", new Rectangle(36, 36, 550, 800));
+
+document.open();
+
+// Ajouter un titre coloré
+Font titleFont = new Font(Font.FontFamily.HELVETICA, 18,Font.BOLD | Font.UNDERLINE, new BaseColor(135, 206, 235));
+Paragraph title = new Paragraph("Details de votre participation", titleFont);
+title.setAlignment(Element.ALIGN_CENTER);
+document.add(title);
+
+document.add(new Paragraph("Votre nom : " + ev.getNomUser(part.getID_user())));
+document.add(new Paragraph("Numero de votre participation : " + idParticipation));
+document.add(new Paragraph("Nom de l'évènement : " + ev.getNom(part.getID_event()) ));
+document.add(new Paragraph("Date de début : " + ev.getDateDebut(part.getID_event()) ));
+document.add(new Paragraph("Date de fin : " + ev.getDateFin(part.getID_event()) ));
+
+// Ajouter le QR code
+Image qrImage = Image.getInstance(qrFile.getAbsolutePath());
+qrImage.setAlignment(Element.ALIGN_CENTER);
+qrImage.scaleAbsolute(200, 200);
+document.add(qrImage);
+
+// Dessiner le cadre autour de tout le PDF
+Rectangle rect = writer.getBoxSize("art");
+PdfContentByte cb = writer.getDirectContent();
+cb.rectangle(rect.getLeft(), rect.getBottom(), rect.getWidth(), rect.getHeight());
+cb.stroke();
+
+// Ajouter le QR code contenant le lien iCalendar au PDF
+Image icalQrImage = Image.getInstance(icalFilePath);
+icalQrImage.setAlignment(Element.ALIGN_CENTER);
+icalQrImage.scaleAbsolute(200, 200);
+document.add(icalQrImage);
+
+document.close();
+writer.close();
+
+// Récupérer les données du PDF en byte[]
+byte[] pdfBytes = outputStream.toByteArray();
+
+FileOutputStream fileOutputStream = new FileOutputStream(file);
+fileOutputStream.write(pdfBytes);
+fileOutputStream.close();
+
+// Envoyer le PDF au serveur web
+String apiKey = "7eaa37d9e8abdc16bc07751f8ff8caf99d49bb1f4a3ef2f03b77d974ba5e94b7";
+
+URL url = new URL("http://192.168.226.1/myservice/savepdf.php");
+HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+connection.setRequestMethod("POST");
+connection.setRequestProperty("Content-Type", "application/pdf");
+connection.setRequestProperty("X-API-KEY", apiKey);
+connection.setDoOutput(true);
+
+// Ajouter le nom de fichier au corps de la requête
+String query = "fileName=" + URLEncoder.encode(fileName, "UTF-8");
+OutputStream os = connection.getOutputStream();
+os.write(query.getBytes("UTF-8"));
+os.write(pdfBytes);
+os.flush();
+os.close();
+
+// Récupérer la réponse du serveur web
+int responseCode = connection.getResponseCode();
+if (responseCode == HttpURLConnection.HTTP_OK) {
+String responseMessage = connection.getResponseMessage();
+System.out.println("PDF enregistré avec succès sur le serveur web: " + responseMessage);
+} else {
+System.out.println(responseCode);
+System.out.println("Erreur lors de l'enregistrement du PDF sur le serveur web");
+}
+connection.disconnect();
+
+
+
+ 
+     File pdfFile = null;
+    try {
+        pdfFile = File.createTempFile("participation_", ".pdf");
+        FileOutputStream fileOutputStream2 = new FileOutputStream(pdfFile);
+        fileOutputStream2.write(pdfBytes);
+        fileOutputStream2.close();
+    } catch (IOException ex) {
+        ex.printStackTrace();
+    }
+     if (pdfFile != null) {
+        if (Desktop.isDesktopSupported()) {
+            Desktop desktop = Desktop.getDesktop();
+            try {
+                desktop.open(pdfFile);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        } else {
+            // Si Desktop n'est pas pris en charge, téléchargez le fichier PDF
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Enregistrer le fichier PDF");
+            fileChooser.setInitialFileName(pdfFile.getName());
+            FileChooser.ExtensionFilter pdfFilter = new FileChooser.ExtensionFilter("PDF Files (*.pdf)", "*.pdf");
+            fileChooser.getExtensionFilters().add(pdfFilter);
+            File saveFile = fileChooser.showSaveDialog(stage);
+            if (saveFile != null) {
+                 try {
+        Files.copy(pdfFile.toPath(), saveFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        if (Desktop.isDesktopSupported()) {
+            Desktop.getDesktop().open(saveFile);
+        } else {
+            System.out.println("Desktop is not supported");
+        }
+    } catch (IOException ex) {
+        ex.printStackTrace();
+    }
+            }
+        }
+     }
+     
+     
+
+
     
-      // Exporter les informations de la participation en PDF avec le QR code
+  /*    // Exporter les informations de la participation en PDF avec le QR code
  DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
 Date date = new Date(System.currentTimeMillis());
 String fileName = "participation_" + idParticipation + "_" + dateFormat.format(date) + ".pdf";
 String pdfPath = "src/PDF/" + fileName;
-
 
 com.itextpdf.text.Document document = new com.itextpdf.text.Document();
 PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(pdfPath));
@@ -254,13 +408,8 @@ icalQrImage.scaleAbsolute(200, 200);
 document.add(icalQrImage);
 
 
-
-
-
-
 document.close();
-writer.close();
-
+writer.close(); */
  
     Notifications notificationBuilder = Notifications.create()
             .title("Ajout PARTICIPATION")
@@ -312,6 +461,9 @@ writer.close();
     notificationBuilder.showWarning();
        }
      }
+ 
+     
+    
 }
 
 

@@ -7,7 +7,9 @@ package codingbeasts.doulicha.controllers;
 
 import codingbeasts.doulicha.entities.evenement;
 import codingbeasts.doulicha.services.ServiceEvenement;
+import codingbeasts.doulicha.services.ServicePDF;
 import codingbeasts.doulicha.services.ServiceParticipationEvenement;
+import com.itextpdf.text.DocumentException;
 //import com.sun.corba.se.impl.protocol.giopmsgheaders.Message;
 import com.twilio.Twilio;
 
@@ -126,7 +128,16 @@ public class AfficherEvenementsController implements Initializable {
         afficherEvenement();
       search_event();   
       
-     
+      /*  String apiKey = "7eaa37d9e8abdc16bc07751f8ff8caf99d49bb1f4a3ef2f03b77d974ba5e94b7";
+        ServicePDF pdfGenerator = new ServicePDF(apiKey);
+
+        try {
+            pdfGenerator.generatePdf("John Doe", "Conférence iTextPdf", 100, "fileName");
+        } catch (IOException | DocumentException e) {
+            e.printStackTrace();
+        } */
+      
+      
       
 btn_retourhome.setOnAction(event -> {
 
@@ -193,9 +204,7 @@ btn_gestionParticipations.setOnAction(event -> {
   
    @FXML
     private void gererEvenement(ActionEvent event)throws IOException {
-        
-         
-    
+  
         evenement ev= new evenement();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/codingbeasts/doulicha/views/gererEvenement.fxml"));
             Parent root = loader.load();

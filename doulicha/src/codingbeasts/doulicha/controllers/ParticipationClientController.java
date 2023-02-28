@@ -40,6 +40,8 @@ public class ParticipationClientController implements Initializable {
     private MyListener2 myListener2;
     ServiceEvenement SE = new ServiceEvenement();
     
+    int userConnecte = 2;
+    
     @FXML
     private GridPane participation_grid;
     @FXML
@@ -66,7 +68,7 @@ public class ParticipationClientController implements Initializable {
           
            participation_grid.getChildren().clear();
         ServiceParticipationEvenement SPE = new ServiceParticipationEvenement();
-        List<participation_evenement> pr = SPE.afficherParticipations();
+        List<participation_evenement> pr = SPE.afficherParticipations(userConnecte);
         System.out.println("participation " + pr.toString());
         int row = 1, cl =0;
             try{
