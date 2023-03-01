@@ -34,6 +34,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
@@ -58,8 +60,6 @@ public class AffichageUserController implements Initializable {
     @FXML
     private TableColumn<Utilisateur, String> txtemail;
 
-    @FXML
-    private TableColumn<Utilisateur, String> txtpassword;
 
     @FXML
     private TableColumn<Utilisateur, String> txtrole;
@@ -79,6 +79,12 @@ public class AffichageUserController implements Initializable {
 
 
     int IndexU = -1;
+    @FXML
+    private Pane gestion;
+    @FXML
+    private Pane design;
+    @FXML
+    private AnchorPane appuser;
 
     @FXML
     void deleteuser(ActionEvent event) {
@@ -326,4 +332,11 @@ private List<Utilisateur> getFilteredUtilisateurs(String status) {
     });
 
 }
+
+    @FXML
+    private void btnuser(ActionEvent event) {
+        gestion.setVisible(true);
+        design.setVisible(true);
+        appuser.setVisible(true);
+    }
 }

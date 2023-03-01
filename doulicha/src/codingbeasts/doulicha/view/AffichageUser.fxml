@@ -15,16 +15,17 @@
 
 <AnchorPane id="AnchorPane" prefHeight="609.0" prefWidth="925.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codingbeasts.doulicha.controller.AffichageUserController">
    <children>
-      <Pane layoutY="-1.0" prefHeight="620.0" prefWidth="257.0" style="-fx-background-color: #A6D4DC;">
+      <Pane fx:id="gestion" layoutY="-1.0" prefHeight="620.0" prefWidth="257.0" style="-fx-background-color: #A6D4DC;">
          <children>
             <ImageView fitHeight="116.0" fitWidth="123.0" layoutX="63.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../images/doulicha.png" />
                </image>
             </ImageView>
+            <Button layoutX="44.0" layoutY="236.0" mnemonicParsing="false" onAction="#btnuser" prefHeight="43.0" prefWidth="180.0" text="Utilisateur" />
          </children>
       </Pane>
-      <Pane layoutX="257.0" layoutY="45.0" prefHeight="125.0" prefWidth="670.0" style="-fx-background-color: #A6D4DC;">
+      <Pane fx:id="design" layoutX="257.0" layoutY="37.0" prefHeight="133.0" prefWidth="670.0" style="-fx-background-color: #A6D4DC;">
          <children>
             <Label fx:id="countLabel" layoutX="426.0" layoutY="63.0" prefHeight="35.0" prefWidth="226.0">
                <font>
@@ -32,32 +33,36 @@
                </font>
             </Label>
          </children></Pane>
-      <TableView fx:id="txttable" layoutX="257.0" layoutY="216.0" prefHeight="403.0" prefWidth="670.0">
-        <columns>
-          <TableColumn fx:id="txtnom" prefWidth="114.0" text="Nom" />
-          <TableColumn fx:id="txtprenom" prefWidth="82.0" text="Prenom" />
-            <TableColumn fx:id="txtemail" prefWidth="201.0" text="Email" />
-            <TableColumn fx:id="txtrole" prefWidth="128.0" text="Role" />
-            <TableColumn fx:id="txtstatus" prefWidth="144.0" text="status" />
-        </columns>
-      </TableView>
-      <Button contentDisplay="GRAPHIC_ONLY" layoutX="677.0" layoutY="178.0" mnemonicParsing="false" onAction="#deleteuser" text="Button" visible="false">
-         <graphic>
-            <FontAwesomeIconView fill="#9b0b31" glyphName="TRASH" size="22" visible="false" />
-         </graphic>
-      </Button>
-      <Button contentDisplay="GRAPHIC_ONLY" layoutX="573.0" layoutY="179.0" mnemonicParsing="false" onAction="#refreshuser" text="Button">
-         <graphic>
-            <FontAwesomeIconView fill="#a6d4dc" glyphName="REFRESH" size="22" />
-         </graphic>
-      </Button>
-      <Button contentDisplay="GRAPHIC_ONLY" layoutX="623.0" layoutY="178.0" mnemonicParsing="false" onAction="#onupdate" text="Button">
-         <graphic>
-            <FontAwesomeIconView glyphName="PENCIL" size="22" />
-         </graphic>
-      </Button>
-      <TextField fx:id="searchField" layoutX="272.0" layoutY="180.0" prefHeight="31.0" prefWidth="274.0" />
-      <FontAwesomeIconView fill="#a6d4dc" glyphName="SEARCH" layoutX="515.0" layoutY="201.0" size="20" />
-      <ChoiceBox fx:id="filterStatus" layoutX="757.0" layoutY="179.0" prefWidth="150.0" />
+      <AnchorPane fx:id="appuser" layoutX="257.0" layoutY="170.0" prefHeight="450.0" prefWidth="670.0" visible="false">
+         <children>
+            <ChoiceBox fx:id="filterStatus" layoutX="514.0" layoutY="16.0" prefWidth="150.0" />
+            <TextField fx:id="searchField" layoutX="214.0" layoutY="18.0" prefHeight="31.0" prefWidth="274.0" />
+            <FontAwesomeIconView fill="#a6d4dc" glyphName="SEARCH" layoutX="457.0" layoutY="40.0" size="20" />
+            <Button contentDisplay="GRAPHIC_ONLY" layoutX="94.0" layoutY="17.0" mnemonicParsing="false" onAction="#onupdate" text="Button">
+               <graphic>
+                  <FontAwesomeIconView glyphName="PENCIL" size="22" />
+               </graphic>
+            </Button>
+            <Button contentDisplay="GRAPHIC_ONLY" layoutX="142.0" layoutY="15.0" mnemonicParsing="false" onAction="#refreshuser" prefHeight="20.0" prefWidth="12.0" text="Button">
+               <graphic>
+                  <FontAwesomeIconView fill="#a6d4dc" glyphName="REFRESH" size="22" wrappingWidth="32.0" />
+               </graphic>
+            </Button>
+            <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#deleteuser" text="Button" visible="false">
+               <graphic>
+                  <FontAwesomeIconView fill="#9b0b31" glyphName="TRASH" size="22" visible="false" />
+               </graphic>
+            </Button>
+            <TableView fx:id="txttable" layoutY="58.0" prefHeight="389.0" prefWidth="670.0">
+              <columns>
+                <TableColumn fx:id="txtnom" prefWidth="114.0" text="Nom" />
+                <TableColumn fx:id="txtprenom" prefWidth="82.0" text="Prenom" />
+                  <TableColumn fx:id="txtemail" prefWidth="201.0" text="Email" />
+                  <TableColumn fx:id="txtrole" prefWidth="128.0" text="Role" />
+                  <TableColumn fx:id="txtstatus" prefWidth="144.0" text="status" />
+              </columns>
+            </TableView>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

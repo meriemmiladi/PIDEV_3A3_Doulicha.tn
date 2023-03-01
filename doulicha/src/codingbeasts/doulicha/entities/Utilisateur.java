@@ -14,6 +14,8 @@ import java.security.NoSuchAlgorithmException;
  * @author Asus
  */
 public class Utilisateur {
+    
+    public static int current_id_user;
 
     private int ID_user;
     private String nom_user;

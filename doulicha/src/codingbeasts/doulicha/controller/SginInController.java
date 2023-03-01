@@ -5,7 +5,11 @@
  */
 package codingbeasts.doulicha.controller;
 
+import codingbeasts.doulicha.entities.MySession;
 import static codingbeasts.doulicha.entities.PasswordUtils.encrypt;
+import codingbeasts.doulicha.entities.Utilisateur;
+import static codingbeasts.doulicha.entities.Utilisateur.current_id_user;
+
 import codingbeasts.doulicha.utils.MyConnection;
 import java.io.IOException;
 import java.net.URL;
@@ -105,7 +109,7 @@ public class SginInController implements Initializable {
             alert.setContentText("Veuillez remplir tous les champs.");
             alert.showAndWait();
         } else {
-            String query = "SELECT * FROM Utilisateur WHERE nom_user = ? AND mdp_user = ?";
+            String query = "SELECT * FROM Utilisateur WHERE email_user = ? AND mdp_user = ?";
 
             try {
                 PreparedStatement statement = cnx2.prepareStatement(query);
@@ -125,6 +129,9 @@ public class SginInController implements Initializable {
                     } else {
                         // L'utilisateur est actif, vérifier le rôle
                         String role = rs.getString("role_user");
+                         Utilisateur user = new Utilisateur (rs.getString("nom_user"), rs.getString("mdp_user"), rs.getString("role_user"), rs.getString("status_user"));
+                        MySession.setLoggedInUser(user);
+                        System.out.println("Utilisateur connecté : " + user.getNom_user());
                         if (role.equals("Admin")) {
                             // L'utilisateur a le rôle d'administrateur, ouvrir la fenêtre d'accueil
                             System.out.println("bien!");
@@ -141,10 +148,14 @@ public class SginInController implements Initializable {
                                 e.printStackTrace();
                             }
                         } else if (role.equals("Utilisateur")) {
+                            
+                            
                             // L'utilisateur a le rôle d'utilisateur, ouvrir la fenêtre d'accueil utilisateur
                             Stage home = new Stage();
                             try {
                                 fxml = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/view/Dashboard.fxml"));
+                                
+                                
                                 Scene scene = new Scene(fxml);
                                 home.setScene(scene);
                                 home.show();

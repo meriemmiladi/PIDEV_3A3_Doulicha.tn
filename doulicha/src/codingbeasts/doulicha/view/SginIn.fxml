@@ -21,7 +21,7 @@
             </ImageView>
          </children>
       </Pane>
-      <TextField fx:id="txtnom" layoutX="498.0" layoutY="115.0" prefHeight="45.0" prefWidth="331.0" promptText="User Name " style="-fx-background-color: transparent; -fx-border-color: #3FC4EC; -fx-border-width: 0px 0px 2px 0px;" />
+      <TextField fx:id="txtnom" layoutX="498.0" layoutY="115.0" prefHeight="45.0" prefWidth="331.0" promptText="Email" style="-fx-background-color: transparent; -fx-border-color: #3FC4EC; -fx-border-width: 0px 0px 2px 0px;" />
       <Button fx:id="btnopenhome" layoutX="685.0" layoutY="288.0" mnemonicParsing="false" onAction="#openhome" prefHeight="45.0" prefWidth="144.0" style="-fx-background-color: #A6D4DC;" text="Sign In" />
       <Button fx:id="btnSignIn" layoutX="507.0" layoutY="412.0" mnemonicParsing="false" onAction="#onsave" prefHeight="45.0" prefWidth="331.0" style="-fx-background-color: #A6D4DC;" text="Don't hava an account? " />
       <Label layoutX="507.0" layoutY="359.0" prefHeight="21.0" prefWidth="138.0" text="Forget Password ? " visible="false" />
