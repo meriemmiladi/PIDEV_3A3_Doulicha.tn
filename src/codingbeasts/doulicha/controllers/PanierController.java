@@ -749,7 +749,7 @@ public class PanierController implements Initializable {
     for (Entry<Produit, Integer> entry : data) {
     Produit produit = entry.getKey();
     Integer quantite = entry.getValue();
-    Paragraph paragraph = new Paragraph(produit.getLibelle_produit()+ "      quantité  " + quantite +"      prix       "+ produit.getPrixUvente_produit()*quantite);
+    Paragraph paragraph = new Paragraph(produit.getLibelle_produit()+ "      quantité  " + quantite +"      prix       "+ produit.getPrixUvente_produit()*quantite+"DT");
     document.add(paragraph);
     }
     // Add date
