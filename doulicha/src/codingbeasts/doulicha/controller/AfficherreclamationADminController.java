@@ -66,45 +66,51 @@ public class AfficherreclamationADminController implements Initializable {
             // créer un Label pour afficher la date de la réclamation
             Label dateReclamation = new Label("Date de la réclamation : " + reclamation.getDate_reclamation());
 
-            int idrec = reclamation.getID_reclamation();
+int idrec = reclamation.getID_reclamation();
 
-            Button modifierButton = new Button();
-            // Initialiser le bouton avec l'état actuel de la réclamation
-            if (reclamation.getEtat_reclamation() == 1) {
-                modifierButton.setText("En attente");
-            } else {
-                modifierButton.setText("Résolue");
-            }
+Button modifierButton = new Button();
+// Initialiser le bouton avec l'état actuel de la réclamation
+if (reclamation.getEtat_reclamation() == 1) {
+    modifierButton.setText("Résolue");
+    modifierButton.setDisable(true); // désactiver le bouton si la réclamation est résolue
+} else {
+    modifierButton.setText("Envoyer email");
+}
 
-            modifierButton.setOnAction((ActionEvent event) -> {
-                // mettre à jour l'état de la réclamation
-                int newEtat = (reclamation.getEtat_reclamation() == 1) ? 0 : 1;
-                reclamation.setEtat_reclamation(newEtat);
-                dis.modifierreclamation2(reclamation);
-                String recipientt = dis.getEmailByReclamationId(idrec); // adresse e-mail du destinataire
-                System.out.println("l'adresse est " +recipientt);
+modifierButton.setOnAction((ActionEvent event) -> {
+    // mettre à jour l'état de la réclamation
+    int newEtat = (reclamation.getEtat_reclamation() == 1) ? 0 : 1;
+    reclamation.setEtat_reclamation(newEtat);
+    dis.modifierreclamation2(reclamation);
+    String recipientt = dis.getEmailByReclamationId(idrec); // adresse e-mail du destinataire
+    System.out.println("l'adresse est " +recipientt);
 
+    // envoyer un e-mail si l'état de la réclamation était 0
+    if (reclamation.getEtat_reclamation() == 1) {
+        String recipient = dis.getEmailByReclamationId(idrec); // adresse e-mail du destinataire
+        System.out.println(recipient);
+        String content = "Réclamation résolue"; // contenu du message
+        String subject = "Nous sommes heureux de vous informer que votre réclamation a été résolue avec succès. Nous avons pris en compte votre demande et avons travaillé pour trouver une solution qui répond à vos besoins."; // sujet du message
+        serviceEmail diss = new serviceEmail();
+        diss.sendMail(recipient, content, subject);
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Envoi de mail");
+        alert.setHeaderText("Le mail a été envoyé avec succès !");
+        alert.setContentText("Le destinataire a été notifié de la résolution de sa réclamation.");
+        alert.showAndWait();
+    }
 
-                // changer le texte du bouton en conséquence
-                if (reclamation.getEtat_reclamation() == 1) {
-                    String recipient = dis.getEmailByReclamationId(idrec); // adresse e-mail du destinataire
-                    System.out.println(recipient);
-                    String content = "Réclamation résolue"; // contenu du message
-                    String subject = "Nous sommes heureux de vous informer que votre réclamation a été résolue avec succès. Nous avons pris en compte votre demande et avons travaillé pour trouver une solution qui répond à vos besoins."; // sujet du message
-                    serviceEmail diss = new serviceEmail();
-                    diss.sendMail(recipient, content, subject);
-                    Alert alert = new Alert(AlertType.INFORMATION);
-                    alert.setTitle("Envoi de mail");
-                    alert.setHeaderText("Le mail a été envoyé avec succès !");
-                    alert.setContentText("Le destinataire a été notifié de la résolution de sa réclamation.");
-                    alert.showAndWait();
-                    modifierButton.setText("En attente");
-                } else {
-                    modifierButton.setText("Résolue");
-                }
-                reclamationListe.getChildren().clear();
-                initialize(url, rb);
-            });
+    // changer le texte du bouton en conséquence et le désactiver si la réclamation est résolue
+    if (reclamation.getEtat_reclamation() == 1) {
+        modifierButton.setText("Résolue");
+        modifierButton.setDisable(true);
+    } else {
+        modifierButton.setText("Envoyer email");
+    }
+
+    reclamationListe.getChildren().clear();
+    initialize(url, rb);
+});
 
             // ajouter les Labels et l'ImageView à la VBox
             contentBox.getChildren().addAll(contenuReclamation,etatReclamation,dateReclamation, modifierButton);

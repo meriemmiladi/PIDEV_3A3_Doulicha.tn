@@ -237,7 +237,7 @@ try {
             idnote.setText(Integer.toString(avis.getNote_avis()));
             idcontenu.setText(avis.getContenu_avis());
             idtype.setText(avis.getType_avis());
-        this.id_avis = avis.getID_avis();
+        this.id_avis = avis.getID_categorie();
 
      
 
@@ -255,14 +255,29 @@ try {
     private void idajouteravis2(ActionEvent event) throws IOException {
     String contenuavis = idcontenu.getText();
     String categorie = idcategorie.getText();
+    System.out.println(categorie );
     String note = idnote.getText();
     String type = idtype.getText();
     
-    try {
-        Connection cnx = MyConnection.getInstance().getCnx();
+    int id_categorie = 0; // initialisation de la variable id_categorie
+
+try {
+    Connection cnx = MyConnection.getInstance().getCnx();
+    
+    // Obtenir l'id_categorie de l'avis avant la modification
+    String querySelect = "SELECT ID_categorie FROM avis WHERE ID_avis = ?";
+    PreparedStatement pstSelect = cnx.prepareStatement(querySelect);
+    pstSelect.setInt(1, id_avis);
+    ResultSet rs = pstSelect.executeQuery();
+    if (rs.next()) {
+        id_categorie = rs.getInt("id_categorie");
+    }
+    
+    
+
         
         // Mettre à jour la réclamation dans la table 'reclamation'
-        String queryUpdate = "UPDATE avis SET contenu_avis = ?, note_avis = ?, type_avis = ? WHERE id_avis = ?";
+        String queryUpdate = "UPDATE avis SET contenu_avis = ?, note_avis = ?, type_avis = ? WHERE ID_avis = ?";
         PreparedStatement pstUpdate = cnx.prepareStatement(queryUpdate);
         pstUpdate.setString(1, contenuavis);
         pstUpdate.setString(2, note);
@@ -270,13 +285,19 @@ try {
         pstUpdate.setInt(4, id_avis);
         pstUpdate.executeUpdate();
         
-        System.out.println("La réclamation a été mise à jour avec succès !");
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/codingbeasts/doulicha/view/afficheravis.fxml"));
-    Parent root = loader.load();
-    Scene scene = new Scene(root);
-    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-    stage.setScene(scene);
-    stage.show();
+        System.out.println("L'avis a été mise à jour avec succès !");
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow(); 
+        currentStage.close();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/codingbeasts/doulicha/view/afficheravis.fxml"));
+        Parent root = loader.load();
+        AfficheravisController controller = loader.getController();
+        controller.afficherAvisParCategorie(id_categorie);
+
+        // Obtenir la scène courante et la remplacer par la nouvelle scène
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
         
     } catch (SQLException ex) {
         System.err.println(ex.getMessage());

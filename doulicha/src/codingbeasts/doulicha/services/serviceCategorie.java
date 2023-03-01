@@ -143,6 +143,21 @@ public class serviceCategorie implements InterfaceCategorie{
         System.out.println(ex.getMessage());
     }
     return nomevent;}
+    
+    public int getIdAvisByCategorie(int idCategorie) {
+    int m = -1;
+    String query = "SELECT ID_avis FROM avis WHERE ID_categorie=?";
+    try (PreparedStatement statement = cnx2.prepareStatement(query)) {
+        statement.setInt(1, idCategorie);
+        ResultSet rs = statement.executeQuery();
+        if (rs.next()) {
+            m = rs.getInt("ID_avis");
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return m;// Retourne -1 si aucun avis n'est associé à la catégorie donnée
+}
 
     public String getNomlogementById(int id_logement) {
     String nomlogement = null;

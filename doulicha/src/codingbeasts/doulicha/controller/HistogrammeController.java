@@ -56,6 +56,7 @@ public class HistogrammeController implements Initializable {
             double moyenneNotes = new serviceAvis().calculerMoyenneNotesParCategorie(categorie.getID_categorie());
             series.getData().add(new XYChart.Data(categorie.getNom_categorie(), moyenneNotes));
             
+            
         }
         histogramme.getData().addAll(series);
     }

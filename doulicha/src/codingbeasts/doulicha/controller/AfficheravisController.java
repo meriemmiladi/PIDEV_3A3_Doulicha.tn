@@ -70,6 +70,7 @@ public class AfficheravisController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
     }
     
     public void afficherAvis() {
@@ -155,9 +156,11 @@ public class AfficheravisController implements Initializable {
                 alert.setTitle("Confirmation de suppression");
                 alert.setHeaderText("Voulez-vous vraiment supprimer cet élément ?");
                 alert.setContentText("Appuyez sur OK pour confirmer.");
+                System.out.println(avis.getID_avis());
 
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK){
+                    System.out.println(avis.getID_avis());
                     dis.deleteavis(avis.getID_avis());
                     avisListe.getChildren().remove(contentBox);
                 } else {
@@ -212,6 +215,7 @@ public class AfficheravisController implements Initializable {
         // boucle pour ajouter chaque avis à la VBox
         aviss.stream().map((avis avis) -> {
             VBox contentBox = new VBox();
+
 
             // créer un Label pour afficher la description du projet
             Label  iduser = new Label("user: " + serviceCategorie.getNomuserById(avis.getID_user()));
@@ -284,10 +288,11 @@ public class AfficheravisController implements Initializable {
                 alert.setTitle("Confirmation de suppression");
                 alert.setHeaderText("Voulez-vous vraiment supprimer cet élément ?");
                 alert.setContentText("Appuyez sur OK pour confirmer.");
-
+                System.out.println(serviceCategorie.getIdAvisByCategorie(ID_categorie));
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK){
-                    dis.deleteavis(avis.getID_avis());
+                    System.out.println(serviceCategorie.getIdAvisByCategorie(ID_categorie));
+                    dis.deleteavis(serviceCategorie.getIdAvisByCategorie(ID_categorie));
                     avisListe.getChildren().remove(contentBox);
                 } else {
                     // l'utilisateur a appuyé sur Annuler ou fermé la fenêtre de confirmation

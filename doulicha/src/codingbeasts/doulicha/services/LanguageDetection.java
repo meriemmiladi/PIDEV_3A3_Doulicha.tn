@@ -20,6 +20,8 @@ import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+//API OptimaizeLangDetector 
+
 public class LanguageDetection {
     
     private static final TextObjectFactory textObjectFactory = CommonTextObjectFactories.forDetectingOnLargeText();

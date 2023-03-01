@@ -65,7 +65,7 @@ public class AfficherreclamationController implements Initializable {
             contenureclamation.setStyle("-fx-font-weight: bold;");
 
             // créer un Label pour afficher la description du projet
-            Label  etatreclamation = new Label("etat reclamation: " + reclamation.getEtat_reclamation());
+            Label etatreclamation = new Label("Etat de la réclamation: " + (reclamation.getEtat_reclamation() == 0 ? "Réclamation en attente" : "Réclamation résolue"));
             System.out.println(etatreclamation);
 
             // créer un Label pour afficher l'objectif du projet
