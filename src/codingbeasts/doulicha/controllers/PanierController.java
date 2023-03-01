@@ -103,7 +103,7 @@ import javafx.collections.FXCollections;
 
 public class PanierController implements Initializable {
 
-    Map<Produit, Integer> produitMap;
+    static Map<Produit, Integer> produitMap;
 
     @FXML
     private TableColumn<Entry<Produit, Integer>, String> c1;

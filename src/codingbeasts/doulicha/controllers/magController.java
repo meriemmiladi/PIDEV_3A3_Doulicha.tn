@@ -76,7 +76,7 @@ public class magController implements Initializable {
     List<Produit> produits = new ArrayList<>();
     Produit produitActuel=new Produit();
     int qttProduit=0;
-    Map<Produit,Integer> produitMap=new HashMap<Produit,Integer>();
+    static Map<Produit,Integer> produitMap=new HashMap<Produit,Integer>();
     @FXML
     private ComboBox<?> sort;
     @FXML
@@ -104,7 +104,7 @@ public class magController implements Initializable {
              LigneCommandeCrud ligneCommandeCrud=new LigneCommandeCrud();
              LigneCommandeCrud lcc=new LigneCommandeCrud();
              
-               CommandeCrud commandeCrud=new CommandeCrud();
+             CommandeCrud commandeCrud=new CommandeCrud();
              Commande commande=commandeCrud.lastCommand();
              int id_commande = commande.getID_commande();
              
