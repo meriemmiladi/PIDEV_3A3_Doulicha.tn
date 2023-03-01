@@ -51,10 +51,10 @@ public class SginInController implements Initializable {
 
     @FXML
     private Button btnSignIn;
-    
-     @FXML
+
+    @FXML
     void oubliemotdepasse(ActionEvent event) {
-          try {
+        try {
             Parent root = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/view/OublieMotdepasse.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 //        Scene scene = new Scene(root, 300, 250);
@@ -93,7 +93,7 @@ public class SginInController implements Initializable {
 
     @FXML
     void openhome(ActionEvent event) {
- Connection cnx2;
+        Connection cnx2;
         cnx2 = MyConnection.getInstance().getCnx();
         String nom = txtnom.getText();
         //  String pass = txtpassword.getText();
@@ -132,7 +132,7 @@ public class SginInController implements Initializable {
                             try {
                                 fxml = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/view/AffichageUser.fxml"));
                                 Scene scene = new Scene(fxml);
-                                
+
                                 home.setScene(scene);
                                 home.show();
                                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -177,7 +177,7 @@ public class SginInController implements Initializable {
             }
         }
     }
-    
+
     public String hashMotDePasse(String motDePasse) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
