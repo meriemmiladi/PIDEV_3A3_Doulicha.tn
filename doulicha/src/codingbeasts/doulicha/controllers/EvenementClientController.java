@@ -4,13 +4,17 @@
  * and open the template in the editor.
  */
 package codingbeasts.doulicha.controllers;
+import java.time.Instant;
 
 import codingbeasts.doulicha.interfaces.MyListener;
 import codingbeasts.doulicha.entities.evenement;
 import codingbeasts.doulicha.services.ServiceEvenement;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -26,15 +30,19 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Callback;
+import net.fortuna.ical4j.model.DateRange;
 
 /**
  * FXML Controller class
@@ -81,6 +89,8 @@ public class EvenementClientController implements Initializable {
     private ComboBox<String> sort;
     @FXML
     private TextField SearchBar;
+    @FXML
+    private DatePicker datePicker;
     
 
     /**
@@ -174,8 +184,57 @@ public class EvenementClientController implements Initializable {
               Logger.getLogger(AfficherEvenementsController.class.getName()).log(Level.SEVERE, null, ex); 
             }
         }); 
+          
+          
+          
+   // Récupération des dates des évènements de la base de données
+   List<List<java.sql.Date>> eventDates = SE.getAllDates();
+
+   // Création de l'objet Callback pour définir la couleur des dates dans le datepicker
+   Callback<DatePicker, DateCell> dayCellFactory = new Callback<DatePicker, DateCell>() {
+    @Override
+    public DateCell call(final DatePicker datePicker) {
+        return new DateCell() {
+            @Override
+            public void updateItem(LocalDate item, boolean empty) {
+                super.updateItem(item, empty);
+
+                // Vérification si la date est présente dans l'un des intervalles de temps des évènements
+                for (List<java.sql.Date> eventDateRange : eventDates) {
+                    Date debut = eventDateRange.get(0);
+                    Date fin = eventDateRange.get(1);
+                    
+                    Instant instantDebut = Instant.ofEpochMilli(debut.getTime());
+                    Instant instantFin = Instant.ofEpochMilli(fin.getTime());
+                    LocalDate debutLocalDate = instantDebut.atZone(ZoneId.systemDefault()).toLocalDate();
+                    LocalDate finLocalDate = instantFin.atZone(ZoneId.systemDefault()).toLocalDate();
+
+                    if (!empty && (item.isEqual(debutLocalDate) || item.isEqual(finLocalDate) ||
+                        (item.isAfter(debutLocalDate) && item.isBefore(finLocalDate)))) {
+                        // Définition de la couleur pour les dates des évènements
+                        this.setStyle("-fx-background-color: pink;");
+                        break;
+                    } else {
+                        // Définition de la couleur par défaut pour les autres dates
+                        this.setStyle("-fx-background-color: #FFFFFF;");
+                    }
+                }
+            }
+        };
+    }
+};
+
+// Définition de l'objet Callback comme fabrique de cellules de jour pour le datepicker
+datePicker.setDayCellFactory(dayCellFactory);
+
+
+
+          
+          
+          
             
     }  
+    
     
     
 private void loadEvents(List<evenement> ev){

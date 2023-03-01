@@ -94,9 +94,9 @@ public class GererParticipationController implements Initializable {
         
          ServiceParticipationEvenement SPE = new ServiceParticipationEvenement();
         // if(testSaisie()){
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Confirmation de modification");
-        alert.setContentText("Etes vous sur de vouloir modifier cet évènement ?");
+        alert.setContentText("Etes vous sur de vouloir modifier cette participation ?");
         Optional<ButtonType> result = alert.showAndWait();
         
         if (result.get() == ButtonType.OK){
@@ -110,8 +110,8 @@ public class GererParticipationController implements Initializable {
             SPE.modifierParticipationEvenement(evp);
          
             Notifications notificationBuilder = Notifications.create()
-            .title("Modification EVENEMENT")
-               .text("votre évènement a bien été modifié.")
+            .title("Modification PARTICIPATION")
+               .text("votre participation a bien été modifiée.")
                .graphic(null)
                .hideAfter(Duration.seconds(5))
               .position(Pos.BOTTOM_RIGHT);
@@ -142,9 +142,9 @@ public class GererParticipationController implements Initializable {
 
     @FXML
     private void supprimerPart(ActionEvent event) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Confirmation de suppression");
-        alert.setContentText("Etes vous sur de supprimer cet évènement ?");
+        alert.setContentText("Etes vous sur de vouloir annuler votre participation ?");
 
         Optional<ButtonType> result = alert.showAndWait();
         
@@ -154,8 +154,8 @@ public class GererParticipationController implements Initializable {
          SPE.supprimerParticipation(SPE.getId2(id_partM.getText()));
             
             Notifications notificationBuilder = Notifications.create()
-            .title("Suppression EVENEMENT")
-               .text("votre évènement a bien été supprimé.")
+            .title("Suppression PARTICIPATION")
+               .text("votre participation a bien été supprimée.")
                .graphic(null)
                .hideAfter(Duration.seconds(5))
               .position(Pos.BOTTOM_RIGHT);

@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="781.0" prefWidth="1570.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codingbeasts.doulicha.controllers.AfficherEvenementsController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="781.0" prefWidth="1570.0" stylesheets="@afficherevenements.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codingbeasts.doulicha.controllers.AfficherEvenementsController">
    <center>
       <AnchorPane prefHeight="781.0" prefWidth="1174.0" style="-fx-background-color: #e3f5fa;" BorderPane.alignment="CENTER">
          <children>
@@ -34,11 +34,7 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <Button fx:id="btn_ajout" layoutX="351.0" layoutY="698.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="101.0" style="-fx-background-radius: 50; -fx-background-color: #99E2F7;" text="Ajouter">
-               <font>
-                  <Font size="18.0" />
-               </font></Button>
-            <Button fx:id="btn_gerer" layoutX="663.0" layoutY="698.0" mnemonicParsing="false" onAction="#gererEvenement" prefHeight="0.0" prefWidth="125.0" style="-fx-background-radius: 50; -fx-background-color: #99E2F7;" text="Gérer">
+            <Button fx:id="btn_ajout" layoutX="568.0" layoutY="674.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="101.0" style="-fx-background-radius: 50; -fx-background-color: #99E2F7;" text="Ajouter">
                <font>
                   <Font size="18.0" />
                </font></Button>

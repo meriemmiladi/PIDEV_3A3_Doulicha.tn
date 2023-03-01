@@ -179,7 +179,7 @@ private void ajouterParticipation(ActionEvent event) throws SQLException, Docume
    
    
     // Générer le QR code
-    String codeData = "ID_user: " + ev.getNomUser(part.getID_user()) + ", ID_participation: " + idParticipation + ", ID_event: " + ev.getNom(part.getID_event()) + ", dateDebut_event: " + ev.getDateDebut(part.getID_event()) + ", dateFin_event: " + ev.getDateFin(part.getID_event());
+    String codeData = "Nom du participant : " + ev.getNomUser(part.getID_user()) + ", ID de la participation: " + idParticipation + ", Nom de l'évènement: " + ev.getNom(part.getID_event()) + ", Date de début: " + ev.getDateDebut(part.getID_event()) + ", Date de fin: " + ev.getDateFin(part.getID_event());
     String filePath = "src/qrcode/qrcode.pdf";
     int size = 250;
     String fileType = "png";
@@ -199,6 +199,7 @@ String icalData = "BEGIN:VCALENDAR\n" +
                   "SUMMARY:" + ev.getNom(part.getID_event()) + "\n" +
                   "DTSTART:" + ev.getDateDebut(part.getID_event()).replace("-", "") + "\n" +
                   "DTEND:" + ev.getDateFin(part.getID_event()).replace("-", "") + "\n" +
+                  "LOCATION:" + ev.getLieu(part.getID_event()) + "\n" +
                   "END:VEVENT\n" +
                   "END:VCALENDAR";
 
@@ -239,21 +240,42 @@ PdfWriter writer = PdfWriter.getInstance(document, fileOutputStream);*/
 ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 com.itextpdf.text.Document document = new com.itextpdf.text.Document();
 PdfWriter writer = PdfWriter.getInstance(document, outputStream); 
-writer.setBoxSize("art", new Rectangle(36, 36, 550, 800));
+writer.setBoxSize("art", new Rectangle(36, 36, 559, 806));
 
 document.open();
 
-// Ajouter un titre coloré
-Font titleFont = new Font(Font.FontFamily.HELVETICA, 18,Font.BOLD | Font.UNDERLINE, new BaseColor(135, 206, 235));
-Paragraph title = new Paragraph("Details de votre participation", titleFont);
+// Ajouter le logo en haut à droite
+Image logoImage = Image.getInstance("C:/Users/Admin/Desktop/MOI/3 ème année/PIDEV/logo.png"); 
+logoImage.setAlignment(Element.ALIGN_RIGHT);
+logoImage.scaleAbsolute(50, 50);
+document.add(logoImage);
+
+// Ajouter le titre centré
+Font titleFont = new Font(Font.FontFamily.HELVETICA, 18, Font.BOLD | Font.UNDERLINE, new BaseColor(135, 206, 235));
+Paragraph title = new Paragraph("Details de votre participation\n\n", titleFont);
 title.setAlignment(Element.ALIGN_CENTER);
 document.add(title);
 
-document.add(new Paragraph("Votre nom : " + ev.getNomUser(part.getID_user())));
-document.add(new Paragraph("Numero de votre participation : " + idParticipation));
-document.add(new Paragraph("Nom de l'évènement : " + ev.getNom(part.getID_event()) ));
-document.add(new Paragraph("Date de début : " + ev.getDateDebut(part.getID_event()) ));
-document.add(new Paragraph("Date de fin : " + ev.getDateFin(part.getID_event()) ));
+// Ajouter une ligne vide pour l'espacement
+document.add(new Paragraph("\n"));
+
+// Ajouter les données avec plus d'espacement
+Font dataFont = new Font(Font.FontFamily.HELVETICA, 12);
+document.add(new Paragraph("Votre nom : " + ev.getNomUser(part.getID_user()), dataFont));
+document.add(new Paragraph("Numero de votre participation : " + idParticipation, dataFont));
+document.add(new Paragraph("Nom de l'évènement : " + ev.getNom(part.getID_event()), dataFont));
+document.add(new Paragraph("Date de début : " + ev.getDateDebut(part.getID_event()), dataFont));
+document.add(new Paragraph("Date de fin : " + ev.getDateFin(part.getID_event()), dataFont));
+
+
+// Ajouter une ligne vide pour l'espacement
+document.add(new Paragraph("\n"));
+
+// Ajouter la première phrase centrée
+Font phraseFont = new Font(Font.FontFamily.HELVETICA, 14);
+Paragraph phrase1 = new Paragraph("Veuillez vous munir de ce pass d'entrée dès votre arrivée à l'évènement pour scanner ce QR Code.", phraseFont);
+phrase1.setAlignment(Element.ALIGN_CENTER);
+document.add(phrase1);
 
 // Ajouter le QR code
 Image qrImage = Image.getInstance(qrFile.getAbsolutePath());
@@ -261,17 +283,27 @@ qrImage.setAlignment(Element.ALIGN_CENTER);
 qrImage.scaleAbsolute(200, 200);
 document.add(qrImage);
 
-// Dessiner le cadre autour de tout le PDF
-Rectangle rect = writer.getBoxSize("art");
-PdfContentByte cb = writer.getDirectContent();
-cb.rectangle(rect.getLeft(), rect.getBottom(), rect.getWidth(), rect.getHeight());
-cb.stroke();
+// Ajouter une ligne vide pour l'espacement
+document.add(new Paragraph("\n"));
+
+// Ajouter la deuxième phrase centrée
+Paragraph phrase2 = new Paragraph("Scannez ce QR Code et enregistrez l'évènement à votre calendrier!", phraseFont);
+phrase2.setAlignment(Element.ALIGN_CENTER);
+document.add(phrase2);
+
+
 
 // Ajouter le QR code contenant le lien iCalendar au PDF
 Image icalQrImage = Image.getInstance(icalFilePath);
 icalQrImage.setAlignment(Element.ALIGN_CENTER);
 icalQrImage.scaleAbsolute(200, 200);
 document.add(icalQrImage);
+
+// Dessiner le cadre autour de tout le PDF
+Rectangle rect = writer.getBoxSize("art");
+PdfContentByte cb = writer.getDirectContent();
+cb.rectangle(rect.getLeft(), rect.getBottom(), rect.getWidth(), rect.getHeight());
+cb.stroke();
 
 document.close();
 writer.close();
@@ -286,7 +318,7 @@ fileOutputStream.close();
 // Envoyer le PDF au serveur web
 String apiKey = "7eaa37d9e8abdc16bc07751f8ff8caf99d49bb1f4a3ef2f03b77d974ba5e94b7";
 
-URL url = new URL("http://192.168.226.1/myservice/savepdf.php");
+URL url = new URL("http://127.0.0.1/myservice/savepdf.php");
 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 connection.setRequestMethod("POST");
 connection.setRequestProperty("Content-Type", "application/pdf");

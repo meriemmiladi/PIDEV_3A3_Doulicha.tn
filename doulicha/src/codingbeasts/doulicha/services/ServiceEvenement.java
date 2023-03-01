@@ -12,19 +12,23 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import net.fortuna.ical4j.model.DateRange;
 
 /**
  *
  * @author Admin
  */
 public class ServiceEvenement {
-   
+    
     Connection cnx;
     public ServiceEvenement(){
         cnx = MyConnection.getInstance().getCnx();
@@ -249,6 +253,22 @@ try {
         }
             return "";
     } 
+      public String getLieu(int id) {
+try {
+            Statement st = cnx.createStatement();
+            
+            String req = "select lieu_event from `evenement` WHERE  ID_event LIKE '" + id + "'";
+            ResultSet rs = st.executeQuery(req);
+            while (rs.next()) {
+                return rs.getString(1);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("erreur");
+            System.out.println(ex);
+        }
+            return "";
+    } 
      
         public String getNomUser(int id) {
 try {
@@ -321,6 +341,35 @@ try {
         }
             return 0;
     } 
+            
+public List<List<Date>> getAllDates() {
+    List<List<Date>> allDates = new ArrayList<>();
+
+    try {
+        Statement st = cnx.createStatement();
+        String req = "SELECT dateDebut_event, dateFin_event FROM evenement";
+        ResultSet rs = st.executeQuery(req);
+
+        while (rs.next()) {
+            Date debut = new java.sql.Date(rs.getDate("dateDebut_event").getTime());
+            Date fin = new java.sql.Date(rs.getDate("dateFin_event").getTime());
+            List<Date> dateRange = Arrays.asList(debut, fin);
+            allDates.add(dateRange);
+        }
+    } catch (SQLException ex) {
+        System.out.println("erreur");
+        System.out.println(ex);
+    }
+
+    return allDates;
+}
+
+
+
+
+      
+            
+            
      
    ///////////////////////////////////////////////
      
@@ -445,6 +494,7 @@ try {
 } */
 
     
+
     
      
     

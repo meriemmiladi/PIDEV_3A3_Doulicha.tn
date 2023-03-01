@@ -85,7 +85,6 @@ public class AfficherEvenementsController implements Initializable {
     private TableColumn<evenement, String> col_lieu;
     @FXML
     private Button btn_ajout;
-    @FXML
     private Button btn_gerer;
     @FXML
     private Button btn_gestionParticipations;
@@ -202,8 +201,7 @@ btn_gestionParticipations.setOnAction(event -> {
     }     
     
   
-   @FXML
-    private void gererEvenement(ActionEvent event)throws IOException {
+   /* private void gererEvenement(ActionEvent event)throws IOException {
   
         evenement ev= new evenement();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/codingbeasts/doulicha/views/gererEvenement.fxml"));
@@ -230,7 +228,7 @@ btn_gestionParticipations.setOnAction(event -> {
             window.setScene(new Scene(root));
             
              
-    } 
+    } */
     
     ServiceEvenement SE = new ServiceEvenement();
       //  ObservableList<evenement> events = FXCollections.observableList(SE.afficherEvenements());
@@ -317,7 +315,16 @@ btn_gestionParticipations.setOnAction(event -> {
                                  ServiceParticipationEvenement SP = new ServiceParticipationEvenement();
                                 evenement = tableEvents.getSelectionModel().getSelectedItem();
                                 
-                                  // Envoyer un message à tous les numéros de téléphone des participants
+                                 
+                                 Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Confirmation de suppression");
+        alert.setContentText("Etes vous sur de vouloir annuler votre évènement ?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        
+        if (result.get() == ButtonType.OK) {
+            
+             // Envoyer un message à tous les numéros de téléphone des participants
                                  List<String> numeros = SP.getNumTelsByEvent(evenement.getID_event());
                                   String message = "Chère clientèle, nous avons le regret de vous informer de l'annulation de l'évènement " + evenement.getNom_event() + ". Nous sommes navrés de cette annulation. A la prochaine! ";
          System.out.println(numeros + "voici les numeros" + message);
@@ -325,12 +332,22 @@ btn_gestionParticipations.setOnAction(event -> {
             System.out.println("Envoi de message à " + numero + " : " + message);
             envoiSMS(message, numero);
         }
-                                 
+       
                                 SE.supprimerEvenement(evenement.getID_event());
                                 System.out.println(evenement.getID_event());
                                
        
-                               
+                              Notifications notificationBuilder = Notifications.create()
+            .title("Suppression EVENEMENT")
+               .text("votre évènement a bien été supprimée.")
+               .graphic(null)
+               .hideAfter(Duration.seconds(5))
+              .position(Pos.BOTTOM_RIGHT);
+       notificationBuilder.showInformation();
+      
+        } else {
+            System.out.println("Cancel");
+        }  
        
                                 
                                 
@@ -344,7 +361,7 @@ btn_gestionParticipations.setOnAction(event -> {
                         modifierIcone.setOnMouseClicked((MouseEvent event) -> {
                             
                             try {
-                               
+                                
                                 evenement ev= new evenement();
                                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/codingbeasts/doulicha/views/gererEvenement.fxml"));
                                 Parent root = loader.load();
@@ -366,7 +383,7 @@ btn_gestionParticipations.setOnAction(event -> {
                                 );
                                 System.out.println("bbbbbbbbbbbbb");
                                 
-                                Stage window = (Stage) btn_gerer.getScene().getWindow();
+                                Stage window = (Stage) modifierIcone.getScene().getWindow();
                                 window.setScene(new Scene(root));
                             } catch (IOException ex) {
                                 Logger.getLogger(AfficherEvenementsController.class.getName()).log(Level.SEVERE, null, ex);
