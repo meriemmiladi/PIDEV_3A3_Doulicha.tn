@@ -58,6 +58,8 @@ public class AjouterDonController implements Initializable {
     private ImageView tfretourne;
     @FXML
     private Button tfAffichage1;
+    @FXML
+    private TextField tfetat_paiement;
     /*
     @FXML
     private void savedon(ActionEvent event) {
@@ -121,6 +123,7 @@ public class AjouterDonController implements Initializable {
  
     String valeur_don = tfvaleur_don.getText();
     String ID_projet = tfProjetId.getText();
+    String etat_paiement = tfetat_paiement.getText();
     if (valeur_don == null || valeur_don.isEmpty()) {
     Alert alert = new Alert(AlertType.ERROR);
     alert.setTitle("Erreur de saisie");
@@ -156,12 +159,13 @@ try {
         }
         
         // Insérer la nouvelle réclamation dans la table 'reclamation'
-        String queryInsert = "INSERT INTO don (ID_user, ID_projet, valeur_don, date_don) VALUES (?, ?, ?, ?)";
+        String queryInsert = "INSERT INTO don (ID_user, ID_projet, valeur_don,etat_paiement, date_don) VALUES (?, ?, ?, ?,?)";
         PreparedStatement pstInsert = cnx.prepareStatement(queryInsert);
         pstInsert.setInt(1, idUser);
         pstInsert.setString(2, ID_projet);
         pstInsert.setString(3, valeur_don);
-        pstInsert.setDate(4, new java.sql.Date(new java.util.Date().getTime())); // Utiliser la date actuelle
+        pstInsert.setInt(4, 0);
+        pstInsert.setDate(5, new java.sql.Date(new java.util.Date().getTime())); // Utiliser la date actuelle
         pstInsert.executeUpdate();
         
         System.out.println("La DON a été ajoutée avec succès !");
@@ -202,9 +206,6 @@ try {
         pc.modifierdon(d,id_don);
     }
 
-    @FXML
-    private void affichage(ActionEvent event) {
-    }
     
     }    
 /*

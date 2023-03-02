@@ -18,20 +18,23 @@ public class don {
     private int ID_projet;
     private float valeur_don;
     private Date date_don;
+    int etat_paiement ;
 
-    public don(int ID_don, int ID_user, int ID_projet, float valeur_don, Date date_don) {
+    public don(int ID_don, int ID_user, int ID_projet, float valeur_don, Date date_don,int etat_paiement) {
         this.ID_don = ID_don;
         this.ID_user = ID_user;
         this.ID_projet = ID_projet;
         this.valeur_don = valeur_don;
         this.date_don = date_don;
+        this.etat_paiement = etat_paiement;
     }
-    public don(int ID_user, int ID_projet, float valeur_don, Date date_don) {
+    public don(int ID_user, int ID_projet, float valeur_don, Date date_don,int etat_paiement) {
        
         this.ID_user = ID_user;
         this.ID_projet = ID_projet;
         this.valeur_don = valeur_don;
         this.date_don = date_don;
+        this.etat_paiement = etat_paiement;
     }
 
     public don(int ID_projet, float valeur_don) {
@@ -110,9 +113,17 @@ public class don {
         this.date_don = date_don;
     }
 
+    public int getEtat_paiement() {
+        return etat_paiement;
+    }
+
+    public void setEtat_paiement(int etat_paiement) {
+        this.etat_paiement = etat_paiement;
+    }
+
     @Override
     public String toString() {
-        return "don{" + "ID_don=" + ID_don + ", ID_user=" + ID_user + ", ID_projet=" + ID_projet + ", valeur_don=" + valeur_don + ", date_don=" + date_don + '}';
+        return "don{" + "ID_don=" + ID_don + ", ID_user=" + ID_user + ", ID_projet=" + ID_projet + ", valeur_don=" + valeur_don + ", date_don=" + date_don +  ", etat_paiement=" + etat_paiement + '}';
     }
     void recupererID(int id){
        this.ID_projet = id;

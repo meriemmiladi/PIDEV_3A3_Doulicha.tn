@@ -213,6 +213,7 @@ private void importImage(ActionEvent event) {
             Files.copy(source, destination, StandardCopyOption.REPLACE_EXISTING);
 
              imagePath = "C:/xampp/htdocs/img/" + fileName;
+             //imagePath = "http://localhost/img/" + fileName;
         } catch (Exception e) {
             System.out.println("Failed to load image file.");
             e.printStackTrace();

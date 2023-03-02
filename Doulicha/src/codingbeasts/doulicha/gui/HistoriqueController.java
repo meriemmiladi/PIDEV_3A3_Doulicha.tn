@@ -33,7 +33,6 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -47,9 +46,8 @@ import javafx.stage.Stage;
  *
  * @author Admin
  */
-public class ListAffichageDonController implements Initializable {
-
-    @FXML
+public class HistoriqueController implements Initializable {
+ @FXML
     private VBox VBox1;
     @FXML
     private HBox HBox1;
@@ -65,111 +63,44 @@ public class ListAffichageDonController implements Initializable {
     @FXML
     private Button statistique;
     @FXML
-    private Button tfhisto;
+    private Button tfhistorique;
 
 
     /**
      * Initializes the controller class.
      */
-   public double calculerSommeDons() {
-    donCRUD dis = new donCRUD();
-    List<don> dons = dis.afficherdon();
-    double somme = 0;
-    for (don d : dons) {
-        somme += d.getValeur_don();
-        System.out.println(somme);
-    }
-    return somme;
-}
-
-@Override
-public void initialize(URL url, ResourceBundle rb) {
-    donCRUD dis = new donCRUD();
    
-    List<don> dons = dis.afficherdon();
-    double somme = calculerSommeDons();
-    sommeDonsLabel.setText("Total des dons " + somme + "£");
-    sommeDonsLabel.setStyle("-fx-font-weight: bold;");
+
+    /**
+     * Initializes the controller class.
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        // TODO
+        donCRUD dis = new donCRUD();
+   
+    List<don> dons = dis.afficherdon1();
+   
     for (don d : dons) {
         VBox contentBox = new VBox();
         Label valeurLabel = new Label("Valeur : " + d.getValeur_don() + "€");
         valeurLabel.setStyle("-fx-font-weight: bold;");
         Label dateLabel = new Label("Date : " + d.getDate_don());
-        Button replyButton = new Button("Supprimer");
-        replyButton.getStyleClass().add("replyButton");
         
-        replyButton.setOnAction((ActionEvent event) -> {
-        Alert alert = new Alert(AlertType.CONFIRMATION, "Êtes-vous sûr de vouloir supprimer cet enregistrement ?");
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK) {
-            try {
-            dis.deletedon(d.getID_don()); 
-            donListe.getChildren().remove(contentBox); 
-        } catch (SQLException ex) {
-            Logger.getLogger(ListAffichageDonController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-});
-        Button modifierButton = new Button("Modifier");
-        modifierButton.getStyleClass().add("modifierButton");
-        modifierButton.setOnAction((ActionEvent event) -> {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("AjouterDon.fxml"));
-                Parent root = loader.load();
-                AjouterDonController controller = loader.getController();
-                controller.setdon(d);
-                Scene scene = new Scene(root);
-                Stage stage = new Stage();
-                scene.getStylesheets().add("listaffichagedon.css");
-                stage.setScene(scene);
-                stage.show();
-            } catch (IOException ex) {
-                Logger.getLogger(Affichage2Controller.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });
-        Button paiement = new Button("Paiement");
-paiement.setOnAction((ActionEvent event) -> {
-    try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Paiement.fxml"));
-        Parent root = loader.load();
-        PaiementController controller = loader.getController();
-        double aaa = d.getValeur_don();
-        int aa = (int) aaa;
-        int Id_don = d.getID_don();
-        controller.setData(aa,Id_don);
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.showAndWait();
 
-        // Si le paiement a été effectué avec succès, supprimer le don de la base de données
-        if (controller.isPaiementValide()) {
-            dis.deletedon(d.getID_don());
-            donListe.getChildren().remove(contentBox);
-        } else {
-        }
-
-    } catch (IOException ex) {
-        Logger.getLogger(ListAffichageDonController.class.getName()).log(Level.SEVERE, null, ex);
-    } catch (SQLException ex) {
-        Logger.getLogger(ListAffichageDonController.class.getName()).log(Level.SEVERE, null, ex);
-    }
-});
-
-        HBox buttonsBox = new HBox();
-        buttonsBox.getChildren().addAll(replyButton, modifierButton,paiement);
-        contentBox.getChildren().addAll(valeurLabel, dateLabel,buttonsBox);
+      
+       
+        contentBox.getChildren().addAll(valeurLabel, dateLabel);
         contentBox.setSpacing(10);
         contentBox.setStyle("-fx-background-color: #ffffff; -fx-border-color: #3FC4ED; -fx-border-width: 2px; -fx-border-radius: 5px;");
         contentBox.getStyleClass().add("vbox-style");
-        replyButton.getStyleClass().add("button-style");
-        modifierButton.getStyleClass().addAll("button-style", "modify");
+         
         donListe.getChildren().add(contentBox);
     }
     donListe.setSpacing(10);
 }
 
-
-    @FXML
+@FXML
     private void retourne3(ActionEvent event) {
         try {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/codingbeasts/doulicha/gui/AffichageProjetUser.fxml"));
@@ -180,23 +111,9 @@ paiement.setOnAction((ActionEvent event) -> {
         System.err.println(ex.getMessage());
     }
     }
-
-    @FXML
-    private void histo(ActionEvent event) {
-        try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/codingbeasts/doulicha/gui/historique.fxml"));
-        Parent root = loader.load();
-        Scene scene = tfhisto.getScene();
-        scene.setRoot(root);
-    } catch (IOException ex) {
-        System.err.println(ex.getMessage());
-    }
-    } 
-    
-    
-public Map<String, Double> getDonneesDonsParObjectif() {
+    public Map<String, Double> getDonneesDonsParObjectif() {
     donCRUD dis = new donCRUD();
-    List<don> dons = dis.afficherdon();
+    List<don> dons = dis.afficherdon1();
     projetCRUD diss = new projetCRUD();
     List<projet> projets = diss.afficherprojet();
     Map<String, Double> donnees = new HashMap<>();
@@ -216,21 +133,15 @@ public Map<String, Double> getDonneesDonsParObjectif() {
     return donnees;
 }
 
-
-
-
-
-
-   
-    @FXML
+@FXML
    public void afficherGraphiqueDonsParObjectif() {
     Map<String, Double> donnees = getDonneesDonsParObjectif();
 
     CategoryAxis xAxis = new CategoryAxis();
     NumberAxis yAxis = new NumberAxis();
     BarChart<String, Number> barChart = new BarChart<>(xAxis, yAxis);
-    xAxis.setLabel("Montant total des dons");
-    yAxis.setLabel("Objectifs");
+    xAxis.setLabel("Objectifs");
+    yAxis.setLabel("Montant total des dons");
     XYChart.Series<String, Number> series = new XYChart.Series<>();
     ObservableList<XYChart.Data<String, Number>> donneesSeries = FXCollections.observableArrayList();
 
@@ -257,8 +168,6 @@ public Map<String, Double> getDonneesDonsParObjectif() {
     stage.show();
 }
    
-   
-                }
-
-             
+    }    
     
+

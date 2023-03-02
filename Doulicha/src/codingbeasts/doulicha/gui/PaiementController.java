@@ -5,6 +5,9 @@
  */
 package codingbeasts.doulicha.gui;
 
+import codingbeasts.doulicha.entities.don;
+import codingbeasts.doulicha.services.donCRUD;
+import codingbeasts.doulicha.utils.MyConnection;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
@@ -23,11 +26,17 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -38,6 +47,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -67,7 +77,13 @@ public class PaiementController implements Initializable {
     private Button Annulerr;
     @FXML
     private Button Annulerr1;
+    
+    
+    private boolean paiementValide = false;
+    private int donId;
 
+    @FXML
+    
     /**
      * Initializes the controller class.
      */
@@ -78,7 +94,7 @@ public class PaiementController implements Initializable {
    // Stripe.apiKey="sk_test_51Mf1wLLusEKclnk8QPGDh0xRPSORk53EJvGWiiYcyPJY5KMHEziRmaJyjtDhiBTQVI3ddwWMZXIDVV1uuGw4w6fo00Bkad1CYS";
     
     @FXML
-    private void Payer(ActionEvent event) throws StripeException {
+    private void Payer(ActionEvent event) throws StripeException, SQLException {
         
        String mail= cmail.getText();
        String nom= cnom.getText();
@@ -163,22 +179,50 @@ return;
         Charge charge = Charge.create(chargeParams);
 
         System.out.println("Charge created: " + charge.getId());
+        
+         
         pdfPayment(cprix,charge.getId(),nom,mail,num);
         
+        // donCRUD d = new donCRUD();
+        // d.setEtat_paiement(1); 
+        
+         //paiementValide = true;
+        // Fermer la fenêtre de paiement
+        //((Stage) valider.getScene().getWindow()).close();
+     
+        updateDonPaymentStatus(donId);
+        System.out.println(donId);
+    }  
         
         
-        
-    }
+    
 
-     public void setData(int prixd) {
+     public void setData(int prixd, int Id_don) {
          
         // ... implémentez votre logique pour utiliser les données
         this.p=prixd;
          System.out.println("prix p cent =" +this.p);
          prix.setText(""+prixd);
+         this.donId = Id_don;
         
     }
-
+     Connection cnx2;
+   
+        
+    
+public void updateDonPaymentStatus(int donId) throws SQLException {
+    
+    String updateQuery = "UPDATE don SET etat_paiement = 1 WHERE ID_don = ?";
+    cnx2 = MyConnection.getInstance().getCnx();
+    try (PreparedStatement pstmt = cnx2.prepareStatement(updateQuery)) {
+        pstmt.setInt(1, donId);
+        pstmt.executeUpdate();
+    } catch (SQLException ex) {
+        System.err.println("Error updating payment status for donation " + donId + ": " + ex.getMessage());
+        throw ex;
+    }
+    System.out.println(donId);
+}
     @FXML
     private void Anunuler(ActionEvent event) {
         try {
@@ -240,5 +284,14 @@ return;
     }
 
 }
+
+
+    public boolean isPaiementValide() {
+        System.out.println(paiementValide);
+        return paiementValide;
+    }
+   
+     
+    
      
 }

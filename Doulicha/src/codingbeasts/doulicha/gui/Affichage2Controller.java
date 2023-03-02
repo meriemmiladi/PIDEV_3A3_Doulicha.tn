@@ -108,7 +108,9 @@ public class Affichage2Controller implements Initializable {
             VBox contentBox = new VBox();
             ImageView imageView = new ImageView();
             inputstream = new FileInputStream(projet.getImage_projet());
+            
             Image imageS = new Image(inputstream);
+            //Image imageS = new Image(new URL(projet.getImage_projet()).toString());
             imageView.getStyleClass().add("imageView");
             imageView.setFitWidth(200);
             imageView.setFitHeight(100);

@@ -25,7 +25,7 @@ public void start(Stage primaryStage) {
     try {
  
 
-    Parent root = FXMLLoader.load(getClass().getResource("ListAffichageDon.fxml"));
+    Parent root = FXMLLoader.load(getClass().getResource("historique.fxml"));
     Scene scene = new Scene(root);
     
     primaryStage.setScene(scene);
