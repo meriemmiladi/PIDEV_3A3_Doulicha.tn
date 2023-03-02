@@ -279,7 +279,7 @@ try {
     
     public static void uploadImage(File imageFile) throws IOException {
     HttpClient httpClient = HttpClientBuilder.create().build();
-    HttpPost httpPost = new HttpPost("http://localhost:8080/upload");
+    HttpPost httpPost = new HttpPost("http://localhost:8080/img/upload.php");
     
     // Read image file into byte array
     byte[] imageData = new byte[(int) imageFile.length()];
@@ -306,7 +306,7 @@ try {
             String base64Image = encodeImage(image);
             
             // Créer la requête HTTP
-            String url = "http://localhost/upload_image.php";
+            String url = "http://localhost/img/upload.php";
             String charset = StandardCharsets.UTF_8.name();
             String query = String.format("image=%s", URLEncoder.encode(base64Image, charset));
             HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();

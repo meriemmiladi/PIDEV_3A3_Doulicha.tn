@@ -78,6 +78,8 @@ import org.controlsfx.control.Notifications;
 import com.itextpdf.text.Document;
 //import com.itextpdf.text.Image;
 import com.itextpdf.text.pdf.PdfWriter;
+import java.awt.Desktop;
+
 
 
 /**
@@ -243,34 +245,12 @@ public class ConsulterMesReservationsController implements Initializable {
                           modifierButton.setDisable(true);
              }
              
+             
+             
+             
+             
+ //**************************  GENERATION DE PDF  *************************************
              PdfButton.setOnAction((event) -> {
-                 
-       //**************
-      /*  String message = "Voici votre réservation \n\n";
-
-        String file_name = "src/PDF/Réservation.pdf";
-        Document document = new Document();
-                try {
-                    PdfWriter.getInstance(document, new FileOutputStream(file_name));
-                } catch (Exception ex) {ex.getStackTrace();}
-              
-        document.open();
-        try{
-         document.add(new Paragraph("Nom du logement réservé : " + sl.recupNomLogement(MaReservation.getID_logement())));
-            document.add(new Paragraph("Date d'arrivée : " + MaReservation.getDateArrivee_reservation()));
-            document.add(new Paragraph("Date de départ : " + MaReservation.getDateDepart_reservation()));
-            document.add(new Paragraph("Nombre de personnes : " + MaReservation.getNbPersonnes_reservation()));
-            document.add(new Paragraph("Montant total : " + MaReservation.getMontantTotal_reservation()));
-        }catch(Exception e)
-        {
-           e.getStackTrace();
-        }
-       
-        document.close();
-
-    }*/
-      
- 
 
 String fileName = "Résercation N°" + MaReservation.getID_reservation() + ".pdf";
 String pdfPath = "src/PDF/" + fileName;
@@ -327,6 +307,25 @@ document.open();
 
 document.close();
 //writer.close();
+
+Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("TELECHARGEMENT DE VOTRE RESERVATION");
+        alert.setHeaderText("Etes vous sur de vouloir télécharger votre réservation ?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            File file = new File(pdfPath);
+         // Ouvrir le fichier PDF avec l'application par défaut
+            Desktop desktop = Desktop.getDesktop();
+            try {
+                desktop.open(file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        
+        
+        }
+
                      //********************
              });
         

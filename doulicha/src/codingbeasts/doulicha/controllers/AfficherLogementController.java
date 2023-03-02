@@ -40,9 +40,11 @@ import javafx.stage.StageStyle;
 import codingbeasts.doulicha.utils.MyConnection;
 import com.google.api.services.sheets.v4.Sheets;
 import com.twilio.rest.api.v2010.account.sip.credentiallist.Credential;
+import java.awt.Desktop;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.sql.Connection;
+import java.util.Optional;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -50,6 +52,8 @@ import java.util.concurrent.TimeUnit;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Cell;
 import javafx.scene.control.TablePosition;
 import javafx.scene.control.TextField;
@@ -168,72 +172,7 @@ public class AfficherLogementController implements Initializable {
     }
     });
         
-       
 
-      
-        
- 
-
-
-        
-        /* excel.setOnAction(event-> {
-            
-        FileChooser fileChooser = new FileChooser();
-    fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel Files", "*.xlsx"));
-    File file = fileChooser.showSaveDialog(null);
-    if (file != null) {
-        try (Workbook workbook = new XSSFWorkbook()) {
-            org.apache.poi.ss.usermodel.Sheet sheet = workbook.createSheet("Logements");
-            
-            Row headerRow = sheet.createRow(0);
-headerRow.createCell(0).setCellValue("Nom ");
-headerRow.createCell(1).setCellValue("Description");
-headerRow.createCell(2).setCellValue("Adresse");
-headerRow.createCell(3).setCellValue("Prix Nuitée");
-headerRow.createCell(4).setCellValue("capacité");
-headerRow.createCell(5).setCellValue("type");
-headerRow.createCell(6).setCellValue("etat");
-headerRow.createCell(7).setCellValue("image");
-
-ObservableList<TablePosition> selectedCells = table_view.getSelectionModel().getSelectedCells();
-for (TablePosition tablePosition : selectedCells) {
-    Row row = sheet.createRow(tablePosition.getRow()+1);
-    row.createCell(0).setCellValue((String) table_view.getColumns().get(0).getCellData(tablePosition.getRow()));
-    row.createCell(1).setCellValue((String) table_view.getColumns().get(1).getCellData(tablePosition.getRow()));
-    row.createCell(2).setCellValue((String) table_view.getColumns().get(2).getCellData(tablePosition.getRow()));
-    row.createCell(3).setCellValue((String) table_view.getColumns().get(3).getCellData(tablePosition.getRow()));
-    row.createCell(4).setCellValue((String) table_view.getColumns().get(4).getCellData(tablePosition.getRow()));
-    row.createCell(5).setCellValue((String) table_view.getColumns().get(5).getCellData(tablePosition.getRow()));
-    row.createCell(6).setCellValue((String) table_view.getColumns().get(6).getCellData(tablePosition.getRow()));
-    row.createCell(7).setCellValue((String) table_view.getColumns().get(7).getCellData(tablePosition.getRow()));
-}*/
-
-                     
-           /* ObservableList<TableColumn<Logement, ?>> columns = table_view.getColumns();
-            int rowIndex = 0;
-            Row row = sheet.createRow(rowIndex++);
-            for (int i = 0; i < columns.size(); i++) {
-                row.createCell(i).setCellValue(columns.get(i).getText());
-            }
-            ObservableList<Logement> items = table_view.getItems();
-            for (int i = 0; i < items.size(); i++) {
-                row = sheet.createRow(rowIndex++);
-                for (int j = 0; j < columns.size(); j++) {
-                    TableColumn<Logement, ?> column = columns.get(j);
-                    String cellValue = column.getCellData(items.get(i)).toString();
-                    row.createCell(j).setCellValue(cellValue);
-                }
-            }*/
-            /*try (FileOutputStream fos = new FileOutputStream(file)) {
-                workbook.write(fos);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-       
-        
-        });*/
     }
 
     
@@ -261,7 +200,6 @@ for (TablePosition tablePosition : selectedCells) {
             });
 
         });
-        //System.out.println(filtereddata);
         SortedList<Logement> sorteddata = new SortedList<>(filtereddata);
         sorteddata.comparatorProperty().bind(table_view.comparatorProperty());
         table_view.setItems(filtereddata);
@@ -321,6 +259,24 @@ for (TablePosition tablePosition : selectedCells) {
     } catch (IOException e) {
         e.printStackTrace();
     }
+    
+    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("TELECHARGEMENT DE VOTRE RESERVATION");
+        alert.setHeaderText("Etes vous sur de vouloir télécharger votre réservation ?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            File file = new File("logements.xlsx");
+         // Ouvrir le fichier PDF avec l'application par défaut
+            Desktop desktop = Desktop.getDesktop();
+            try {
+                desktop.open(file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        
+        
+        }
        }
         
         

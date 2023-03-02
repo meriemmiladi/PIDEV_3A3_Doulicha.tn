@@ -51,6 +51,15 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
 
 
 
@@ -267,9 +276,35 @@ Path destination = Paths.get(xamppFolderPath + fileName);
               System.out.println("erreur recuperation capacite!");
             }
        
-        l.setImage_logement(image_logement.getText());
+        //l.setImage_logement(image_logement.getText());
         l.setEtat_logement(0);
         l.setType_logement(type_logement.getValue());
+       //*****************
+        File imageFile = new File("C:\\xampp\\htdocs\\img\\"+image_logement.getText());
+    HttpPost post = new HttpPost("http://localhost/img/upload.php");
+
+    MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+    builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+    builder.addBinaryBody("fileToUpload", imageFile, ContentType.DEFAULT_BINARY, imageFile.getName());
+    builder.addTextBody("nom", nom_logement.getText());
+    builder.addTextBody("adresse", adresse_logement.getText());
+    HttpEntity entity = builder.build();
+
+    post.setEntity(entity);
+
+    HttpClient client = HttpClientBuilder.create().build();
+    try {
+        HttpResponse response = client.execute(post);
+        HttpEntity responseEntity = response.getEntity();
+        String imageUrl = EntityUtils.toString(responseEntity);
+        System.out.println(imageUrl);
+        // Stocker l'URL de l'image dans la base de données ou l'utiliser pour afficher l'image.
+        l.setImage_logement(imageUrl);
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+       //*****************
+
       
 
         sl.ajouterLogement2(l);

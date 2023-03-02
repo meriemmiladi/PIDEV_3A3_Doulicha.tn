@@ -14,9 +14,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="750.0" prefWidth="1230.0" style="-fx-background-color: #EFF8FA;" stylesheets="@/codingbeasts/doulicha/views/Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codingbeasts.doulicha.controllers.ReserverLogementController">
+<AnchorPane id="AnchorPane" fx:id="page" prefHeight="750.0" prefWidth="1230.0" style="-fx-background-color: #EFF8FA;" stylesheets="@/codingbeasts/doulicha/views/Style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codingbeasts.doulicha.controllers.ReserverLogementController">
    <children>
-      <VBox prefHeight="754.0" prefWidth="331.0" style="-fx-background-color: #CCE3EA;" />
+      <VBox fx:id="formBox" prefHeight="754.0" prefWidth="331.0" style="-fx-background-color: #CCE3EA;" />
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="78.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@/codingbeasts/doulicha/images/logoDoulicha.png" />
@@ -58,8 +58,8 @@
             <Font name="Papyrus" size="40.0" />
          </font>
       </Text>
-      <Label alignment="TOP_CENTER" contentDisplay="RIGHT" layoutX="376.0" layoutY="207.0" prefHeight="27.0" prefWidth="115.0" text="Date Arrivée" />
-      <Label layoutX="382.0" layoutY="280.0" text="Date départ" />
+      <Label fx:id="labelDateA" alignment="TOP_CENTER" contentDisplay="RIGHT" layoutX="376.0" layoutY="207.0" prefHeight="27.0" prefWidth="115.0" text="Date Arrivée" />
+      <Label fx:id="labelDateD" layoutX="392.0" layoutY="280.0" text="Date départ" />
       <Label layoutX="381.0" layoutY="353.0" text="Nombres de personnes" />
       <TextField id="prixNuitee_logement" fx:id="nbPersonnes_reservation" layoutX="581.0" layoutY="353.0" prefHeight="31.0" prefWidth="303.0" />
       <DatePicker fx:id="dateArrivee_reservation" layoutX="580.0" layoutY="202.0" prefHeight="31.0" prefWidth="303.0" />
@@ -67,6 +67,6 @@
       <Button fx:id="reserver" layoutX="502.0" layoutY="511.0" mnemonicParsing="false" text="Valider ma réservation" />
       <Button fx:id="annuler" layoutX="779.0" layoutY="511.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="190.0" text="Annuler" />
       <Label layoutX="382.0" layoutY="423.0" prefHeight="21.0" prefWidth="190.0" text="Numéro de téléphone" />
-      <TextField fx:id="num_tel" layoutX="583.0" layoutY="418.0" prefHeight="31.0" prefWidth="303.0" />
+      <TextField fx:id="num_tel" layoutX="582.0" layoutY="418.0" prefHeight="31.0" prefWidth="303.0" />
    </children>
 </AnchorPane>

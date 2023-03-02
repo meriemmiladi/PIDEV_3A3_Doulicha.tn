@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="doulichaFX.jnlp">
+  <information>
+    <title>doulichaFX</title>
+    <vendor>marie</vendor>
+    <description>null</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="doulichaFX.jar" size="6168487" download="eager" />
+    <jar href="lib\JMapViewer-1.14.1-Demo.jar" size="418" download="eager" />
+    <jar href="lib\JMapViewer-1.14.1.jar" size="153457" download="eager" />
+    <jar href="lib\checker-qual-3.12.0.jar" size="208835" download="eager" />
+    <jar href="lib\com.fasterxml.jackson.core.jar" size="206234" download="eager" />
+    <jar href="lib\com.fasterxml.jackson.databind.jar" size="920971" download="eager" />
+    <jar href="lib\commons-codec-1.11.jar" size="335042" download="eager" />
+    <jar href="lib\commons-collections4-4.4.jar" size="751914" download="eager" />
+    <jar href="lib\commons-compress-1.20.jar" size="632424" download="eager" />
+    <jar href="lib\commons-logging-1.2.jar" size="61829" download="eager" />
+    <jar href="lib\commons-math3-3.6.1.jar" size="2213560" download="eager" />
+    <jar href="lib\error_prone_annotations-2.11.0.jar" size="15979" download="eager" />
+    <jar href="lib\failureaccess-1.0.1.jar" size="4617" download="eager" />
+    <jar href="lib\fontawesomefx-8.9.jar" size="571068" download="eager" />
+    <jar href="lib\fontawesomefx-glyphsbrowser-all-1.0.jar" size="1662483" download="eager" />
+    <jar href="lib\google-api-services-sheets-v4-rev20221216-2.0.0.jar" size="311837" download="eager" />
+    <jar href="lib\google-http-client-1.42.0.jar" size="292693" download="eager" />
+    <jar href="lib\google-http-client-gson-1.42.0.jar" size="10577" download="eager" />
+    <jar href="lib\google-maps-services-0.17.0.jar" size="226621" download="eager" />
+    <jar href="lib\google-oauth-client-1.34.1.jar" size="81086" download="eager" />
+    <jar href="lib\grpc-context-1.27.2.jar" size="30073" download="eager" />
+    <jar href="lib\gson-2.10.1.jar" size="283367" download="eager" />
+    <jar href="lib\gson-2.9.0.jar" size="249277" download="eager" />
+    <jar href="lib\guava-31.1-android.jar" size="2785359" download="eager" />
+    <jar href="lib\httpclient-4.5.13.jar" size="780321" download="eager" />
+    <jar href="lib\httpclient-4.5.14.jar" size="785639" download="eager" />
+    <jar href="lib\httpcore-4.4.15.jar" size="328324" download="eager" />
+    <jar href="lib\httpcore-4.4.16.jar" size="327891" download="eager" />
+    <jar href="lib\httpmime-4.5.14.jar" size="41727" download="eager" />
+    <jar href="lib\itextpdf-5.1.0.jar" size="1614453" download="eager" />
+    <jar href="lib\itextpdf-5.5.13.3.jar" size="2334491" download="eager" />
+    <jar href="lib\itextpdf-5.5.6.jar" size="2265678" download="eager" />
+    <jar href="lib\itextpdf-5.5.9 (1).jar" size="2287148" download="eager" />
+    <jar href="lib\j2objc-annotations-1.3.jar" size="8781" download="eager" />
+    <jar href="lib\jackson-annotations-2.14.2.jar" size="76636" download="eager" />
+    <jar href="lib\jackson-core-2.14.2.jar" size="458834" download="eager" />
+    <jar href="lib\jackson-databind-2.14.2.jar" size="1616844" download="eager" />
+    <jar href="lib\jackson-datatype-jsr310-2.14.2.jar" size="122020" download="eager" />
+    <jar href="lib\jfoenix-8.0.1.jar" size="2405715" download="eager" />
+    <jar href="lib\json-simple-1.1.jar" size="16046" download="eager" />
+    <jar href="lib\jsr305-3.0.2.jar" size="19936" download="eager" />
+    <jar href="lib\jxmaps-1.3.1.jar" size="859749" download="eager" />
+    <jar href="lib\jxmaps-win-1.3.1.jar" size="50757483" download="eager" />
+    <jar href="lib\jxmapsdemo.jar" size="1108867" download="eager" />
+    <jar href="lib\listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar" size="2199" download="eager" />
+    <jar href="lib\logback.jar" size="409700" download="eager" />
+    <jar href="lib\mysql-connector-java-5.1.23-bin.jar" size="834126" download="eager" />
+    <jar href="lib\okhttp-3.0.0.jar" size="330198" download="eager" />
+    <jar href="lib\okhttp-urlconnection-3.0.0.jar" size="193319" download="eager" />
+    <jar href="lib\okio-1.6.0.jar" size="65928" download="eager" />
+    <jar href="lib\opencensus-api-0.31.1.jar" size="355405" download="eager" />
+    <jar href="lib\opencensus-contrib-http-util-0.31.1.jar" size="23415" download="eager" />
+    <jar href="lib\picasso-2.71828-javadoc.jar" size="100504" download="eager" />
+    <jar href="lib\picasso-2.71828-sources.jar" size="70644" download="eager" />
+    <jar href="lib\poi-5.0.0.jar" size="2906684" download="eager" />
+    <jar href="lib\poi-ooxml-5.0.0.jar" size="1880314" download="eager" />
+    <jar href="lib\poi-ooxml-full-5.0.0.jar" size="19267559" download="eager" />
+    <jar href="lib\slf4j.jar" size="29881" download="eager" />
+    <jar href="lib\twilio-8.0.0.jar" size="4025262" download="eager" />
+    <jar href="lib\xmlbeans-4.0.0.jar" size="2493024" download="eager" />
+  </resources>
+  <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="doulichaFX" >
+    <param name="requiredFXVersion" value="8.0+"/>
+  </applet-desc>
+  <jfx:javafx-desc  width="800" height="600" main-class="doulichafx.ConsulterLogementClient"  name="doulichaFX" />
+  <update check="always"/>
+</jnlp>

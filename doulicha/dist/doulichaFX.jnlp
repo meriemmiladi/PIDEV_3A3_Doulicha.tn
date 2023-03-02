@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="doulichaFX.jar" size="6161013" download="eager" />
+    <jar href="doulichaFX.jar" size="6171490" download="eager" />
     <jar href="lib\JMapViewer-1.14.1-Demo.jar" size="418" download="eager" />
     <jar href="lib\JMapViewer-1.14.1.jar" size="153457" download="eager" />
     <jar href="lib\checker-qual-3.12.0.jar" size="208835" download="eager" />
@@ -60,6 +60,8 @@
     <jar href="lib\okio-1.6.0.jar" size="65928" download="eager" />
     <jar href="lib\opencensus-api-0.31.1.jar" size="355405" download="eager" />
     <jar href="lib\opencensus-contrib-http-util-0.31.1.jar" size="23415" download="eager" />
+    <jar href="lib\picasso-2.71828-javadoc.jar" size="100504" download="eager" />
+    <jar href="lib\picasso-2.71828-sources.jar" size="70644" download="eager" />
     <jar href="lib\poi-5.0.0.jar" size="2906684" download="eager" />
     <jar href="lib\poi-ooxml-5.0.0.jar" size="1880314" download="eager" />
     <jar href="lib\poi-ooxml-full-5.0.0.jar" size="19267559" download="eager" />

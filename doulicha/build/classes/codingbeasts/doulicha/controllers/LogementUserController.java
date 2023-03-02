@@ -49,6 +49,10 @@ import com.teamdev.jxmaps.ch.*;
 import java.security.GeneralSecurityException;
 import com.google.gson.FieldNamingPolicy;
 import com.sun.org.apache.xerces.internal.impl.io.Latin1Reader;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.net.MalformedURLException;
 import javafx.embed.swing.SwingNode;
 import org.json.simple.parser.ParseException;
 import org.openstreetmap.gui.jmapviewer.Coordinate;
@@ -57,6 +61,7 @@ import org.openstreetmap.gui.jmapviewer.MapMarkerCircle;
 
 import org.openstreetmap.gui.jmapviewer.MapMarkerDot;
 import org.openstreetmap.gui.jmapviewer.tilesources.OsmTileSource;
+
 
 
 /**
@@ -78,7 +83,9 @@ public class LogementUserController implements Initializable {
     @FXML
     private Button consulter_reservations;
     String xamppFolderPath = "C:/xampp/htdocs/img/";
-
+     private int ID_logement;
+    
+  
   
     
     
@@ -263,9 +270,10 @@ vbox.getChildren().add(mapNode);
             });*/
             
             //**********************************
-            if(logement.getEtat_logement()== 0)
-            {
-                int ID_logement=logement.getID_logement();
+            //if(logement.getEtat_logement()== 0)
+            //{
+                //int ID_logement=logement.getID_logement();
+                //ID_logement=logement.getID_logement();
                 String nom_logement= logement.getNom_logement();
                 String s = "Disponible";
                 etatLabel = new Label ("Disponibilité: " +s);
@@ -284,9 +292,14 @@ reserverButton.setOnAction((ActionEvent event) -> {
         Logger.getLogger(AfficherLogementController.class.getName()).log(Level.SEVERE, null, ex);
     }
     
-    ReserverLogementController ReserverLogementController = loader.getController();
-    ReserverLogementController.setUpdate(true);
-    ReserverLogementController.recupererID(ID_logement);
+    ReserverLogementController reserverLogementController = loader.getController();
+    reserverLogementController.setUpdate(true);
+    ID_logement=logement.getID_logement();
+    reserverLogementController.recupererID(ID_logement);
+    
+
+    
+    
     //ReserverLogementController.recupererNom(nom_logement);
     
     //ServL.supprimerLogement(Logement.getID_logement());
@@ -302,14 +315,15 @@ reserverButton.setOnAction((ActionEvent event) -> {
     
     
 });
-            }
-            if(logement.getEtat_logement()== 1)
+
+            //}
+           /* if(logement.getEtat_logement()== 1)
             {
                 String s = "Réservé";
                 etatLabel = new Label ("Disponibilité: "+ s);
                 etatLabel.setStyle( "-fx-text-fill: #3D6A78 ; -fx-font: 20px GothamMedium ; -fx-font-weight: bold; ");
                 reserverButton.setDisable(true);
-            }
+            }*/
         
             Label prixNuiteeLabel = new Label("Prix de la nuitée: " + Double.toString(logement.getPrixNuitee_logement())+ " DT/Nuitée");
             prixNuiteeLabel.setStyle( "-fx-text-fill: #3D6A78 ; -fx-font: 20px GothamMedium ; -fx-font-weight: bold; ");
@@ -319,8 +333,85 @@ reserverButton.setOnAction((ActionEvent event) -> {
             imageLabel.setStyle( "-fx-text-fill: #3D6A78 ; -fx-font: 20px GothamMedium ; -fx-font-weight: bold; ");
             ImageView imageLog = new ImageView();
             
+       
+
+String imagePath = "http://"+logement.getImage_logement(); // chemin de l'image
+        Image image = new Image(imagePath);
+        imageLog.setImage(image);
+        imageLog.setPreserveRatio(true);
+                imageLog.setFitWidth(150);
+                imageLog.setFitHeight(150);
+//**************
+/*
+// URL de l'image sur le serveur
+String imageUrl = "http://"+logement.getImage_logement();
+
+// Créer une connexion à l'URL
+URL urlImage;
+        try {
+            urlImage = new URL(imageUrl);
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(LogementUserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+InputStream in = null;
+        try {
+            in = url.openStream();
+        } catch (IOException ex) {
+            Logger.getLogger(LogementUserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+// Créer un fichier temporaire pour enregistrer l'image
+File tempFile = null;
+        try {
+            tempFile = File.createTempFile("image", ".jpg");
+        } catch (IOException ex) {
+            Logger.getLogger(LogementUserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+tempFile.deleteOnExit();
+FileOutputStream out = null;
+        try {
+            out = new FileOutputStream(tempFile);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(LogementUserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+// Copier le contenu de l'image dans le fichier temporaire
+byte[] buffer = new byte[4096];
+int bytesRead;
+        try {
+            while ((bytesRead = in.read(buffer)) != -1) {
+                out.write(buffer, 0, bytesRead);
+            }       } catch (IOException ex) {
+            Logger.getLogger(LogementUserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try {
+            // Fermer les flux d'entrée et de sortie
+            in.close();
+        } catch (IOException ex) {
+            Logger.getLogger(LogementUserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            out.close();
+        } catch (IOException ex) {
+            Logger.getLogger(LogementUserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+// Charger l'image à partir du fichier temporaire
+Image image= new Image(in);
+        try {
             
-            String test = xamppFolderPath + logement.getImage_logement();
+            image = SwingFXUtils.toFXImage(ImageIO.read(tempFile), null);
+        } catch (IOException ex) {
+            Logger.getLogger(LogementUserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+// Afficher l'image dans un ImageView
+ImageView imageLogement = new ImageView(image); */
+//**************
+
+            
+           /* String test = xamppFolderPath + logement.getImage_logement();
             try {
                 BufferedImage bufferedImage = ImageIO.read(new File(test));
                 Image image = SwingFXUtils.toFXImage(bufferedImage, null);
@@ -331,7 +422,7 @@ reserverButton.setOnAction((ActionEvent event) -> {
                 imageLog.setFitHeight(100);
             } catch (IOException ex) {
                 System.out.println("could not get the image");
-            } 
+            } */
             
             
             contentBox.getChildren().addAll(imageLog,nomLabel, typeLabel,descriptionLabel, adresseLabel,vbox,prixNuiteeLabel, capaciteLabel, etatLabel,reserverButton);
@@ -351,6 +442,6 @@ reserverButton.setOnAction((ActionEvent event) -> {
         scrollPane.setFitToWidth(false);
        
     }
-    
+      
     
 }

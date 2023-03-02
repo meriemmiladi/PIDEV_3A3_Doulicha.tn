@@ -24,6 +24,7 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -36,7 +37,18 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import javax.imageio.ImageIO;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
+import org.controlsfx.control.Notifications;
 
 /**
  * FXML Controller class
@@ -212,27 +224,36 @@ Path destination = Paths.get(xamppFolderPath + fileName);
               System.out.println("erreur recuperation capacite!");
             }
        // l.setType_logement(type_logement.getText());
-        l.setImage_logement(image_logement.getText());
+        //*****************
+        File imageFile = new File("C:\\xampp\\htdocs\\img\\"+image_logement.getText());
+    HttpPost post = new HttpPost("http://localhost/img/upload.php");
+
+    MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+    builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+    builder.addBinaryBody("fileToUpload", imageFile, ContentType.DEFAULT_BINARY, imageFile.getName());
+    builder.addTextBody("nom", nom_logement.getText());
+    builder.addTextBody("adresse", adresse_logement.getText());
+    HttpEntity entity = builder.build();
+
+    post.setEntity(entity);
+
+    HttpClient client = HttpClientBuilder.create().build();
+    try {
+        HttpResponse response = client.execute(post);
+        HttpEntity responseEntity = response.getEntity();
+        String imageUrl = EntityUtils.toString(responseEntity);
+        System.out.println(imageUrl);
+        // Stocker l'URL de l'image dans la base de données ou l'utiliser pour afficher l'image.
+        l.setImage_logement(imageUrl);
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+       //*****************
+       // l.setImage_logement(image_logement.getText());
         l.setEtat_logement(0);
-        // Récupère le noeud racine de la scène
-        /*try{
-        Parent root = FXMLLoader.load(getClass().getResource("AjouterLogement.fxml"));
-
-        // Recherche le ComboBox avec l'identifiant "myComboBox"
-        ComboBox<String> type_logement = (ComboBox<String>) root.lookup("#type_logement");
-
-        // Récupère la valeur sélectionnée dans le ComboBox
-        String selectedValue = type_logement.getValue();
-        l.setType_logement(selectedValue);
-        } catch( IOException ex){
-            System.out.println("Pas de récuperation de comboBox!!");
-        }*/
          l.setType_logement(type_logement.getValue());
       
 
-       
-        //Ar.setCategorie(ArCat.load_data(Cat.getValue()));
-        
         sl.afficherLogement();
         sl.modifierLogement(l);
         try{
@@ -246,14 +267,14 @@ Path destination = Paths.get(xamppFolderPath + fileName);
            Logger.getLogger(ModifierLogementController.class.getName()).log(Level.SEVERE, null, ex); 
         }
         
-        //Resof.addReservationoffre(Res);
-        /*Notifications notificationBuilder = Notifications.create()
-                .title("AJOUT RESERVATION")
-                .text("votre offre a etait bien enregistrer  !")
+        
+        Notifications notificationBuilder = Notifications.create()
+                .title("Modification de logement")
+                .text("Le logement a été bien modifié  !")
                 .graphic(null)
                 .hideAfter(Duration.seconds(5))
                 .position(Pos.BOTTOM_RIGHT);
-        notificationBuilder.showInformation();*/
+        notificationBuilder.showInformation();
         }});
     } 
     
@@ -291,9 +312,7 @@ Path destination = Paths.get(xamppFolderPath + fileName);
             erreur = erreur + ("Veuillez verifier le nom du logement correctement \n");
         }
        
-        if (!testAdresse()) {
-            erreur = erreur + ("Veuillez verifier l'adresse: \n");
-        }
+        
          if (!testCapacite()) {
             erreur = erreur + ("Veuillez saisir la capacité correctement \n");
         }
@@ -302,7 +321,7 @@ Path destination = Paths.get(xamppFolderPath + fileName);
         }
          
       
-        return  testNom() && testAdresse() && testCapacite() && testPrixNuitee(prixNuitee_logement);
+        return  testNom() && testCapacite() && testPrixNuitee(prixNuitee_logement);
     }
        
      
@@ -318,11 +337,9 @@ Path destination = Paths.get(xamppFolderPath + fileName);
         }
 
         if (nbNonChar == 0 && nom_logement.getText().trim().length() >= 3) {
-            //checknom.setImage(new Image("/codingbeats/doulicha/images/checkmark.png"));
-            return true;
+              return true;
         } else {
-            //checknom.setImage(new Image("/codingbeats/doulicha/images/erreurcheckmark.png"));
-//                erreur = erreur + ("Pas de caractere permit dans le telephone\n");
+            
            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(null);
             alert.setContentText("Veuillez verifier le nom du logement !");
@@ -332,29 +349,6 @@ Path destination = Paths.get(xamppFolderPath + fileName);
         }
     }
      
-     private Boolean testAdresse() {
-        int nbNonChar = 0;
-        for (int i = 1; i < adresse_logement.getText().trim().length(); i++) {
-            char ch = adresse_logement.getText().charAt(i);
-            if (!Character.isLetterOrDigit(ch)) {
-                nbNonChar++;
-            }
-        }
-
-        if (nbNonChar == 0 && adresse_logement.getText().trim().length() >= 3) {
-            //checkadresse.setImage(new Image("/codingbeats/doulicha/images/checkmark.png"));
-            return true;
-        } else {
-            //checkadresse.setImage(new Image("/codingbeats/doulicha/images/erreurcheckmark.png"));
-//                erreur = erreur + ("Pas de caractere permit dans le telephone\n");
-           Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText(null);
-            alert.setContentText("Veuillez verifier l'adresse du logement !");
-            alert.showAndWait();
-            return false;
-
-        }
-    }
      
       private Boolean testCapacite() {
         int nbNonChar = 0;
@@ -366,12 +360,10 @@ Path destination = Paths.get(xamppFolderPath + fileName);
         }
 
         if (nbNonChar == 0 && capacite_logement.getText().trim().length() >= 1) {
-           // checkcapacite.setImage(new Image("/codingbeats/doulicha/images/checkmark.png"));
-           // afficher un message d'erreur pour l'utilisateur
+           
              return true;
         } else {
-            //checkcapacite.setImage(new Image("/codingbeats/doulicha/images/erreurcheckmark.png"));
-//                erreur = erreur + ("Pas de caractere permit dans le telephone\n");
+            
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(null);
             alert.setContentText("Veuillez verifier la capacité du logement !");

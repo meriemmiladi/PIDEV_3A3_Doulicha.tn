@@ -6,18 +6,32 @@
 package codingbeasts.doulicha.controllers;
 
 
+import codingbeasts.doulicha.entities.Logement;
 import codingbeasts.doulicha.entities.Reservation_logement;
 import codingbeasts.doulicha.services.ServiceReservationLogement;
 import codingbeasts.doulicha.services.ServiceLogement;
 import codingbeasts.doulicha.services.SmsSender;
+import codingbeasts.doulicha.utils.MyConnection;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -27,9 +41,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
 
@@ -57,17 +76,62 @@ public class ReserverLogementController implements Initializable {
     private DatePicker dateArrivee_reservation;
     @FXML
     private DatePicker dateDepart_reservation;
-    private TextField ID_logement;
+   
     private int id;
     private String nom;
     @FXML
     private TextField num_tel;
+    private Label ID_logement;
+    @FXML
+    private Label labelDateA;
+    @FXML
+    private Label labelDateD;
+    @FXML
+    private AnchorPane page;
+    @FXML
+    private VBox formBox;
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
+      
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+     
+      /*selectionnerDates.setOnAction(event -> {
+      this.recupererID(id);
+          System.out.println(id);
+          labelDateA.setDisable(false);
+          labelDateD.setDisable(false);
+          dateArrivee_reservation.setDisable(false);
+          dateDepart_reservation.setDisable(false);
+           try {
+            recupDateReservee(id);
+        } catch (SQLException ex) {
+            Logger.getLogger(ReserverLogementController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+          
+          
+      });*/
+      
+      page.setOnMouseMoved(event -> {
+        this.recupererID(id);
+          System.out.println(id);
+          /*labelDateA.setDisable(false);
+          labelDateD.setDisable(false);
+          dateArrivee_reservation.setDisable(false);
+          dateDepart_reservation.setDisable(false);*/
+           try {
+            recupDateReservee(id);
+        } catch (SQLException ex) {
+            Logger.getLogger(ReserverLogementController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      });
+         
+        
+       
         
          home.setOnAction( event->{
         try{
@@ -128,7 +192,9 @@ public class ReserverLogementController implements Initializable {
         
         
         reserver.setOnAction(event -> {  
+            System.out.println(id);
             System.out.println("reserver appuyé");
+            
             if(testNbPersonnes()){
         ServiceReservationLogement sr = new ServiceReservationLogement();
         if(testSaisie()){ 
@@ -154,9 +220,10 @@ public class ReserverLogementController implements Initializable {
         // calculez le nombre de jours de la réservation
         long nbJoursReservation = ChronoUnit.DAYS.between(dateArrivee_local, dateDepart_local);
 
-        // calculez le montant total de la réservation
-         this.recupererID(id);
+       
+        
          
+     
         /*String textI = ID_logement.getText();
         int valueI=0;
         try {
@@ -165,10 +232,12 @@ public class ReserverLogementController implements Initializable {
               System.out.println("erreur recuperation capacite!");
             }*/
         ServiceLogement sl = new ServiceLogement();
+         // calculez le montant total de la réservation
         double montantTotal = nbJoursReservation * (sl.recupPrixNuitee(id));
          r.setMontantTotal_reservation(montantTotal);
         //montantTotal_reservation.setText(Double.toString(montantTotal));
         r.setID_logement(id);
+        
         
         
         
@@ -181,12 +250,12 @@ public class ReserverLogementController implements Initializable {
         
 
         sr.ajouterReservationLogement2(r);
-        //handleReservationValidation();
-        //*********************
-        //String toNumber = "+21629599189";
-        String toNumber= r.getNum_tel();
+       //API MESSAGE 
+       
+       /* String toNumber= r.getNum_tel();
     String messageBody = "Votre réservation de logement a été bien validée. Merci de votre confiance !";
-    SmsSender.sendSms(toNumber, messageBody);
+    SmsSender.sendSms(toNumber, messageBody);*/ 
+       
         //*********************
          System.out.println("test2");
         try{
@@ -207,13 +276,14 @@ public class ReserverLogementController implements Initializable {
                 .hideAfter(Duration.seconds(5))
                 .position(Pos.BOTTOM_RIGHT);
         notificationBuilder.showInformation();
-        } } });
+        } }
+});
          System.out.println("test3");
     } 
     
-     void setTextField( int ID_logement) {
+     /*void setTextField( int ID_logement) {
         this.ID_logement.setText(Integer.toString(ID_logement));
-    }
+    }*/
      
      private boolean update;
      void setUpdate(boolean b) {
@@ -222,7 +292,7 @@ public class ReserverLogementController implements Initializable {
     }
      
       
-     void recupererID(int id) {
+     public void recupererID(int id) {
         this.id = id;
 
     }
@@ -299,6 +369,8 @@ public class ReserverLogementController implements Initializable {
                
     } 
       
+    
+      
 private void handleReservationValidation() {
     // code pour valider la réservation
     String toNumber = "+21629599189";
@@ -307,7 +379,84 @@ private void handleReservationValidation() {
 }
 
 
-     
-    }    
+
+
+public List<LocalDate> getDatesReservation(Reservation_logement reservation) {
+    Date dateArrivee_reservation = reservation.getDateArrivee_reservation();
+    Date dateDepart_reservation = reservation.getDateDepart_reservation();
+
+    java.sql.Date sqlDateA = (java.sql.Date) dateArrivee_reservation;
+    java.util.Date utilDateA = new java.util.Date(sqlDateA.getTime());
+    java.time.LocalDate localDateArrivee = utilDateA.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+    java.sql.Date sqlDateD = (java.sql.Date) dateDepart_reservation;
+    java.util.Date utilDateD = new java.util.Date(sqlDateD.getTime());
+    java.time.LocalDate localDateDepart = utilDateD.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+    List<LocalDate> listDates = new ArrayList<LocalDate>();
+    listDates.add(0,localDateArrivee);
+    listDates.add(1,localDateDepart);
+
+    return listDates;
+}
+
+
+public void recupDateReservee(int ID_logement) throws SQLException {
+    Connection cnx;
+    cnx = MyConnection.getInstance().getCnx();
+    List<Reservation_logement> ListReservation = new ArrayList<>();
+
+    try {
+        String requete = "SELECT * from reservation_logement where ID_logement= ? ";
+        PreparedStatement pst = cnx.prepareStatement(requete);
+        pst.setInt(1, ID_logement);
+        ResultSet rs = pst.executeQuery();
+        while (rs.next()) {
+            Reservation_logement reservation = new Reservation_logement();
+            reservation.setID_reservation(rs.getInt(1));
+            reservation.setID_user(rs.getInt(2));
+            reservation.setID_logement(rs.getInt(3));
+            reservation.setDateArrivee_reservation(rs.getDate(4));
+            reservation.setDateDepart_reservation(rs.getDate(5));
+            reservation.setNbPersonnes_reservation(rs.getInt(6));
+            reservation.setMontantTotal_reservation(rs.getDouble(7));
+            reservation.setNum_tel(rs.getString(8));
+
+            ListReservation.add(reservation);
+        }
+    }catch(Exception e){e.printStackTrace();}
+
+    // Configurer le DayCellFactory une seule fois pour chaque DatePicker
+    this.dateArrivee_reservation.setDayCellFactory(createDayCellFactory(ListReservation));
+    this.dateDepart_reservation.setDayCellFactory(createDayCellFactory(ListReservation));
+}
+
+// Créer un DayCellFactory qui désactive les dates pour toutes les réservations
+private Callback<DatePicker, DateCell> createDayCellFactory(List<Reservation_logement> ListReservation) {
+    return new Callback<DatePicker, DateCell>() {
+        @Override
+        public DateCell call(DatePicker datePicker) {
+            return new DateCell() {
+                @Override
+                public void updateItem(LocalDate item, boolean empty) {
+                    super.updateItem(item, empty);
+
+                    // Désactiver les dates entre les deux dates de chaque réservation
+                    for (Reservation_logement reservation : ListReservation) {
+                        List<LocalDate> listDates = getDatesReservation(reservation);
+                        if ((item.compareTo(listDates.get(0))>= 0 )&& (item.compareTo(listDates.get(1))<= 0 )) 
+                        {
+                            setDisable(true);
+                            setStyle("-fx-opacity: 0.5;"); // pour afficher les dates désactivées en semi-transparent
+                        }
+                    }
+                }
+            };
+        }
+    };
+}
+
+
+}
     
 
