@@ -49,6 +49,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -97,6 +99,8 @@ public class AfficherEvenementsController implements Initializable {
     @FXML
     private TextField recherche;
  ServiceEvenement EV = new ServiceEvenement();
+ 
+ 
    
      
     ObservableList<evenement> events = FXCollections.observableArrayList(EV.afficherEvents());
@@ -127,16 +131,7 @@ public class AfficherEvenementsController implements Initializable {
         afficherEvenement();
       search_event();   
       
-      /*  String apiKey = "7eaa37d9e8abdc16bc07751f8ff8caf99d49bb1f4a3ef2f03b77d974ba5e94b7";
-        ServicePDF pdfGenerator = new ServicePDF(apiKey);
-
-        try {
-            pdfGenerator.generatePdf("John Doe", "Conférence iTextPdf", 100, "fileName");
-        } catch (IOException | DocumentException e) {
-            e.printStackTrace();
-        } */
-      
-      
+    
       
 btn_retourhome.setOnAction(event -> {
 
@@ -183,7 +178,6 @@ btn_gestionParticipations.setOnAction(event -> {
         ObservableList<evenement> events = evenenement.afficherEvents();
 
 
-
         col_nom.setCellValueFactory(new PropertyValueFactory<>("nom_event"));
         col_description.setCellValueFactory(new PropertyValueFactory<>("description_event"));
         col_lieu.setCellValueFactory(new PropertyValueFactory<>("lieu_event"));
@@ -193,6 +187,8 @@ btn_gestionParticipations.setOnAction(event -> {
         col_capacite.setCellValueFactory(new PropertyValueFactory<>("capacite_event"));
         col_prix.setCellValueFactory(new PropertyValueFactory<>("prix_event"));
         col_image.setCellValueFactory(new PropertyValueFactory<>("image_event"));
+        
+      
 
         tableEvents.setItems(events);
         
@@ -269,6 +265,37 @@ btn_gestionParticipations.setOnAction(event -> {
         col_capacite.setCellValueFactory(new PropertyValueFactory<>("capacite_event"));
         col_prix.setCellValueFactory(new PropertyValueFactory<>("prix_event"));
         col_image.setCellValueFactory(new PropertyValueFactory<>("image_event"));
+        
+          // Personnalisation de l'affichage de la colonne d'image
+    col_image.setCellFactory(column -> {
+        return new TableCell<evenement, String>() {
+            private final ImageView imageView = new ImageView();
+        {
+            // Redimensionner l'image pour qu'elle soit de 100 pixels de large maximum
+            imageView.setFitWidth(100);
+            imageView.setPreserveRatio(true);
+        }
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    imageView.setImage(null);
+                } else {
+                    try {
+                          String cheminImage = "http://" + item;
+                    System.out.println("Chemin de l'image : " + cheminImage);
+                        
+                        Image image = new Image(cheminImage);
+                        imageView.setImage(image);
+                    } catch (IllegalArgumentException e) {
+                        System.err.println("Impossible de charger l'image : " + item);
+                    }
+                }
+                setGraphic(imageView);
+            }
+        };
+    });
+    
          tableEvents.setItems(events);
         // search_event();
         

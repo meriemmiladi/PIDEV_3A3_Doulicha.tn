@@ -7,6 +7,7 @@ package codingbeasts.doulicha.controllers;
 
 import codingbeasts.doulicha.entities.evenement;
 import codingbeasts.doulicha.services.ServiceEvenement;
+//import com.twilio.http.HttpClient;
 import javafx.scene.input.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -47,7 +48,22 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javax.imageio.ImageIO;
+//import static javax.swing.text.DefaultStyledDocument.ElementSpec.ContentType;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpPost;
 import org.controlsfx.control.Notifications;
+
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
 
 /**
  * FXML Controller class
@@ -99,11 +115,16 @@ public class AjoutEvenementController implements Initializable {
     @FXML
     private Button btn_importer;
     
-    String xamppFolderPath = "C:/xampp/htdocs/images/";
+    String xamppFolderPath = "C:/xampp/htdocs/img/";
     @FXML
     private ImageView imageevenement;
     @FXML
     private Button btn_retour;
+    
+     private String path;
+     File selectedFile;
+     private String test;
+    
 
     /**
      * Initializes the controller class.
@@ -128,6 +149,8 @@ public class AjoutEvenementController implements Initializable {
 
     @FXML
     private void ajouterEvenement(ActionEvent event) {
+        
+        
        
      String nom_event = TF_nom.getText();
      String description_event = TF_description.getText();
@@ -138,14 +161,39 @@ public class AjoutEvenementController implements Initializable {
      Date dateDebut_event = java.sql.Date.valueOf(dateDebut_local);
      Date dateFin_event = java.sql.Date.valueOf(dateFin_local);
      int capacite_event =  Integer.parseInt(TF_capacite.getText());
-     String image_event = TF_image.getText();
+    String image_event = TF_image.getText();
      double prix_event = Double.parseDouble(TF_prix.getText());
      
-
      
+ evenement ev = new evenement (nom_event,description_event,lieu_event,  type_event,  dateDebut_event,  dateFin_event,  capacite_event, image_event,  prix_event);
+        //*****************
+       
+    HttpPost post = new HttpPost("http://localhost/img/upload.php");
+ File imageFile = new File("C:\\xampp\\htdocs\\img\\"+TF_image.getText());
+    MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+    builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+    builder.addBinaryBody("fileToUpload", imageFile, ContentType.DEFAULT_BINARY, imageFile.getName());
+    
+    builder.addTextBody("nom", TF_nom.getText());
+    HttpEntity entity = builder.build();
+
+    post.setEntity(entity);
+
+    HttpClient client = HttpClientBuilder.create().build();
+    try {
+        HttpResponse response = client.execute(post);
+        HttpEntity responseEntity = response.getEntity();
+        String imageUrl = EntityUtils.toString(responseEntity);
+        System.out.println(imageUrl);
+        // Stocker l'URL de l'image dans la base de données ou l'utiliser pour afficher l'image.
+       ev.setImage_event(imageUrl);
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+       //*****************
  
      
-     evenement ev = new evenement (nom_event,description_event,lieu_event,  type_event,  dateDebut_event,  dateFin_event,  capacite_event, image_event,  prix_event);
+    
         if(testSaisie()) {
      ServiceEvenement sevent = new ServiceEvenement();
         sevent.ajouterEvenement2(ev);
@@ -345,7 +393,7 @@ Path destination = Paths.get(xamppFolderPath + fileName);
             } catch (IOException ex) {
                 System.out.println("could not get the image");
             }
-        String imagePath = "images/" + fileName;
+        String imagePath = "img/" + fileName;
     }
     
 }

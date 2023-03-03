@@ -14,11 +14,13 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -91,6 +93,8 @@ public class EvenementClientController implements Initializable {
     private TextField SearchBar;
     @FXML
     private DatePicker datePicker;
+    @FXML
+    private Button bnt_affichertout;
     
 
     /**
@@ -101,9 +105,13 @@ public class EvenementClientController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        ServiceEvenement SE = new ServiceEvenement();
-        List<evenement> ev = SE.afficherEvents();
-        loadEvents(ev);
+          ServiceEvenement SE = new ServiceEvenement();
+    List<evenement> ev = SE.afficherEvents().stream()
+            .filter(e -> e.getDateDebut_event().toLocalDate().isAfter(LocalDate.now())
+                    || e.getDateFin_event().toLocalDate().isEqual(LocalDate.now())
+                    || e.getDateFin_event().toLocalDate().isAfter(LocalDate.now()))
+            .collect(Collectors.toList());
+    loadEvents(ev);
         SearchBar.textProperty().addListener((observable, oldValue, newValue) -> {
             ServiceEvenement SEv = new ServiceEvenement();
             List<evenement> l ;
@@ -118,6 +126,10 @@ public class EvenementClientController implements Initializable {
            ServiceEvenement se = new ServiceEvenement();
             this.events =  se.afficherEvents();
             loadEvents(this.events);
+            
+            
+            
+            
       
         if (events.size() > 0) {
             choisirEvent(events.get(0));
@@ -129,37 +141,7 @@ public class EvenementClientController implements Initializable {
             };
             
         }
-        
-       /* event_grid.getChildren().clear();
-       // ServiceEvenement SE = new ServiceEvenement();
-       // List<evenement> ev = SE.afficherEvenements();
-        System.out.println("evenement " + ev.toString());
-        int row = 1, cl =0;
-            try{
-                for(evenement event : ev ){
-                    FXMLLoader loader = new FXMLLoader();
-                    loader.setLocation(getClass().getResource("/codingbeasts/doulicha/views/detailEvenement.fxml"));
-                    
-                    Node postbox = loader.load();
-                    System.out.println("TEST TEST");
-                    DetailEvenementController evc = loader.getController();
-                    evc.setData(event, myListener, this.evenement_choisi);
-                   
-                    if(cl== 1){
-                         cl= 0;
-                         row++;
-                    }
-                    this.event_grid.add(postbox, cl++, row);
-                    GridPane.setMargin(postbox,new Insets(10));
-                }
                 
-            }catch(IOException e){
-                System.out.println("no load for event");
-                   e.printStackTrace();
-            } */
-            
-            
-             
          btn_mesparticipations.setOnAction(event -> {
 
             try {
@@ -226,6 +208,9 @@ public class EvenementClientController implements Initializable {
 
 // Définition de l'objet Callback comme fabrique de cellules de jour pour le datepicker
 datePicker.setDayCellFactory(dayCellFactory);
+
+
+
 
 
 
@@ -347,6 +332,58 @@ private void loadEvents(List<evenement> ev){
                             stage.setScene(scene);
                             stage.show();
     }
+    
+    
+private List<evenement> sortEvents(List<evenement> events) {
+    List<evenement> sortedEvents = new ArrayList<>(events);
+    String selectedSort = sort.getSelectionModel().getSelectedItem();
+    if ("Prix descendant".equals(selectedSort)) {
+        sortedEvents.sort(Comparator.comparingDouble(e -> -e.getPrix_event()));
+    } else if ("Prix ascendant".equals(selectedSort)) {
+        sortedEvents.sort(Comparator.comparingDouble(e -> e.getPrix_event()));
+    }
+    // Filtrage de la liste triée en fonction de la date sélectionnée
+    LocalDate selectedDate = datePicker.getValue();
+    List<evenement> filteredEvents = new ArrayList<>();
+    for (evenement even : sortedEvents) {
+        if ((even.getDateDebut_event().toLocalDate().isBefore(selectedDate) || even.getDateDebut_event().toLocalDate().isEqual(selectedDate)) && (even.getDateFin_event().toLocalDate().isAfter(selectedDate) || even.getDateFin_event().toLocalDate().isEqual(selectedDate))) {
+            filteredEvents.add(even);
+        }
+    }
+    return filteredEvents;
+}
+
+@FXML
+private void onDateSelected(ActionEvent event) {
+    LocalDate selectedDate = datePicker.getValue();
+    List<evenement> filteredEvents = new ArrayList<>();
+    for (evenement even : events) {
+        if ((even.getDateDebut_event().toLocalDate().isBefore(selectedDate) || even.getDateDebut_event().toLocalDate().isEqual(selectedDate)) && (even.getDateFin_event().toLocalDate().isAfter(selectedDate) || even.getDateFin_event().toLocalDate().isEqual(selectedDate))) {
+            filteredEvents.add(even);
+        }
+    }
+    List<evenement> sortedEvents = sortEvents(events); // Tri de la liste complète
+    List<evenement> filteredAndSortedEvents = new ArrayList<>();
+    for (evenement even : sortedEvents) {
+        if ((even.getDateDebut_event().toLocalDate().isBefore(selectedDate) || even.getDateDebut_event().toLocalDate().isEqual(selectedDate)) && (even.getDateFin_event().toLocalDate().isAfter(selectedDate) || even.getDateFin_event().toLocalDate().isEqual(selectedDate))) {
+            filteredAndSortedEvents.add(even);
+        }
+    }
+    loadEvents(filteredAndSortedEvents); // Chargement de la liste triée et filtrée
+}
+
+    @FXML
+    private void onShowAllEventsClicked(ActionEvent event) {
+        ServiceEvenement SE = new ServiceEvenement();
+    List<evenement> ev = SE.afficherEvents();
+    loadEvents(ev);
+        
+    }
+
+
+
+
+
 
 
    

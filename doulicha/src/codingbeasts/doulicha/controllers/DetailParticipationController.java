@@ -14,6 +14,10 @@ import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -27,6 +31,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -88,7 +93,7 @@ public class DetailParticipationController implements Initializable {
     private void gererPart(MouseEvent event) {
         
             participation_evenement part= new participation_evenement();
-            
+            ServiceParticipationEvenement SPE = new ServiceParticipationEvenement();
            FXMLLoader loader = new FXMLLoader ();
                             loader.setLocation(getClass().getResource("/codingbeasts/doulicha/views/gererParticipation.fxml"));
                             try {
@@ -96,15 +101,29 @@ public class DetailParticipationController implements Initializable {
                             } catch (IOException ex) {
                                 Logger.getLogger(EvenementClientController.class.getName()).log(Level.SEVERE, null, ex);
                             }
+ 
           GererParticipationController HomeScene = loader.getController();
           System.out.println("aaaaa");
           HomeScene.selected_item3(Integer.parseInt(id_participationM.getText()),Integer.parseInt(iduser_detail.getText()), Integer.parseInt(id_participation.getText()), Integer.parseInt(nbpart_detail.getText()));
            GererParticipationController GererParticipationController = loader.getController();
                             GererParticipationController.setUpdate(true);
-                          // AjoutParticipationController.recupererID(ID_event);
                             
-//                           AjoutParticipationController.setTextField(ev.getID_event());
-          
+                            
+        /*     // obtenir la date limite de modification de la participation
+    LocalDateTime dateDebut = SPE.getDateDebutEventById(part.getID_participation()); // récupérer la date de début de l'événement
+        System.out.println(dateDebut);
+    LocalDateTime dateLimite = SPE.getDateLimite(dateDebut); // récupérer la date limite
+    LocalDateTime now = LocalDateTime.now(); // obtenir la date et l'heure actuelles
+    // vérifier si la date limite est passée ou non
+    if (now.isAfter(dateLimite)) {
+        // afficher un message d'erreur
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Erreur");
+        alert.setHeaderText("Impossible de modifier cette participation");
+        alert.setContentText("La date limite de modification est passée.");
+        alert.showAndWait();
+    }
+    else { */
           
           System.out.println(part.getID_participation());
           
@@ -116,7 +135,7 @@ public class DetailParticipationController implements Initializable {
                             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                             stage.setScene(scene);
                             stage.show();
-        
+    //} 
     }
     
     
@@ -125,7 +144,7 @@ public class DetailParticipationController implements Initializable {
     private void afficherPass(MouseEvent event) {
         
      Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation de création du PDF");
+        alert.setTitle("Confirmation d'affichage du Pass");
         alert.setHeaderText("Etes vous sur de vouloir afficher votre PASS ?");
 
         Optional<ButtonType> result = alert.showAndWait();
@@ -149,12 +168,7 @@ public class DetailParticipationController implements Initializable {
             }
         } else {
             System.out.println("Le fichier PDF n'existe pas ou ne peut pas être lu.");
-        } 
-            
-            
-            
-            
-            
+        }   
         }
     }
 

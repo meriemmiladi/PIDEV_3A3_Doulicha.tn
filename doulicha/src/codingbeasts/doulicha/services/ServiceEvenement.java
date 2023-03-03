@@ -40,7 +40,7 @@ public class ServiceEvenement {
 
         try {
             Statement st = cnx.createStatement();
-            String query = "SELECT * FROM `evenement`";
+            String query = "SELECT * FROM evenement WHERE dateDebut_event > NOW()";
             ResultSet rs = st.executeQuery(query);
             while (rs.next()) {
                 evenement event = new evenement();

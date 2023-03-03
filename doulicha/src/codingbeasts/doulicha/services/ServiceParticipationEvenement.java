@@ -14,7 +14,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -242,6 +245,34 @@ try {
     return numTels;
 }
  
-    
+ public LocalDateTime getDateLimite(LocalDateTime date_debut) {
+    if (date_debut == null) {
+        throw new IllegalArgumentException("Date de début ne peut pas être null.");
+    }
+    return date_debut.minusHours(48); // Soustraire 48 heures
+}
+
+public LocalDateTime getDateDebutEventById(int idEvent) {
+    LocalDateTime dateDebut = null;
+    try {
+        PreparedStatement ps = cnx.prepareStatement("SELECT dateDebut_event FROM evenement WHERE ID_event = ?");
+        ps.setInt(1, idEvent);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            Timestamp timestamp = rs.getTimestamp("dateDebut_event");
+            if (timestamp != null) {
+                dateDebut = timestamp.toLocalDateTime();
+            } else {
+                throw new SQLException("Date de début de l'événement est null.");
+            }
+        }
+    } catch (SQLException ex) {
+        System.out.println("Erreur lors de la récupération de la date de début de l'événement");
+        ex.printStackTrace();
+    }
+    return dateDebut;
+}
+
+
     
 }

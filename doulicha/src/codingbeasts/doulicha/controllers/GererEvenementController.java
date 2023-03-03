@@ -45,6 +45,15 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javax.imageio.ImageIO;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
 import org.controlsfx.control.Notifications;
 
 /**
@@ -84,7 +93,7 @@ public class GererEvenementController implements Initializable {
     @FXML
     private TextField TF_id;
     
-    String xamppFolderPath = "C:/xampp/htdocs/images/";
+    String xamppFolderPath = "C:/xampp/htdocs/img/";
     
     @FXML
     private Button btn_importer;
@@ -159,6 +168,36 @@ public class GererEvenementController implements Initializable {
             LocalDate dateFin_local = dateFinM.getValue();
             ev.setDateDebut_event(java.sql.Date.valueOf(dateDebut_local));
             ev.setDateFin_event(java.sql.Date.valueOf(dateFin_local));
+            
+             //*****************
+       
+    HttpPost post = new HttpPost("http://localhost/img/upload.php");
+ File imageFile = new File("C:\\xampp\\htdocs\\img\\"+TF_imageM.getText());
+    MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+    builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+    builder.addBinaryBody("fileToUpload", imageFile, ContentType.DEFAULT_BINARY, imageFile.getName());
+    
+    builder.addTextBody("nom", TF_nomM.getText());
+    HttpEntity entity = builder.build();
+
+    post.setEntity(entity);
+
+    HttpClient client = HttpClientBuilder.create().build();
+    try {
+        HttpResponse response = client.execute(post);
+        HttpEntity responseEntity = response.getEntity();
+        String imageUrl = EntityUtils.toString(responseEntity);
+        System.out.println(imageUrl);
+        // Stocker l'URL de l'image dans la base de données ou l'utiliser pour afficher l'image.
+       ev.setImage_event(imageUrl);
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+       //*****************
+ 
+            
+            
+            
             SE.modifierEvenement(ev);
             if (testSaisie()){
             Notifications notificationBuilder = Notifications.create()
@@ -239,7 +278,12 @@ void selected_item(int ID_event, String nom_event, String description_event, Str
     dateDebutM.setValue(dateDebut_local);
     dateFinM.setValue(dateFin_local);
     
-   // imageevenement.setImage(new Image (xamppFolderPath + image_event));
+     String imagePath = "http://"+ image_event; // chemin de l'image
+        Image image = new Image(imagePath);
+        imageevenement. setImage(image);
+        imageevenement.setPreserveRatio(true);
+    
+  /* // imageevenement.setImage(new Image (xamppFolderPath + image_event));
    System.out.println(xamppFolderPath + image_event);
    String test = xamppFolderPath + image_event;
  
@@ -249,7 +293,7 @@ void selected_item(int ID_event, String nom_event, String description_event, Str
             imageevenement.setImage(image);
         } catch (IOException ex) {
             System.out.println("could not get the image");
-        } 
+        } */
    
     } 
 

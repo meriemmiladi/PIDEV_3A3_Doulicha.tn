@@ -34,7 +34,7 @@ import javax.imageio.ImageIO;
 public class DetailEvenementController implements Initializable {
     
     private evenement event;
-    String xamppFolderPath = "C:/xampp/htdocs/images/";
+    String xamppFolderPath = "C:/xampp/htdocs/img/";
 
     @FXML
     private ImageView image_detail;
@@ -86,16 +86,22 @@ public class DetailEvenementController implements Initializable {
         this.datedebut_detail.setText(String.valueOf(dateDebut_local));
         this.datefin_detail.setText(String.valueOf(dateFin_local));
         
-       
+       String imagePath = "http://"+event.getImage_event(); // chemin de l'image
+        Image image = new Image(imagePath);
+        image_detail.setImage(image);
+        image_detail.setPreserveRatio(true);
+              /*  image_detail.setFitWidth(150);
+                image_detail.setFitHeight(150);*/
         
-       String test = xamppFolderPath + event.getImage_event();
+      /*String test = xamppFolderPath +  event.getImage_event();
+         System.out.println(test);
     try {
             BufferedImage bufferedImage = ImageIO.read(new File(test));
             Image image = SwingFXUtils.toFXImage(bufferedImage, null);
             this.image_detail.setImage(image);
         } catch (IOException ex) {
             System.out.println("could not get the image");
-        } 
+        } */
           
     }
      
