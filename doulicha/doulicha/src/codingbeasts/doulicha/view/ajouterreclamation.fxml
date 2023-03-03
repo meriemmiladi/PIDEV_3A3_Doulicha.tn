@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codingbeasts.doulicha.controller.AjouterreclamationController">
+    
+   <children>
+      <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@ajoutercategorie.css">
+               <children>
+                  <VBox layoutY="254.0" prefHeight="146.0" prefWidth="198.0" styleClass="rounded-top-background" stylesheets="@ajoutercategorie.css">
+                     <children>
+                        <ImageView fitHeight="63.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true">
+                           <VBox.margin>
+                              <Insets bottom="-70.0" left="60.0" right="50.0" top="20.0" />
+                           </VBox.margin>
+                           <image>
+                              <Image url="@../image/3172273.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="Réclamation" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="21.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="20.0" left="50.0" top="80.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <ImageView fitHeight="117.0" fitWidth="142.0" layoutX="41.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/doulicha.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="idafficherreclamation" layoutX="7.0" layoutY="195.0" mnemonicParsing="false" onAction="#handleAfficherReclamation" prefHeight="34.0" prefWidth="185.0" styleClass="bottonnAjouter" stylesheets="@ajoutercategorie.css" text="Afficher les reclamations" />
+                  <Label contentDisplay="CENTER" layoutX="230.0" layoutY="145.0" prefHeight="31.0" prefWidth="132.0" styleClass="Label" stylesheets="@ajoutercategorie.css" text="   Contenu Reclamation">
+                     <font>
+                        <Font name="System Italic" size="12.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="idcontecureclamation" layoutX="387.0" layoutY="148.0" prefHeight="94.0" prefWidth="179.0" promptText="Description" style="-fx-background-color: transparent; -fx-border-color: #3FC4ED; -fx-border-width: 2px 0px 2px 0px;" />
+                  <Button fx:id="idajouterreclamation" layoutX="248.0" layoutY="327.0" mnemonicParsing="false" onAction="#handleAjouterReclamation" prefHeight="25.0" prefWidth="96.0" styleClass="bottonnAjouter" stylesheets="@ajoutercategorie.css" text="Ajouter" />
+                  <Button fx:id="idajouterreclamation1" layoutX="439.0" layoutY="327.0" mnemonicParsing="false" onAction="#savereclamation2" prefHeight="34.0" prefWidth="117.0" styleClass="bottonnAjouter" stylesheets="@ajoutercategorie.css" text="Enregistrer" />
+                  <Button fx:id="btn4" layoutX="51.0" layoutY="148.0" mnemonicParsing="false" onAction="#action4" prefHeight="25.0" prefWidth="96.0" styleClass="bottonnAjouter" stylesheets="@ajoutercategorie.css" text="Retour" />
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

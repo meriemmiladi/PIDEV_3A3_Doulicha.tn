@@ -30,7 +30,7 @@
             </Text>
             <Button fx:id="deconnexion" layoutX="1053.0" layoutY="681.0" mnemonicParsing="false" onAction="#deconnexion" prefHeight="55.0" prefWidth="158.0" text="Se Déconnecter" />
             <Button fx:id="logements1" layoutX="615.0" layoutY="390.0" mnemonicParsing="false" onAction="#consulter_evenements" prefHeight="45.0" prefWidth="241.0" text="Evènements" />
-            <Button fx:id="mesreservations1" layoutX="615.0" layoutY="450.0" mnemonicParsing="false" onAction="#mesparticipations" prefHeight="45.0" prefWidth="241.0" text="Consulter mes participations" />
+            <Button fx:id="mesreservations1" layoutX="615.0" layoutY="450.0" mnemonicParsing="false" onAction="#mesparticipations" prefHeight="45.0" prefWidth="241.0" text="Consulter mes évènements" />
          </children>
       </Pane>
       
