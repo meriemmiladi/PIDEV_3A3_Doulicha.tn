@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/marie/OneDrive/Bureau/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/view/AfficherLogement.fxml</file>
+            <file>file:/C:/Users/marie/OneDrive/Bureau/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/view/AffichageUser.fxml</file>
+            <file>file:/C:/Users/marie/OneDrive/Bureau/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/controller/UpdateUtilisateurController.java</file>
+            <file>file:/C:/Users/marie/OneDrive/Bureau/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/view/SginIn.fxml</file>
+            <file>file:/C:/Users/marie/OneDrive/Bureau/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/controller/OublieMotdepasseController.java</file>
+            <file>file:/C:/Users/marie/OneDrive/Bureau/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/controller/AfficheravisController.java</file>
+            <file>file:/C:/Users/marie/OneDrive/Bureau/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/controller/AfficherLogementController.java</file>
+            <file>file:/C:/Users/marie/OneDrive/Bureau/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/view/afficheravis.fxml</file>
+            <file>file:/C:/Users/marie/OneDrive/Bureau/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/view/UpdateUtilisateur.fxml</file>
+            <file>file:/C:/Users/marie/OneDrive/Bureau/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/view/MainClass.java</file>
+            <file>file:/C:/Users/marie/OneDrive/Bureau/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/controller/AjouterLogementController.java</file>
+            <file>file:/C:/Users/marie/OneDrive/Bureau/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/controller/AjouterreclamationController.java</file>
+            <file>file:/C:/Users/marie/OneDrive/Bureau/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/view/ModifierReservation.fxml</file>
+            <file>file:/C:/Users/marie/OneDrive/Bureau/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/controller/AffichercategorieclientController.java</file>
+            <file>file:/C:/Users/marie/OneDrive/Bureau/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/controller/DashboardController.java</file>
+            <file>file:/C:/Users/marie/OneDrive/Bureau/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/view/ReserverLogement.fxml</file>
+            <file>file:/C:/Users/marie/OneDrive/Bureau/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/controller/AccueilFrontController.java</file>
+            <file>file:/C:/Users/marie/OneDrive/Bureau/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/controller/ModifierReservationController.java</file>
+            <file>file:/C:/Users/marie/OneDrive/Bureau/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/controller/ReserverLogementController.java</file>
+            <file>file:/C:/Users/marie/OneDrive/Bureau/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/controller/AjouteravisController.java</file>
+            <file>file:/C:/Users/marie/OneDrive/Bureau/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/services/ServiceReservationLogement.java</file>
+            <file>file:/C:/Users/marie/OneDrive/Bureau/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/view/ModifierLogement.fxml</file>
+            <file>file:/C:/Users/marie/OneDrive/Bureau/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/services/ServiceLogement.java</file>
+            <file>file:/C:/Users/marie/OneDrive/Bureau/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/controller/SginInController.java</file>
+            <file>file:/C:/Users/marie/OneDrive/Bureau/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/view/StatistiqueLogement.fxml</file>
+            <file>file:/C:/Users/marie/OneDrive/Bureau/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/view/LogementUser.fxml</file>
+            <file>file:/C:/Users/marie/OneDrive/Bureau/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/controller/LogementUserController.java</file>
+            <file>file:/C:/Users/marie/OneDrive/Bureau/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/controller/AffichageUserController.java</file>
+            <file>file:/C:/Users/marie/OneDrive/Bureau/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/view/AccueilBack.fxml</file>
+            <file>file:/C:/Users/marie/OneDrive/Bureau/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/view/StyleMariem.css</file>
+            <file>file:/C:/Users/marie/OneDrive/Bureau/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/controller/ConsulterMesReservationsController.java</file>
+            <file>file:/C:/Users/marie/OneDrive/Bureau/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/tests/MainClass.java</file>
+            <file>file:/C:/Users/marie/OneDrive/Bureau/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/controller/AccueilBackController.java</file>
+            <file>file:/C:/Users/marie/OneDrive/Bureau/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/controller/AfficherreclamationController.java</file>
+            <file>file:/C:/Users/marie/OneDrive/Bureau/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/view/ConsulterMesReservations.fxml</file>
+            <file>file:/C:/Users/marie/OneDrive/Bureau/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/controller/AfficherReservationController.java</file>
+            <file>file:/C:/Users/marie/OneDrive/Bureau/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/view/AccueilFront.fxml</file>
+            <file>file:/C:/Users/marie/OneDrive/Bureau/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/view/SignUp.fxml</file>
+            <file>file:/C:/Users/marie/OneDrive/Bureau/PIDEV_3A3_Doulicha.tn/doulicha/src/codingbeasts/doulicha/view/ajouterreclamation.fxml</file>
+        </group>
+    </open-files>
+</project-private>
