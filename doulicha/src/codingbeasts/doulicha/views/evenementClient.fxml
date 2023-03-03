@@ -17,11 +17,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="781.0" prefWidth="1570.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codingbeasts.doulicha.controllers.EvenementClientController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="781.0" prefWidth="1570.0" stylesheets="@/codingbeasts/doulicha/views/evenementclient.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codingbeasts.doulicha.controllers.EvenementClientController">
    <center>
-      <AnchorPane prefHeight="781.0" prefWidth="1174.0" style="-fx-background-color: #e3f5fa;" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="781.0" prefWidth="1174.0" style="-fx-background-color: #EFF8FA;" BorderPane.alignment="CENTER">
          <children>
-            <ScrollPane layoutX="150.0" layoutY="66.0" prefHeight="626.0" prefWidth="675.0">
+            <ScrollPane layoutX="150.0" layoutY="66.0" prefHeight="626.0" prefWidth="675.0" stylesheets="@evenementclient.css">
                <content>
                   <GridPane fx:id="event_grid" prefHeight="90.0" prefWidth="800.0">
                     <rowConstraints>
@@ -71,22 +71,22 @@
                         <Font name="System Bold Italic" size="1.0" />
                      </font>
                   </Label>
-                  <Button fx:id="btn_participer" mnemonicParsing="false" onAction="#jeparticipe" prefHeight="12.0" prefWidth="147.0" style="-fx-background-radius: 50; -fx-background-color: #99E2F7;" text="Je participe !">
+                  <Button fx:id="btn_participer" mnemonicParsing="false" onAction="#jeparticipe" prefHeight="12.0" prefWidth="147.0" stylesheets="@StyleY.css" text="Je participe !">
                      <font>
                         <Font name="System Bold" size="19.0" />
                      </font>
                   </Button>
                </children>
             </VBox>
-            <Button fx:id="btn_retourhome" layoutX="33.0" layoutY="703.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="47.0" style="-fx-background-radius: 50; -fx-background-color: #99E2F7;" text="◀">
+            <Button fx:id="btn_retourhome" layoutX="33.0" layoutY="703.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="47.0" stylesheets="@StyleY.css" text="◀">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Button>
             <TextField fx:id="SearchBar" alignment="TOP_LEFT" layoutX="554.0" layoutY="21.0" prefHeight="31.0" prefWidth="272.0" promptText="Rechercher..." style="-fx-background-radius: 50; -fx-background-color: #E5E7E9;" />
             <ComboBox fx:id="sort" layoutX="338.0" layoutY="19.0" onAction="#onSortSelected" prefHeight="33.0" prefWidth="212.0" promptText="Trier" style="-fx-background-radius: 50; -fx-background-color: #ffffff;" />
-            <DatePicker fx:id="datePicker" layoutX="148.0" layoutY="23.0" onAction="#onDateSelected" prefWidth="180.0" />
-            <Button fx:id="bnt_affichertout" layoutX="150.0" layoutY="710.0" mnemonicParsing="false" onAction="#onShowAllEventsClicked" prefHeight="42.0" prefWidth="305.0" style="-fx-background-radius: 50; -fx-background-color: #99E2F7;" text="Afficher tous les évènements">
+            <DatePicker fx:id="datePicker" layoutX="148.0" layoutY="23.0" onAction="#onDateSelected" prefWidth="180.0" stylesheets="@StyleY.css" />
+            <Button fx:id="bnt_affichertout" layoutX="150.0" layoutY="710.0" mnemonicParsing="false" onAction="#onShowAllEventsClicked" prefHeight="42.0" prefWidth="305.0" stylesheets="@StyleY.css" text="Afficher tous les évènements">
                <font>
                   <Font size="19.0" />
                </font>
@@ -95,7 +95,7 @@
       </AnchorPane>
    </center>
    <left>
-      <VBox prefHeight="781.0" prefWidth="333.0" style="-fx-background-color: #C7EEF8;" BorderPane.alignment="CENTER">
+      <VBox prefHeight="781.0" prefWidth="333.0" style="-fx-background-color: #CCE3EA;" BorderPane.alignment="CENTER">
          <children>
             <HBox alignment="CENTER" prefHeight="186.0" prefWidth="333.0">
                <children>
@@ -108,12 +108,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="72.0" prefWidth="333.0">
                <children>
-                  <ImageView fitHeight="49.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../images/time-and-calendar.png" />
-                     </image>
-                  </ImageView>
-                  <Button mnemonicParsing="false" prefHeight="48.0" prefWidth="212.0" style="-fx-background-color: transparent;" text="Évènements" textFill="#2b4570">
+                  <Button mnemonicParsing="false" prefHeight="48.0" prefWidth="212.0" stylesheets="@StyleY.css" text="Évènements" textFill="#2b4570">
                      <font>
                         <Font name="Calibri" size="18.0" />
                      </font>
@@ -122,12 +117,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="72.0" prefWidth="333.0">
                <children>
-                  <ImageView fitHeight="49.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../images/avatar-des-utilisateurs%20(1).png" />
-                     </image>
-                  </ImageView>
-                  <Button fx:id="btn_mesparticipations" mnemonicParsing="false" prefHeight="48.0" prefWidth="212.0" style="-fx-background-color: transparent;" text="Mes participations" textFill="#2b4570">
+                  <Button fx:id="btn_mesparticipations" mnemonicParsing="false" prefHeight="48.0" prefWidth="212.0" stylesheets="@StyleY.css" text="Mes participations" textFill="#2b4570">
                      <font>
                         <Font name="Calibri" size="18.0" />
                      </font>

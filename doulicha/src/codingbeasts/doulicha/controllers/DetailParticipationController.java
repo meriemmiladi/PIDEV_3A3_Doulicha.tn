@@ -64,6 +64,8 @@ public class DetailParticipationController implements Initializable {
     private Label iduser_detail;
     @FXML
     private Label id_participation;
+    @FXML
+    private Label numtel;
 
     /**
      * Initializes the controller class.
@@ -84,15 +86,16 @@ public class DetailParticipationController implements Initializable {
         this.nbpart_detail.setText(String.valueOf(part.getNombre_participation()));
        this.iduser_detail.setText(String.valueOf(part.getID_user()));
         this.id_participationM .setText(String.valueOf(part.getID_participation()));
+        this.numtel.setText(part.getNum_tel());
         
     }  
 
-    
+   
 
     @FXML
     private void gererPart(MouseEvent event) {
         
-            participation_evenement part= new participation_evenement();
+        participation_evenement part= new participation_evenement();
             ServiceParticipationEvenement SPE = new ServiceParticipationEvenement();
            FXMLLoader loader = new FXMLLoader ();
                             loader.setLocation(getClass().getResource("/codingbeasts/doulicha/views/gererParticipation.fxml"));
@@ -104,13 +107,15 @@ public class DetailParticipationController implements Initializable {
  
           GererParticipationController HomeScene = loader.getController();
           System.out.println("aaaaa");
-          HomeScene.selected_item3(Integer.parseInt(id_participationM.getText()),Integer.parseInt(iduser_detail.getText()), Integer.parseInt(id_participation.getText()), Integer.parseInt(nbpart_detail.getText()));
-           GererParticipationController GererParticipationController = loader.getController();
+          HomeScene.selected_item3(Integer.parseInt(id_participationM.getText()),Integer.parseInt(iduser_detail.getText()), Integer.parseInt(id_participation.getText()), Integer.parseInt(nbpart_detail.getText()), numtel.getText());
+           System.out.println(numtel.getText());
+          GererParticipationController GererParticipationController = loader.getController();
                             GererParticipationController.setUpdate(true);
                             
                             
-        /*     // obtenir la date limite de modification de la participation
-    LocalDateTime dateDebut = SPE.getDateDebutEventById(part.getID_participation()); // récupérer la date de début de l'événement
+            // obtenir la date limite de modification de la participation
+    LocalDateTime dateDebut = SPE.getDateDebutEventById(SPE.getId3(id_event_part.getText())); // récupérer la date de début de l'événement
+        System.out.println(SPE.getId3(id_event_part.getText()));
         System.out.println(dateDebut);
     LocalDateTime dateLimite = SPE.getDateLimite(dateDebut); // récupérer la date limite
     LocalDateTime now = LocalDateTime.now(); // obtenir la date et l'heure actuelles
@@ -120,10 +125,10 @@ public class DetailParticipationController implements Initializable {
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle("Erreur");
         alert.setHeaderText("Impossible de modifier cette participation");
-        alert.setContentText("La date limite de modification est passée.");
+        alert.setContentText("La date limite de modification a été dépassée puisqu'il ne reste que 48h avant l'évènement.");
         alert.showAndWait();
     }
-    else { */
+    else { 
           
           System.out.println(part.getID_participation());
           
@@ -135,8 +140,8 @@ public class DetailParticipationController implements Initializable {
                             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                             stage.setScene(scene);
                             stage.show();
-    //} 
-    }
+    } 
+    } 
     
     
 
@@ -174,9 +179,29 @@ public class DetailParticipationController implements Initializable {
 
     @FXML
     private void supprimerPart(MouseEvent event) {
+        
+         participation_evenement part= new participation_evenement();
+            ServiceParticipationEvenement SPE1 = new ServiceParticipationEvenement();
+        
+          // obtenir la date limite de modification de la participation
+    LocalDateTime dateDebut = SPE1.getDateDebutEventById(SPE1.getId3(id_event_part.getText())); // récupérer la date de début de l'événement
+        System.out.println(SPE1.getId3(id_event_part.getText()));
+        System.out.println(dateDebut);
+    LocalDateTime dateLimite = SPE1.getDateLimite(dateDebut); // récupérer la date limite
+    LocalDateTime now = LocalDateTime.now(); // obtenir la date et l'heure actuelles
+    // vérifier si la date limite est passée ou non
+    if (now.isAfter(dateLimite)) {
+        // afficher un message d'erreur
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Erreur");
+        alert.setHeaderText("Impossible d'annuler cette participation");
+        alert.setContentText("La date limite de l'annulation est a été dépassée puisqu'il ne reste que 48h avant l'évènement.");
+        alert.showAndWait();
+    }
+    else { 
          Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation de suppression");
-        alert.setContentText("Etes vous sur de supprimer cet évènement ?");
+        alert.setContentText("Etes vous sur de vouloir annuler votre participation ?");
 
         Optional<ButtonType> result = alert.showAndWait();
         
@@ -205,6 +230,7 @@ public class DetailParticipationController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(AfficherEvenementsController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
     }
     
     

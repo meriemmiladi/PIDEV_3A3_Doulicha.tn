@@ -7,13 +7,13 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="99.0" prefWidth="830.0" style="-fx-background-color: #e3f5fa;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codingbeasts.doulicha.controllers.DetailParticipationController">
+<AnchorPane prefHeight="106.0" prefWidth="842.0" style="-fx-background-color: #e3f5fa;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codingbeasts.doulicha.controllers.DetailParticipationController">
    <children>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="830.0">
+      <HBox alignment="CENTER" layoutX="-18.0" layoutY="-15.0" prefHeight="115.0" prefWidth="848.0">
          <children>
-            <Label fx:id="id_event_part" alignment="CENTER" prefHeight="100.0" prefWidth="269.0" text="ID de l'évènement">
+            <Label fx:id="id_event_part" alignment="CENTER" prefHeight="115.0" prefWidth="348.0" text="ID de l'évènement">
                <font>
-                  <Font size="18.0" />
+                  <Font name="System Bold" size="18.0" />
                </font>
             </Label>
             <Label fx:id="id_participation" alignment="CENTER" prefHeight="0.0" prefWidth="0.0" text="id">
@@ -21,17 +21,25 @@
                   <Font size="0.1" />
                </font>
             </Label>
+            <Label fx:id="numtel" alignment="CENTER" prefHeight="0.0" prefWidth="0.0" text="numtel">
+               <font>
+                  <Font size="0.1" />
+               </font>
+            </Label>
             <Label fx:id="id_participationM" alignment="CENTER" prefHeight="100.0" prefWidth="0.0" text="ID Participation">
                <font>
-                  <Font size="1.0" />
+                  <Font size="0.1" />
                </font>
             </Label>
-            <Label fx:id="iduser_detail" alignment="CENTER" prefHeight="100.0" prefWidth="0.0" text="ID User">
+            <Label fx:id="iduser_detail" alignment="CENTER" ellipsisString="" prefHeight="100.0" prefWidth="0.0" text="ID User" visible="false">
                <font>
-                  <Font size="1.0" />
+                  <Font size="0.1" />
                </font>
             </Label>
-            <Label fx:id="nbpart_detail" alignment="CENTER" prefHeight="98.0" prefWidth="230.0" text="Nombre de participants " />
+            <Label fx:id="nbpart_detail" alignment="CENTER" prefHeight="98.0" prefWidth="233.0" text="Nombre de participants ">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font></Label>
             <ImageView fitHeight="32.0" fitWidth="34.0" onMouseClicked="#gererPart" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../images/bouton-modifier.png" />

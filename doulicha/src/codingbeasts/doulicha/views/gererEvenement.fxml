@@ -15,17 +15,17 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="781.0" prefWidth="1570.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codingbeasts.doulicha.controllers.GererEvenementController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="781.0" prefWidth="1570.0" stylesheets="@/codingbeasts/doulicha/views/StyleY.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codingbeasts.doulicha.controllers.GererEvenementController">
    <center>
-      <AnchorPane prefHeight="781.0" prefWidth="1233.0" style="-fx-background-color: #e3f5fa;" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="781.0" prefWidth="1233.0" style="-fx-background-color: #EFF8FA;" BorderPane.alignment="CENTER">
          <children>
             <AnchorPane id="AnchorPane" layoutX="13.0" layoutY="11.0" prefHeight="692.0" prefWidth="1259.0" style="-fx-background-color: transparent; -fx-border-color: transparent;" styleClass="mainFxmlClass">
                <stylesheets>
-                  <URL value="@ajoutevenement.css" />
+                  <URL value="@StyleY.css" />
                </stylesheets>
                <children>
                   <ImageView fx:id="imageevenement" fitHeight="267.0" fitWidth="356.0" layoutX="860.0" layoutY="252.0" pickOnBounds="true" preserveRatio="true" />
-                  <Button fx:id="btn_retour" layoutX="127.0" layoutY="672.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="51.0" style="-fx-background-radius: 50; -fx-background-color: #99E2F7;" text="◀">
+                  <Button fx:id="btn_retour" layoutX="127.0" layoutY="672.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="51.0" stylesheets="@StyleY.css" text="◀">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -91,7 +91,7 @@
                               <HBox prefHeight="2.0" prefWidth="100.0" spacing="23.0">
                                  <children>
                                     <TextField fx:id="TF_imageM" prefHeight="23.0" prefWidth="230.0" style="-fx-background-radius: 50;" />
-                                    <Button fx:id="btn_importer" mnemonicParsing="false" onAction="#importerImage" prefHeight="25.0" prefWidth="145.0" style="-fx-background-radius: 50; -fx-background-color: #99E2F7;" text="Importer" />
+                                    <Button fx:id="btn_importer" mnemonicParsing="false" onAction="#importerImage" prefHeight="52.0" prefWidth="128.0" stylesheets="@StyleY.css" text="importer" />
                                  </children>
                               </HBox>
                               <ComboBox fx:id="comboTypeM" prefHeight="33.0" prefWidth="374.0" style="-fx-background-radius: 50; -fx-background-color: #ffffff;" />
@@ -125,8 +125,8 @@
                         <Image url="@../../../images/time-and-calendar.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="btn_modifier" layoutX="666.0" layoutY="673.0" mnemonicParsing="false" onAction="#modifierEvenement" prefHeight="37.0" prefWidth="88.0" style="-fx-background-color: #99E2F7; -fx-background-radius: 50;" text="Modifier" />
-                  <Button fx:id="btn_supprimer" layoutX="468.0" layoutY="674.0" mnemonicParsing="false" onAction="#supprimerEvenement" prefHeight="36.0" prefWidth="93.0" style="-fx-background-color: #99E2F7; -fx-background-radius: 50;" text="Supprimer" />
+                  <Button fx:id="btn_modifier" layoutX="666.0" layoutY="673.0" mnemonicParsing="false" onAction="#modifierEvenement" prefHeight="37.0" prefWidth="88.0" stylesheets="@StyleY.css" text="Modifier" />
+                  <Button fx:id="btn_supprimer" layoutX="468.0" layoutY="674.0" mnemonicParsing="false" onAction="#supprimerEvenement" prefHeight="36.0" prefWidth="99.0" stylesheets="@StyleY.css" text="Supprimer" />
                   <TextField fx:id="TF_id" layoutX="601.0" layoutY="110.0" prefHeight="11.0" prefWidth="0.0">
                      <font>
                         <Font size="1.0" />
@@ -137,7 +137,7 @@
       </AnchorPane>
    </center>
    <left>
-      <VBox prefHeight="781.0" prefWidth="333.0" style="-fx-background-color: #C7EEF8;" BorderPane.alignment="CENTER">
+      <VBox prefHeight="781.0" prefWidth="333.0" style="-fx-background-color: #CCE3EA;" BorderPane.alignment="CENTER">
          <children>
             <HBox alignment="CENTER" prefHeight="186.0" prefWidth="333.0">
                <children>
@@ -150,12 +150,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="72.0" prefWidth="333.0">
                <children>
-                  <ImageView fitHeight="49.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../images/time-and-calendar.png" />
-                     </image>
-                  </ImageView>
-                  <Button mnemonicParsing="false" prefHeight="48.0" prefWidth="212.0" style="-fx-background-color: transparent;" text="Gestion des événements" textFill="#2b4570">
+                  <Button mnemonicParsing="false" prefHeight="48.0" prefWidth="212.0" stylesheets="@StyleY.css" text="Gestion des événements" textFill="#2b4570">
                      <font>
                         <Font name="Calibri" size="18.0" />
                      </font>
@@ -164,12 +159,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="67.0" prefWidth="333.0">
                <children>
-                  <ImageView fitHeight="48.0" fitWidth="92.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../images/avatar-des-utilisateurs%20(1).png" />
-                     </image>
-                  </ImageView>
-                  <Button mnemonicParsing="false" prefHeight="48.0" prefWidth="208.0" style="-fx-background-color: transparent;" text="Gestion des participants" textFill="#2b4570">
+                  <Button mnemonicParsing="false" prefHeight="48.0" prefWidth="215.0" stylesheets="@StyleY.css" text="Gestion des participants" textFill="#2b4570">
                      <font>
                         <Font name="Calibri" size="18.0" />
                      </font>

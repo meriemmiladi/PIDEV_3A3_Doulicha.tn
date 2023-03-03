@@ -52,8 +52,6 @@ public class GererParticipationController implements Initializable {
     @FXML
     private Button btnModifierPart;
     @FXML
-    private Button btnSupprimerPart;
-    @FXML
     private TextField TF_nombreM;
     @FXML
     private TextField id_partM;
@@ -64,9 +62,9 @@ public class GererParticipationController implements Initializable {
     @FXML
     private ImageView icone_nb;
     @FXML
-    private ImageView icone_date;
-    @FXML
     private Button btn_events;
+    @FXML
+    private TextField TF_numtelM;
 
     /**
      * Initializes the controller class.
@@ -86,7 +84,21 @@ public class GererParticipationController implements Initializable {
               Logger.getLogger(AfficherEvenementsController.class.getName()).log(Level.SEVERE, null, ex); 
             }
         }); 
-        // TODO
+       
+        btn_retour.setOnAction(event -> {
+
+            try {
+                Parent page1 = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/views/participationClient.fxml"));
+                Scene scene = new Scene(page1);
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException ex) {
+              Logger.getLogger(AfficherEvenementsController.class.getName()).log(Level.SEVERE, null, ex); 
+            }
+        }); 
+        
+        
     }    
 
     @FXML
@@ -107,6 +119,7 @@ public class GererParticipationController implements Initializable {
             evp.setID_event(Integer.parseInt(TF_idM.getText()));
             evp.setID_user(Integer.parseInt(TF_iduserM .getText()));
             evp.setNombre_participation(Integer.parseInt(TF_nombreM.getText()));
+            evp.setNum_tel(TF_numtelM .getText());
             SPE.modifierParticipationEvenement(evp);
          
             Notifications notificationBuilder = Notifications.create()
@@ -140,7 +153,6 @@ public class GererParticipationController implements Initializable {
     }*/
    
 
-    @FXML
     private void supprimerPart(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Confirmation de suppression");
@@ -178,7 +190,7 @@ public class GererParticipationController implements Initializable {
     
     
     
-    void selected_item3(int ID_participation, int ID_user, int ID_event, int nombre_participation) {
+    void selected_item3(int ID_participation, int ID_user, int ID_event, int nombre_participation, String num_tel) {
 
 
    // TF_idM.setText(String.valueOf(ID_particiation));
@@ -186,6 +198,7 @@ public class GererParticipationController implements Initializable {
      TF_iduserM.setText(String.valueOf(ID_user));
     TF_idM.setText(String.valueOf(ID_event));
     TF_nombreM.setText(String.valueOf(nombre_participation));
+    TF_numtelM.setText(num_tel);
    
     
    

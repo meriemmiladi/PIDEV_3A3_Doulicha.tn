@@ -194,7 +194,7 @@ public class EvenementClientController implements Initializable {
                     if (!empty && (item.isEqual(debutLocalDate) || item.isEqual(finLocalDate) ||
                         (item.isAfter(debutLocalDate) && item.isBefore(finLocalDate)))) {
                         // Définition de la couleur pour les dates des évènements
-                        this.setStyle("-fx-background-color: pink;");
+                        this.setStyle("-fx-background-color: #57E2DE;");
                         break;
                     } else {
                         // Définition de la couleur par défaut pour les autres dates

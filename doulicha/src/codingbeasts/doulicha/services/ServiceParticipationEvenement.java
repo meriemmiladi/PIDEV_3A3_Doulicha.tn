@@ -187,6 +187,27 @@ try {
             return 0;
     }
     
+  public int getId3(String nom_event) {
+    try {
+        Statement st = cnx.createStatement();
+
+        String req = "SELECT evenement.ID_event FROM evenement JOIN participation_evenement ON evenement.ID_event = participation_evenement.ID_event WHERE evenement.nom_event LIKE '" + nom_event + "'";
+        ResultSet rs = st.executeQuery(req);
+        if (rs.next()) {
+            return rs.getInt(1);
+        }
+
+    } catch (SQLException ex) {
+        System.out.println("erreur");
+        System.out.println(ex);
+    }
+    return 0;
+}
+
+
+    
+    
+    
    public int getIdDerniereParticipation() throws SQLException {
     int idParticipation = 0;
     String req = "SELECT MAX(ID_participation) FROM participation_evenement";
