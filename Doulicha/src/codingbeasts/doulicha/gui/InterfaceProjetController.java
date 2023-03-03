@@ -8,6 +8,7 @@ package codingbeasts.doulicha.gui;
 import codingbeasts.doulicha.entities.don;
 import codingbeasts.doulicha.entities.projet;
 import codingbeasts.doulicha.services.projetCRUD;
+//import com.stripe.net.HttpClient;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -16,6 +17,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -32,7 +35,16 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.message.BasicNameValuePair;
 /**
  * FXML Controller class
  *
@@ -195,7 +207,7 @@ public void setProjet(projet projet) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     @FXML
-private void importImage(ActionEvent event) {
+public void importImage(ActionEvent event) {
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Choose an image file");
     fileChooser.getExtensionFilters().addAll(
@@ -212,8 +224,32 @@ private void importImage(ActionEvent event) {
              System.out.println("image"+destination);
             Files.copy(source, destination, StandardCopyOption.REPLACE_EXISTING);
 
-             imagePath = "C:/xampp/htdocs/img/" + fileName;
-             //imagePath = "http://localhost/img/" + fileName;
+             //imagePath = "C:/xampp/htdocs/img/" + fileName;
+             imagePath = "/img/" + fileName;
+              byte[] fileContent = Files.readAllBytes(destination);
+
+        // Encode the byte array as Base64
+        String base64Encoded = Base64.getEncoder().encodeToString(fileContent);
+
+        // Upload the Base64 encoded data to the server
+        //HttpClient client = HttpClientBuilder.create().build();
+        HttpClient client = HttpClientBuilder.create().build();
+        HttpPost post = new HttpPost("http://localhost/img/upload.php");
+
+        List<NameValuePair> params = new ArrayList<>();
+        params.add(new BasicNameValuePair("photo", base64Encoded));
+        post.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+
+        HttpResponse response = client.execute(post);
+        if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+            // The photo was successfully uploaded
+            
+            System.out.println("image upload");
+        } else {
+            // There was an error uploading the photo
+           
+            System.out.println("image not uploded");
+        }
         } catch (Exception e) {
             System.out.println("Failed to load image file.");
             e.printStackTrace();

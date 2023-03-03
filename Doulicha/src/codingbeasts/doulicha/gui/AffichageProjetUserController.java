@@ -12,6 +12,7 @@ import codingbeasts.doulicha.services.projetCRUD;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
@@ -96,8 +97,9 @@ private VBox createContentBox(projet projet) {
             VBox contentBox = new VBox();
             
             ImageView imageView = new ImageView();
-            inputstream = new FileInputStream(projet.getImage_projet());
-            Image imageS = new Image(inputstream);
+            //inputstream = new FileInputStream(projet.getImage_projet());
+            //Image imageS = new Image(new URL("http://localhost"+projet.getImage_projet()).toString());
+            Image imageS = new Image(new URL("http://localhost"+projet.getImage_projet()).toString());
             imageView.getStyleClass().add("imageView");
             imageView.setFitWidth(200);
             imageView.setFitHeight(120);
@@ -153,16 +155,16 @@ private VBox createContentBox(projet projet) {
             });
             VBox butonsBox = new VBox();
             butonsBox.getChildren().addAll(nomLabel,descriptionLabel, objectifLabel);
-            butonsBox.setStyle("  -fx-line-spacing: 50px;");
+            butonsBox.setStyle("  -fx-line-spacing: 30px;");
             HBox buttonsBox = new HBox();
             buttonsBox.getChildren().addAll(butonsBox, imageView);
-            buttonsBox.setStyle("-fx-padding: 10px 10pc 10px 10px");
+            buttonsBox.setStyle("-fx-padding: 10px 150px 10px 10px");
             
             contentBox.getChildren().addAll( buttonsBox,  savedon);
             contentBox.setSpacing(10);
             contentBox.getStyleClass().add("vbox-style");
             return contentBox;
-        } catch (FileNotFoundException ex) {
+        }  catch (MalformedURLException ex) {
             Logger.getLogger(AffichageProjetUserController.class.getName()).log(Level.SEVERE, null, ex);
         }
         

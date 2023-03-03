@@ -143,16 +143,15 @@ paiement.setOnAction((ActionEvent event) -> {
 
         // Si le paiement a été effectué avec succès, supprimer le don de la base de données
         if (controller.isPaiementValide()) {
-            dis.deletedon(d.getID_don());
+           
             donListe.getChildren().remove(contentBox);
         } else {
         }
 
     } catch (IOException ex) {
         Logger.getLogger(ListAffichageDonController.class.getName()).log(Level.SEVERE, null, ex);
-    } catch (SQLException ex) {
-        Logger.getLogger(ListAffichageDonController.class.getName()).log(Level.SEVERE, null, ex);
     }
+
 });
 
         HBox buttonsBox = new HBox();

@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -103,64 +104,66 @@ public class Affichage2Controller implements Initializable {
     }
     
     private VBox createContentBox(projet projet) {
-        FileInputStream inputstream = null;
         try {
+            FileInputStream inputstream = null;
             VBox contentBox = new VBox();
+      
             ImageView imageView = new ImageView();
-            inputstream = new FileInputStream(projet.getImage_projet());
-            
-            Image imageS = new Image(inputstream);
+           
+            Image imageS = new Image(new URL("http://localhost"+projet.getImage_projet()).toString());
             //Image imageS = new Image(new URL(projet.getImage_projet()).toString());
+            
             imageView.getStyleClass().add("imageView");
             imageView.setFitWidth(200);
             imageView.setFitHeight(100);
             imageView.setTranslateX(100);
             imageView.setImage(imageS);
-            
             TextFlow nomLabel = new TextFlow();
             nomLabel.getChildren().add(new Text("Projet : " + projet.getNom_projet()));
             nomLabel.getStyleClass().add("nomLabel");
             TextFlow descriptionLabel = new TextFlow();
-            descriptionLabel.getChildren().add(new Text("Description :: " + projet.getDescription_projet()));
+            Text descriptionPrefix = new Text("Description :: ");
+            descriptionPrefix.getStyleClass().add("description-prefix");
+            descriptionPrefix.setStyle("-fx-fill: blue;");
+            descriptionLabel.getChildren().addAll(descriptionPrefix, new Text(projet.getDescription_projet()));
+            descriptionLabel.getStyleClass().add("description-label");
             descriptionLabel.getStyleClass().add("descriptionLabel");
-            Label obj = new Label("Objectif");
+            Text obj = new Text("Objectif");
+            obj.setStyle("-fx-fill: blue;");
             obj.getStyleClass().add("objectifLabel");
             obj.getStyleClass().add("nomLabel");
             Label objectifLabel = new Label(obj.getText()+ "::" + projet.getObjectif_projet());
-            
-           
-            
             Button replyButton = new Button("supprimer");
             replyButton.getStyleClass().add("replyButton");
             replyButton.setOnAction((ActionEvent event) -> {
-    // Vérifier si un projet est sélectionné avant de supprimer
-    if (projetListe.getChildren().contains(contentBox)) {
-        // Demander confirmation avant de supprimer
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation de suppression");
-        alert.setHeaderText("Êtes-vous sûr de vouloir supprimer ce projet ?");
-        alert.setContentText(projet.getNom_projet());
-
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK){
-            projetCRUD dis = new projetCRUD();
-            try {
-                dis.deleteprojet(projet.getId_projet()); // appel de la méthode deleteprojet avec l'id du projet
-                projetListe.getChildren().remove(contentBox); // supprime le contenu du projet de la VBox
-            } catch (SQLException ex) {
-                Logger.getLogger(Affichage3Controller.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    } else {
-        // Afficher un message d'erreur si aucun projet n'est sélectionné
-        Alert alert = new Alert(AlertType.ERROR);
-        alert.setTitle("Erreur");
-        alert.setHeaderText("Aucun projet sélectionné");
-        alert.setContentText("Veuillez sélectionner un projet avant de cliquer sur le bouton Supprimer.");
-
-        alert.showAndWait();
-    }
-});
+                // Vérifier si un projet est sélectionné avant de supprimer
+                if (projetListe.getChildren().contains(contentBox)) {
+                    // Demander confirmation avant de supprimer
+                    Alert alert = new Alert(AlertType.CONFIRMATION);
+                    alert.setTitle("Confirmation de suppression");
+                    alert.setHeaderText("Êtes-vous sûr de vouloir supprimer ce projet ?");
+                    alert.setContentText(projet.getNom_projet());
+                    
+                    Optional<ButtonType> result = alert.showAndWait();
+                    if (result.get() == ButtonType.OK){
+                        projetCRUD dis = new projetCRUD();
+                        try {
+                            dis.deleteprojet(projet.getId_projet()); // appel de la méthode deleteprojet avec l'id du projet
+                            projetListe.getChildren().remove(contentBox); // supprime le contenu du projet de la VBox
+                        } catch (SQLException ex) {
+                            Logger.getLogger(Affichage3Controller.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                } else {
+                    // Afficher un message d'erreur si aucun projet n'est sélectionné
+                    Alert alert = new Alert(AlertType.ERROR);
+                    alert.setTitle("Erreur");
+                    alert.setHeaderText("Aucun projet sélectionné");
+                    alert.setContentText("Veuillez sélectionner un projet avant de cliquer sur le bouton Supprimer.");
+                    
+                    alert.showAndWait();
+                }
+            });
             Button modifierButton = new Button("Modifier");
             modifierButton.getStyleClass().add("modifierButton");
             modifierButton.setOnAction((ActionEvent event) -> {
@@ -178,33 +181,33 @@ public class Affichage2Controller implements Initializable {
                     Logger.getLogger(Affichage3Controller.class.getName()).log(Level.SEVERE, null, ex);
                 }
             });
-             VBox butonsBox = new VBox();
+            VBox butonsBox = new VBox();
             butonsBox.getChildren().addAll(nomLabel,descriptionLabel, objectifLabel);
             butonsBox.setStyle(" -fx-line-spacing: 30px;");
             HBox buttonsBox = new HBox();
             buttonsBox.getChildren().addAll(butonsBox, imageView);
-            buttonsBox.setStyle("-fx-padding: 10px 10pc 10px 10px");
+            buttonsBox.setStyle("-fx-padding: 10px 120px 10px 10px");
             HBox butttonsBox = new HBox();
             butttonsBox.getChildren().addAll(replyButton, modifierButton);
+            butttonsBox.setStyle("-fx-padding: 10px 10px 10px 100px");
             contentBox.getChildren().addAll( buttonsBox, butttonsBox);
-            
-            
             contentBox.setSpacing(10);
             contentBox.setStyle("-fx-background-color: #ffffff; -fx-border-color: #3FC4ED; -fx-border-width: 2px; -fx-border-radius: 5px;");
             return contentBox;
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Affichage2Controller.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                inputstream.close();
+            /*try {
+            inputstream.close();
             } catch (IOException ex) {
-                Logger.getLogger(Affichage2Controller.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Affichage2Controller.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
-        return null;
+            return null;
+            */
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(Affichage2Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }     
+    return null;
+}
     
-    }
-    
+
 private void afficherProjets() {
     projetCRUD dis = new projetCRUD();
     List<projet> myList = dis.afficherprojet();

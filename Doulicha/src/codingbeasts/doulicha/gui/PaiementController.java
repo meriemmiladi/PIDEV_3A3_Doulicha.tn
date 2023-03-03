@@ -47,6 +47,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
@@ -189,6 +190,7 @@ return;
          //paiementValide = true;
         // Fermer la fenêtre de paiement
         //((Stage) valider.getScene().getWindow()).close();
+       
      
         updateDonPaymentStatus(donId);
         System.out.println(donId);
