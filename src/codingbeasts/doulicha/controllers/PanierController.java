@@ -99,8 +99,27 @@ import com.google.api.client.http.HttpRequestInitializer;
 import com.google.auth.http.HttpCredentialsAdapter;
 import java.util.Collections;
 import javafx.collections.FXCollections;
-
-
+import java.util.Properties;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.NoSuchProviderException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.mail.Authenticator;
+import codingbeasts.doulicha.services.AEmail;
 public class PanierController implements Initializable {
 
     static Map<Produit, Integer> produitMap;
@@ -126,10 +145,12 @@ public class PanierController implements Initializable {
     private static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
     private static final GsonFactory JSON_FACTORY = new GsonFactory();
     private static final String SERVICE_ACCOUNT_EMAIL = "mohamedazyz-belaidi@doulicha-379102.iam.gserviceaccount.com";
-    private static final String SERVICE_ACCOUNT_PKCS12_FILE_PATH = "C:\\Users\\scola\\Documents\\NetBeansProjects\\JDBC\\PIDEV_3A3_Doulicha.tn\\sah.p12";
+    private static final String SERVICE_ACCOUNT_PKCS12_FILE_PATH = "C:\\Users\\scola\\Desktop\\hamza2.p12";
+    @FXML
+    private TextField mail;
     
     
-   
+  
 
 
 //    private static final String API_URL = "https://invoice-generator.com";
@@ -159,9 +180,26 @@ public class PanierController implements Initializable {
     @Override
     public void initialize(URL url1, ResourceBundle rb) {
         
+        String rec ="mohamedazyz.belaidi@esprit.tn";
+         String rec1 ="azyzbel";
+          String rec2 ="azyzbel";
+               
         confirme.setOnAction(event ->{
-            
+        String message = "Bonjour  Merci de vous être inscrit!";
+        AEmail emailsend = new AEmail("mohamedazyz.belaidi@esprit.tn", "ucjenrtgssrqxkxy", "azyzbel@gmail.com", "Confirmation d'inscription", message);
+            try {
+                emailsend.sendEmail();
                 
+                
+                //String a="mohamedazyz.belaidi@esprit.tn";
+//            try {
+//                envoyer(a);
+//            } catch (Exception ex) {
+//                Logger.getLogger(PanierController.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+            } catch (MessagingException ex) {
+                Logger.getLogger(PanierController.class.getName()).log(Level.SEVERE, null, ex);
+            }
                 
             
                 
@@ -530,6 +568,7 @@ public class PanierController implements Initializable {
 
         btnretour.setOnAction(event ->{
         try {
+              
                 Parent page1 = FXMLLoader.load(getClass().getResource("/codingbeasts/doulicha/view/magasin.fxml"));
                 Scene scene = new Scene(page1);
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -567,6 +606,7 @@ public class PanierController implements Initializable {
 
         if (produitMap != null) {
             tableView.getItems().addAll(produitMap.entrySet());
+            
         }
     }
     
@@ -767,7 +807,7 @@ public class PanierController implements Initializable {
     File fileMetadata = new File();
     
     fileMetadata.setName("aaa");
-    fileMetadata.setParents(Collections.singletonList("Invoices")); // Set the folder ID of the Invoices folder on your Google Drive
+    fileMetadata.setParents(Collections.singletonList("18Hxr0pTa_3_5aqPJ49ru-_pC_HY160TN")); // Set the folder ID of the Invoices folder on your Google Drive
     java.io.File pdfFile = new java.io.File(pdfPath);
     FileContent mediaContent = new FileContent("application/pdf", pdfFile);
     File file = service.files().create(fileMetadata, mediaContent)
@@ -787,7 +827,7 @@ public class PanierController implements Initializable {
             }
       
      private Drive getDriveService() throws IOException , GeneralSecurityException{
-    GoogleCredentials credentials = GoogleCredentials.fromStream(new FileInputStream("C:\\Users\\scola\\Desktop\\sas.json"))
+    GoogleCredentials credentials = GoogleCredentials.fromStream(new FileInputStream("C:\\Users\\scola\\Desktop\\hamza.json"))
             .createScoped(Collections.singleton(DriveScopes.DRIVE));
                 
     HttpRequestInitializer requestInitializer = new HttpCredentialsAdapter(credentials);
@@ -797,7 +837,7 @@ public class PanierController implements Initializable {
             null)
             .setApplicationName("doulicha")
             .build();
-}
+}          
 
     
  
@@ -879,6 +919,49 @@ public class PanierController implements Initializable {
 //            .setApplicationName("doulicha")
 //            .build();
 //}
+          
+   
+
+    public static void envoyer(String email) throws Exception{
+         String username = "mohamedazyz.belaidi@esprit.tn";
+             String password = "201JMT3416";
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.ssl.trust", "*");
+
+        Session session = Session.getInstance(props,new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+              
+                return new PasswordAuthentication(username, password);
+            }
+        });
+        Message message = prepareMessage(session, email);
+        Transport.send(message);
+        System.out.println("Message envoyé avec succès.");
+    }
+    
+    private static Message prepareMessage(Session session, String email){ 
+        try {
+            String username = "mohamedazyz.belaidi@esprit.tn";
+             String password = "201JMT3416";
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(username));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
+            message.setSubject("Confirmation de l'identification du compte");                
+            message.setText("Bonjour,\n\nConfirmation de l'identification du compte.\n\nCordialement,\nL'équipe de support");
+            return message;
+        } catch (MessagingException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
+   
+}
+
 
             
-}

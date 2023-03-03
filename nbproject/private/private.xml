@@ -2,16 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/scola/Documents/NetBeansProjects/JDBC/PIDEV_3A3_Doulicha.tn/src/codingbeasts/doulicha/controllers/MainView.java</file>
-            <file>file:/C:/Users/scola/Documents/NetBeansProjects/JDBC/PIDEV_3A3_Doulicha.tn/src/codingbeasts/doulicha/controllers/PanierController.java</file>
-            <file>file:/C:/Users/scola/Documents/NetBeansProjects/JDBC/PIDEV_3A3_Doulicha.tn/src/codingbeasts/doulicha/entities/Commande.java</file>
-            <file>file:/C:/Users/scola/Documents/NetBeansProjects/JDBC/PIDEV_3A3_Doulicha.tn/src/codingbeasts/doulicha/controllers/magController.java</file>
-            <file>file:/C:/Users/scola/Documents/NetBeansProjects/JDBC/PIDEV_3A3_Doulicha.tn/src/codingbeasts/doulicha/services/ProduitCrud.java</file>
-            <file>file:/C:/Users/scola/Documents/NetBeansProjects/JDBC/PIDEV_3A3_Doulicha.tn/src/codingbeasts/doulicha/entities/LigneCommande.java</file>
-            <file>file:/C:/Users/scola/Documents/NetBeansProjects/JDBC/PIDEV_3A3_Doulicha.tn/src/codingbeasts/doulicha/controllers/AccprodController.java</file>
-            <file>file:/C:/Users/scola/Documents/NetBeansProjects/JDBC/PIDEV_3A3_Doulicha.tn/src/codingbeasts/doulicha/services/LigneCommandeCrud.java</file>
-            <file>file:/C:/Users/scola/Documents/NetBeansProjects/JDBC/PIDEV_3A3_Doulicha.tn/src/codingbeasts/doulicha/services/CommandeCrud.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
