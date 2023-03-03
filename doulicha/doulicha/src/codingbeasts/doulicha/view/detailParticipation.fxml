@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="106.0" prefWidth="842.0" style="-fx-background-color: #e3f5fa;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codingbeasts.doulicha.controller.DetailParticipationController">
+   <children>
+      <HBox alignment="CENTER" layoutX="-18.0" layoutY="-15.0" prefHeight="115.0" prefWidth="848.0">
+         <children>
+            <Label fx:id="id_event_part" alignment="CENTER" prefHeight="115.0" prefWidth="348.0" text="ID de l'évènement">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="id_participation" alignment="CENTER" prefHeight="0.0" prefWidth="0.0" text="id">
+               <font>
+                  <Font size="0.1" />
+               </font>
+            </Label>
+            <Label fx:id="numtel" alignment="CENTER" prefHeight="0.0" prefWidth="0.0" text="numtel">
+               <font>
+                  <Font size="0.1" />
+               </font>
+            </Label>
+            <Label fx:id="id_participationM" alignment="CENTER" prefHeight="100.0" prefWidth="0.0" text="ID Participation">
+               <font>
+                  <Font size="0.1" />
+               </font>
+            </Label>
+            <Label fx:id="iduser_detail" alignment="CENTER" ellipsisString="" prefHeight="100.0" prefWidth="0.0" text="ID User" visible="false">
+               <font>
+                  <Font size="0.1" />
+               </font>
+            </Label>
+            <Label fx:id="nbpart_detail" alignment="CENTER" prefHeight="98.0" prefWidth="233.0" text="Nombre de participants ">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font></Label>
+            <ImageView fitHeight="32.0" fitWidth="34.0" onMouseClicked="#gererPart" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/bouton-modifier.png" />
+               </image>
+            </ImageView>
+            <HBox prefHeight="100.0" prefWidth="43.0" />
+            <ImageView fitHeight="33.0" fitWidth="36.0" onMouseClicked="#supprimerPart" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/supprimer.png" />
+               </image>
+            </ImageView>
+            <HBox prefHeight="100.0" prefWidth="36.0" />
+            <ImageView fitHeight="35.0" fitWidth="35.0" onMouseClicked="#afficherPass" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/recu%20(1).png" />
+               </image>
+            </ImageView>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
