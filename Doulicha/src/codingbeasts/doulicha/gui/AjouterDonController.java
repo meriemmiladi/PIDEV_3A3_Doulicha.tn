@@ -130,6 +130,7 @@ public class AjouterDonController implements Initializable {
     alert.setContentText("Veuillez saisir une valeur de don.");
     alert.showAndWait();
     return;
+    
 }
 
 // Vérification du format pour le champ valeur_don
@@ -172,6 +173,14 @@ try {
     } catch (SQLException ex) {
         System.err.println(ex.getMessage());
     }
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/codingbeasts/doulicha/gui/ListAffichageDon.fxml"));
+        Parent root = loader.load();
+        Scene scene = btn_valider.getScene();
+        scene.setRoot(root);
+    } catch (IOException ex) {
+        System.err.println(ex.getMessage());
+    }
     }
    private int id;
    void recupererID(int id){
@@ -203,6 +212,14 @@ try {
         don d = new don(valeur_don);
         donCRUD pc = new donCRUD();
         pc.modifierdon(d,id_don);
+        try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/codingbeasts/doulicha/gui/ListAffichageDon.fxml"));
+        Parent root = loader.load();
+        Scene scene = btn_valider1.getScene();
+        scene.setRoot(root);
+    } catch (IOException ex) {
+        System.err.println(ex.getMessage());
+    }
     }
 
     

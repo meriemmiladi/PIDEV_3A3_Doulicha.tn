@@ -132,7 +132,14 @@ public class InterfaceProjetController implements Initializable {
         pc.ajouterprojet2(p);
         
         
-        
+        try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/codingbeasts/doulicha/gui/Affichage2.fxml"));
+        Parent root = loader.load();
+        Scene scene = btn_valider.getScene();
+        scene.setRoot(root);
+    } catch (IOException ex) {
+        System.err.println(ex.getMessage());
+    }
         /*
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Details.fxml"));
         
@@ -194,6 +201,15 @@ private void saveProjet2(ActionEvent event) throws SQLException {
     
     // Afficher l'alerte
     alert.showAndWait();
+    
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/codingbeasts/doulicha/gui/Affichage2.fxml"));
+        Parent root = loader.load();
+        Scene scene = btn_valider1.getScene();
+        scene.setRoot(root);
+    } catch (IOException ex) {
+        System.err.println(ex.getMessage());
+    }
 }
     @FXML
     private void affichage(ActionEvent event) {

@@ -11,49 +11,49 @@
 
 <AnchorPane id="AnchorPane" prefHeight="609.0" prefWidth="925.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codingbeasts.doulicha.gui.PaiementController">
     <children>
-      <Pane prefHeight="609.0" prefWidth="925.0" style="-fx-background-color: white;">
+      <Pane layoutX="7.0" prefHeight="609.0" prefWidth="925.0" style="-fx-background-color: white;">
          <children>
-            <Label layoutX="46.0" layoutY="200.0" prefHeight="35.0" prefWidth="267.0" text="N° de Carte Banquaire" textFill="#3fc4ed">
+            <Label layoutX="119.0" layoutY="207.0" prefHeight="35.0" prefWidth="267.0" text="N° de Carte Banquaire" textFill="#3fc4ed">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
-            <TextField fx:id="cnom" layoutX="393.0" layoutY="160.0" prefHeight="25.0" prefWidth="126.0" style="-fx-background-color: #D1DADC;" />
-            <Label layoutX="145.0" layoutY="242.0" prefHeight="27.0" prefWidth="116.0" text="exp_year" textFill="#3fc4ed">
+            <TextField fx:id="cnom" layoutX="452.0" layoutY="147.0" prefHeight="35.0" prefWidth="215.0" style="-fx-background-color: #D1DADC;" />
+            <Label layoutX="189.0" layoutY="273.0" prefHeight="27.0" prefWidth="116.0" text="exp_year" textFill="#3fc4ed">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="cnum" layoutX="476.0" layoutY="200.0" prefHeight="26.0" prefWidth="126.0" style="-fx-background-color: #D1DADC;" />
-            <Label layoutX="164.0" layoutY="329.0" prefHeight="27.0" prefWidth="88.0" text="prix" textFill="#3fc4ed">
+            <TextField fx:id="cnum" layoutX="452.0" layoutY="207.0" prefHeight="35.0" prefWidth="215.0" style="-fx-background-color: #D1DADC;" />
+            <Label layoutX="181.0" layoutY="391.0" prefHeight="27.0" prefWidth="88.0" text="prix" textFill="#3fc4ed">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="prix" layoutX="476.0" layoutY="373.0" prefHeight="35.0" prefWidth="215.0" style="-fx-background-color: #D1DADC;" />
-            <Label layoutX="146.0" layoutY="286.0" prefHeight="27.0" prefWidth="125.0" text="exp_month" textFill="#3fc4ed">
+            <TextField fx:id="prix" layoutX="452.0" layoutY="387.0" prefHeight="35.0" prefWidth="215.0" style="-fx-background-color: #D1DADC;" />
+            <Label layoutX="185.0" layoutY="333.0" prefHeight="27.0" prefWidth="125.0" text="exp_month" textFill="#3fc4ed">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="month" layoutX="476.0" layoutY="312.0" prefHeight="35.0" prefWidth="215.0" style="-fx-background-color: #D1DADC;" />
-            <Label layoutX="145.0" layoutY="377.0" prefHeight="27.0" prefWidth="186.0" text="Pictogramme (CVC)" textFill="#3fc4ed">
+            <TextField fx:id="month" layoutX="452.0" layoutY="329.0" prefHeight="35.0" prefWidth="215.0" style="-fx-background-color: #D1DADC;" />
+            <Label layoutX="181.0" layoutY="448.0" prefHeight="27.0" prefWidth="186.0" text="Pictogramme (CVC)" textFill="#3fc4ed">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="cvc" layoutX="476.0" layoutY="426.0" prefHeight="35.0" prefWidth="215.0" style="-fx-background-color: #D1DADC;" />
-            <Button fx:id="valider" layoutX="430.0" layoutY="515.0" onAction="#Payer" prefHeight="30.0" prefWidth="206.0" style="-fx-background-color: #A6D4DC" text="Valider">
+            <TextField fx:id="cvc" layoutX="452.0" layoutY="444.0" prefHeight="35.0" prefWidth="215.0" style="-fx-background-color: #D1DADC;" />
+            <Button fx:id="valider" layoutX="481.0" layoutY="530.0" onAction="#Payer" prefHeight="30.0" prefWidth="206.0" style="-fx-background-color: #A6D4DC" styleClass="bottonnAjouter" stylesheets="@interfaceprojet.css" text="Valider">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
-                  <Button fx:id="Annulerr" layoutX="109.0" layoutY="515.0" onAction="#Anunuler" prefHeight="30.0" prefWidth="206.0" style="-fx-background-color: #A6D4DC" text="Annuler">
+                  <Button fx:id="Annulerr" layoutX="168.0" layoutY="530.0" onAction="#Anunuler" prefHeight="30.0" prefWidth="206.0" style="-fx-background-color: #A6D4DC" styleClass="bottonnAjouter" stylesheets="@interfaceprojet.css" text="Annuler">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
-            <Label layoutX="272.0" layoutY="47.0" prefHeight="35.0" prefWidth="267.0" text="Paiement En Ligne" textFill="#a6d4dc">
+            <Label layoutX="271.0" layoutY="32.0" prefHeight="35.0" prefWidth="267.0" text="Paiement En Ligne" textFill="#a6d4dc">
                <font>
                   <Font name="System Bold" size="30.0" />
                </font>
@@ -63,7 +63,7 @@
                   <Image url="@../../../Image/post-purchase-dribbble-animated-400x300.gif" />
                </image>
             </ImageView>
-            <ImageView fitHeight="109.0" fitWidth="108.0" layoutX="64.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="109.0" fitWidth="108.0" layoutX="24.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../Image/cart.jpg" />
                </image>
@@ -73,18 +73,18 @@
                   <Image url="@../../../Image/ElittIconeIdentite.png" />
                </image>
             </ImageView>
-            <TextField fx:id="cmail" layoutX="352.0" layoutY="123.0" prefHeight="25.0" prefWidth="231.0" style="-fx-background-color: #D1DADC;" />
-            <Label layoutX="150.0" layoutY="127.0" text="EMail" textFill="#3fc4ed">
+            <TextField fx:id="cmail" layoutX="452.0" layoutY="93.0" prefHeight="35.0" prefWidth="215.0" style="-fx-background-color: #D1DADC;" />
+            <Label layoutX="186.0" layoutY="97.0" prefHeight="27.0" prefWidth="99.0" text="EMail" textFill="#3fc4ed">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="152.0" layoutY="164.0" text="nom" textFill="#3fc4ed">
+            <Label layoutX="186.0" layoutY="151.0" prefHeight="27.0" prefWidth="79.0" text="nom" textFill="#3fc4ed">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="year" layoutX="476.0" layoutY="243.0" prefHeight="35.0" prefWidth="215.0" style="-fx-background-color: #D1DADC;" />        
+            <TextField fx:id="year" layoutX="452.0" layoutY="269.0" prefHeight="35.0" prefWidth="215.0" style="-fx-background-color: #D1DADC;" />        
          </children>
       </Pane>
      
