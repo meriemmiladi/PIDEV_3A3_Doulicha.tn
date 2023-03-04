@@ -102,12 +102,12 @@ TextArea {
 
 /* Conteneur principal */
 #AnchorPane {
-    -fx-background-color: #FFFFFF;
+    -fx-background-color: #EFF8FA;
 }
 
 /* Conteneur secondaire */
 VBox {
-    -fx-background-color: #F5F5F5;
+    -fx-background-color: #EFF8FA;
     -fx-background-radius: 10;
     -fx-border-color: #0077C2;
     -fx-border-radius: 10;
@@ -117,8 +117,8 @@ VBox {
   -fx-transition: all 0.3s ease;
 }
 VBox > VBox:hover {
-  -fx-scale-x: 1.02;
-  -fx-scale-y: 1.02;
+  /*-fx-scale-x: 1.02;
+  -fx-scale-y: 1.02;*/
   -fx-background-color: #f5f5f5;
   -fx-border-color: #aaa;
   -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 0);

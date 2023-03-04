@@ -4,7 +4,7 @@ package codingbeasts.doulicha.tests;
 import codingbeasts.doulicha.entities.Discussion;
 import codingbeasts.doulicha.entities.Reponse;
 import codingbeasts.doulicha.services.DiscussionCRUD;
-import codingbeasts.doulicha.view.DiscussionController;
+import codingbeasts.doulicha.controller.DiscussionController;
 import codingbeasts.doulicha.services.ReponseCRUD;
 import codingbeasts.doulicha.utils.MyConnection;
 import java.sql.Date;

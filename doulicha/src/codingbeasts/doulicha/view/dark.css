@@ -128,8 +128,8 @@ VBox {
       
 }
 VBox > VBox:hover {
-  -fx-scale-x: 1.02;
-  -fx-scale-y: 1.02;
+ /* -fx-scale-x: 1.02;
+  -fx-scale-y: 1.02;*/
 
   -fx-border-color: #aaa;
   -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 0);

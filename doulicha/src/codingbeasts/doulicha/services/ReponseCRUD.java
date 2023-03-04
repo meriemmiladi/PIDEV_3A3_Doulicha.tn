@@ -49,7 +49,7 @@ public class ReponseCRUD {
 
     public void supprimerReponse(int id_reponse) {
         try {
-            String requete = "DELETE FROM reponse WHERE ID_discussion =?";
+            String requete = "DELETE FROM reponse WHERE ID_reponse =?";
             PreparedStatement pst = con.prepareStatement(requete);
             pst.setInt(1, id_reponse);
             pst.executeUpdate();
