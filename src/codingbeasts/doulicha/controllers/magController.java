@@ -69,18 +69,19 @@ public class magController implements Initializable {
     @FXML
     private Spinner<Integer> spinnerId;
     @FXML
-    private Button panier;       
+    private Button panier;    
+    @FXML
+    private Button mesachats;
+    
+    
     private Image image;
     private MyListener myListener;
     ProduitCrud p = new ProduitCrud();
     List<Produit> produits = new ArrayList<>();
     Produit produitActuel=new Produit();
     int qttProduit=0;
-    static Map<Produit,Integer> produitMap=new HashMap<Produit,Integer>();
-    @FXML
-    private ComboBox<?> sort;
-    @FXML
-    private Button mesachats;
+    Map<Produit,Integer> produitMap=new HashMap<Produit,Integer>();
+
     private void setChosen(Produit produit) {
         produitActuel=produit;
         SpinnerValueFactory<Integer> valueFactory =new SpinnerValueFactory.IntegerSpinnerValueFactory(1, produit.getQuantite_produit(), 1);
@@ -104,7 +105,7 @@ public class magController implements Initializable {
              LigneCommandeCrud ligneCommandeCrud=new LigneCommandeCrud();
              LigneCommandeCrud lcc=new LigneCommandeCrud();
              
-             CommandeCrud commandeCrud=new CommandeCrud();
+               CommandeCrud commandeCrud=new CommandeCrud();
              Commande commande=commandeCrud.lastCommand();
              int id_commande = commande.getID_commande();
              

@@ -17,7 +17,7 @@ import java.util.List;
  *
  * @author aziz
  */
-public class UserCrude implements Crud<User>{
+public class UserCrude implements interfaceProduit<User>{
     Connection cnx2;
     
         public UserCrude(){

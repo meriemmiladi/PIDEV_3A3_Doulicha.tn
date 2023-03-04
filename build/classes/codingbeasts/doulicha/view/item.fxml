@@ -33,7 +33,7 @@
             </HBox>
             <ImageView fx:id="img" fitHeight="115.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../../../Downloads/—Pngtree—icon%20is%20prohibited_6276333.png" />
+                  <Image url="@../../../img/logo.png" />
                </image>
             </ImageView>
          </children>

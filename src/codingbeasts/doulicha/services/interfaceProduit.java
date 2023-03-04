@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author aziz
  */
-public interface Crud <T> {
+public interface interfaceProduit <T> {
     public T AddOne(T entity);
     public T RetreiveOne(int id_Entity);
     public List<T> RetreiveAll();

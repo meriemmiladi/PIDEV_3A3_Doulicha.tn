@@ -71,9 +71,7 @@ public class AccueilController implements Initializable {
                 int id_commande = commande.getID_commande();
                 
             } catch (IOException ex) {
-               System.out.println("errooooor"); 
-               
-            
+               System.out.println(ex); 
             }
        });
     }    

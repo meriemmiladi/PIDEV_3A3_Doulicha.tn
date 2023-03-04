@@ -27,7 +27,7 @@
             </Text>
          </center>
       </BorderPane>
-      <TableView fx:id="TABLEPRODUIT" layoutX="67.0" layoutY="432.0" prefHeight="355.0" prefWidth="1337.0">
+      <TableView fx:id="TABLEPRODUIT" layoutX="67.0" layoutY="334.0" prefHeight="453.0" prefWidth="1337.0">
          <columns>
             <TableColumn fx:id="ID" prefWidth="75.0" text="ID" />
             <TableColumn fx:id="LIBELLE" prefWidth="144.0" text="LIBELLE" />
@@ -54,17 +54,7 @@
             <Image url="@../../../img/3.jpg" />
          </image>
       </ImageView>
-      <Button layoutX="286.0" layoutY="257.0" mnemonicParsing="false" prefHeight="96.0" prefWidth="191.0" styleClass="btn_accueil" text="statistique de vente" textFill="#335bc2">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Button>
-      <Button graphicTextGap="0.0" layoutX="630.0" layoutY="257.0" mnemonicParsing="false" prefHeight="96.0" prefWidth="193.0" styleClass="btn_accueil" text="best seller" textFill="#335bc2">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Button>
-      <Button layoutX="1026.0" layoutY="257.0" mnemonicParsing="false" prefHeight="96.0" prefWidth="193.0" styleClass="btn_accueil" text="promo" textFill="#335bc2">
+      <Button layoutX="614.0" layoutY="198.0" mnemonicParsing="false" prefHeight="96.0" prefWidth="193.0" styleClass="btn_accueil" text="promo" textFill="#335bc2">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>

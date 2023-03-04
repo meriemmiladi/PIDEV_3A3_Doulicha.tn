@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
  *
  * @author aziz
  */
-public class ProduitCrud implements Crud<Produit> {
+public class ProduitCrud implements interfaceProduit<Produit> {
     
     Connection cnx2;
     public ProduitCrud(){
@@ -55,7 +55,7 @@ public class ProduitCrud implements Crud<Produit> {
             pst.setDouble(3,p.getPrixUachat_produit());
             pst.setDouble(4,p.getPrixUvente_produit());
             pst.setString(5,p.getCategorie_produit());
-            pst.setString(6,p.getImage_produit());
+            pst.setString(6,"/img/"+p.getImage_produit());
             pst.executeUpdate();
             System.out.println("votre produit est ajoutée");
             
