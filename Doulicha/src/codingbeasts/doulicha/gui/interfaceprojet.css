@@ -23,16 +23,90 @@
     -fx-background-color: #3FC4ED;
     -fx-background-radius: 0 0 0 0;
 }
+/*
 .buttonAjoute{
     -fx-background-color: #A6D4DC;
     -fx-background-radius: 0 0 0 0;
 }
-
+*/
 .Label{
-    -fx-background-color: #3FC4ED;
+    -fx-background-color: linear-gradient(to bottom, #54b7d6, #A6D4DC);
     -fx-background-radius: 20 0 20 0;
 }
 .bottonnAjouter{
     -fx-background-color: #A6D4DC;
+    -fx-text-fill: black;
+    -fx-font-family: Arial;
+    -fx-font-size: 14px;
+    -fx-border-color: #A6D4DC;
+    -fx-border-radius: 10px;
+   
+    -fx-padding: 8px 15px;
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.5) , 2,0,0,1 );
+    transition: all 0.3s ease-in-out;
+    -fx-cursor:hand;
     -fx-background-radius: 20 0 20 0;
+}
+.buttonAjoute {
+    -fx-background-color: linear-gradient(to bottom, #54b7d6, #A6D4DC);
+    -fx-text-fill: black;
+    -fx-font-family: Arial;
+    -fx-font-size: 14px;
+    -fx-border-color: #A6D4DC;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-padding: 8px 15px;
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.5) , 2,0,0,1 );
+    transition: all 0.3s ease-in-out;
+    -fx-cursor:hand;
+    /*
+    -fx-background-color:  #6dbed6;
+    -fx-background-radius: 15;
+    -fx-text-fill:  #000000;
+    -fx-font: 16px "GothamMedium";
+    -fx-font-weight: bold;
+    -fx-padding: 10;
+    -fx-effect: dropshadow(three-pass-box, #174E26, 5, 0.0,0,1);*/
+}
+.button:hover{
+    -fx-background-color: linear-gradient(to bottom, #A6D4DC,#94c7d6);
+}
+.button .button-background{
+       -fx-opacity: 0.5; 
+}
+
+.combo-box{
+    -fx-border-width: 0.5px;
+    -fx-background-color:   #CCE3EA;
+    -fx-border-radius: 50px;
+    -fx-background-radius:  50px;
+    -fx-font-size: 15px;
+    -fx-padding: 1px;
+    -fx-font-weight: 700;
+}
+
+.combo-box .list-view{
+    -fx-border-width: 0.5px;
+    -fx-background-color:  #6dbed6;
+    -fx-border-radius: 50px;
+    -fx-background-radius:  50px;
+    -fx-font-size: 15px;
+    -fx-padding: 1px;
+    -fx-font-weight: 700;
+}
+.text-field {
+    -fx-background-color:   #CCE3EA;
+    -fx-border-radius: 50px;
+    -fx-background-radius:  50px;
+    -fx-font-size: 15px;
+    -fx-padding: 1px;
+    -fx-font-weight: 700;
+}
+
+.AnchorPane{
+   
+    -fx-background-repeat: stretch;   
+    -fx-background-size: 900 506;
+    -fx-background-position: center center;
+    -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0); 
 }

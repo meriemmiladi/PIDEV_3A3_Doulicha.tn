@@ -10,97 +10,72 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="407.0" prefWidth="757.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codingbeasts.doulicha.gui.AffichageProjetUserController">
+<AnchorPane id="AnchorPane" prefHeight="609.0" prefWidth="925.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codingbeasts.doulicha.gui.AffichageProjetUserController">
     <stylesheets>
         <URL value="@affichageprojetuser.css" />
     </stylesheets>
    <children>
-      <AnchorPane id="AnchorPane" prefHeight="407.0" prefWidth="757.0" styleClass="white-background" stylesheets="@interfaceprojet.css">
+      <AnchorPane id="AnchorPane" prefHeight="609.0" prefWidth="925.0" styleClass="white-background" stylesheets="@interfaceprojet.css">
          <children>
-            <VBox layoutX="-6.0" layoutY="-3.0" prefHeight="410.0" prefWidth="241.0">
+            <VBox layoutY="-3.0" prefHeight="616.0" prefWidth="235.0" style="-fx-background-color: #CCE3EA;">
                <children>
-                  <VBox prefHeight="119.0" prefWidth="241.0" styleClass="rounded-botton-background" stylesheets="@interfaceprojet.css">
-                     <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="83.0" prefWidth="226.0">
-                           <children>
-                              <FontAwesomeIcon glyphName="HOME" size="30" text="" wrappingWidth="34.0">
-                                 <HBox.margin>
-                                    <Insets left="20.0" />
-                                 </HBox.margin>
-                              </FontAwesomeIcon>
-                              <AnchorPane>
-                                 <children>
-                                    <BorderPane />
-                                 </children>
-                              </AnchorPane>
-                              <Label prefHeight="38.0" prefWidth="130.0" text="Doulicha" textFill="WHITE">
-                                 <font>
-                                    <Font name="System Bold" size="19.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets left="20.0" />
-                                 </HBox.margin>
-                              </Label>
-                           </children>
-                        </HBox>
-                        <VBox prefHeight="101.0" prefWidth="226.0">
-                           <children>
-                              <HBox prefHeight="86.0" prefWidth="226.0">
-                                 <children>
-                                    <VBox prefHeight="86.0" prefWidth="69.0" />
-                                 </children>
-                              </HBox>
-                           </children>
-                        </VBox>
-                     </children>
-                  </VBox>
                   <VBox prefHeight="171.0" prefWidth="226.0">
                      <children>
-                        <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="140.0" fitWidth="130.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../Image/i2.png" />
                            </image>
                            <VBox.margin>
-                              <Insets left="75.0" top="20.0" />
+                              <Insets left="60.0" top="50.0" />
                            </VBox.margin>
                         </ImageView>
                      </children>
                   </VBox>
-                  <VBox prefHeight="194.0" prefWidth="241.0" styleClass="rounded-top-background" stylesheets="@interfaceprojet.css">
-                     <children>
-                        <ImageView fitHeight="60.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../Image/i5.png" />
-                           </image>
-                           <VBox.margin>
-                              <Insets left="90.0" top="30.0" />
-                           </VBox.margin>
-                        </ImageView>
-                        <Label prefHeight="56.0" prefWidth="144.0" text="  Projet" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="24.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets left="70.0" top="10.0" />
-                           </VBox.margin>
-                        </Label>
-                     </children>
-                  </VBox>
+                  <Label prefHeight="42.0" prefWidth="241.0" text="     Affichage Projet">
+                     <font>
+                        <Font name="System Bold Italic" size="22.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="40.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="213.0" styleClass="bottonnAjouter" stylesheets="@interfaceprojet.css" text="Home">
+                     <VBox.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="30.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="235.0" styleClass="buttonAjoute" stylesheets="@interfaceprojet.css" text="Ajouter">
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="tfaffichage2" mnemonicParsing="false" onAction="#affichage2" prefHeight="36.0" prefWidth="235.0" styleClass="buttonAjoute" stylesheets="@interfaceprojet.css" text="Affichage Les Dons Sans Paye">
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="235.0" styleClass="buttonAjoute" stylesheets="@interfaceprojet.css" text="Affichage Les Dons Payes">
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                  </Button>
                </children>
             </VBox>
-            <VBox layoutX="235.0" prefHeight="73.0" prefWidth="523.0">
+            <VBox layoutX="235.0" prefHeight="73.0" prefWidth="690.0">
                <children>
-                  <HBox prefHeight="51.0" prefWidth="361.0">
+                  <HBox alignment="TOP_RIGHT" prefHeight="51.0" prefWidth="361.0">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="174.0" styleClass="buttonAjoute" stylesheets="@interfaceprojet.css" text="Ajouter" />
-                        <Button fx:id="tfaffichage2" mnemonicParsing="false" onAction="#affichage2" prefHeight="36.0" prefWidth="192.0" styleClass="buttonAjoute" stylesheets="@interfaceprojet.css" text="Affichage" />
-                        <TextField fx:id="searchField" prefHeight="37.0" prefWidth="125.0" />
-                        <Button fx:id="searchButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="47.0">
+                        <Label prefHeight="38.0" prefWidth="380.0" text="Les Projets">
+                           <font>
+                              <Font name="System Italic" size="24.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="searchField" prefHeight="36.0" prefWidth="202.0" promptText="Search" />
+                        <Button fx:id="searchButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="47.0" styleClass="bottonnAjouter" stylesheets="@interfaceprojet.css">
                            <graphic>
                               <FontAwesomeIcon glyphName="SEARCH" size="2em" />
                            </graphic>
@@ -118,15 +93,15 @@
                   </VBox>
                </children>
             </VBox>
-            <VBox fx:id="VBox1" layoutX="235.0" layoutY="37.0" prefHeight="366.0" prefWidth="523.0">
+            <VBox fx:id="VBox1" layoutX="235.0" layoutY="37.0" prefHeight="567.0" prefWidth="690.0">
                <children>
                   <HBox fx:id="HBox1" prefHeight="355.0" prefWidth="523.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <ScrollPane fx:id="ScrollPane1" prefHeight="311.0" prefWidth="523.0">
+                        <ScrollPane fx:id="ScrollPane1" prefHeight="366.0" prefWidth="689.0">
                            <content>
-                              <ScrollPane prefHeight="361.0" prefWidth="516.0">
+                              <ScrollPane prefHeight="566.0" prefWidth="675.0">
                                  <content>
-                                    <VBox fx:id="projetListe" prefHeight="358.0" prefWidth="512.0" />
+                                    <VBox fx:id="projetListe" prefHeight="550.0" prefWidth="673.0" />
                                  </content>
                               </ScrollPane>
                            </content>

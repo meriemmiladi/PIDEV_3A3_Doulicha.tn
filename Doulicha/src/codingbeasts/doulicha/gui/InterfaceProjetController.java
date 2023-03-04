@@ -174,18 +174,27 @@ public void setProjet(projet projet) {
     }    
 
     @FXML
-    private void saveProjet2(ActionEvent event) throws SQLException {
+private void saveProjet2(ActionEvent event) throws SQLException {
         
-        String nom_projet = tfnom_projet.getText();
-        String description_projet = tfdescription_projet.getText();
-        float objectif_projet = Float.parseFloat(tfobjectif_projet.getText());
-        int etat_projet = Integer.parseInt(tfetat_projet.getText());
-        String image_projet = btnImage.getText(); 
+    String nom_projet = tfnom_projet.getText();
+    String description_projet = tfdescription_projet.getText();
+    float objectif_projet = Float.parseFloat(tfobjectif_projet.getText());
+    int etat_projet = Integer.parseInt(tfetat_projet.getText());
+    String image_projet = btnImage.getText(); 
          
-        projet p = new projet(nom_projet,description_projet,objectif_projet,etat_projet,image_projet);
-        projetCRUD pc = new projetCRUD();
-        pc.modifierprojet2(p,id_projet);
-    }
+    projet p = new projet(nom_projet, description_projet, objectif_projet, etat_projet, image_projet);
+    projetCRUD pc = new projetCRUD();
+    pc.modifierprojet2(p, id_projet);
+    
+    // Créer l'alerte
+    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+    alert.setTitle("Projet modifié");
+    alert.setHeaderText(null);
+    alert.setContentText("Le projet a été modifié avec succès.");
+    
+    // Afficher l'alerte
+    alert.showAndWait();
+}
     @FXML
     private void affichage(ActionEvent event) {
         try {

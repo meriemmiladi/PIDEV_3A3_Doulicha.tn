@@ -122,7 +122,7 @@ public class Affichage2Controller implements Initializable {
             nomLabel.getChildren().add(new Text("Projet : " + projet.getNom_projet()));
             nomLabel.getStyleClass().add("nomLabel");
             TextFlow descriptionLabel = new TextFlow();
-            Text descriptionPrefix = new Text("Description :: ");
+            Text descriptionPrefix = new Text("Description ::     ");
             descriptionPrefix.getStyleClass().add("description-prefix");
             descriptionPrefix.setStyle("-fx-fill: blue;");
             descriptionLabel.getChildren().addAll(descriptionPrefix, new Text(projet.getDescription_projet()));
@@ -132,7 +132,7 @@ public class Affichage2Controller implements Initializable {
             obj.setStyle("-fx-fill: blue;");
             obj.getStyleClass().add("objectifLabel");
             obj.getStyleClass().add("nomLabel");
-            Label objectifLabel = new Label(obj.getText()+ "::" + projet.getObjectif_projet());
+            Label objectifLabel = new Label(obj.getText()+ " ::   " + projet.getObjectif_projet());
             Button replyButton = new Button("supprimer");
             replyButton.getStyleClass().add("replyButton");
             replyButton.setOnAction((ActionEvent event) -> {
@@ -174,7 +174,7 @@ public class Affichage2Controller implements Initializable {
                     controller.setProjet(projet);
                     Scene scene = new Scene(root);
                     Stage stage = new Stage();
-                    scene.getStylesheets().add("Affichage2.css");
+                    scene.getStylesheets().add("affichage2.css");
                     stage.setScene(scene);
                     stage.show();
                 } catch (IOException ex) {
@@ -183,13 +183,13 @@ public class Affichage2Controller implements Initializable {
             });
             VBox butonsBox = new VBox();
             butonsBox.getChildren().addAll(nomLabel,descriptionLabel, objectifLabel);
-            butonsBox.setStyle(" -fx-line-spacing: 30px;");
+            butonsBox.setStyle(" -fx-line-spacing: 40px;");
             HBox buttonsBox = new HBox();
             buttonsBox.getChildren().addAll(butonsBox, imageView);
             buttonsBox.setStyle("-fx-padding: 10px 120px 10px 10px");
             HBox butttonsBox = new HBox();
             butttonsBox.getChildren().addAll(replyButton, modifierButton);
-            butttonsBox.setStyle("-fx-padding: 10px 10px 10px 100px");
+            butttonsBox.setStyle("-fx-padding: 20px 20px 20px 150px");
             contentBox.getChildren().addAll( buttonsBox, butttonsBox);
             contentBox.setSpacing(10);
             contentBox.setStyle("-fx-background-color: #ffffff; -fx-border-color: #3FC4ED; -fx-border-width: 2px; -fx-border-radius: 5px;");

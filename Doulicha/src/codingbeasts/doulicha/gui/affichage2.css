@@ -16,7 +16,7 @@
 /* Style pour les boutons "supprimer" et "modifier" */
 .button-style {
     -fx-font-weight: bold;
-    -fx-background-color: #3FC4ED;
+    -fx-background-color:  #A6D4DC;
     -fx-text-fill: white;
     -fx-padding: 5px 10px;
     -fx-border-radius: 5px;
@@ -82,7 +82,7 @@
 }
 /* Style pour le bouton de suppression */
 .replyButton {
-    -fx-background-color: #3FC4ED;
+    -fx-background-color:  #A6D4DC;
     -fx-text-fill: #FFFFFF;
     -fx-border-color: #FFFFFF;
     -fx-border-width: 2px;
@@ -94,12 +94,12 @@
 
 .replyButton:hover {
     -fx-background-color: #FFFFFF;
-    -fx-text-fill: #3FC4ED;
+    -fx-text-fill:  #A6D4DC;
 }
 
 /* Style pour le bouton de modification */
 .modifierButton {
-    -fx-background-color: #3FC4ED;
+    -fx-background-color:  #A6D4DC;
     -fx-text-fill: #FFFFFF;
     -fx-border-color: #FFFFFF;
     -fx-border-width: 2px;
@@ -111,7 +111,7 @@
 
 .modifierButton:hover {
     -fx-background-color: #FFFFFF;
-    -fx-text-fill: #3FC4ED;
+    -fx-text-fill:  #A6D4DC;
 }
 .modifierButton:pressed {
     -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.7) , 10,0,0,1 ); 
