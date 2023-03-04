@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
-<?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -11,132 +9,74 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="407.0" prefWidth="763.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codingbeasts.doulicha.gui.AjouterDonController">
+<AnchorPane id="AnchorPane" prefHeight="609.0" prefWidth="925.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codingbeasts.doulicha.gui.AjouterDonController">
     <stylesheets>
         <URL value="@ajouterdon.css" />
     </stylesheets>
    <children>
-      <AnchorPane id="AnchorPane" prefHeight="407.0" prefWidth="763.0" styleClass="white-background" stylesheets="@interfaceprojet.css">
+      <AnchorPane id="AnchorPane" prefHeight="609.0" prefWidth="925.0" styleClass="white-background" stylesheets="@interfaceprojet.css">
          <children>
-            <VBox layoutX="-6.0" layoutY="-3.0" prefHeight="410.0" prefWidth="241.0">
+            <VBox layoutY="-3.0" prefHeight="615.0" prefWidth="235.0" style="-fx-background-color: #CCE3EA;">
                <children>
-                  <VBox prefHeight="119.0" prefWidth="241.0" styleClass="rounded-botton-background" stylesheets="@interfaceprojet.css">
-                     <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="83.0" prefWidth="226.0">
-                           <children>
-                              <Button fx:id="tfretourn" mnemonicParsing="false" onAction="#retourn" stylesheets="@interfaceprojet.css">
-                                 <HBox.margin>
-                                    <Insets left="10.0" />
-                                 </HBox.margin>
-                                 <graphic>
-                                    <ImageView fx:id="tfretourne" fitHeight="21.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" rotate="177.3" styleClass="transparent-background">
-                                       <image>
-                                          <Image url="@../../../Image/fleche-droite.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                                 <styleClass>
-                                    <String fx:value="transparent-background" />
-                                    <String fx:value="buttonAjoute" />
-                                 </styleClass>
-                              </Button>
-                              <FontAwesomeIcon glyphName="HOME" size="30" text="" wrappingWidth="34.0">
-                                 <HBox.margin>
-                                    <Insets left="20.0" />
-                                 </HBox.margin>
-                              </FontAwesomeIcon>
-                              <AnchorPane>
-                                 <children>
-                                    <BorderPane />
-                                 </children>
-                              </AnchorPane>
-                              <Label prefHeight="38.0" prefWidth="130.0" text="Doulicha" textFill="WHITE">
-                                 <font>
-                                    <Font name="System Bold" size="19.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets left="20.0" />
-                                 </HBox.margin>
-                              </Label>
-                           </children>
-                        </HBox>
-                        <VBox prefHeight="101.0" prefWidth="226.0">
-                           <children>
-                              <HBox prefHeight="86.0" prefWidth="226.0">
-                                 <children>
-                                    <VBox prefHeight="86.0" prefWidth="69.0" />
-                                 </children>
-                              </HBox>
-                           </children>
-                        </VBox>
-                     </children>
-                  </VBox>
                   <VBox prefHeight="171.0" prefWidth="226.0">
                      <children>
-                        <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="130.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../Image/i2.png" />
                            </image>
                            <VBox.margin>
-                              <Insets left="75.0" top="20.0" />
+                              <Insets left="60.0" top="60.0" />
                            </VBox.margin>
                         </ImageView>
                      </children>
                   </VBox>
-                  <VBox prefHeight="194.0" prefWidth="241.0" styleClass="rounded-top-background" stylesheets="@interfaceprojet.css">
+                  <Label prefHeight="39.0" prefWidth="242.0" text="      Ajouter Dons">
+                     <font>
+                        <Font name="System Bold Italic" size="24.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="60.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Button fx:id="tfAffichage1" mnemonicParsing="false" onAction="#affichage1" prefHeight="36.0" prefWidth="235.0" styleClass="buttonAjoute" stylesheets="@interfaceprojet.css" text="Affichage Dons">
+                     <VBox.margin>
+                        <Insets top="50.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="tfretourne" mnemonicParsing="false" onAction="#retourn" prefHeight="36.0" prefWidth="236.0" styleClass="buttonAjoute" stylesheets="@interfaceprojet.css" text="Annuler">
+                     <VBox.margin>
+                        <Insets top="60.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+            <VBox layoutX="235.0" prefHeight="73.0" prefWidth="529.0">
+               <children>
+                  <HBox prefHeight="51.0" prefWidth="361.0" />
+                  <VBox prefHeight="124.0" prefWidth="529.0">
                      <children>
-                        <ImageView fitHeight="80.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../Image/don.png" />
-                           </image>
-                           <VBox.margin>
-                              <Insets left="90.0" top="30.0" />
-                           </VBox.margin>
-                        </ImageView>
-                        <Label prefHeight="56.0" prefWidth="144.0" text="     Don" textFill="WHITE">
+                        <Label prefHeight="48.0" prefWidth="339.0" text="       Ajout d'un Don">
                            <font>
-                              <Font name="System Bold" size="24.0" />
+                              <Font name="System Italic" size="36.0" />
                            </font>
-                           <VBox.margin>
-                              <Insets left="70.0" top="10.0" />
-                           </VBox.margin>
                         </Label>
                      </children>
                   </VBox>
                </children>
             </VBox>
-            <VBox layoutX="235.0" prefHeight="73.0" prefWidth="529.0">
-               <children>
-                  <HBox prefHeight="51.0" prefWidth="361.0">
-                     <children>
-                        <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="195.0" styleClass="buttonAjoute" stylesheets="@interfaceprojet.css" text="Ajouter" />
-                        <Button fx:id="tfAffichage1" mnemonicParsing="false" onAction="#affichage1" prefHeight="36.0" prefWidth="181.0" styleClass="buttonAjoute" stylesheets="@interfaceprojet.css" text="Affichage" />
-                        <ComboBox fx:id="idnomutilisateur" prefHeight="35.0" prefWidth="162.0" styleClass="bottonnAjouter" stylesheets="@interfaceprojet.css" />
-                     </children>
-                  </HBox>
-                  <VBox prefHeight="52.0" prefWidth="241.0">
-                     <children>
-                        <ImageView fitHeight="34.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true" translateY="30.0">
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                        </ImageView>
-                     </children>
-                  </VBox>
-               </children>
-            </VBox>
-            <TextField fx:id="tfvaleur_don" layoutX="481.0" layoutY="104.0" prefHeight="27.0" prefWidth="211.0" promptText="Valeur_Don" style="-fx-background-color: transparent; -fx-border-color: #3FC4ED; -fx-border-width: 0px 0px 2px 0px;" />
-            <Label layoutX="271.0" layoutY="102.0" prefHeight="30.0" prefWidth="150.0" styleClass="Label" stylesheets="@interfaceprojet.css" text="     Valeur_Don" />
+            <TextField fx:id="tfvaleur_don" layoutX="561.0" layoutY="197.0" prefHeight="49.0" prefWidth="264.0" promptText="Valeur_Don" style="-fx-background-color: transparent; -fx-border-color: #3FC4ED; -fx-border-width: 0px 0px 2px 0px;" />
+            <Label layoutX="286.0" layoutY="203.0" prefHeight="38.0" prefWidth="235.0" styleClass="Label" stylesheets="@interfaceprojet.css" text="     Valeur_Don" />
             
-            <Button fx:id="btn_valider" layoutX="310.0" layoutY="223.0" mnemonicParsing="false" onAction="#savedon" prefHeight="38.0" prefWidth="144.0" styleClass="bottonnAjouter" stylesheets="@interfaceprojet.css" text="Ajouter" />
-            <Button fx:id="btn_valider1" layoutX="508.0" layoutY="223.0" mnemonicParsing="false" onAction="#savedon2" prefHeight="38.0" prefWidth="144.0" styleClass="bottonnAjouter" stylesheets="@interfaceprojet.css" text="Enregistrer" />
+            <Button fx:id="btn_valider" layoutX="356.0" layoutY="400.0" mnemonicParsing="false" onAction="#savedon" prefHeight="38.0" prefWidth="183.0" styleClass="bottonnAjouter" stylesheets="@interfaceprojet.css" text="Ajouter N Don" />
+            <Button fx:id="btn_valider1" layoutX="593.0" layoutY="400.0" mnemonicParsing="false" onAction="#savedon2" prefHeight="38.0" prefWidth="183.0" styleClass="bottonnAjouter" stylesheets="@interfaceprojet.css" text="Enregistrer M Don" />
             <TextField fx:id="tfProjetId" layoutX="259.0" layoutY="165.0" prefHeight="25.0" prefWidth="144.0" promptText="Valeur_Don" style="-fx-background-color: transparent; -fx-border-color: #3FC4ED; -fx-border-width: 0px 0px 2px 0px;" visible="false" />
             <TextField fx:id="tfetat_paiement" layoutX="492.0" layoutY="165.0" visible="false" />
+            <ComboBox fx:id="idnomutilisateur" layoutX="521.0" layoutY="306.0" prefHeight="35.0" prefWidth="162.0" styleClass="bottonnAjouter" stylesheets="@interfaceprojet.css" />
+            <HBox layoutX="235.0" layoutY="73.0" prefHeight="49.0" prefWidth="691.0" style="-fx-background-color: #CCE3EA;" />
          </children>
       </AnchorPane>
    </children>

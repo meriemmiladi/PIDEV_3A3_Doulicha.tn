@@ -64,6 +64,8 @@ public class AffichageProjetUserController implements Initializable {
     private TextField searchField;
     @FXML
     private Button searchButton;
+    @FXML
+    private Button historique;
     
     
     
@@ -120,14 +122,15 @@ private VBox createContentBox(projet projet) {
             
             
             Button savedon = new Button("Ajouterdon");
-            savedon.setStyle("-fx-background-color: #3FC4ED;\n" +
-                               "    -fx-text-fill: #FFFFFF;\n" +
-                               "    -fx-border-color: #FFFFFF;\n" +
-                               "    -fx-border-width: 2px;\n" +
-                               "    -fx-border-radius : 5px;\n" +
-                               "    -fx-padding: 10px;\n" +
-                               "    -fx-border-insets: 10px;\n" +
-                               "    -fx-background-insets: 10px;");
+          /*  savedon.setStyle("-fx-background-color:  #A6D4DC;\n" +
+"    -fx-text-fill: #FFFFFF;\n" +
+"    -fx-border-color: #FFFFFF;\n" +
+"    -fx-border-width: 2px;\n" +
+"    -fx-border-radius : 5px;\n" +
+"    -fx-padding: 10px;\n" +
+"    -fx-border-insets: 10px;\n" +
+"    -fx-background-insets: 10px;");*/
+          savedon.getStyleClass().add("savedon");
             savedon.setOnAction((ActionEvent event) -> {
                 try {
                     // charger la vue AjouterProjet.fxml
@@ -144,7 +147,7 @@ private VBox createContentBox(projet projet) {
                     
                     Scene scene = new Scene(root);
                     Stage stage = new Stage();
-                    scene.getStylesheets().add("affichageprojetuser.css");
+                    scene.getStylesheets().add("affichage2.css");
                     stage.setScene(scene);
                     stage.show();
                 } catch (IOException ex) {
@@ -190,6 +193,20 @@ private void afficherProjets() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/codingbeasts/doulicha/gui/ListAffichageDon.fxml"));
         Parent root = loader.load();
         Scene scene = tfaffichage2.getScene();
+        scene.setRoot(root);
+    } catch (IOException ex) {
+        System.err.println(ex.getMessage());
+    }
+    }
+    
+   
+
+    @FXML
+    private void historique(ActionEvent event) {
+         try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/codingbeasts/doulicha/gui/historique.fxml"));
+        Parent root = loader.load();
+        Scene scene = historique.getScene();
         scene.setRoot(root);
     } catch (IOException ex) {
         System.err.println(ex.getMessage());

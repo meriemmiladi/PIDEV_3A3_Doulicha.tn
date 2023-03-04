@@ -63,14 +63,23 @@ public class HistoriqueController implements Initializable {
     @FXML
     private Button statistique;
     @FXML
-    private Button tfhistorique;
+    private Button tfAffichage;
 
 
     /**
      * Initializes the controller class.
      */
    
-
+public double calculerSommeDons() {
+    donCRUD dis = new donCRUD();
+    List<don> dons = dis.afficherdon1();
+    double somme = 0;
+    for (don d : dons) {
+        somme += d.getValeur_don();
+        System.out.println(somme);
+    }
+    return somme;
+}
     /**
      * Initializes the controller class.
      */
@@ -78,7 +87,9 @@ public class HistoriqueController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         donCRUD dis = new donCRUD();
-   
+    double somme = calculerSommeDons();
+    sommeDonsLabel.setText("Total des dons " + somme + "£");
+    sommeDonsLabel.setStyle("-fx-font-weight: bold;");
     List<don> dons = dis.afficherdon1();
    
     for (don d : dons) {
@@ -103,7 +114,7 @@ public class HistoriqueController implements Initializable {
 @FXML
     private void retourne3(ActionEvent event) {
         try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/codingbeasts/doulicha/gui/AffichageProjetUser.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/codingbeasts/doulicha/gui/AjouterDon.fxml"));
         Parent root = loader.load();
         Scene scene = tfretourne3.getScene();
         scene.setRoot(root);
@@ -167,6 +178,18 @@ public class HistoriqueController implements Initializable {
     stage.setScene(new Scene(barChart, 400, 400));
     stage.show();
 }
+
+    @FXML
+    private void Affichage(ActionEvent event) {
+        try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/codingbeasts/doulicha/gui/ListAffichageDon.fxml"));
+        Parent root = loader.load();
+        Scene scene = tfAffichage.getScene();
+        scene.setRoot(root);
+    } catch (IOException ex) {
+        System.err.println(ex.getMessage());
+    }
+    }
    
     }    
     

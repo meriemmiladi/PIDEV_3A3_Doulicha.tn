@@ -52,10 +52,9 @@ public class AjouterDonController implements Initializable {
     private TextField tfprojet;
     private int ID_projet;
     
-    @FXML
     private Button tfretourn;
     @FXML
-    private ImageView tfretourne;
+    private Button tfretourne;
     @FXML
     private Button tfAffichage1;
     @FXML
@@ -83,7 +82,7 @@ public class AjouterDonController implements Initializable {
         try {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/codingbeasts/doulicha/gui/AffichageProjetUser.fxml"));
         Parent root = loader.load();
-        Scene scene = tfretourn.getScene();
+        Scene scene = tfretourne.getScene();
         scene.setRoot(root);
     } catch (IOException ex) {
         System.err.println(ex.getMessage());

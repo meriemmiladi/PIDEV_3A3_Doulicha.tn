@@ -57,7 +57,6 @@ public class ListAffichageDonController implements Initializable {
     private ScrollPane ScrollPane1;
     @FXML
     private VBox donListe;
-    @FXML
     private Button tfretourne3;
     @FXML
     private Label sommeDonsLabel;
@@ -66,6 +65,8 @@ public class ListAffichageDonController implements Initializable {
     private Button statistique;
     @FXML
     private Button tfhisto;
+    @FXML
+    private Button tfAjouterdon;
 
 
     /**
@@ -120,7 +121,7 @@ public void initialize(URL url, ResourceBundle rb) {
                 controller.setdon(d);
                 Scene scene = new Scene(root);
                 Stage stage = new Stage();
-                scene.getStylesheets().add("listaffichagedon.css");
+                scene.getStylesheets().add("affichage2.css");
                 stage.setScene(scene);
                 stage.show();
             } catch (IOException ex) {
@@ -128,6 +129,7 @@ public void initialize(URL url, ResourceBundle rb) {
             }
         });
         Button paiement = new Button("Paiement");
+        paiement.getStyleClass().add("paiement");
 paiement.setOnAction((ActionEvent event) -> {
     try {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Paiement.fxml"));
@@ -168,7 +170,6 @@ paiement.setOnAction((ActionEvent event) -> {
 }
 
 
-    @FXML
     private void retourne3(ActionEvent event) {
         try {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/codingbeasts/doulicha/gui/AffichageProjetUser.fxml"));
@@ -179,6 +180,9 @@ paiement.setOnAction((ActionEvent event) -> {
         System.err.println(ex.getMessage());
     }
     }
+    
+    
+    
 
     @FXML
     private void histo(ActionEvent event) {
@@ -202,8 +206,9 @@ public Map<String, Double> getDonneesDonsParObjectif() {
     for (don d : dons) {
         for (projet p : projets) {
             if (p.getId_projet() == d.getID_projet()) {
-                String objectif = p.getObjectif_projet()+"";
+                String objectif = p.getObjectif_projet()+"  ";
                 double valeurDon = d.getValeur_don();
+               
                 if (donnees.containsKey(objectif)) {
                     donnees.put(objectif, donnees.get(objectif) + valeurDon);
                 } else {
@@ -255,6 +260,18 @@ public Map<String, Double> getDonneesDonsParObjectif() {
     stage.setScene(new Scene(barChart, 400, 400));
     stage.show();
 }
+
+    @FXML
+    private void Ajouterdon(ActionEvent event) {
+        try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/codingbeasts/doulicha/gui/AjouterDon.fxml"));
+        Parent root = loader.load();
+        Scene scene = tfAjouterdon.getScene();
+        scene.setRoot(root);
+    } catch (IOException ex) {
+        System.err.println(ex.getMessage());
+    }
+    }
    
    
                 }
