@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="750.0" prefWidth="1230.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codingbeasts.doulicha.controller.AjouterDonController">
+    <stylesheets>
+        <URL value="@ajouterdon.css" />
+    </stylesheets>
+   <children>
+      <AnchorPane id="AnchorPane" prefHeight="750.0" prefWidth="1230.0" styleClass="white-background" stylesheets="@interfaceprojet.css">
+         <children>
+            <VBox layoutY="-3.0" prefHeight="757.0" prefWidth="235.0" style="-fx-background-color: #CCE3EA;">
+               <children>
+                  <VBox prefHeight="171.0" prefWidth="226.0">
+                     <children>
+                        <ImageView fitHeight="130.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../Image/i2.png" />
+                           </image>
+                           <VBox.margin>
+                              <Insets left="60.0" top="60.0" />
+                           </VBox.margin>
+                        </ImageView>
+                     </children>
+                  </VBox>
+                  <Label prefHeight="39.0" prefWidth="242.0" text="      Ajouter Dons">
+                     <font>
+                        <Font name="System Bold Italic" size="24.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="60.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Button fx:id="tfAffichage1" mnemonicParsing="false" onAction="#affichage1" prefHeight="36.0" prefWidth="235.0" styleClass="buttonAjoute" stylesheets="@interfaceprojet.css" text="Affichage Dons">
+                     <VBox.margin>
+                        <Insets top="90.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="tfretourne" mnemonicParsing="false" onAction="#retourn" prefHeight="36.0" prefWidth="236.0" styleClass="buttonAjoute" stylesheets="@interfaceprojet.css" text="Annuler">
+                     <VBox.margin>
+                        <Insets top="60.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+            <VBox layoutX="235.0" prefHeight="73.0" prefWidth="529.0">
+               <children>
+                  <HBox prefHeight="51.0" prefWidth="361.0" />
+                  <VBox prefHeight="124.0" prefWidth="529.0">
+                     <children>
+                        <Label prefHeight="48.0" prefWidth="339.0" text="       Ajout d'un Don">
+                           <font>
+                              <Font name="System Italic" size="36.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+            <TextField fx:id="tfvaleur_don" layoutX="764.0" layoutY="343.0" prefHeight="49.0" prefWidth="264.0" promptText="Valeur_Don" style="-fx-background-color: transparent; -fx-border-color: #3FC4ED; -fx-border-width: 0px 0px 2px 0px;" />
+            <Label layoutX="430.0" layoutY="358.0" prefHeight="38.0" prefWidth="235.0" styleClass="Label" stylesheets="@interfaceprojet.css" text="     Valeur_Don" />
+            
+            <Button fx:id="btn_valider" layoutX="470.0" layoutY="552.0" mnemonicParsing="false" onAction="#savedon" prefHeight="38.0" prefWidth="183.0" styleClass="bottonnAjouter" stylesheets="@interfaceprojet.css" text="Ajouter N Don" />
+            <Button fx:id="btn_valider1" layoutX="774.0" layoutY="552.0" mnemonicParsing="false" onAction="#savedon2" prefHeight="38.0" prefWidth="183.0" styleClass="bottonnAjouter" stylesheets="@interfaceprojet.css" text="Enregistrer M Don" />
+            <TextField fx:id="tfProjetId" layoutX="259.0" layoutY="165.0" prefHeight="25.0" prefWidth="144.0" promptText="Valeur_Don" style="-fx-background-color: transparent; -fx-border-color: #3FC4ED; -fx-border-width: 0px 0px 2px 0px;" visible="false" />
+            <TextField fx:id="tfetat_paiement" layoutX="492.0" layoutY="165.0" visible="false" />
+            <HBox layoutX="235.0" layoutY="73.0" prefHeight="61.0" prefWidth="998.0" style="-fx-background-color: #CCE3EA;" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

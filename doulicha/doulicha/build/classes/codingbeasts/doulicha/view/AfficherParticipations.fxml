@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="781.0" prefWidth="1570.0" stylesheets="@/codingbeasts/doulicha/view/StyleY.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codingbeasts.doulicha.controller.AfficherParticipationsController">
+   <center>
+      <AnchorPane prefHeight="781.0" prefWidth="1174.0" style="-fx-background-color: #EFF8FA;" stylesheets="@StyleY.css" BorderPane.alignment="CENTER">
+         <children>
+            <TableView fx:id="tableParticipations" layoutX="72.0" layoutY="181.0" prefHeight="511.0" prefWidth="1094.0" stylesheets="@StyleY.css">
+              <columns>
+                <TableColumn fx:id="col_iduser" prefWidth="224.0" text="Utilisateurs" />
+                <TableColumn fx:id="col_idevent" minWidth="0.0" prefWidth="304.0" text="Nom de l'évènement" />
+                  <TableColumn fx:id="col_nbparticipants" prefWidth="258.0" text="Nombre de participants" />
+                  <TableColumn fx:id="col_numtel" prefWidth="307.0" text="Numéro de téléphone" />
+              </columns>
+            </TableView>
+            <Text layoutX="433.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Liste des participations" wrappingWidth="370.25390625">
+               <font>
+                  <Font size="35.0" />
+               </font>
+            </Text>
+            <TextField fx:id="recherche" layoutX="808.0" layoutY="129.0" prefHeight="31.0" prefWidth="358.0" promptText="Rechercher..." />
+         </children>
+      </AnchorPane>
+   </center>
+   <left>
+      <VBox prefHeight="781.0" prefWidth="333.0" style="-fx-background-color: #CCE3EA;" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER" prefHeight="186.0" prefWidth="333.0">
+               <children>
+                  <ImageView fitHeight="115.0" fitWidth="218.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/i2.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="72.0" prefWidth="333.0">
+               <children>
+                  <Button fx:id="btn_gestionEvenements" mnemonicParsing="false" prefHeight="48.0" prefWidth="230.0" text="Gestion des événements" textFill="#2b4570">
+                     <font>
+                        <Font name="Calibri" size="18.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="67.0" prefWidth="333.0">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="48.0" prefWidth="231.0" text="Gestion des participations" textFill="#2b4570">
+                     <font>
+                        <Font name="Calibri" size="18.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </left>
+</BorderPane>

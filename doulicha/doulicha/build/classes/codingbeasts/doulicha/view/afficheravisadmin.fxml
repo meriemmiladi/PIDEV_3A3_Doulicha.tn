@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="750.0" prefWidth="1230.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codingbeasts.doulicha.controller.AfficheravisadminController">
+   <children>
+      <AnchorPane id="AnchorPane" layoutY="5.0" prefHeight="750.0" prefWidth="1230.0" styleClass="mainFxmlClass">
+       
+         <children>
+            <AnchorPane id="AnchorPane" prefHeight="750.0" prefWidth="1230.0">
+               <children>
+                  <AnchorPane id="AnchorPane" prefHeight="750.0" prefWidth="1230.0" stylesheets="@ajoutercategorie.css">
+                     <children>
+                        <ScrollPane fx:id="ScrollPane1" layoutX="251.0" layoutY="123.0" prefHeight="627.0" prefWidth="979.0">
+                           <content>
+                              <VBox fx:id="avisListe" prefHeight="603.0" prefWidth="1006.0" />
+                           </content>
+                        </ScrollPane>
+                        <VBox layoutY="-7.0" prefHeight="755.0" prefWidth="250.0" style="-fx-background-color: #CCE3EA;">
+                           <children>
+                              <ImageView fitHeight="117.0" fitWidth="142.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../image/doulicha.png" />
+                                 </image>
+                                 <VBox.margin>
+                                    <Insets left="60.0" top="50.0" />
+                                 </VBox.margin>
+                              </ImageView>
+                              <Label prefHeight="48.0" prefWidth="241.0" text="       Avis">
+                                 <font>
+                                    <Font name="System Bold Italic" size="36.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets top="40.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Button fx:id="btn4" mnemonicParsing="false" onAction="#action4" prefHeight="44.0" prefWidth="250.0" styleClass="bottonnAjouter" stylesheets="@ajoutercategorie.css" text="Home">
+                                 <VBox.margin>
+                                    <Insets top="100.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                        </VBox>
+                        <HBox layoutX="201.0" layoutY="70.0" prefHeight="53.0" prefWidth="1028.0" style="-fx-background-color: #CCE3EA;" />
+                        <Label layoutX="342.0" layoutY="14.0" prefHeight="53.0" prefWidth="308.0" text="      List Des Avis">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

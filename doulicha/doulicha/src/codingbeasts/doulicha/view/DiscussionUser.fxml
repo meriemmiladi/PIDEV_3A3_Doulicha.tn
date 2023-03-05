@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="750.0" prefWidth="1230.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codingbeasts.doulicha.controller.ClientDiscussionController">
+   <children>
+      <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="750.0" prefWidth="1230.0">
+         <content>
+            <VBox fx:id="discussionBox" prefHeight="750.0" prefWidth="1230.0">
+               <children>
+                  <HBox fx:id="topBox" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <ToggleButton fx:id="darkModeToggle" mnemonicParsing="false" onAction="#darkMode" text="Dark mode" />
+                        <Button fx:id="acceuilButton" mnemonicParsing="false" onAction="#accueil" text="Acceuil" />
+                     </children>
+                  </HBox>
+                  <Label fx:id="labeltitre" text="Espace de Discussion Publique" />
+               </children></VBox>
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

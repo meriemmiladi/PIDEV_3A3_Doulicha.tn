@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="777.0" prefWidth="824.0" style="-fx-background-color: #87CEFA;" stylesheets="@../view/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="codingbeasts.doulicha.controller.DiscussionController">
+   <children>
+      <ImageView fitHeight="89.0" fitWidth="101.0" layoutX="21.0" layoutY="14.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 100;">
+         <image>
+            <Image url="@../../../images/doulicha.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="W_RESIZE" />
+         </cursor>
+      </ImageView>
+      <Button fx:id="afficherToutesLesDiscussions" layoutX="295.0" layoutY="363.0" mnemonicParsing="false" onAction="#afficherDiscussions" stylesheets="@style.css" text="afficher toutes les discussions" />
+      <Button fx:id="afficherDiscussionsUtilisateur" layoutX="48.0" layoutY="304.0" mnemonicParsing="false" onAction="#afficherDiscussionsUtilisateur" text="afficher les discussions de cet utilisateur" />
+      <TextField fx:id="idUtilisateurTextField" layoutX="105.0" layoutY="248.0" prefHeight="29.0" prefWidth="194.0" promptText="entrez l'id de l'utilisateur" stylesheets="@style.css" />
+      <TextField fx:id="nomTextField" layoutX="545.0" layoutY="217.0" prefHeight="30.0" prefWidth="212.0" promptText="entrer le nom de l'utilisateur" stylesheets="@style.css" />
+      <TextField fx:id="prenomTextField" layoutX="545.0" layoutY="262.0" prefHeight="30.0" prefWidth="212.0" promptText="entrer le prénom de l'utilisateur" stylesheets="@style.css" />
+      <Button fx:id="rechercherparNomPrenom" layoutX="500.0" layoutY="304.0" mnemonicParsing="false" onAction="#afficherDiscussionsUtilisateurNomPrenom" text="afficher les discussions de l'utilisateur" />
+      <TableView fx:id="tableview" layoutX="27.0" layoutY="423.0" opacity="0.0" prefHeight="354.0" prefWidth="778.0">
+        <columns>
+          <TableColumn fx:id="colID_Discussion" prefWidth="75.0" text="ID_discussion" />
+          <TableColumn fx:id="colID_User" prefWidth="75.0" text="ID_user" />
+            <TableColumn fx:id="colTitreDiscussion" prefWidth="108.79998779296875" text="TITRE" />
+            <TableColumn fx:id="colContenuDiscussion" prefWidth="111.20001220703125" text="CONTENU" />
+            <TableColumn fx:id="colDateDiscussion" minWidth="0.0" prefWidth="134.39996337890625" text="DATE" />
+        </columns>
+      </TableView>
+      <Button fx:id="home" layoutX="27.0" layoutY="114.0" mnemonicParsing="false" onAction="#home" text="Home" />
+      <Label layoutX="173.0" layoutY="51.0" style="-fx-font-size: 30px; -fx-text-fill: #2c3e50;" text="Bienvenue dans la gestion des discussions">
+         <font>
+            <Font name="Arabic Typesetting" size="12.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
